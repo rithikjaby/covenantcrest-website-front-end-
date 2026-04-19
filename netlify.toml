@@ -1,0 +1,140 @@
+# ─────────────────────────────────────────────────────────────────
+# Covenant Crest Group Ltd — netlify.toml  v2.0
+# ─────────────────────────────────────────────────────────────────
+#
+# HOW THE API PROXY WORKS
+# ────────────────────────
+# The frontend calls /api/... which Netlify proxies to your
+# Render.com backend. This means:
+#   • No CORS issues (same origin from the browser's perspective)
+#   • Your Render URL stays hidden from the client
+#
+# SETUP STEPS
+# ────────────
+# 1. Deploy server.js to Render.com as a Web Service
+# 2. Copy your Render service URL (e.g. https://covenant-crest-api.onrender.com)
+# 3. Replace YOUR_RENDER_URL below with that URL
+# 4. Push this file — the proxy is live immediately
+#
+# GOOGLE SEARCH CONSOLE VERIFICATION
+# ────────────────────────────────────
+# Use the "HTML tag" method:
+#   a. Go to https://search.google.com/search-console
+#   b. Add property → URL prefix → https://covenantcrest.co.uk
+#   c. Choose "HTML tag" verification method
+#   d. Copy the meta tag content value (looks like: abc123xyz...)
+#   e. Replace GSC-VERIFICATION-CODE in index.html <head> with that value
+#   f. Click Verify
+# ─────────────────────────────────────────────────────────────────
+
+[build]
+  publish = "."
+
+# ─── API Proxy → Render.com backend ────────────────────────────
+# IMPORTANT: Replace YOUR_RENDER_URL with your actual Render URL
+# Example: https://covenant-crest-api.onrender.com
+[[redirects]]
+  from   = "/api/*"
+  to     = "https://covenant-crest-backend-for-rendor.onrender.com/api/:splat"
+  status = 200
+  force  = true
+
+# ─── Clean URLs (no .html extension) ───────────────────────────
+[[redirects]]
+  from   = "/recruitment"
+  to     = "/recruitment.html"
+  status = 200
+
+[[redirects]]
+  from   = "/haulage"
+  to     = "/haulage.html"
+  status = 200
+
+[[redirects]]
+  from   = "/trade"
+  to     = "/trade.html"
+  status = 200
+
+[[redirects]]
+  from   = "/about"
+  to     = "/about.html"
+  status = 200
+
+[[redirects]]
+  from   = "/terms"
+  to     = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from   = "/privacy"
+  to     = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from   = "/login"
+  to     = "/login.html"
+  status = 200
+
+[[redirects]]
+  from   = "/admin"
+  to     = "/admin.html"
+  status = 200
+
+# Branded 404
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404
+
+# ─── Security headers (all pages) ──────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options           = "SAMEORIGIN"
+    X-Content-Type-Options    = "nosniff"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    Permissions-Policy        = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy   = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com https://www.google-analytics.com https://analytics.google.com https://fonts.googleapis.com https://fonts.gstatic.com https://res.cloudinary.com; form-action 'self';"
+
+# ─── Cache headers ──────────────────────────────────────────────
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Sitemap & robots — always fresh
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

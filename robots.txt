@@ -1,0 +1,25 @@
+# robots.txt — Covenant Crest Group Ltd
+# https://covenantcrest.co.uk
+
+User-agent: *
+
+# Public pages — allow indexing
+Allow: /
+Allow: /index.html
+Allow: /recruitment.html
+Allow: /haulage.html
+Allow: /trade.html
+Allow: /privacy.html
+
+# Block private/admin pages from search engines
+Disallow: /login.html
+Disallow: /admin.html
+Disallow: /admin/
+
+# Block any data or API paths
+Disallow: /api/
+Disallow: /functions/
+Disallow: /.netlify/
+
+# Sitemap location
+Sitemap: https://covenantcrest.co.uk/sitemap.xml

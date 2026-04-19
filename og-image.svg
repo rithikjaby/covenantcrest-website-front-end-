@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0D1B2A"/>
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#C9A84C" stroke-width="0.4" opacity="0.12"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <ellipse cx="600" cy="315" rx="520" ry="320" fill="url(#glow)"/>
+  <!-- Gold accent bar left -->
+  <rect x="80" y="140" width="4" height="350" fill="#C9A84C" opacity="0.6"/>
+  <!-- Logo shield -->
+  <g transform="translate(114,200)">
+    <path d="M36 4L68 18v22c0 12-12 22-32 26C16 66 4 58 4 46V18Z" fill="none" stroke="#C9A84C" stroke-width="2.5"/>
+    <line x1="36" y1="20" x2="36" y2="52" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="20" y1="36" x2="52" y2="36" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="33" y="33" width="6" height="6" fill="#C9A84C" transform="rotate(45 36 36)"/>
+  </g>
+  <!-- Company name -->
+  <text x="200" y="248" font-family="Georgia,serif" font-size="52" font-weight="300" fill="#ffffff" letter-spacing="2">Covenant</text>
+  <text x="200" y="310" font-family="Georgia,serif" font-size="52" font-style="italic" font-weight="300" fill="#C9A84C" letter-spacing="2">Crest</text>
+  <text x="200" y="370" font-family="Georgia,serif" font-size="52" font-weight="300" fill="#ffffff" letter-spacing="2">Group</text>
+  <!-- Divider -->
+  <line x1="200" y1="400" x2="900" y2="400" stroke="#C9A84C" stroke-width="0.8" opacity="0.3"/>
+  <!-- Tagline -->
+  <text x="200" y="435" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#ffffff" opacity="0.5" letter-spacing="4">RECRUITMENT · HAULAGE · IMPORT &amp; DISTRIBUTION</text>
+  <!-- URL -->
+  <text x="200" y="490" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#C9A84C" opacity="0.6" letter-spacing="1">covenantcrest.co.uk</text>
+  <!-- Company number -->
+  <text x="200" y="520" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#ffffff" opacity="0.2" letter-spacing="1">Company No. 16528951 · Registered in England &amp; Wales</text>
+</svg>

@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Covenant Crest Group Ltd</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;--warn:#F5A623;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.6;}
+
+/* LAYOUT */
+.adm-layout{display:flex;min-height:100vh;}
+.adm-sb{width:240px;background:var(--navy);position:fixed;top:0;bottom:0;left:0;z-index:300;overflow-y:auto;display:flex;flex-direction:column;}
+
+/* SIDEBAR */
+.asb-logo{padding:20px 22px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.asb-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;line-height:1.2;}
+.asb-logo-text span{color:var(--gold);}
+.asb-badge{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:3px;}
+.asb-sec-label{padding:18px 0 5px 22px;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18);}
+.asb-item{display:flex;align-items:center;gap:10px;padding:10px 22px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);font-size:12px;font-weight:500;border-left:3px solid transparent;text-decoration:none;}
+.asb-item:hover{background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);}
+.asb-item.act{background:rgba(201,168,76,.08);color:var(--gold);border-left-color:var(--gold);}
+.asb-ic{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.asb-cnt{margin-left:auto;background:var(--danger);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;display:none;}
+.asb-cnt.show{display:inline-block;}
+.asb-footer{margin-top:auto;padding:16px 22px;border-top:1px solid rgba(255,255,255,.06);}
+.asb-user{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.asb-logout{width:100%;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);color:var(--danger);padding:9px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.asb-logout:hover{background:var(--danger);color:#fff;}
+
+/* MAIN */
+.adm-main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
+.adm-topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.atb-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);}
+.atb-right{display:flex;align-items:center;gap:14px;}
+.atb-site-link{font-size:11px;color:var(--gold);text-decoration:none;font-weight:600;}
+.adm-content{padding:24px 28px;flex:1;}
+
+/* STATS */
+.astat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.astat{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);border-left:4px solid var(--gold);}
+.astat.bl{border-left-color:#2B8A9C;}.astat.gr{border-left-color:var(--success);}.astat.rd{border-left-color:var(--danger);}.astat.or{border-left-color:var(--warn);}
+.astat-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--navy);}
+.astat-lbl{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500;}
+
+/* TABLES */
+.tbl-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:18px;}
+.tbl-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.tbl-title{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--navy);}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:10px 14px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:#FAFAFA;border-bottom:1px solid var(--border);}
+tbody td{padding:12px 14px;font-size:12px;color:var(--charcoal);border-bottom:1px solid var(--border);vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#FAFAFA;}
+.td-name{font-weight:600;color:var(--navy);}
+.td-muted{color:var(--muted);font-size:11px;}
+.empty-row td{text-align:center;padding:32px;color:var(--muted);font-style:italic;}
+
+/* PILLS */
+.pill{padding:3px 9px;border-radius:12px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:inline-block;}
+.p-new{background:#FFF0F0;color:var(--danger);}
+.p-active{background:#E8F8F0;color:var(--success);}
+.p-inactive{background:#F0F0F0;color:var(--muted);}
+.p-read{background:#F3F5F8;color:var(--muted);}
+.p-haulage{background:#EEF2FF;color:#3D5AA8;}
+.p-trade{background:#FDF6E3;color:#8A6020;}
+.p-recruitment{background:#FFF0F0;color:#C04040;}
+.p-general{background:#F0FFF4;color:#2D7A4F;}
+
+/* BUTTONS */
+.btn-sm{padding:5px 11px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;}
+.btn-sm.pr{background:var(--navy);color:var(--gold);}.btn-sm.pr:hover{background:var(--gold);color:var(--navy);}
+.btn-sm.dn{background:#FFF0F0;color:var(--danger);}.btn-sm.dn:hover{background:var(--danger);color:#fff;}
+.btn-sm.sc{background:#E8F8F0;color:var(--success);}.btn-sm.sc:hover{background:var(--success);color:#fff;}
+.btn-sm.gd{background:var(--gold);color:var(--navy);}.btn-sm.gd:hover{background:var(--gold2);}
+.btn-primary{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;border:none;border-radius:2px;cursor:pointer;transition:all .2s;}
+.btn-primary:hover{background:var(--gold2);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+
+/* FORM CARD */
+.adm-form-card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:22px;margin-bottom:18px;}
+.adm-form-title{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.af-group{margin-bottom:12px;}
+.af-label{display:block;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.af-input,.af-select,.af-textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--navy);outline:none;background:#fff;transition:border-color .2s;}
+.af-input:focus,.af-select:focus,.af-textarea:focus{border-color:var(--gold);}
+.af-textarea{min-height:76px;resize:vertical;}
+.ag2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ag3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,.75);backdrop-filter:blur(4px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:14px;padding:32px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:mIn .25s ease;}
+@keyframes mIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.modal-close:hover{background:var(--border);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--navy);margin-bottom:4px;}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:20px;}
+.modal-err{color:var(--danger);font-size:12px;margin-top:10px;padding:8px 12px;background:#FFF0F0;border-radius:4px;display:none;}
+.modal-err.show{display:block;}
+
+/* INFO BOX */
+.info-box{background:linear-gradient(135deg,rgba(201,168,76,.05),rgba(201,168,76,.1));border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:16px 18px;margin-bottom:18px;}
+.info-box h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.info-box p{font-size:11px;color:var(--muted);line-height:1.75;}
+.info-box a{color:var(--gold);}
+.info-box ol{padding-left:18px;margin-top:6px;}
+.info-box li{font-size:11px;color:var(--muted);line-height:1.8;}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--navy);color:#fff;padding:13px 18px;border-radius:8px;border-left:4px solid var(--gold);font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:320px;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.ok{border-left-color:var(--success);}
+.toast.er{border-left-color:var(--danger);}
+
+/* API STATUS BAR */
+.api-status{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--danger);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:6px;letter-spacing:.05em;display:none;}
+.api-status.show{display:block;}
+.api-status.ok-bar{background:var(--success);}
+
+/* LOADING SPINNER */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* IMAGE PREVIEW */
+.img-preview{width:80px;height:60px;border-radius:4px;object-fit:cover;border:1px solid var(--border);display:none;margin-top:8px;}
+.img-preview.show{display:block;}
+
+/* TABS */
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* APPLICATIONS TAB additions */
+.p-shortlisted{background:#EEF2FF;color:#3D5AA8;}
+.p-rejected{background:#FFF0F0;color:var(--danger);}
+.p-hired{background:#E8F8F0;color:var(--success);}
+
+@media(max-width:1100px){.astat-row{grid-template-columns:1fr 1fr;}.ag2,.ag3{grid-template-columns:1fr;}}
+@media(max-width:800px){.adm-sb{width:100%;position:static;}.adm-main{margin-left:0;}.astat-row{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- API offline banner -->
+<div class="api-status" id="apiStatus">⚠ Cannot reach the API server. Showing cached data. Check your Render.com service is running.</div>
+
+<div class="adm-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="adm-sb">
+    <div class="asb-logo">
+      <svg width="22" height="22" viewBox="0 0 80 80" fill="none"><path d="M40 4L72 18L72 44C72 60 57 72 40 76C23 72 8 60 8 44L8 18Z" fill="none" stroke="#C9A84C" stroke-width="1.5"/><line x1="40" y1="22" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="40" x2="58" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)"/></svg>
+      <div>
+        <div class="asb-logo-text">Covenant <span>Crest</span></div>
+        <div class="asb-badge">Admin</div>
+      </div>
+    </div>
+
+    <div class="asb-sec-label">Dashboard</div>
+    <a class="asb-item act" onclick="showTab('dashboard',this)"><span class="asb-ic">📊</span>Overview</a>
+
+    <div class="asb-sec-label">Manage</div>
+    <a class="asb-item" onclick="showTab('jobs',this)"><span class="asb-ic">💼</span>Job Listings</a>
+    <a class="asb-item" onclick="showTab('contacts',this)" id="sb-contacts"><span class="asb-ic">📧</span>Contact Enquiries <span class="asb-cnt" id="contacts-badge">0</span></a>
+    <a class="asb-item" onclick="showTab('applications',this)" id="sb-apps"><span class="asb-ic">📋</span>Applications <span class="asb-cnt" id="apps-badge">0</span></a>
+
+    <div class="asb-sec-label">Settings</div>
+    <a class="asb-item" onclick="showTab('settings',this)"><span class="asb-ic">⚙️</span>Settings &amp; Password</a>
+    <a class="asb-item sa-only" id="sb-users" onclick="showTab('users',this)" style="display:none;"><span class="asb-ic">👤</span>User Management</a>
+
+    <div class="asb-sec-label">Website</div>
+    <a href="/" class="asb-item" target="_blank"><span class="asb-ic">🏠</span>View Homepage</a>
+    <a href="/haulage.html" class="asb-item" target="_blank"><span class="asb-ic">🚛</span>Haulage Page</a>
+    <a href="/trade.html" class="asb-item" target="_blank"><span class="asb-ic">🌍</span>Trade Page</a>
+
+    <div class="asb-footer">
+      <div class="asb-user" id="sbUserEmail">loading…</div>
+      <div id="sbRoleBadge" style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:10px;display:inline-block;margin-bottom:10px;background:rgba(201,168,76,.15);color:var(--gold);">…</div>
+      <button class="asb-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="atb-title" id="topbar-title">Overview</div>
+      <div class="atb-right">
+        <span style="font-size:11px;color:var(--muted);" id="topbar-email"></span>
+        <a href="/" target="_blank" class="atb-site-link">View Site ↗</a>
+      </div>
+    </div>
+
+    <div class="adm-content">
+
+      <!-- ===== DASHBOARD ===== -->
+      <div class="tab-pane active" id="tab-dashboard">
+        <div class="astat-row">
+          <div class="astat"><div class="astat-num" id="stat-active-jobs">—</div><div class="astat-lbl">Active Job Listings</div></div>
+          <div class="astat bl"><div class="astat-num" id="stat-new-contacts">—</div><div class="astat-lbl">New Enquiries</div></div>
+          <div class="astat gr"><div class="astat-num" id="stat-total-jobs">—</div><div class="astat-lbl">Total Jobs Posted</div></div>
+          <div class="astat or"><div class="astat-num" id="stat-new-apps">—</div><div class="astat-lbl">New Applications</div></div>
+        </div>
+        <div class="tbl-card">
+          <div class="tbl-hdr">
+            <div class="tbl-title">Recent Job Listings</div>
+            <button class="btn-primary" onclick="showTab('jobs',null);openJobModal()">+ Add Job</button>
+          </div>
+          <table><thead><tr><th>Title</th><th>Sector</th><th>Location</th><th>Pay</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="dash-jobs-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table>
+        </div>
+        <div class="tbl-card">
+          <div class="tbl-hdr"><div class="tbl-title">Recent Enquiries</div></div>
+          <table><thead><tr><th>Name</th><th>Type</th><th>Email</th><th>Message</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="dash-contacts-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== JOBS ===== -->
+      <div class="tab-pane" id="tab-jobs">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Job Listings</h2>
+          <button class="btn-primary" onclick="openJobModal()">+ Add New Job</button>
+        </div>
+        <div class="tbl-card">
+          <table><thead><tr><th>Title</th><th>Sector</th><th>Location</th><th>Type</th><th>Pay</th><th>Status</th><th>Posted</th><th>Actions</th></tr></thead>
+          <tbody id="jobs-tbody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== CONTACTS ===== -->
+      <div class="tab-pane" id="tab-contacts">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Contact Enquiries</h2>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-sm dn sa-only" style="display:none;" onclick="clearContacts()">Clear All</button>
+            <button onclick="exportCSV('contacts')" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <input id="contacts-search" type="text" placeholder="Search name or email…" oninput="filterContacts()" style="width:100%;max-width:340px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
+        </div>
+        <div class="tbl-card">
+          <table><thead><tr><th>Name</th><th>Email</th><th>Type</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="contacts-tbody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== APPLICATIONS ===== -->
+      <div class="tab-pane" id="tab-applications">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Candidate Applications</h2>
+          <button onclick="exportCSV('applications')" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <input id="apps-search" type="text" placeholder="Search name, email or job…" oninput="filterApps()" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
+          <select id="apps-status-filter" onchange="filterApps()" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+            <option value="">All Statuses</option>
+            <option value="new">New</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="hired">Hired</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <select id="apps-sector-filter" onchange="filterApps()" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+            <option value="">All Sectors</option>
+            <option value="care">Care</option>
+            <option value="security">Security</option>
+            <option value="warehouse">Warehouse</option>
+          </select>
+        </div>
+        <div class="tbl-card">
+          <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Sector</th><th>Job</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="apps-tbody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS ===== -->
+      <div class="tab-pane" id="tab-settings">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:18px;">Settings</h2>
+        <div class="adm-form-card">
+          <div class="adm-form-title">Business Information</div>
+          <div class="ag2">
+            <div class="af-group"><label class="af-label">Company Name</label><input class="af-input" value="Covenant Crest Group Ltd" readonly style="background:#FAFAFA;"></div>
+            <div class="af-group"><label class="af-label">Company Number</label><input class="af-input" value="16528951" readonly style="background:#FAFAFA;"></div>
+          </div>
+          <div class="ag2">
+            <div class="af-group"><label class="af-label">Director</label><input class="af-input" value="Jaby Kamidi" readonly style="background:#FAFAFA;"></div>
+            <div class="af-group"><label class="af-label">Address</label><input class="af-input" value="Telford, Shropshire" readonly style="background:#FAFAFA;"></div>
+          </div>
+        </div>
+        <div class="adm-form-card" id="pwd-card">
+          <div class="adm-form-title">Change Admin Password</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Change your staff portal login password directly here — no need to touch Render.</p>
+          <div id="pwd-success" style="display:none;padding:10px 14px;background:#edfaf3;border:1px solid #1D9E75;border-radius:5px;font-size:12px;color:#1D9E75;margin-bottom:14px;">✅ Password changed successfully! Use your new password next time you log in.</div>
+          <div id="pwd-error" style="display:none;padding:10px 14px;background:#fef2f2;border:1px solid var(--danger);border-radius:5px;font-size:12px;color:var(--danger);margin-bottom:14px;"></div>
+          <div class="ag2">
+            <div class="af-group">
+              <label class="af-label">Current Password</label>
+              <input class="af-input" type="password" id="pwd-current" placeholder="Enter current password" autocomplete="current-password">
+            </div>
+          </div>
+          <div class="ag2">
+            <div class="af-group">
+              <label class="af-label">New Password</label>
+              <input class="af-input" type="password" id="pwd-new" placeholder="Min 8 characters" autocomplete="new-password">
+            </div>
+            <div class="af-group">
+              <label class="af-label">Confirm New Password</label>
+              <input class="af-input" type="password" id="pwd-confirm" placeholder="Repeat new password" autocomplete="new-password">
+            </div>
+          </div>
+          <button class="btn-primary" style="margin-top:8px;" onclick="changeAdminPassword()">Change Password</button>
+          <p style="font-size:11px;color:var(--muted);margin-top:10px;">⚠ Also update <code>SUPER_ADMIN_PWD</code> in Render to make the change permanent across restarts.</p>
+        </div>
+        <div class="adm-form-card">
+          <div class="adm-form-title">API &amp; Integrations Status</div>
+          <div id="integrations-status" style="font-size:12px;line-height:2;color:var(--charcoal);">
+            <div>🔌 API Backend: <span id="int-api" style="font-weight:600;">Checking…</span></div>
+            <div>📧 Email (Resend): <span id="int-email" style="font-weight:600;">—</span></div>
+            <div>☁️ Cloudinary: <span id="int-cloud" style="font-weight:600;">—</span></div>
+          </div>
+          <button class="btn-sm pr" style="margin-top:12px;" onclick="checkIntegrations()">Refresh Status</button>
+        </div>
+        <div class="adm-form-card" style="border-color:#FFC0C0;" id="danger-zone">
+          <div class="adm-form-title" style="color:var(--danger);">⚠ Danger Zone</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">These actions are permanent and cannot be undone.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn-sm dn" onclick="apiClearAll('contacts')">Clear All Enquiries</button>
+            <button class="btn-sm dn" onclick="apiClearAll('jobs')">Clear All Jobs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== USER MANAGEMENT (Super Admin only) ===== -->
+      <div class="tab-pane" id="tab-users">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">User Management</h2>
+          <button class="btn-primary" onclick="openUserModal()">+ Add Employee Account</button>
+        </div>
+        <div class="info-box" style="margin-bottom:18px;">
+          <h4>🔒 Role Permissions</h4>
+          <p><strong>Super Admin</strong> (you): Full access — manage jobs, view enquiries &amp; applications, create/delete employee accounts.<br>
+          <strong>Employee</strong>: Can manage job listings and view/read contacts and applications. Cannot create accounts, delete records, or access settings.</p>
+        </div>
+        <div class="tbl-card">
+          <div class="tbl-hdr"><div class="tbl-title">Accounts</div></div>
+          <table><thead><tr><th>Email</th><th>Role</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody id="users-tbody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+    </div><!-- /adm-content -->
+  </main>
+</div>
+
+<!-- ADD / EDIT JOB MODAL -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('jobModal')">✕</button>
+    <div class="modal-title" id="jm-title">Add Job Listing</div>
+    <div class="modal-sub">This job will appear live on the website's recruitment page.</div>
+    <input type="hidden" id="j-id">
+    <div class="ag2">
+      <div class="af-group"><label class="af-label">Job Title *</label><input class="af-input" id="j-title" placeholder="e.g. Care Assistant"></div>
+      <div class="af-group"><label class="af-label">Pay / Salary *</label><input class="af-input" id="j-pay" placeholder="e.g. £12.50/hr"></div>
+    </div>
+    <div class="ag2">
+      <div class="af-group">
+        <label class="af-label">Sector</label>
+        <select class="af-select" id="j-sector">
+          <option value="care">Care &amp; Healthcare</option>
+          <option value="security">Security</option>
+          <option value="warehouse">Warehouse &amp; Logistics</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="af-group">
+        <label class="af-label">Type</label>
+        <select class="af-select" id="j-type">
+          <option value="full-time">Full Time</option>
+          <option value="part-time">Part Time</option>
+          <option value="temporary">Temporary</option>
+          <option value="permanent">Permanent</option>
+        </select>
+      </div>
+    </div>
+    <div class="ag2">
+      <div class="af-group">
+        <label class="af-label">Location</label>
+        <input class="af-input" id="j-location" placeholder="e.g. Telford, Birmingham">
+      </div>
+      <div class="af-group">
+        <label class="af-label">Status</label>
+        <select class="af-select" id="j-status"><option value="active">Active</option><option value="inactive">Inactive</option></select>
+      </div>
+    </div>
+    <div class="af-group"><label class="af-label">Description</label><textarea class="af-textarea" id="j-desc" placeholder="Full job description…"></textarea></div>
+    <div class="af-group"><label class="af-label">Requirements</label><textarea class="af-textarea" id="j-req" placeholder="Qualifications, licences, experience required…" style="min-height:60px;"></textarea></div>
+    <div class="af-group">
+      <label class="af-label">Job Image (optional)</label>
+      <input type="file" id="j-image" accept="image/*" onchange="previewImage(this,'j-img-preview')" style="font-size:12px;">
+      <img id="j-img-preview" class="img-preview" alt="Preview">
+    </div>
+    <div class="modal-err" id="j-err"></div>
+    <button class="btn-primary" style="width:100%;margin-top:6px;" id="j-save-btn" onclick="saveJob()">Create Job Listing →</button>
+  </div>
+</div>
+
+<!-- VIEW CONTACT MODAL -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('contactModal')">✕</button>
+    <div class="modal-title" id="cm-title">Enquiry</div>
+    <div class="modal-sub" id="cm-sub"></div>
+    <div id="cm-body" style="font-size:13px;color:var(--charcoal);line-height:1.8;"></div>
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn-sm sc" id="cm-read-btn">Mark Read</button>
+      <button class="btn-sm pr" id="cm-reply-btn">Reply by Email</button>
+      <button class="btn-sm dn" id="cm-del-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW APPLICATION MODAL -->
+<div class="modal-overlay" id="appModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('appModal')">✕</button>
+    <div class="modal-title" id="am-title">Application</div>
+    <div class="modal-sub" id="am-sub"></div>
+    <div id="am-body" style="font-size:13px;color:var(--charcoal);line-height:1.8;"></div>
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-sm sc" onclick="updateAppStatus(window._curAppId,'shortlisted')">Shortlist</button>
+      <button class="btn-sm pr" onclick="updateAppStatus(window._curAppId,'hired')">Mark Hired</button>
+      <button class="btn-sm dn" onclick="updateAppStatus(window._curAppId,'rejected')">Reject</button>
+      <button class="btn-sm pr" id="am-reply-btn">Reply by Email</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD USER MODAL -->
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('userModal')">✕</button>
+    <div class="modal-title">Add Employee Account</div>
+    <div class="modal-sub">Employee accounts can manage jobs and view messages. Only you (Super Admin) can create or delete accounts.</div>
+    <div class="af-group"><label class="af-label">Email Address *</label><input class="af-input" id="u-email" type="email" placeholder="staff@covenantcrest.co.uk"></div>
+    <div class="ag2">
+      <div class="af-group"><label class="af-label">Password *</label><input class="af-input" id="u-pass" type="password" placeholder="Min 8 characters"></div>
+      <div class="af-group"><label class="af-label">Confirm Password *</label><input class="af-input" id="u-pass2" type="password" placeholder="Repeat"></div>
+    </div>
+    <div class="modal-err" id="u-err"></div>
+    <button class="btn-primary" style="width:100%;margin-top:6px;" id="u-save-btn" onclick="saveUser()">Create Employee Account →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+// ================================================================
+// COVENANT CREST ADMIN DASHBOARD v2.0
+// ----------------------------------------------------------------
+// All data now comes from the real API backend (server.js v2).
+// The API is proxied via netlify.toml: /api/* → Render.com
+// Auth: JWT stored in sessionStorage as cc_jwt (set by login.html)
+// ================================================================
+
+var API = '/api';
+
+// ── SSO Token pickup — must run BEFORE auth check ────────────────
+(function pickupSSOToken() {
+  var hash = window.location.hash || '';
+  if (hash.indexOf('sso=') !== -1) {
+    var token = hash.replace('#sso=', '').split('&')[0];
+    if (token && token.length > 20) {
+      try {
+        var parts = token.split('.');
+        if (parts.length === 3) {
+          var payload = JSON.parse(atob(parts[1]));
+          sessionStorage.setItem('cc_jwt',   token);
+          sessionStorage.setItem('cc_role',  payload.role  || 'superadmin');
+          sessionStorage.setItem('cc_email', payload.email || '');
+          history.replaceState(null, '', '/admin.html');
+        }
+      } catch(e) { console.warn('SSO token parse failed:', e); }
+    }
+  }
+})();
+
+// ── Auth ─────────────────────────────────────────────────────────
+var jwt       = sessionStorage.getItem('cc_jwt')  || '';
+var authRole  = sessionStorage.getItem('cc_role') || 'employee';
+var authEmail = sessionStorage.getItem('cc_email')|| 'Staff';
+var isSA      = (authRole === 'superadmin');
+
+// Redirect to login if no token — use setTimeout to let functions define first
+if (!jwt) {
+  document.body.style.display = 'none';
+  setTimeout(function() { window.location.replace('/login.html'); }, 0);
+}
+
+// ── UI init ───────────────────────────────────────────────────────
+document.getElementById('sbUserEmail').textContent  = authEmail;
+document.getElementById('topbar-email').textContent = authEmail;
+document.getElementById('sbRoleBadge').textContent  = isSA ? 'Super Admin' : 'Employee';
+document.getElementById('sbRoleBadge').style.background = isSA ? 'rgba(201,168,76,.2)' : 'rgba(43,138,156,.2)';
+document.getElementById('sbRoleBadge').style.color       = isSA ? 'var(--gold)'        : '#2B8A9C';
+
+if (isSA) {
+  document.querySelectorAll('.sa-only').forEach(function(el) { el.style.display = 'flex'; });
+}
+
+// ── API helper ────────────────────────────────────────────────────
+function apiFetch(path, options) {
+  options = options || {};
+  options.headers = Object.assign({ 'Authorization': 'Bearer ' + jwt, 'Content-Type': 'application/json' }, options.headers || {});
+  return fetch(API + path, options).then(function(r) {
+    if (r.status === 401) { logout(); return; }
+    return r.json();
+  });
+}
+
+// ── Helpers ───────────────────────────────────────────────────────
+function esc(s) { if (!s) return ''; var r = String(s); r = r.replace(/&/g,'&amp;'); r = r.replace(/</g,'&lt;'); r = r.replace(/>/g,'&gt;'); r = r.split('"').join('&quot;'); return r; }
+function fmtDate(d) { try { return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); } catch(e) { return ''; } }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+// ── Toast ─────────────────────────────────────────────────────────
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function() { t.classList.remove('show'); }, 3200);
+}
+
+// ── Modals ────────────────────────────────────────────────────────
+function openJobModal(job) {
+  var isEdit = !!job;
+  document.getElementById('jm-title').textContent = isEdit ? 'Edit Job Listing' : 'Add Job Listing';
+  document.getElementById('j-save-btn').textContent = isEdit ? 'Save Changes →' : 'Create Job Listing →';
+  document.getElementById('j-id').value      = isEdit ? job.id    : '';
+  document.getElementById('j-title').value   = isEdit ? job.title : '';
+  document.getElementById('j-pay').value     = isEdit ? job.pay   : '';
+  document.getElementById('j-sector').value  = isEdit ? job.sector   : 'care';
+  document.getElementById('j-type').value    = isEdit ? job.type     : 'full-time';
+  document.getElementById('j-location').value= isEdit ? job.location : '';
+  document.getElementById('j-status').value  = isEdit ? job.status   : 'active';
+  document.getElementById('j-desc').value    = isEdit ? (job.desc || '') : '';
+  document.getElementById('j-req').value     = isEdit ? (job.req  || '') : '';
+  document.getElementById('j-err').classList.remove('show');
+  var prev = document.getElementById('j-img-preview');
+  prev.src = (isEdit && job.imageUrl) ? job.imageUrl : '';
+  prev.className = (isEdit && job.imageUrl) ? 'img-preview show' : 'img-preview';
+  document.getElementById('jobModal').classList.add('open');
+}
+
+function openUserModal() {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  document.getElementById('userModal').classList.add('open');
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.modal-overlay').forEach(function(el) {
+  el.addEventListener('click', function(e) { if (e.target === el) el.classList.remove('open'); });
+});
+
+// ── Tab switching ─────────────────────────────────────────────────
+var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', settings:'Settings', users:'User Management' };
+
+function showTab(id, el) {
+  if (!isSA && (id === 'settings' || id === 'users')) { showToast('Super Admin only','er'); return; }
+  document.querySelectorAll('.tab-pane').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.asb-item').forEach(function(i) { i.classList.remove('act'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  if (el) el.classList.add('act');
+  document.getElementById('topbar-title').textContent = tabTitles[id] || id;
+  loadTab(id);
+}
+
+function loadTab(id) {
+  if (id === 'dashboard')    { loadDashboard(); }
+  if (id === 'jobs')         { loadJobs(); }
+  if (id === 'contacts')     { loadContacts(); }
+  if (id === 'applications') { loadApplications(); }
+  if (id === 'users')        { loadUsers(); }
+  if (id === 'settings')     { checkIntegrations(); }
+}
+
+// ── LABEL MAPS ────────────────────────────────────────────────────
+var sectorLabel   = { care:'Care & Healthcare', security:'Security', warehouse:'Warehouse', other:'Other' };
+var typeLabel     = { 'full-time':'Full Time', 'part-time':'Part Time', temporary:'Temporary', permanent:'Permanent' };
+var sectorPill    = { care:'p-recruitment', security:'p-haulage', warehouse:'p-trade', other:'p-read' };
+var enquiryPill   = { general:'p-general', contact:'p-general', recruitment:'p-recruitment', haulage:'p-haulage', 'haulage-quote':'p-haulage', trade:'p-trade', 'trade-enquiry':'p-trade' };
+var appStatusPill = { new:'p-new', shortlisted:'p-shortlisted', hired:'p-active', rejected:'p-rejected', read:'p-read' };
+
+// ── JOBS ──────────────────────────────────────────────────────────
+var _jobs = [];
+
+function loadJobs(cb) {
+  apiFetch('/jobs/all').then(function(data) {
+    if (!data) return;
+    _jobs = Array.isArray(data) ? data : [];
+    renderJobs();
+    renderDashJobs();
+    updateStats();
+    if (cb) cb();
+  }).catch(function() { showApiOffline(); });
+}
+
+function renderJobs() {
+  var tbody = document.getElementById('jobs-tbody');
+  if (!tbody) return;
+  if (!_jobs.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No job listings yet. Click "Add New Job" to get started.</td></tr>'; return; }
+  tbody.innerHTML = _jobs.map(function(j) {
+    return '<tr>' +
+      '<td class="td-name">' + esc(j.title) + (j.imageUrl ? ' <span title="Has image" style="color:var(--gold);">🖼</span>' : '') + '</td>' +
+      '<td><span class="pill ' + (sectorPill[j.sector] || 'p-read') + '">' + esc(sectorLabel[j.sector] || j.sector) + '</span></td>' +
+      '<td>' + esc(j.location) + '</td>' +
+      '<td class="td-muted">' + esc(typeLabel[j.type] || j.type) + '</td>' +
+      '<td style="font-weight:600;">' + esc(j.pay) + '</td>' +
+      '<td><span class="pill ' + (j.status === 'active' ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span></td>' +
+      '<td class="td-muted">' + fmtDate(j.posted) + '</td>' +
+      '<td style="white-space:nowrap;">' +
+        '<button class="btn-sm pr" onclick="openJobModal(_jobs.find(function(x){return x.id===\'' + j.id + '\';}))" style="margin-right:4px;">Edit</button>' +
+        '<button class="btn-sm ' + (j.status === 'active' ? 'dn' : 'sc') + '" onclick="toggleJob(\'' + j.id + '\')" style="margin-right:4px;">' + (j.status === 'active' ? 'Deactivate' : 'Activate') + '</button>' +
+        '<button class="btn-sm dn" onclick="deleteJob(\'' + j.id + '\')">Delete</button>' +
+      '</td></tr>';
+  }).join('');
+}
+
+function renderDashJobs() {
+  var tbody = document.getElementById('dash-jobs-tbody');
+  if (!tbody) return;
+  var slice = _jobs.slice(0, 5);
+  if (!slice.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No jobs yet.</td></tr>'; return; }
+  tbody.innerHTML = slice.map(function(j) {
+    return '<tr>' +
+      '<td class="td-name">' + esc(j.title) + '</td>' +
+      '<td><span class="pill ' + (sectorPill[j.sector] || 'p-read') + '">' + esc(sectorLabel[j.sector] || j.sector) + '</span></td>' +
+      '<td>' + esc(j.location) + '</td>' +
+      '<td>' + esc(j.pay) + '</td>' +
+      '<td><span class="pill ' + (j.status === 'active' ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span></td>' +
+      '<td><button class="btn-sm dn" onclick="deleteJob(\'' + j.id + '\')">Delete</button></td></tr>';
+  }).join('');
+}
+
+function saveJob() {
+  var id    = document.getElementById('j-id').value;
+  var title = document.getElementById('j-title').value.trim();
+  var pay   = document.getElementById('j-pay').value.trim();
+  var err   = document.getElementById('j-err');
+  var btn   = document.getElementById('j-save-btn');
+  err.classList.remove('show');
+  if (!title) { err.textContent = 'Job title is required.'; err.classList.add('show'); return; }
+  if (!pay)   { err.textContent = 'Pay / salary is required.'; err.classList.add('show'); return; }
+
+  var payload = {
+    title    : title,
+    pay      : pay,
+    sector   : document.getElementById('j-sector').value,
+    type     : document.getElementById('j-type').value,
+    location : document.getElementById('j-location').value.trim(),
+    status   : document.getElementById('j-status').value,
+    desc     : document.getElementById('j-desc').value.trim(),
+    req      : document.getElementById('j-req').value.trim(),
+  };
+
+  // Handle image
+  var imgFile = document.getElementById('j-image').files[0];
+  var doSave = function(b64) {
+    if (b64) payload.imageBase64 = b64;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Saving…';
+    var method = id ? 'PUT' : 'POST';
+    var path   = id ? ('/jobs/' + id) : '/jobs';
+    apiFetch(path, { method: method, body: JSON.stringify(payload) }).then(function(data) {
+      btn.disabled = false;
+      btn.textContent = id ? 'Save Changes →' : 'Create Job Listing →';
+      if (!data || data.error) { err.textContent = (data && data.error) || 'Save failed.'; err.classList.add('show'); return; }
+      closeModal('jobModal');
+      document.getElementById('j-image').value = '';
+      showToast(id ? 'Job updated!' : 'Job listing created!', 'ok');
+      loadJobs();
+    });
+  };
+
+  if (imgFile) {
+    var reader = new FileReader();
+    reader.onload = function(e) { doSave(e.target.result.split(',')[1]); };
+    reader.readAsDataURL(imgFile);
+  } else {
+    doSave(null);
+  }
+}
+
+function toggleJob(id) {
+  var j = _jobs.find(function(x) { return x.id === id; });
+  if (!j) return;
+  var newStatus = j.status === 'active' ? 'inactive' : 'active';
+  apiFetch('/jobs/' + id, { method: 'PUT', body: JSON.stringify({ status: newStatus }) }).then(function(data) {
+    if (data && !data.error) { showToast('Status updated', 'ok'); loadJobs(); }
+    else showToast('Update failed', 'er');
+  });
+}
+
+function deleteJob(id) {
+  if (!confirm('Delete this job listing? This cannot be undone.')) return;
+  apiFetch('/jobs/' + id, { method: 'DELETE' }).then(function(data) {
+    if (data && data.success) { showToast('Job deleted', 'ok'); loadJobs(); }
+    else showToast('Delete failed', 'er');
+  });
+}
+
+// ── IMAGE PREVIEW ─────────────────────────────────────────────────
+function previewImage(input, previewId) {
+  var prev = document.getElementById(previewId);
+  if (!input.files || !input.files[0]) { prev.classList.remove('show'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) { prev.src = e.target.result; prev.classList.add('show'); };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ── CONTACTS ──────────────────────────────────────────────────────
+var _contacts = [];
+
+function loadContacts(cb) {
+  apiFetch('/contacts').then(function(data) {
+    if (!data) return;
+    _contacts = Array.isArray(data) ? data : [];
+    renderContacts();
+    renderDashContacts();
+    updateStats();
+    if (cb) cb();
+  }).catch(function() { showApiOffline(); });
+}
+
+function renderContacts() {
+  var tbody = document.getElementById('contacts-tbody');
+  if (!tbody) return;
+  if (!_contacts.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No enquiries recorded yet.</td></tr>'; return; }
+  tbody.innerHTML = _contacts.map(function(c) {
+    return '<tr style="cursor:pointer;" onclick="viewContact(\'' + c.id + '\')">' +
+      '<td class="td-name">' + esc(c.name) + '</td>' +
+      '<td>' + esc(c.email) + '</td>' +
+      '<td><span class="pill ' + (enquiryPill[c.type] || 'p-general') + '">' + esc(c.type || 'general') + '</span></td>' +
+      '<td class="td-muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc((c.message || '').substring(0, 80)) + '</td>' +
+      '<td class="td-muted">' + fmtDate(c.date) + '</td>' +
+      '<td><span class="pill ' + (c.status === 'new' ? 'p-new' : 'p-read') + '">' + esc(c.status) + '</span></td>' +
+      '<td style="white-space:nowrap;">' +
+        '<button class="btn-sm sc" onclick="event.stopPropagation();markContactRead(\'' + c.id + '\')" style="margin-right:4px;">Read</button>' +
+        (isSA ? '<button class="btn-sm dn" onclick="event.stopPropagation();deleteContact(\'' + c.id + '\')">Del</button>' : '') +
+      '</td></tr>';
+  }).join('');
+}
+
+function renderDashContacts() {
+  var tbody = document.getElementById('dash-contacts-tbody');
+  if (!tbody) return;
+  var slice = _contacts.slice(0, 5);
+  if (!slice.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No enquiries yet.</td></tr>'; return; }
+  tbody.innerHTML = slice.map(function(c) {
+    return '<tr>' +
+      '<td class="td-name">' + esc(c.name) + '</td>' +
+      '<td><span class="pill ' + (enquiryPill[c.type] || 'p-general') + '">' + esc(c.type || 'general') + '</span></td>' +
+      '<td>' + esc(c.email) + '</td>' +
+      '<td class="td-muted" style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc((c.message || '').substring(0, 60)) + '</td>' +
+      '<td class="td-muted">' + fmtDate(c.date) + '</td>' +
+      '<td><span class="pill ' + (c.status === 'new' ? 'p-new' : 'p-read') + '">' + esc(c.status) + '</span></td></tr>';
+  }).join('');
+}
+
+function viewContact(id) {
+  var c = _contacts.find(function(x) { return x.id === id; });
+  if (!c) return;
+  document.getElementById('cm-title').textContent = c.name || 'Enquiry';
+  document.getElementById('cm-sub').textContent = (c.email || '') + ' · ' + (c.type || 'general') + ' · ' + fmtDate(c.date);
+  document.getElementById('cm-body').innerHTML =
+    '<p style="margin-bottom:8px;"><strong>Phone:</strong> ' + (esc(c.phone) || '—') + '</p>' +
+    '<p style="margin-bottom:8px;"><strong>Type:</strong> ' + esc(c.type || 'general') + '</p>' +
+    '<p style="margin-bottom:8px;"><strong>Source:</strong> ' + esc(c.source || 'website') + '</p>' +
+    '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-top:10px;"><p style="font-size:12px;color:var(--charcoal);line-height:1.75;white-space:pre-wrap;">' + esc(c.message || 'No message') + '</p></div>';
+  document.getElementById('cm-read-btn').onclick = function() { markContactRead(id); closeModal('contactModal'); };
+  document.getElementById('cm-reply-btn').onclick = function() { window.location.href = 'mailto:' + c.email + '?subject=Re: Your enquiry to Covenant Crest Group&body=Dear ' + encodeURIComponent(c.name || '') + ',%0D%0A%0D%0AThank you for contacting Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846'; };
+  var delBtn = document.getElementById('cm-del-btn');
+  if (isSA) { delBtn.style.display = ''; delBtn.onclick = function() { deleteContact(id); closeModal('contactModal'); }; }
+  else { delBtn.style.display = 'none'; }
+  if (c.status === 'new') markContactRead(id);
+  document.getElementById('contactModal').classList.add('open');
+}
+
+function markContactRead(id) {
+  apiFetch('/contacts/' + id, { method: 'PUT', body: JSON.stringify({ status: 'read' }) }).then(function(data) {
+    if (data && !data.error) { showToast('Marked as read', 'ok'); loadContacts(); }
+  });
+}
+
+function deleteContact(id) {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  if (!confirm('Delete this enquiry?')) return;
+  apiFetch('/contacts/' + id, { method: 'DELETE' }).then(function(data) {
+    if (data && data.success) { showToast('Enquiry deleted', 'ok'); loadContacts(); }
+    else showToast('Delete failed', 'er');
+  });
+}
+
+function clearContacts() {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  showToast('Use "Clear All Enquiries" in Settings → Danger Zone', 'er');
+}
+
+// ── APPLICATIONS ──────────────────────────────────────────────────
+var _apps = [];
+
+function loadApplications(cb) {
+  apiFetch('/applications').then(function(data) {
+    if (!data) return;
+    _apps = Array.isArray(data) ? data : [];
+    renderApplications();
+    updateStats();
+    if (cb) cb();
+  }).catch(function() { showApiOffline(); });
+}
+
+function renderApplications() {
+  var tbody = document.getElementById('apps-tbody');
+  if (!tbody) return;
+  if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No applications yet.</td></tr>'; return; }
+  tbody.innerHTML = _apps.map(function(a) {
+    return '<tr style="cursor:pointer;" onclick="viewApplication(\'' + a.id + '\')">' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
+      '<td>' + esc(a.email) + '</td>' +
+      '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
+      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(a.sector || '—') + '</span></td>' +
+      '<td class="td-muted">' + esc(a.job_title || '—') + '</td>' +
+      '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
+      '<td><span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></td>' +
+      '<td>' +
+        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" class="btn-sm gd" style="text-decoration:none;" onclick="event.stopPropagation()">CV</a>' : '<span class="td-muted">No CV</span>') +
+      '</td></tr>';
+  }).join('');
+}
+
+function viewApplication(id) {
+  var a = _apps.find(function(x) { return x.id === id; });
+  if (!a) return;
+  window._curAppId = id;
+  document.getElementById('am-title').textContent = (a.first_name || '') + ' ' + (a.last_name || '');
+  document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + (a.sector || '') + ' · ' + fmtDate(a.date);
+  document.getElementById('am-body').innerHTML =
+    '<p><strong>Phone:</strong> ' + esc(a.phone || '—') + '</p>' +
+    '<p><strong>Sector:</strong> ' + esc(a.sector || '—') + '</p>' +
+    '<p><strong>Job Applied For:</strong> ' + esc(a.job_title || '—') + '</p>' +
+    '<p><strong>Availability:</strong> ' + esc(a.availability || '—') + '</p>' +
+    '<p><strong>Status:</strong> <span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></p>' +
+    '<div style="margin-top:14px;margin-bottom:4px;padding:14px 16px;border-radius:6px;border:1px solid ' + (a.cvUrl ? '#C9A84C' : '#e0e0e0') + ';background:' + (a.cvUrl ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
+      '<span style="font-size:22px;">' + (a.cvUrl ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
+      '<div style="flex:1;">' +
+        '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (a.cvUrl ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
+        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" style="font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:none;">View / Download CV &rarr;</a>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+      '</div>' +
+    '</div>' +
+    (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-top:10px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '');
+  document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=Re: Your application to Covenant Crest Group&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying to Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846'; };
+  document.getElementById('appModal').classList.add('open');
+}
+
+function updateAppStatus(id, status) {
+  if (!id) return;
+  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ status: status }) }).then(function(data) {
+    if (data && !data.error) {
+      showToast('Application ' + status, 'ok');
+      closeModal('appModal');
+      loadApplications();
+    } else showToast('Update failed', 'er');
+  });
+}
+
+// ── USERS ─────────────────────────────────────────────────────────
+var _users = [];
+
+function loadUsers() {
+  if (!isSA) return;
+  apiFetch('/users').then(function(data) {
+    if (!data) return;
+    _users = Array.isArray(data) ? data : [];
+    renderUsers();
+  });
+}
+
+function renderUsers() {
+  var tbody = document.getElementById('users-tbody');
+  if (!tbody) return;
+  if (!_users.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="4">No accounts.</td></tr>'; return; }
+  tbody.innerHTML = _users.map(function(u) {
+    var isSuperRow = u.role === 'superadmin';
+    return '<tr>' +
+      '<td class="td-name">' + esc(u.email) + '</td>' +
+      '<td><span class="pill ' + (isSuperRow ? 'p-active' : 'p-haulage') + '">' + esc(u.role === 'superadmin' ? 'Super Admin' : 'Employee') + '</span></td>' +
+      '<td class="td-muted">' + (u.created ? fmtDate(u.created) : 'Owner') + '</td>' +
+      '<td>' + (isSuperRow ? '<span style="font-size:10px;color:var(--muted);">Cannot be deleted</span>' : '<button class="btn-sm dn" onclick="deleteUser(\'' + u.id + '\')">Delete Account</button>') + '</td></tr>';
+  }).join('');
+}
+
+function saveUser() {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  var email = document.getElementById('u-email').value.trim();
+  var pass  = document.getElementById('u-pass').value;
+  var pass2 = document.getElementById('u-pass2').value;
+  var err   = document.getElementById('u-err');
+  var btn   = document.getElementById('u-save-btn');
+  err.classList.remove('show');
+  if (!email || !email.includes('@')) { err.textContent = 'Enter a valid email.'; err.classList.add('show'); return; }
+  if (pass.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.classList.add('show'); return; }
+  if (pass !== pass2)  { err.textContent = 'Passwords do not match.'; err.classList.add('show'); return; }
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Creating…';
+  apiFetch('/users', { method: 'POST', body: JSON.stringify({ email: email, password: pass }) }).then(function(data) {
+    btn.disabled = false; btn.textContent = 'Create Employee Account →';
+    if (!data || data.error) { err.textContent = (data && data.error) || 'Create failed.'; err.classList.add('show'); return; }
+    closeModal('userModal');
+    ['u-email','u-pass','u-pass2'].forEach(function(id) { document.getElementById(id).value = ''; });
+    showToast('Employee account created!', 'ok');
+    loadUsers();
+  });
+}
+
+function deleteUser(id) {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  if (!confirm('Delete this employee account? They will no longer be able to log in.')) return;
+  apiFetch('/users/' + id, { method: 'DELETE' }).then(function(data) {
+    if (data && data.success) { showToast('Account deleted', 'ok'); loadUsers(); }
+    else showToast('Delete failed', 'er');
+  });
+}
+
+// ── STATS ─────────────────────────────────────────────────────────
+function updateStats() {
+  var activeJobs   = _jobs.filter(function(j) { return j.status === 'active'; }).length;
+  var newContacts  = _contacts.filter(function(c) { return c.status === 'new'; }).length;
+  var newApps      = _apps.filter(function(a) { return a.status === 'new'; }).length;
+
+  document.getElementById('stat-active-jobs').textContent  = activeJobs;
+  document.getElementById('stat-new-contacts').textContent = newContacts;
+  document.getElementById('stat-total-jobs').textContent   = _jobs.length;
+  document.getElementById('stat-new-apps').textContent     = newApps;
+
+  var cb = document.getElementById('contacts-badge');
+  if (newContacts > 0) { cb.textContent = newContacts; cb.classList.add('show'); } else cb.classList.remove('show');
+  var ab = document.getElementById('apps-badge');
+  if (newApps > 0) { ab.textContent = newApps; ab.classList.add('show'); } else ab.classList.remove('show');
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────
+function loadDashboard() {
+  loadJobs(function() {
+    loadContacts(function() {
+      loadApplications();
+    });
+  });
+}
+
+// ── SEARCH & FILTER ─────────────────────────────────────────────────
+function filterContacts() {
+  var q = (document.getElementById('contacts-search')?.value || '').toLowerCase();
+  var rows = document.querySelectorAll('#contacts-tbody tr:not(.empty-row)');
+  var shown = 0;
+  rows.forEach(function(row) {
+    var text = row.textContent.toLowerCase();
+    var match = !q || text.includes(q);
+    row.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+  // Show empty state if nothing matches
+  var empty = document.querySelector('#contacts-tbody .no-results-row');
+  if (shown === 0 && q) {
+    if (!empty) {
+      var tr = document.createElement('tr');
+      tr.className = 'empty-row no-results-row';
+      tr.innerHTML = '<td colspan="7" style="text-align:center;color:var(--muted);padding:24px;">No results for "' + q + '"</td>';
+      document.getElementById('contacts-tbody').appendChild(tr);
+    }
+  } else if (empty) {
+    empty.remove();
+  }
+}
+
+function filterApps() {
+  var q      = (document.getElementById('apps-search')?.value || '').toLowerCase();
+  var status = (document.getElementById('apps-status-filter')?.value || '').toLowerCase();
+  var sector = (document.getElementById('apps-sector-filter')?.value || '').toLowerCase();
+  var rows   = document.querySelectorAll('#apps-tbody tr:not(.empty-row)');
+  var shown  = 0;
+  rows.forEach(function(row) {
+    var text = row.textContent.toLowerCase();
+    var matchQ      = !q      || text.includes(q);
+    var matchStatus = !status || text.includes(status);
+    var matchSector = !sector || text.includes(sector);
+    var show = matchQ && matchStatus && matchSector;
+    row.style.display = show ? '' : 'none';
+    if (show) shown++;
+  });
+  var empty = document.querySelector('#apps-tbody .no-results-row');
+  if (shown === 0 && (q || status || sector)) {
+    if (!empty) {
+      var tr = document.createElement('tr');
+      tr.className = 'empty-row no-results-row';
+      tr.innerHTML = '<td colspan="8" style="text-align:center;color:var(--muted);padding:24px;">No matching applications found</td>';
+      document.getElementById('apps-tbody').appendChild(tr);
+    }
+  } else if (empty) {
+    empty.remove();
+  }
+}
+
+// ── CSV EXPORT ────────────────────────────────────────────────────────
+function exportCSV(type) {
+  var data, filename, headers;
+  if (type === 'contacts') {
+    data     = _contacts || [];
+    filename = 'covenant-crest-enquiries-' + new Date().toISOString().slice(0,10) + '.csv';
+    headers  = ['Name','Email','Phone','Type','Message','Date','Status'];
+    var rows = data.map(function(c) {
+      return [c.name,c.email,c.phone||'',c.type||'',
+              (c.message||'').split('"').join("'").split('\n').join(' '),
+              c.date ? new Date(c.date).toLocaleDateString('en-GB') : '',
+              c.status||''].map(function(v){ return '"'+v+'"'; }).join(',');
+    });
+  } else {
+    data     = _apps || [];
+    filename = 'covenant-crest-applications-' + new Date().toISOString().slice(0,10) + '.csv';
+    headers  = ['First Name','Last Name','Email','Phone','Sector','Job Title','Availability','Notes','CV URL','Status','Date'];
+    var rows = data.map(function(a) {
+      return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',
+              a.sector||'',a.job_title||'',a.availability||'',
+              (a.notes||'').split('"').join("'").split('\n').join(' '),
+              a.cvUrl||'',a.status||'',
+              a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
+              .map(function(v){ return '"'+v+'"'; }).join(',');
+    });
+  }
+  var csv  = [headers.join(',')].concat(rows).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href  = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Exported ' + data.length + ' records', 'ok');
+}
+
+// ── AUTO-REFRESH every 60 seconds ────────────────────────────────────
+setInterval(function() {
+  if (document.visibilityState === 'visible') {
+    loadContacts();
+    loadApplications();
+    loadDashboard();
+  }
+}, 60000);
+
+// ── CHANGE ADMIN PASSWORD ────────────────────────────────────────
+function changeAdminPassword() {
+  var current = document.getElementById('pwd-current').value;
+  var newPwd   = document.getElementById('pwd-new').value;
+  var confirm  = document.getElementById('pwd-confirm').value;
+  var errEl    = document.getElementById('pwd-error');
+  var okEl     = document.getElementById('pwd-success');
+
+  errEl.style.display = 'none';
+  okEl.style.display  = 'none';
+
+  if (!current || !newPwd || !confirm) {
+    errEl.textContent = 'Please fill in all password fields.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (newPwd.length < 8) {
+    errEl.textContent = 'New password must be at least 8 characters.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (newPwd !== confirm) {
+    errEl.textContent = 'New passwords do not match.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  apiFetch('/auth/change-password', {
+    method: 'POST',
+    body: JSON.stringify({ currentPassword: current, newPassword: newPwd })
+  }).then(function(data) {
+    if (data.success) {
+      okEl.style.display = 'block';
+      document.getElementById('pwd-current').value = '';
+      document.getElementById('pwd-new').value     = '';
+      document.getElementById('pwd-confirm').value  = '';
+    } else {
+      errEl.textContent = data.error || 'Failed to change password.';
+      errEl.style.display = 'block';
+    }
+  }).catch(function() {
+    errEl.textContent = 'Network error. Please try again.';
+    errEl.style.display = 'block';
+  });
+}
+
+// ── INTEGRATIONS STATUS ───────────────────────────────────────────
+function checkIntegrations() {
+  document.getElementById('int-api').textContent = 'Checking…';
+  fetch(API + '/health').then(function(r) { return r.json(); }).then(function(d) {
+    document.getElementById('int-api').textContent = d.status === 'healthy' ? '✅ Connected' : '⚠ ' + d.status;
+    document.getElementById('int-api').style.color = d.status === 'healthy' ? 'var(--success)' : 'var(--warn)';
+    document.getElementById('int-email').textContent = '— (check Render env: RESEND_API_KEY)';
+    document.getElementById('int-cloud').textContent = '— (check Render env: CLOUDINARY_CLOUD_NAME)';
+  }).catch(function() {
+    document.getElementById('int-api').textContent = '❌ Offline';
+    document.getElementById('int-api').style.color = 'var(--danger)';
+    showApiOffline();
+  });
+}
+
+// ── DANGER ZONE ───────────────────────────────────────────────────
+function apiClearAll(resource) {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  var label = resource === 'contacts' ? 'ALL enquiries' : 'ALL job listings';
+  if (!confirm('This will permanently delete ' + label + '. Are you sure?')) return;
+  if (!confirm('Final confirmation: delete ' + label + '? This cannot be undone.')) return;
+  // Delete each item individually (no bulk-delete endpoint needed)
+  var items = resource === 'contacts' ? _contacts : _jobs;
+  var promises = items.map(function(item) {
+    return apiFetch('/' + resource + '/' + item.id, { method: 'DELETE' });
+  });
+  Promise.all(promises).then(function() {
+    showToast('All ' + resource + ' deleted', 'ok');
+    if (resource === 'contacts') loadContacts();
+    else loadJobs();
+  });
+}
+
+// ── API OFFLINE BANNER ────────────────────────────────────────────
+function showApiOffline() {
+  var bar = document.getElementById('apiStatus');
+  bar.classList.add('show');
+  setTimeout(function() { bar.classList.remove('show'); }, 6000);
+}
+
+// ── LOGOUT ────────────────────────────────────────────────────────
+function logout() {
+  ['cc_jwt','cc_role','cc_email','cc_session'].forEach(function(k) { sessionStorage.removeItem(k); });
+  window.location.href = '/login.html';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+loadDashboard();
+</script>
+</body>
+</html>
