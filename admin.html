@@ -208,6 +208,16 @@ tbody tr:hover{background:#FAFAFA;}
           <div class="astat gr"><div class="astat-num" id="stat-total-jobs">—</div><div class="astat-lbl">Total Jobs Posted</div></div>
           <div class="astat or"><div class="astat-num" id="stat-new-apps">—</div><div class="astat-lbl">New Applications</div></div>
         </div>
+        <!-- Activity Timeline -->
+        <div class="tbl-card" style="margin-bottom:18px;">
+          <div class="tbl-hdr"><div class="tbl-title">Activity — Last 7 Days</div><span style="font-size:11px;color:var(--muted);" id="timeline-updated"></span></div>
+          <div id="timeline-body" style="padding:16px 18px;display:flex;gap:24px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">📋</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-apps">—</div><div style="font-size:11px;color:var(--muted);">New Applications</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">📧</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-enquiries">—</div><div style="font-size:11px;color:var(--muted);">New Enquiries</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">✅</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-hired">—</div><div style="font-size:11px;color:var(--muted);">Hired This Week</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">💼</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-shortlisted">—</div><div style="font-size:11px;color:var(--muted);">Shortlisted</div></div></div>
+          </div>
+        </div>
         <div class="tbl-card">
           <div class="tbl-hdr">
             <div class="tbl-title">Recent Job Listings</div>
@@ -839,7 +849,7 @@ function renderApplications() {
       '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
       '<td>' + esc(a.email) + '</td>' +
       '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
-      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(a.sector || '—') + '</span></td>' +
+      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
       '<td class="td-muted">' + esc(a.job_title || '—') + '</td>' +
       '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
       '<td><span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></td>' +
@@ -853,23 +863,31 @@ function viewApplication(id) {
   var a = _apps.find(function(x) { return x.id === id; });
   if (!a) return;
   window._curAppId = id;
+  var sectorDisplay = sectorLabel[a.sector] || a.sector || '—';
+  var availDisplay  = { immediate:'Immediately available', '1week':'Within 1 week', '2weeks':'Within 2 weeks', other:'Other' }[a.availability] || a.availability || '—';
   document.getElementById('am-title').textContent = (a.first_name || '') + ' ' + (a.last_name || '');
-  document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + (a.sector || '') + ' · ' + fmtDate(a.date);
+  document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + sectorDisplay + ' · ' + fmtDate(a.date);
   document.getElementById('am-body').innerHTML =
-    '<p><strong>Phone:</strong> ' + esc(a.phone || '—') + '</p>' +
-    '<p><strong>Sector:</strong> ' + esc(a.sector || '—') + '</p>' +
-    '<p><strong>Job Applied For:</strong> ' + esc(a.job_title || '—') + '</p>' +
-    '<p><strong>Availability:</strong> ' + esc(a.availability || '—') + '</p>' +
-    '<p><strong>Status:</strong> <span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></p>' +
-    '<div style="margin-top:14px;margin-bottom:4px;padding:14px 16px;border-radius:6px;border:1px solid ' + (a.cvUrl ? '#C9A84C' : '#e0e0e0') + ';background:' + (a.cvUrl ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">' +
+      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Phone</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.phone || '—') + '</div></div>' +
+      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sector</div><div style="font-size:13px;font-weight:600;color:var(--navy);"><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorDisplay) + '</span></div></div>' +
+      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
+      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
+    '</div>' +
+    '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
+      '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
+      '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
+    '</div>' +
+    '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (a.cvUrl ? '#C9A84C' : '#e0e0e0') + ';background:' + (a.cvUrl ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
       '<span style="font-size:22px;">' + (a.cvUrl ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
       '<div style="flex:1;">' +
         '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (a.cvUrl ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
-        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" style="font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:none;">View / Download CV &rarr;</a>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" style="font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:none;">📥 View / Download CV &rarr;</a>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
       '</div>' +
     '</div>' +
-    (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-top:10px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '');
-  document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=Re: Your application to Covenant Crest Group&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying to Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846'; };
+    (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '');
+  var jobSubject = a.job_title ? 'Re: Your application for ' + (a.job_title) + ' — Covenant Crest Group' : 'Re: Your application to Covenant Crest Group';
+  document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
   document.getElementById('appModal').classList.add('open');
 }
 
@@ -952,10 +970,31 @@ function updateStats() {
   document.getElementById('stat-total-jobs').textContent   = _jobs.length;
   document.getElementById('stat-new-apps').textContent     = newApps;
 
+  // Update page title badge
+  var totalNew = newContacts + newApps;
+  document.title = (totalNew > 0 ? '(' + totalNew + ') ' : '') + 'Admin Dashboard — Covenant Crest Group Ltd';
+
   var cb = document.getElementById('contacts-badge');
   if (newContacts > 0) { cb.textContent = newContacts; cb.classList.add('show'); } else cb.classList.remove('show');
   var ab = document.getElementById('apps-badge');
   if (newApps > 0) { ab.textContent = newApps; ab.classList.add('show'); } else ab.classList.remove('show');
+
+  // Activity timeline — last 7 days
+  var cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  var tlApps       = _apps.filter(function(a)      { return new Date(a.date).getTime() > cutoff; }).length;
+  var tlEnquiries  = _contacts.filter(function(c)  { return new Date(c.date).getTime() > cutoff; }).length;
+  var tlHired      = _apps.filter(function(a)      { return a.status === 'hired' && new Date(a.updatedAt || a.date).getTime() > cutoff; }).length;
+  var tlShortlist  = _apps.filter(function(a)      { return a.status === 'shortlisted'; }).length;
+  var tlAppsEl = document.getElementById('tl-apps');
+  var tlEnqEl  = document.getElementById('tl-enquiries');
+  var tlHireEl = document.getElementById('tl-hired');
+  var tlShortEl= document.getElementById('tl-shortlisted');
+  if (tlAppsEl)  tlAppsEl.textContent  = tlApps;
+  if (tlEnqEl)   tlEnqEl.textContent   = tlEnquiries;
+  if (tlHireEl)  tlHireEl.textContent  = tlHired;
+  if (tlShortEl) tlShortEl.textContent = tlShortlist;
+  var upd = document.getElementById('timeline-updated');
+  if (upd) upd.textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 }
 
 // ── DASHBOARD ─────────────────────────────────────────────────────
