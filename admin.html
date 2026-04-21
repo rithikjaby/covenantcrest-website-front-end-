@@ -285,9 +285,18 @@ tbody tr:hover{background:#FAFAFA;}
             <option value="warehouse">Warehouse</option>
           </select>
         </div>
+        <div id="bulk-toolbar" style="display:none; background:#E8F8F0; border:1px solid var(--success); border-radius:6px; padding:10px 14px; margin-bottom:12px; align-items:center; justify-content:space-between;">
+          <div style="font-size:12px; font-weight:600; color:var(--success);"><span id="bulk-count">0</span> candidates selected</div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-sm sc" onclick="bulkAction('shortlisted')">Shortlist</button>
+            <button class="btn-sm pr" onclick="bulkAction('hired')">Hire</button>
+            <button class="btn-sm dn" onclick="bulkAction('rejected')">Reject</button>
+            <button class="btn-sm gd" onclick="bulkEmail()">Email (BCC)</button>
+          </div>
+        </div>
         <div class="tbl-card">
-          <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Sector</th><th>Job</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="apps-tbody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table>
+          <table><thead><tr><th style="width:30px;"><input type="checkbox" id="selectAllApps" onclick="toggleAllApps(this)"></th><th>Name</th><th>Email</th><th>Phone</th><th>Sector</th><th>Job</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="apps-tbody"><tr class="empty-row"><td colspan="9">Loading…</td></tr></tbody></table>
         </div>
       </div>
 
@@ -445,12 +454,7 @@ tbody tr:hover{background:#FAFAFA;}
     <div class="modal-title" id="am-title">Application</div>
     <div class="modal-sub" id="am-sub"></div>
     <div id="am-body" style="font-size:13px;color:var(--charcoal);line-height:1.8;"></div>
-    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn-sm sc" onclick="updateAppStatus(window._curAppId,'shortlisted')">Shortlist</button>
-      <button class="btn-sm pr" onclick="updateAppStatus(window._curAppId,'hired')">Mark Hired</button>
-      <button class="btn-sm dn" onclick="updateAppStatus(window._curAppId,'rejected')">Reject</button>
-      <button class="btn-sm pr" id="am-reply-btn">Reply by Email</button>
-    </div>
+    <div id="am-footer-container"></div>
   </div>
 </div>
 
@@ -843,9 +847,10 @@ function loadApplications(cb) {
 function renderApplications() {
   var tbody = document.getElementById('apps-tbody');
   if (!tbody) return;
-  if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No applications yet.</td></tr>'; return; }
+  if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No applications yet.</td></tr>'; return; }
   tbody.innerHTML = _apps.map(function(a) {
     return '<tr style="cursor:pointer;" onclick="viewApplication(\'' + a.id + '\')">' +
+      '<td onclick="event.stopPropagation()"><input type="checkbox" class="app-cb" value="' + a.id + '" onclick="updateBulkToolbar()"></td>' +
       '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
       '<td>' + esc(a.email) + '</td>' +
       '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
@@ -857,6 +862,7 @@ function renderApplications() {
         (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" class="btn-sm gd" style="text-decoration:none;" onclick="event.stopPropagation()">CV</a>' : '<span class="td-muted">No CV</span>') +
       '</td></tr>';
   }).join('');
+  updateBulkToolbar();
 }
 
 function viewApplication(id) {
@@ -885,8 +891,21 @@ function viewApplication(id) {
         (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" style="font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:none;">📥 View / Download CV &rarr;</a>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
       '</div>' +
     '</div>' +
-    (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '');
+    (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-bottom:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Candidate Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '') +
+    '<div><label class="af-label">Internal Admin Notes</label><textarea id="am-admin-notes" class="af-textarea" placeholder="Private notes about this candidate...">' + esc(a.adminNotes || '') + '</textarea></div>';
+  
   var jobSubject = a.job_title ? 'Re: Your application for ' + (a.job_title) + ' — Covenant Crest Group' : 'Re: Your application to Covenant Crest Group';
+  
+  document.getElementById('am-footer-container').innerHTML = 
+    '<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;">' +
+      '<button class="btn-sm sc" onclick="updateAppStatus(window._curAppId,\'shortlisted\')">Shortlist</button>' +
+      '<button class="btn-sm pr" onclick="updateAppStatus(window._curAppId,\'hired\')">Mark Hired</button>' +
+      '<button class="btn-sm dn" onclick="updateAppStatus(window._curAppId,\'rejected\')">Reject</button>' +
+      '<button class="btn-sm pr" id="am-reply-btn" style="background:#0D1B2A;color:#fff;">Reply by Email</button>' +
+      '<div style="flex:1;"></div>' +
+      '<button class="btn-primary" style="padding:7px 14px;font-size:9px;" onclick="saveAdminNotes(window._curAppId)">Save Notes</button>' +
+    '</div>';
+
   document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
   document.getElementById('appModal').classList.add('open');
 }
@@ -900,6 +919,67 @@ function updateAppStatus(id, status) {
       loadApplications();
     } else showToast('Update failed', 'er');
   });
+}
+
+function saveAdminNotes(id) {
+  var notes = document.getElementById('am-admin-notes').value;
+  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ adminNotes: notes }) }).then(function(data) {
+    if (data && !data.error) {
+      showToast('Notes saved successfully', 'ok');
+      loadApplications();
+    } else showToast('Failed to save notes', 'er');
+  });
+}
+
+function toggleAllApps(cb) {
+  document.querySelectorAll('.app-cb').forEach(function(el) { el.checked = cb.checked; });
+  updateBulkToolbar();
+}
+
+function updateBulkToolbar() {
+  var checked = document.querySelectorAll('.app-cb:checked').length;
+  var tb = document.getElementById('bulk-toolbar');
+  if (tb) {
+    if (checked > 0) {
+      tb.style.display = 'flex';
+      document.getElementById('bulk-count').textContent = checked;
+    } else {
+      tb.style.display = 'none';
+      document.getElementById('selectAllApps').checked = false;
+    }
+  }
+}
+
+function bulkAction(status) {
+  var ids = Array.from(document.querySelectorAll('.app-cb:checked')).map(function(el) { return el.value; });
+  if (!ids.length) return;
+  if (!confirm('Mark ' + ids.length + ' candidates as ' + status + '?')) return;
+  
+  var promises = ids.map(function(id) {
+    return apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ status: status }) });
+  });
+  
+  Promise.all(promises).then(function() {
+    showToast('Updated ' + ids.length + ' candidates', 'ok');
+    document.getElementById('selectAllApps').checked = false;
+    loadApplications();
+  }).catch(function() {
+    showToast('Bulk update encountered an error', 'er');
+  });
+}
+
+function bulkEmail() {
+  var ids = Array.from(document.querySelectorAll('.app-cb:checked')).map(function(el) { return el.value; });
+  if (!ids.length) return;
+  
+  var emails = ids.map(function(id) {
+    var a = _apps.find(function(x) { return x.id === id; });
+    return a ? a.email : null;
+  }).filter(Boolean);
+  
+  if (emails.length) {
+    window.location.href = 'mailto:?bcc=' + encodeURIComponent(emails.join(','));
+  }
 }
 
 // ── USERS ─────────────────────────────────────────────────────────
