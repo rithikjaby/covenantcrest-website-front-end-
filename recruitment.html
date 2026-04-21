@@ -389,6 +389,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <div class="ok-banner" id="ok-apply">&#x2705; Application received! We&rsquo;ll be in touch within 24 hours.</div>
         <form name="candidate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleForm(event,'candidate-apply','ok-apply')">
           <input type="hidden" name="form-name" value="candidate-apply">
+          <input type="hidden" name="job_title" id="hidden-job-title" value="">
+          <input type="hidden" name="job_id" id="hidden-job-id" value="">
           <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
           <div class="dk-g2">
             <div class="dk-fg"><label class="dk-label">First Name *</label><input class="dk-input" name="first_name" placeholder="John" required></div>
@@ -746,9 +748,16 @@ window.addEventListener('load',function(){
   var params = new URLSearchParams(window.location.search);
   var jobTitle = params.get('job_title');
   var jobSector = params.get('sector');
+  var jobId = params.get('job_id');
   if (jobTitle) {
     var notesEl = document.querySelector('textarea[name="notes"]');
     if (notesEl) notesEl.value = 'Applying for: ' + jobTitle;
+    var hiddenTitle = document.getElementById('hidden-job-title');
+    if (hiddenTitle) hiddenTitle.value = jobTitle;
+  }
+  if (jobId) {
+    var hiddenId = document.getElementById('hidden-job-id');
+    if (hiddenId) hiddenId.value = jobId;
   }
   if (jobSector) {
     var sectorEl = document.querySelector('select[name="sector"]');
@@ -817,12 +826,13 @@ function handleForm(e, formName, bannerId){
     sector      : fd.get('sector')       || '',
     availability: fd.get('availability') || '',
     notes       : fd.get('notes')        || '',
-    job_title   : '',
+    job_title   : fd.get('job_title')    || '',
+    job_id      : fd.get('job_id')       || '',
   };
 
   /* Step 3: upload CV to Cloudinary via backend if file selected */
   function submitToAPI(cvUrl){
-    if(cvUrl) payload.cvBase64 = _cvBase64;
+    if(_cvBase64) payload.cvBase64 = _cvBase64;
 
     fetch('/api/applications', {
       method : 'POST',
