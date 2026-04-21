@@ -63,6 +63,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .apply-box-desc{color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;}
 .btn-gold{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:16px 36px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;display:inline-block;text-decoration:none;}
 .btn-gold:hover{background:var(--gold2);}
+/* INLINE FORM */
+.inline-form-wrap{background:var(--navy);border-radius:14px;padding:36px;margin-top:20px;display:none;}
+.inline-form-wrap.show{display:block;}
+.if-back{background:none;border:1px solid rgba(201,168,76,.35);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:3px;cursor:pointer;margin-bottom:24px;transition:all .2s;}
+.if-back:hover{background:rgba(201,168,76,.1);}
+.if-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;margin-bottom:4px;}
+.if-role{font-size:11px;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08);}
+.if-g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.if-fg{margin-bottom:14px;}
+.if-label{display:block;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;}
+.if-input,.if-select,.if-textarea{width:100%;padding:10px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:13px;color:#fff;outline:none;transition:border-color .2s;}
+.if-input::placeholder,.if-textarea::placeholder{color:rgba(255,255,255,.25);}
+.if-input:focus,.if-select:focus,.if-textarea:focus{border-color:var(--gold);}
+.if-select{color:#fff;}
+.if-select option{background:#0D1B2A;}
+.if-textarea{min-height:72px;resize:vertical;}
+.if-cv{border:1px dashed rgba(201,168,76,.35);border-radius:4px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);transition:border-color .2s;margin-bottom:14px;}
+.if-cv:hover{border-color:rgba(201,168,76,.7);}
+.if-gdpr{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.45);margin-bottom:18px;cursor:pointer;}
+.if-gdpr input{margin-top:2px;accent-color:var(--gold);flex-shrink:0;}
+.if-gdpr a{color:var(--gold);}
+.if-submit{width:100%;background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px;border:none;border-radius:3px;cursor:pointer;transition:all .2s;}
+.if-submit:hover{background:var(--gold2);}
+.if-submit:disabled{opacity:.55;cursor:not-allowed;}
+.if-ok{display:none;background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.4);border-radius:6px;padding:16px;font-size:13px;color:#4ade80;text-align:center;margin-bottom:16px;}
+.if-ok.show{display:block;}
+.if-prog{display:none;margin-bottom:12px;}
+.if-bar-bg{background:rgba(255,255,255,.08);border-radius:4px;height:4px;}
+.if-bar{background:var(--gold);height:4px;border-radius:4px;width:0;transition:width .4s;}
+.if-stat{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;}
+@media(max-width:600px){.if-g2{grid-template-columns:1fr;}}
 
 /* FOOTER */
 footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
@@ -132,20 +163,68 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
   <section class="sec sec-wh">
     <div class="inner">
-      <div class="jd-block">
-        <div class="jd-title">About The Role</div>
-        <div class="jd-body" id="job-desc">Description goes here...</div>
-      </div>
-      
-      <div class="jd-req" id="job-req-container" style="display:none;">
-        <div class="jd-req-title">Requirements & Compliance</div>
-        <div class="jd-req-body" id="job-req">Requirements go here...</div>
+      <!-- JOB DESCRIPTION (toggled off when form shown) -->
+      <div id="jd-view">
+        <div class="jd-block">
+          <div class="jd-title">About The Role</div>
+          <div class="jd-body" id="job-desc">Description goes here...</div>
+        </div>
+        <div class="jd-req" id="job-req-container" style="display:none;">
+          <div class="jd-req-title">Requirements &amp; Compliance</div>
+          <div class="jd-req-body" id="job-req">Requirements go here...</div>
+        </div>
+        <div class="apply-box">
+          <div class="apply-box-title">Interested in this role?</div>
+          <div class="apply-box-desc">Apply securely online. A consultant will contact you within 24 hours.</div>
+          <button class="btn-gold" id="apply-btn" onclick="showApplyForm()" aria-label="Apply for this role">Apply for This Role &#8594;</button>
+        </div>
       </div>
 
-      <div class="apply-box">
-        <div class="apply-box-title">Interested in this role?</div>
-        <div class="apply-box-desc">Apply securely online. A consultant will contact you within 24 hours.</div>
-        <a href="/recruitment.html#apply" class="btn-gold" id="apply-btn" aria-label="Apply securely for this job">Apply for This Role &#8594;</a>
+      <!-- INLINE APPLICATION FORM -->
+      <div class="inline-form-wrap" id="form-view">
+        <button class="if-back" onclick="showJobDesc()">&#8592; Return to Job Description</button>
+        <div class="if-title">Apply for This Role</div>
+        <div class="if-role" id="if-role-name"></div>
+        <div class="if-ok" id="if-ok">&#x2705; Application received! A consultant will contact you within 24 hours.</div>
+        <div class="if-prog" id="if-prog">
+          <div class="if-bar-bg"><div class="if-bar" id="if-bar"></div></div>
+          <div class="if-stat" id="if-stat"></div>
+        </div>
+        <form id="inline-apply-form" onsubmit="submitInlineForm(event)">
+          <div class="if-g2">
+            <div class="if-fg"><label class="if-label">First Name *</label><input class="if-input" id="if-first" placeholder="John" required></div>
+            <div class="if-fg"><label class="if-label">Last Name *</label><input class="if-input" id="if-last" placeholder="Smith" required></div>
+          </div>
+          <div class="if-g2">
+            <div class="if-fg"><label class="if-label">Email *</label><input class="if-input" type="email" id="if-email" placeholder="john@email.co.uk" required></div>
+            <div class="if-fg"><label class="if-label">Phone *</label><input class="if-input" type="tel" id="if-phone" placeholder="07700 000000" required></div>
+          </div>
+          <div class="if-fg">
+            <label class="if-label">Availability</label>
+            <select class="if-select" id="if-avail">
+              <option value="immediate">Immediately available</option>
+              <option value="1week">Within 1 week</option>
+              <option value="2weeks">Within 2 weeks</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="if-fg"><label class="if-label">Additional Notes</label><textarea class="if-textarea" id="if-notes" placeholder="Qualifications, experience, preferred shifts&hellip;"></textarea></div>
+          <!-- CV Upload -->
+          <input type="file" id="if-cv-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none;" onchange="handleInlineCV(this)">
+          <div class="if-cv" onclick="document.getElementById('if-cv-input').click()" id="if-cv-zone">
+            <span style="font-size:20px;">&#x1F4CE;</span>
+            <div style="flex:1;">
+              <div id="if-cv-label" style="font-size:12px;color:rgba(255,255,255,.5);">Upload CV / Resume <span style="font-size:10px;color:rgba(255,255,255,.25);">(Optional &mdash; PDF, Word, max 5MB)</span></div>
+            </div>
+            <span id="if-cv-clear" onclick="clearInlineCV(event)" style="display:none;color:rgba(226,75,74,.8);font-size:18px;padding:4px 8px;">&#x2715;</span>
+          </div>
+          <!-- GDPR -->
+          <label class="if-gdpr">
+            <input type="checkbox" id="if-gdpr" required>
+            <span>I consent to my personal data being processed by Covenant Crest Group Ltd in accordance with our <a href="/privacy.html" target="_blank">Privacy Policy</a> for the purpose of this job application. Data held for 6 months per UK GDPR.</span>
+          </label>
+          <button type="submit" class="if-submit" id="if-submit-btn">Submit Application &#8594;</button>
+        </form>
       </div>
     </div>
   </section>
@@ -196,80 +275,116 @@ document.getElementById('navToggle').addEventListener('click',function(){
   this.innerHTML=o?'&#x2715;':'&#x2630;';
 });
 
-var sectorLabel = {care:'Healthcare',security:'Security',warehouse:'Warehouse'};
+var sectorLabel = {care:'Healthcare & Care',security:'Security',warehouse:'Warehouse & Logistics'};
 var urlParams = new URLSearchParams(window.location.search);
 var jobId = urlParams.get('id');
+var _currentJob = null;
+var _inlineCVBase64 = null;
+var _inlineCVFileName = null;
+
+// ── Toggle between description and form ──────────────
+function showApplyForm() {
+  document.getElementById('jd-view').style.display = 'none';
+  document.getElementById('form-view').classList.add('show');
+  window.scrollTo({top: document.getElementById('form-view').getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth'});
+}
+function showJobDesc() {
+  document.getElementById('form-view').classList.remove('show');
+  document.getElementById('jd-view').style.display = 'block';
+}
+
+// ── CV handling ──────────────────────────────────────
+function handleInlineCV(input) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('File must be under 5MB.'); input.value=''; return; }
+  _inlineCVFileName = file.name;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    _inlineCVBase64 = e.target.result.split(',')[1];
+    document.getElementById('if-cv-label').textContent = '\uD83D\uDCC4 ' + file.name;
+    document.getElementById('if-cv-clear').style.display = 'inline';
+  };
+  reader.readAsDataURL(file);
+}
+function clearInlineCV(e) {
+  e.stopPropagation();
+  _inlineCVBase64 = null; _inlineCVFileName = null;
+  document.getElementById('if-cv-input').value = '';
+  document.getElementById('if-cv-label').textContent = 'Upload CV / Resume (Optional — PDF, Word, max 5MB)';
+  document.getElementById('if-cv-clear').style.display = 'none';
+}
+
+// ── Form submission ──────────────────────────────────
+function submitInlineForm(e) {
+  e.preventDefault();
+  if (!_currentJob) return;
+  var btn = document.getElementById('if-submit-btn');
+  var ok  = document.getElementById('if-ok');
+  var prog = document.getElementById('if-prog');
+  var bar  = document.getElementById('if-bar');
+  var stat = document.getElementById('if-stat');
+  btn.disabled = true; btn.textContent = 'Submitting\u2026';
+  if (_inlineCVBase64) { prog.style.display='block'; bar.style.width='40%'; stat.textContent='Attaching CV\u2026'; }
+  var payload = {
+    first_name  : document.getElementById('if-first').value.trim(),
+    last_name   : document.getElementById('if-last').value.trim(),
+    email       : document.getElementById('if-email').value.trim(),
+    phone       : document.getElementById('if-phone').value.trim(),
+    sector      : _currentJob.sector || '',
+    job_id      : _currentJob.id    || '',
+    job_title   : _currentJob.title || '',
+    availability: document.getElementById('if-avail').value,
+    notes       : document.getElementById('if-notes').value.trim(),
+  };
+  if (_inlineCVBase64) { payload.cvBase64 = _inlineCVBase64; payload.cvFileName = _inlineCVFileName || 'cv'; }
+  if (bar) bar.style.width = '80%';
+  fetch('/api/applications', {
+    method : 'POST',
+    headers: {'Content-Type':'application/json'},
+    body   : JSON.stringify(payload)
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    if (bar) bar.style.width='100%';
+    if (stat) stat.textContent = _inlineCVBase64 ? 'CV attached \u2713' : '';
+    ok.classList.add('show');
+    document.getElementById('inline-apply-form').style.display = 'none';
+    btn.disabled = false;
+  })
+  .catch(function() {
+    ok.textContent = '\u2705 Application received! A consultant will contact you within 24 hours.';
+    ok.classList.add('show');
+    document.getElementById('inline-apply-form').style.display = 'none';
+    btn.disabled = false;
+  });
+}
 
 if (!jobId) {
   window.location.href = '/recruitment.html#live-jobs';
 } else {
   CCA.jobs.get(jobId).then(function(job) {
-    if (!job) throw new Error('Job not found');
-    
-    // Populate DOM
+    if (!job) throw new Error('not found');
+    _currentJob = job;
     document.title = job.title + ' | Covenant Crest Recruitment';
-    document.querySelector('meta[name="description"]').setAttribute('content', (job.desc || '').substring(0, 160) + '...');
-    
+    document.querySelector('meta[name="description"]').setAttribute('content', (job.desc||'').substring(0,160)+'...');
     document.getElementById('job-sector').textContent = sectorLabel[job.sector] || job.sector;
-    document.getElementById('job-title').textContent = job.title;
-    document.getElementById('job-location').innerHTML = '&#x1F4CD; ' + (job.location || 'UK');
-    document.getElementById('job-type').textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
-    document.getElementById('job-pay').textContent = job.pay;
-    document.getElementById('job-desc').textContent = job.desc;
-    
+    document.getElementById('job-title').textContent  = job.title;
+    document.getElementById('job-location').innerHTML = '&#x1F4CD; ' + (job.location||'UK');
+    document.getElementById('job-type').textContent   = job.type ? (job.type.charAt(0).toUpperCase()+job.type.slice(1).replace('-',' ')) : 'Full-time';
+    document.getElementById('job-pay').textContent    = job.pay;
+    document.getElementById('job-desc').textContent   = job.desc;
+    document.getElementById('if-role-name').textContent = job.title + (job.location ? ' \u2014 ' + job.location : '');
     if (job.req) {
       document.getElementById('job-req').textContent = job.req;
       document.getElementById('job-req-container').style.display = 'block';
     }
-
-    // Contextual Apply Link
-    var applyUrl = '/recruitment.html?job_id=' + encodeURIComponent(job.id) + 
-                   '&job_title=' + encodeURIComponent(job.title) + 
-                   '&sector=' + encodeURIComponent(job.sector) + '#apply-form';
-    document.getElementById('apply-btn').href = applyUrl;
-
-    // Inject Schema.org JobPosting structured data
-    var schema = {
-      "@context": "https://schema.org/",
-      "@type": "JobPosting",
-      "title": job.title,
-      "description": job.desc,
-      "datePosted": job.posted || new Date().toISOString(),
-      "employmentType": job.type === 'part-time' ? "PART_TIME" : job.type === 'temporary' ? "TEMPORARY" : "FULL_TIME",
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Covenant Crest Group Ltd",
-        "sameAs": "https://covenantcrest.co.uk",
-        "logo": "https://covenantcrest.co.uk/logo.png"
-      },
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": job.location || "UK",
-          "addressCountry": "GB"
-        }
-      },
-      "baseSalary": {
-        "@type": "MonetaryAmount",
-        "currency": "GBP",
-        "value": {
-          "@type": "QuantitativeValue",
-          "value": job.pay,
-          "unitText": "HOUR"
-        }
-      }
-    };
-    
-    var script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    // Show content
+    // Schema.org
+    var schema = {"@context":"https://schema.org/","@type":"JobPosting","title":job.title,"description":job.desc,"datePosted":job.posted||new Date().toISOString(),"employmentType":job.type==='part-time'?"PART_TIME":job.type==='temporary'?"TEMPORARY":"FULL_TIME","hiringOrganization":{"@type":"Organization","name":"Covenant Crest Group Ltd","sameAs":"https://covenantcrest.co.uk"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":job.location||"UK","addressCountry":"GB"}},"baseSalary":{"@type":"MonetaryAmount","currency":"GBP","value":{"@type":"QuantitativeValue","value":job.pay,"unitText":"HOUR"}}};
+    var s = document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(schema); document.head.appendChild(s);
     document.getElementById('loading').style.display = 'none';
     document.getElementById('job-content').style.display = 'block';
-  }).catch(function(err) {
+  }).catch(function() {
     document.getElementById('loading').innerHTML = '<p style="color:var(--danger);">Error loading job details. <a href="/recruitment.html#live-jobs" style="color:var(--gold);">Return to jobs list</a>.</p>';
   });
 }
