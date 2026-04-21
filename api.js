@@ -147,6 +147,11 @@
         return unwrap(get(path, true));
       },
 
+      /** Public — fetch a single job by id. */
+      get: function (id) {
+        return unwrap(get('/jobs/' + id, true));
+      },
+
       /** Auth — all jobs including inactive. */
       all: function () {
         return unwrap(get('/jobs/all', false));

@@ -428,8 +428,15 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <div class="dk-fg"><label class="dk-label">Weight / Pallets</label><input class="dk-input" name="weight" placeholder="e.g. 5 pallets / 2,000 kg"></div>
         </div>
         <div class="dk-fg"><label class="dk-label">Collection Date / Additional Details</label><textarea class="dk-textarea" name="details" placeholder="Collection date, special requirements, timed delivery, etc."></textarea></div>
-        <button type="submit" class="f-submit">Request Confirmed Quote &#8594;</button>
-      </form>
+          <div class="dk-fg">
+            <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
+              <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
+              <span>I consent to my data being processed in accordance with the <a href="/privacy.html" style="color:var(--gold);">Privacy Policy</a> for the purpose of this quote request.</span>
+            </label>
+          </div>
+          <button type="submit" class="f-submit" aria-label="Request quote">Request Confirmed Quote &#8594;</button>
+          <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:10px;">Your data is processed under UK GDPR. See our <a href="/privacy.html" style="color:rgba(201,168,76,.55);">Privacy Policy</a>. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
+        </form>
     </div>
   </div>
 </section>
