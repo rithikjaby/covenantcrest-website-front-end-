@@ -268,13 +268,14 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   <button class="sbt"     id="sbt-care"      onclick="filterSector('care',this)">&#x1F3E5;&nbsp; Healthcare</button>
   <button class="sbt"     id="sbt-security"  onclick="filterSector('security',this)">&#x1F512;&nbsp; Security</button>
   <button class="sbt"     id="sbt-warehouse" onclick="filterSector('warehouse',this)">&#x1F4E6;&nbsp; Warehouse</button>
+  <button class="sbt"     id="sbt-construction" onclick="filterSector('construction',this)">&#x1F3D7;&nbsp; Construction</button>
 </div>
 
 <!-- SECTOR HIGHLIGHTS -->
 <section class="sec sec-cr">
   <div class="inner">
     <div class="s-tag rv">What We Specialise In</div>
-    <h2 class="s-title rv">Three Sectors. <em>One Trusted Partner.</em></h2>
+    <h2 class="s-title rv">Four Sectors. <em>One Trusted Partner.</em></h2>
     <p class="s-lead rv">Pre-vetted candidates, right-to-work verified, compliance-ready. Temporary, permanent and contract placements across the UK.</p>
     <div class="sector-grid">
       <div class="sc-card rv">
@@ -322,6 +323,21 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <button class="sc-cta" onclick="filterSector('warehouse',null)">View Warehouse Jobs &#8594;</button>
         </div>
       </div>
+      <div class="sc-card rv d3">
+        <div class="sc-stripe" style="background:#D35400;"></div>
+        <div class="sc-body">
+          <div class="sc-icon">&#x1F3D7;</div>
+          <div class="sc-name">Construction &amp; Trades</div>
+          <p class="sc-desc">CSCS-certified labourers, machine operators, and skilled trades for residential, commercial, and infrastructure sites.</p>
+          <div class="sc-roles">
+            <div class="sc-role">General &amp; Skilled Labourers (CSCS)</div>
+            <div class="sc-role">Plant &amp; Machine Operators (CPCS/NPORS)</div>
+            <div class="sc-role">Site Security &amp; Traffic Marshals</div>
+            <div class="sc-role">Electricians &amp; Plumbers</div>
+          </div>
+          <button class="sc-cta" onclick="filterSector('construction',null)">View Construction Jobs &#8594;</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -339,6 +355,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <option value="care">Healthcare</option>
         <option value="security">Security</option>
         <option value="warehouse">Warehouse</option>
+        <option value="construction">Construction</option>
       </select>
       <select class="jf-sel" id="jf-type" onchange="renderJobs()">
         <option value="">All Types</option>
@@ -407,6 +424,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               <option value="care">Healthcare &amp; Care</option>
               <option value="security">Security</option>
               <option value="warehouse">Warehouse &amp; Logistics</option>
+              <option value="construction">Construction &amp; Trades</option>
               <option value="multiple">Multiple sectors</option>
             </select>
           </div>

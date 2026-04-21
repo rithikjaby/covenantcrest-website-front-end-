@@ -71,6 +71,7 @@ tbody tr:hover{background:#FAFAFA;}
 .p-read{background:#F3F5F8;color:var(--muted);}
 .p-haulage{background:#EEF2FF;color:#3D5AA8;}
 .p-trade{background:#FDF6E3;color:#8A6020;}
+.p-construction{background:#FFF5E6;color:#D35400;}
 .p-recruitment{background:#FFF0F0;color:#C04040;}
 .p-general{background:#F0FFF4;color:#2D7A4F;}
 
@@ -283,6 +284,7 @@ tbody tr:hover{background:#FAFAFA;}
             <option value="care">Care</option>
             <option value="security">Security</option>
             <option value="warehouse">Warehouse</option>
+            <option value="construction">Construction</option>
           </select>
         </div>
         <div id="bulk-toolbar" style="display:none; background:#E8F8F0; border:1px solid var(--success); border-radius:6px; padding:10px 14px; margin-bottom:12px; align-items:center; justify-content:space-between;">
@@ -397,6 +399,7 @@ tbody tr:hover{background:#FAFAFA;}
           <option value="care">Care &amp; Healthcare</option>
           <option value="security">Security</option>
           <option value="warehouse">Warehouse &amp; Logistics</option>
+          <option value="construction">Construction &amp; Trades</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -610,9 +613,9 @@ function loadTab(id) {
 }
 
 // ── LABEL MAPS ────────────────────────────────────────────────────
-var sectorLabel   = { care:'Care & Healthcare', security:'Security', warehouse:'Warehouse', other:'Other' };
+var sectorLabel   = { care:'Care & Healthcare', security:'Security', warehouse:'Warehouse', construction:'Construction', other:'Other' };
 var typeLabel     = { 'full-time':'Full Time', 'part-time':'Part Time', temporary:'Temporary', permanent:'Permanent' };
-var sectorPill    = { care:'p-recruitment', security:'p-haulage', warehouse:'p-trade', other:'p-read' };
+var sectorPill    = { care:'p-recruitment', security:'p-haulage', warehouse:'p-trade', construction:'p-construction', other:'p-read' };
 var enquiryPill   = { general:'p-general', contact:'p-general', recruitment:'p-recruitment', haulage:'p-haulage', 'haulage-quote':'p-haulage', trade:'p-trade', 'trade-enquiry':'p-trade' };
 var appStatusPill = { new:'p-new', shortlisted:'p-shortlisted', hired:'p-active', rejected:'p-rejected', read:'p-read' };
 
