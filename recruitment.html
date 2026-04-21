@@ -761,7 +761,10 @@ window.addEventListener('load',function(){
   }
   if (jobSector) {
     var sectorEl = document.querySelector('select[name="sector"]');
-    if (sectorEl) sectorEl.value = jobSector;
+    if (sectorEl) {
+      sectorEl.value = jobSector;
+      sectorEl.dispatchEvent(new Event('change'));
+    }
   }
 });
 
@@ -855,35 +858,16 @@ function handleForm(e, formName, bannerId){
   }
 
   if(_cvBase64){
-    /* Show upload progress */
+    /* Send base64 directly in the application payload — no separate upload needed */
     var prog = document.getElementById('cv-progress');
     var bar  = document.getElementById('cv-bar');
     var stat = document.getElementById('cv-status');
-    prog.style.display = 'block';
-    bar.style.width = '30%';
-    stat.textContent = 'Uploading CV…';
-
-    fetch('/api/upload', {
-      method : 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body   : JSON.stringify({ base64: _cvBase64, folder: 'covenantcrest/cvs' })
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      bar.style.width = '100%';
-      stat.textContent = 'CV uploaded ✓';
-      payload.cvBase64 = undefined;
-      /* store the Cloudinary URL in payload instead */
-      payload.cvUrl = data.url || '';
-      submitToAPI(data.url);
-    })
-    .catch(function(){
-      /* CV upload failed — submit without it */
-      bar.style.width = '100%';
-      stat.textContent = 'CV upload skipped — submitting without it';
-      _cvBase64 = null;
-      submitToAPI(null);
-    });
+    if(prog){ prog.style.display = 'block'; bar.style.width = '60%'; stat.textContent = 'Attaching CV…'; }
+    payload.cvBase64 = _cvBase64;
+    payload.cvFileName = _cvFileName || 'cv';
+    if(bar){ bar.style.width = '100%'; }
+    if(stat){ stat.textContent = 'CV attached ✓'; }
+    submitToAPI('base64');
   } else {
     submitToAPI(null);
   }

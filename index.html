@@ -414,103 +414,6 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   </div>
 </section>
 
-<!-- B2B REQUEST STAFF FORM -->
-<section class="sec" id="request-staff" aria-label="Request Staff" style="background:var(--cream);">
-  <div class="inner">
-    <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start;" class="rs-grid">
-      <div>
-        <div class="s-tag">For Employers</div>
-        <h2 class="s-title">Request <em>Staff</em></h2>
-        <p class="s-lead">Tell us what you need. We&rsquo;ll respond within 2 hours during business hours.</p>
-        <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px;">
-          <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Dedicated account manager from first contact</div>
-          <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>All candidates pre-vetted &amp; compliance-ready</div>
-          <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Staff on site within 24&ndash;48 hours where possible</div>
-          <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Transparent charge rates, no hidden fees</div>
-          <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>24/7 emergency cover available</div>
-        </div>
-        <div style="margin-top:28px;padding:16px 18px;background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Prefer to call?</div>
-          <div style="font-size:15px;font-weight:600;color:var(--navy);">07346 809846</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px;">recruitment@covenantcrest.co.uk</div>
-        </div>
-      </div>
-      <div style="background:var(--navy);border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:4px;">Request Staff</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:22px;">Employer enquiry &mdash; this is not a candidate application form.</div>
-        <div class="ok-banner" id="ok-request">&#x2705; Request received! A consultant will contact you within 2 hours.</div>
-        <form name="request-staff" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleForm(event,'request-staff','ok-request')">
-          <input type="hidden" name="form-name" value="request-staff">
-          <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
-          <div class="dk-g2">
-            <div class="dk-fg"><label class="dk-label">Company Name *</label><input class="dk-input" name="company_name" placeholder="Oakwood Care Home" required></div>
-            <div class="dk-fg"><label class="dk-label">Your Job Title *</label><input class="dk-input" name="job_title" placeholder="Operations Manager" required></div>
-          </div>
-          <div class="dk-g2">
-            <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="contact_name" placeholder="Jane Smith" required></div>
-            <div class="dk-fg"><label class="dk-label">Phone *</label><input class="dk-input" type="tel" name="phone" placeholder="07700 000000" required></div>
-          </div>
-          <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email" name="email" placeholder="jane@company.co.uk" required></div>
-          <div class="dk-g2">
-            <div class="dk-fg">
-              <label class="dk-label">Sector *</label>
-              <select class="dk-select" name="sector" required>
-                <option value="" disabled selected>Choose sector&hellip;</option>
-                <option value="care">Care &amp; Healthcare</option>
-                <option value="security">Security</option>
-                <option value="warehouse">Warehouse &amp; Logistics</option>
-                <option value="multiple">Multiple sectors</option>
-              </select>
-            </div>
-            <div class="dk-fg"><label class="dk-label">Workers Needed</label><input class="dk-input" type="number" name="workers_needed" placeholder="e.g. 3" min="1"></div>
-          </div>
-          <div class="dk-g2">
-            <div class="dk-fg"><label class="dk-label">Start Date</label><input class="dk-input" type="date" name="start_date"></div>
-            <div class="dk-fg"><label class="dk-label">Site Postcode</label><input class="dk-input" name="postcode" placeholder="e.g. TF1 1AB"></div>
-          </div>
-          <div class="dk-fg">
-            <label class="dk-label">Compliance Requirements</label>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_dbs" style="accent-color:var(--gold);"> Enhanced DBS</label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_sia" style="accent-color:var(--gold);"> SIA Licence</label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_nmc" style="accent-color:var(--gold);"> NMC Pin Verification</label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_flt" style="accent-color:var(--gold);"> FLT Licence</label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_rtw" style="accent-color:var(--gold);"> Right to Work</label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input type="checkbox" name="req_cscs" style="accent-color:var(--gold);"> CSCS Card</label>
-            </div>
-          </div>
-          <div class="dk-fg"><label class="dk-label">Additional Notes</label><textarea class="dk-textarea" name="notes" placeholder="Any other requirements, shift patterns, specific roles&hellip;"></textarea></div>
-          <div class="dk-fg">
-            <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
-              <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-              <span>I consent to my data being processed in accordance with the <a href="/privacy.html" style="color:var(--gold);">Privacy Policy</a> for the purpose of this request.</span>
-            </label>
-          </div>
-          <button type="submit" class="f-submit" id="rs-submit-btn" aria-label="Send staff request">Send Request &#8594;</button>
-          <p style="font-size:10px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px;">Your data is processed in accordance with our <a href="/privacy.html" style="color:rgba(201,168,76,.6);">Privacy Policy</a> &amp; UK GDPR. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CANDIDATES SECTION -->
-<section class="sec sec-wh" id="candidates" aria-label="For Candidates">
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" class="cand-grid">
-    <div>
-      <div class="s-tag">For Candidates</div>
-      <h2 class="s-title">Looking for <em>Work?</em></h2>
-      <p class="s-lead">We match candidates to roles that fit their skills, availability and location. Free to register &mdash; no fees, ever.</p>
-      <a href="/recruitment.html#apply" class="btn-gold" style="display:inline-block;">View &amp; Apply for Jobs &#8594;</a>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:16px;">
-      <div class="srv-card" style="display:flex;gap:14px;align-items:flex-start;padding:18px 20px;"><span style="font-size:22px;flex-shrink:0;">&#x1F465;</span><div><div class="srv-name" style="font-size:16px;">Care &amp; Healthcare</div><p class="srv-desc" style="margin-bottom:0;">Support workers, HCAs, senior carers, night care workers.</p></div></div>
-      <div class="srv-card" style="display:flex;gap:14px;align-items:flex-start;padding:18px 20px;"><span style="font-size:22px;flex-shrink:0;">&#x1F512;</span><div><div class="srv-name" style="font-size:16px;">Security</div><p class="srv-desc" style="margin-bottom:0;">Door supervisors, retail security, CCTV operators, patrol guards.</p></div></div>
-      <div class="srv-card" style="display:flex;gap:14px;align-items:flex-start;padding:18px 20px;"><span style="font-size:22px;flex-shrink:0;">&#x1F4E6;</span><div><div class="srv-name" style="font-size:16px;">Warehouse &amp; Logistics</div><p class="srv-desc" style="margin-bottom:0;">Pick/pack operatives, FLT drivers, goods-in, supervisors.</p></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- OTHER DIVISIONS -->
 <section class="sec sec-cr" aria-label="Other Divisions">
   <div class="inner">
@@ -595,7 +498,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <svg width="28" height="28" viewBox="0 0 80 80" fill="none"><path d="M40 4L72 18v26c0 16-15 28-32 32C23 72 8 60 8 44V18Z" fill="none" stroke="#C9A84C" stroke-width="1.5"/><line x1="40" y1="22" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="40" x2="58" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)"/></svg>
       <div class="ft-logo-name">Covenant <span>Crest</span></div>
       <div class="ft-logo-sub">Group Ltd</div>
-      <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951.</div>
+      <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England &amp; Wales.</div>
     </div>
     <div>
       <div class="ft-col-title">Services</div>
