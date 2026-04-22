@@ -3,14 +3,6 @@
 
 User-agent: *
 
-# Public pages — allow indexing
-Allow: /
-Allow: /index.html
-Allow: /recruitment.html
-Allow: /haulage.html
-Allow: /trade.html
-Allow: /privacy.html
-
 # Block private/admin pages from search engines
 Disallow: /login.html
 Disallow: /admin.html
