@@ -34,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .nav-name{font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;letter-spacing:.05em;}
 .nav-name span{color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:28px;}
-.nl{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
+.nl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
 .nav-cta{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 20px;border-radius:2px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s;white-space:nowrap;flex-shrink:0;}
 .nav-cta:hover{background:var(--gold2);}
@@ -670,6 +670,66 @@ function handleReqStaff(e){
     if(btn){btn.disabled=false;btn.textContent='Send Employer Enquiry →';}
   });
 }
+</script>
+
+<script>
+/* ── COOKIE ── */
+function setCookie(v){
+  localStorage.setItem('cc_consent',v);
+  document.getElementById('cc-bar').classList.remove('show');
+  if(v==='accept') loadGA4();
+}
+
+/* ── B2B FORM HANDLER ── */
+function handleReqStaff(e){
+  e.preventDefault();
+  var form = e.target;
+  var btn  = document.getElementById('rsb-submit-btn');
+  if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+  fetch('/', {
+    method : 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body   : new URLSearchParams(new FormData(form)).toString()
+  })
+  .then(function(){
+    document.getElementById('ok-req-b2b').classList.add('show');
+    form.reset();
+    if(btn){ btn.disabled=false; btn.textContent='Send Employer Enquiry →'; }
+  })
+  .catch(function(){
+    alert('Problem submitting. Please email recruitment@covenantcrest.co.uk or call 07346 809846.');
+    if(btn){ btn.disabled=false; btn.textContent='Send Employer Enquiry →'; }
+  });
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', function(){
+  /* Cookie consent */
+  if(localStorage.getItem('cc_consent')==='accept') loadGA4();
+  if(!localStorage.getItem('cc_consent')){
+    setTimeout(function(){ document.getElementById('cc-bar').classList.add('show'); }, 1400);
+  }
+
+  /* Hamburger */
+  var tog = document.getElementById('navToggle');
+  if(tog){
+    tog.addEventListener('click', function(){
+      var l = document.getElementById('navLinks');
+      var o = l.classList.toggle('open');
+      this.innerHTML = o ? '&#x2715;' : '&#x2630;';
+    });
+  }
+
+  /* Scroll reveal */
+  var obs = new IntersectionObserver(function(en){
+    en.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('vs'); obs.unobserve(e.target); }
+    });
+  }, {threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){
+    obs.observe(el); el.classList.add('vs');
+  });
+});
 </script>
 </body>
 </html>
