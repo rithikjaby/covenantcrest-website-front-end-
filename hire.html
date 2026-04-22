@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hire Staff — Request Care, Security &amp; Warehouse Staff | Covenant Crest Group Ltd</title>
+<meta name="description" content="Request vetted healthcare, security, warehouse and construction staff across the UK. Fast, reliable, and fully compliant recruitment solutions.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://covenantcrest.co.uk/hire.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://covenantcrest.co.uk/hire.html">
+<meta property="og:title" content="Recruitment â€” Care, Security &amp; Warehouse Jobs | Covenant Crest">
+<meta property="og:description" content="Hire vetted healthcare, security, warehouse and construction staff across the UK. Fast, reliable, and fully compliant recruitment solutions.">
+<meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+function setCookie(v){localStorage.setItem('cc_consent',v);document.getElementById('cc-bar').classList.remove('show');if(v==='accept')loadGA4();}
+window.addEventListener('load',function(){
+  if(localStorage.getItem('cc_consent')==='accept') loadGA4();
+  if(!localStorage.getItem('cc_consent')) setTimeout(function(){document.getElementById('cc-bar').classList.add('show');},1400);
+  var obs=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vs');obs.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);el.classList.add('vs');});
+});
+
+document.getElementById('navToggle').addEventListener('click',function(){
+  var l=document.getElementById('navLinks'),o=l.classList.toggle('open');
+  this.innerHTML=o?'&#x2715;':'&#x2630;';
+});
+
+function handleReqStaff(e){
+  e.preventDefault();
+  var form=e.target;
+  var btn=document.getElementById('rsb-submit-btn');
+  if(btn){btn.disabled=true;btn.textContent='Sending…';}
+  fetch('/',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams(new FormData(form)).toString()
+  })
+  .then(function(){
+    document.getElementById('ok-req-b2b').classList.add('show');
+    form.reset();
+    if(btn){btn.disabled=false;btn.textContent='Send Employer Enquiry ?';}
+  })
+  .catch(function(){
+    alert('Problem submitting. Please email recruitment@covenantcrest.co.uk or call 07346 809846.');
+    if(btn){btn.disabled=false;btn.textContent='Send Employer Enquiry ?';}
+  });
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
