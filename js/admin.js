@@ -315,6 +315,18 @@ window.addEventListener('DOMContentLoaded', function() {
   if (uSaveBtn) {
     uSaveBtn.addEventListener('click', saveUser);
   }
+
+  // Pagination Delegation
+  var jobsPag = document.getElementById('jobs-pagination');
+  if (jobsPag) {
+    jobsPag.addEventListener('click', function(e) {
+      var page = e.target.getAttribute('data-page');
+      if (page) {
+        _jobsPage = parseInt(page);
+        renderJobs();
+      }
+    });
+  }
 });
 
 // ── API helper ────────────────────────────────────────────────────
@@ -476,7 +488,7 @@ function renderJobs() {
   var pagHtml = '';
   if (pages > 1) {
     for (var i = 1; i <= pages; i++) {
-      pagHtml += '<button class="btn-sm ' + (i === _jobsPage ? 'pr' : 'sc') + '" onclick="_jobsPage=' + i + ';renderJobs();">' + i + '</button>';
+      pagHtml += '<button class="btn-sm ' + (i === _jobsPage ? 'pr' : 'sc') + '" data-page="' + i + '">' + i + '</button>';
     }
   }
   document.getElementById('jobs-pagination').innerHTML = pagHtml;

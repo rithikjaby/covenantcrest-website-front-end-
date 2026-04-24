@@ -45,7 +45,9 @@ function doLogin(e) {
     .then(function(r) { return r.json(); })
     .then(function(d) {
         if (d.success) {
-            localStorage.setItem('cc_token', d.token);
+            sessionStorage.setItem('cc_jwt',   d.token);
+            sessionStorage.setItem('cc_role',  d.role  || 'superadmin');
+            sessionStorage.setItem('cc_email', d.email || '');
             window.location.href = '/admin.html';
         } else {
             throw new Error(d.message || 'Invalid credentials');
