@@ -171,6 +171,12 @@ window.addEventListener('DOMContentLoaded', function() {
   if (appsSectorFilter) {
     appsSectorFilter.addEventListener('change', filterApps);
   }
+
+  // Talent Pool Search/Filter
+  var talentSearch = document.getElementById('talent-search');
+  if (talentSearch) talentSearch.addEventListener('input', renderTalentPool);
+  var talentSector = document.getElementById('talent-sector-filter');
+  if (talentSector) talentSector.addEventListener('change', renderTalentPool);
   var selectAllApps = document.getElementById('selectAllApps');
   if (selectAllApps) {
     selectAllApps.addEventListener('click', function() {
@@ -260,9 +266,12 @@ window.addEventListener('DOMContentLoaded', function() {
       if (!action) return;
 
       // Handle stopPropagation-like logic for specific elements
-      if (target.matches('.app-cb') || target.getAttribute('data-action') === 'cv-link') {
-        // e.stopPropagation() doesn't work well with delegation, so we just handle it
+      if (target.matches('.app-cb') || action === 'cv-link' || action === 'download-cv') {
         if (target.matches('.app-cb')) updateBulkToolbar();
+        if (action === 'download-cv') {
+          var a = _apps.find(function(x) { return x.id === rowId; });
+          if (a) downloadApplicationCV(a);
+        }
         return; 
       }
       
@@ -417,7 +426,7 @@ function openUserModal() {
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ── Tab switching ─────────────────────────────────────────────────
-var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
+var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', talent:'Talent Pool', planner:'Interview Planner', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
 
 function showTab(id, el) {
   if (!isSA && (id === 'settings' || id === 'users' || id === 'security')) { showToast('Super Admin only','er'); return; }
@@ -434,6 +443,8 @@ function loadTab(id) {
   if (id === 'jobs')         { loadJobs(); }
   if (id === 'contacts')     { loadContacts(); }
   if (id === 'applications') { loadApplications(); }
+  if (id === 'talent')       { loadApplications(renderTalentPool); }
+  if (id === 'planner')      { loadApplications(renderPlanner); }
   if (id === 'users')        { loadUsers(); }
   if (id === 'security')     { loadSecurityLogs(); }
   if (id === 'settings')     { checkIntegrations(); }
@@ -796,7 +807,10 @@ function renderApplications() {
   var tbody = document.getElementById('apps-tbody');
   if (!tbody) return;
   if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No applications yet.</td></tr>'; return; }
-  tbody.innerHTML = _apps.map(function(a) {
+    var cvLink = '—';
+    if (a.cvBase64 || a.cvUrl) {
+        cvLink = '<button class="btn-sm gd" style="border:none;cursor:pointer;" data-id="' + a.id + '" data-action="download-cv">CV</button>';
+    }
     return '<tr style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
       '<td><input type="checkbox" class="app-cb" value="' + a.id + '"></td>' +
       '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
@@ -806,9 +820,7 @@ function renderApplications() {
       '<td class="td-muted">' + esc(a.job_title || '—') + '</td>' +
       '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
       '<td><span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></td>' +
-      '<td>' +
-        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" class="btn-sm gd" style="text-decoration:none;" data-id="' + a.id + '" data-action="cv-link">CV</a>' : '<span class="td-muted">No CV</span>') +
-      '</td></tr>';
+      '<td>' + cvLink + '</td></tr>';
   }).join('');
   updateBulkToolbar();
 }
@@ -821,24 +833,25 @@ function viewApplication(id) {
   var availDisplay  = { immediate:'Immediately available', '1week':'Within 1 week', '2weeks':'Within 2 weeks', other:'Other' }[a.availability] || a.availability || '—';
   document.getElementById('am-title').textContent = (a.first_name || '') + ' ' + (a.last_name || '');
   document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + sectorDisplay + ' · ' + fmtDate(a.date);
-  document.getElementById('am-body').innerHTML =
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">' +
-      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Phone</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.phone || '—') + '</div></div>' +
-      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sector</div><div style="font-size:13px;font-weight:600;color:var(--navy);"><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorDisplay) + '</span></div></div>' +
-      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
-      '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
-    '</div>' +
-    '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
-      '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
-      '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
-    '</div>' +
-    '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (a.cvUrl ? '#C9A84C' : '#e0e0e0') + ';background:' + (a.cvUrl ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
-      '<span style="font-size:22px;">' + (a.cvUrl ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
-      '<div style="flex:1;">' +
-        '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (a.cvUrl ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
-        (a.cvUrl ? '<a href="' + esc(a.cvUrl) + '" target="_blank" style="font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:none;">📥 View / Download CV &rarr;</a>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+    var hasCV = !!(a.cvBase64 || a.cvUrl);
+    document.getElementById('am-body').innerHTML =
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">' +
+        '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Phone</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.phone || '—') + '</div></div>' +
+        '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sector</div><div style="font-size:13px;font-weight:600;color:var(--navy);"><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorDisplay) + '</span></div></div>' +
+        '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
+        '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
       '</div>' +
-    '</div>' +
+      '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
+        '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
+      '</div>' +
+      '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (hasCV ? '#C9A84C' : '#e0e0e0') + ';background:' + (hasCV ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
+        '<span style="font-size:22px;">' + (hasCV ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
+        '<div style="flex:1;">' +
+          '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (hasCV ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
+          (hasCV ? '<button id="am-download-cv" style="background:none;border:none;padding:0;font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:underline;cursor:pointer;">📥 View / Download CV &rarr;</button>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+        '</div>' +
+      '</div>' +
     (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-bottom:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Candidate Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '') +
     '<div><label class="af-label">Internal Admin Notes</label><textarea id="am-admin-notes" class="af-textarea" placeholder="Private notes about this candidate...">' + esc(a.adminNotes || '') + '</textarea></div>';
   
@@ -860,7 +873,55 @@ function viewApplication(id) {
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
   document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
+  
+  var amDownload = document.getElementById('am-download-cv');
+  if (amDownload) {
+    amDownload.onclick = function() { downloadApplicationCV(a); };
+  }
+  
   document.getElementById('appModal').classList.add('open');
+}
+
+function downloadApplicationCV(a) {
+  var data = a.cvBase64 || a.cvUrl;
+  if (!data) return showToast('No CV data found', 'er');
+  var filename = a.cvFileName || ((a.first_name || 'Candidate') + '_CV.pdf');
+  
+  // If it's a direct URL to a file (not base64)
+  if (data.indexOf('http') === 0) {
+    window.open(data, '_blank');
+    return;
+  }
+
+  // If it's Base64, decode it into a Blob to prevent corruption
+  try {
+    var base64Content = data;
+    if (data.indexOf('base64,') !== -1) base64Content = data.split('base64,')[1];
+    
+    var byteCharacters = atob(base64Content);
+    var byteNumbers = new Array(byteCharacters.length);
+    for (var i = 0; i < byteCharacters.length; i++) byteNumbers[i] = byteCharacters.charCodeAt(i);
+    var byteArray = new Uint8Array(byteNumbers);
+    
+    var mimeType = 'application/octet-stream';
+    if (filename.toLowerCase().endsWith('.pdf')) mimeType = 'application/pdf';
+    else if (filename.toLowerCase().endsWith('.doc')) mimeType = 'application/msword';
+    else if (filename.toLowerCase().endsWith('.docx')) mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+    var blob = new Blob([byteArray], { type: mimeType });
+    var url = window.URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch(e) {
+    console.error('CV Download Error:', e);
+    // Last resort fallback
+    window.open(data, '_blank');
+  }
 }
 
 function updateAppStatus(id, status) {
@@ -933,6 +994,58 @@ function bulkEmail() {
   if (emails.length) {
     window.location.href = 'mailto:?bcc=' + encodeURIComponent(emails.join(','));
   }
+}
+
+function renderTalentPool() {
+  var tbody = document.getElementById('talent-tbody');
+  if (!tbody) return;
+  var q = (document.getElementById('talent-search')?.value || '').toLowerCase();
+  var sector = (document.getElementById('talent-sector-filter')?.value || '').toLowerCase();
+  
+  var filtered = _apps.filter(function(a) {
+    var text = (a.first_name + ' ' + a.last_name + ' ' + a.email + ' ' + (a.notes||'')).toLowerCase();
+    return (!q || text.includes(q)) && (!sector || a.sector === sector);
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No candidates found matching your criteria.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(function(a) {
+    var hasCV = !!(a.cvBase64 || a.cvUrl);
+    return '<tr style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
+      '<td>' + esc(a.email) + '</td>' +
+      '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
+      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
+      '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
+      '<td>' + (hasCV ? '<button class="btn-sm gd" data-id="' + a.id + '" data-action="download-cv">CV</button>' : '<span class="td-muted">—</span>') + '</td>' +
+      '<td><button class="btn-sm pr" data-id="' + a.id + '" data-action="view-app">Details</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function renderPlanner() {
+  var tbody = document.getElementById('planner-tbody');
+  if (!tbody) return;
+  var shortlisted = _apps.filter(function(a) { return a.status === 'shortlisted'; });
+
+  if (!shortlisted.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No candidates currently shortlisted. Mark candidates as "Shortlist" to see them here.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = shortlisted.map(function(a) {
+    return '<tr style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
+      '<td>' + esc(a.job_title || 'General Application') + '</td>' +
+      '<td class="td-muted">' + esc(a.email) + '<br>' + esc(a.phone || '') + '</td>' +
+      '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
+      '<td class="td-muted" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(a.notes || '—') + '</td>' +
+      '<td><button class="btn-sm sc" onclick="updateAppStatus(\''+a.id+'\',\'hired\'); event.stopPropagation();">Hire</button></td>' +
+      '</tr>';
+  }).join('');
 }
 
 // ── USERS ─────────────────────────────────────────────────────────
@@ -1118,6 +1231,16 @@ function exportCSV(type) {
               .map(function(v){ return '"'+v+'"'; }).join(',');
     });
   }
+  if (type === 'talent') {
+    data     = _apps || [];
+    filename = 'covenant-crest-talent-pool-' + new Date().toISOString().slice(0,10) + '.csv';
+    headers  = ['First Name','Last Name','Email','Phone','Sector','Status','Last Applied'];
+    var rows = data.map(function(a) {
+      return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',a.sector||'',a.status||'',
+              a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
+              .map(function(v){ return '"'+v+'"'; }).join(',');
+    });
+  }
   var csv  = [headers.join(',')].concat(rows).join('\n');
   var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   var url  = URL.createObjectURL(blob);
@@ -1263,6 +1386,8 @@ window.changeAdminPassword = changeAdminPassword;
 window.exportCSV = exportCSV;
 window.filterContacts = filterContacts;
 window.filterApps = filterApps;
+window.renderTalentPool = renderTalentPool;
+window.renderPlanner = renderPlanner;
 window.loadSecurityLogs = loadSecurityLogs;
 window.logout = logout;
 window.apiClearAll = apiClearAll;

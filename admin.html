@@ -180,10 +180,9 @@ tbody tr:hover{background:#FAFAFA;}
     <a class="asb-item sa-only" id="sb-users" data-tab="users" style="display:none;"><span class="asb-ic">👤</span>User Management</a>
     <a class="asb-item sa-only" id="sb-security" data-tab="security" style="display:none;"><span class="asb-ic">🛡️</span>Security Logs</a>
 
-    <div class="asb-sec-label">Website</div>
-    <a href="/" class="asb-item" target="_blank"><span class="asb-ic">🏠</span>View Homepage</a>
-    <a href="/haulage.html" class="asb-item" target="_blank"><span class="asb-ic">🚛</span>Haulage Page</a>
-    <a href="/trade.html" class="asb-item" target="_blank"><span class="asb-ic">🌍</span>Trade Page</a>
+    <div class="asb-sec-label">Recruitment Tools</div>
+    <a class="asb-item" data-tab="talent"><span class="asb-ic">📂</span>Talent Pool</a>
+    <a class="asb-item" data-tab="planner"><span class="asb-ic">🗓️</span>Interview Planner</a>
 
     <div class="asb-footer">
       <div class="asb-user" id="sbUserEmail">loading…</div>
@@ -420,6 +419,45 @@ tbody tr:hover{background:#FAFAFA;}
           <div class="tbl-hdr"><div class="tbl-title">Recent Events</div></div>
           <table><thead><tr><th>Time</th><th>Event</th><th>Email</th><th>IP Address</th><th>Details</th></tr></thead>
           <tbody id="security-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== TALENT POOL ===== -->
+      <div class="tab-pane" id="tab-talent">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Talent Pool</h2>
+          <button class="btn-primary" onclick="exportCSV('talent')">Export Talent List</button>
+        </div>
+        <div class="info-box" style="margin-bottom:18px;">
+          <h4>🔍 Search Your Database</h4>
+          <p>Search through all historical applicants to find candidates for new roles before you even post them. Use the filters below to narrow down by skill or sector.</p>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <input id="talent-search" type="text" placeholder="Search skills, names, or locations…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
+          <select id="talent-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+            <option value="">All Sectors</option>
+            <option value="care">Care</option>
+            <option value="security">Security</option>
+            <option value="warehouse">Warehouse</option>
+            <option value="construction">Construction</option>
+          </select>
+        </div>
+        <div class="tbl-card">
+          <table><thead><tr><th>Candidate Name</th><th>Email</th><th>Phone</th><th>Primary Sector</th><th>Last Applied</th><th>CV</th><th>Actions</th></tr></thead>
+          <tbody id="talent-tbody"><tr class="empty-row"><td colspan="7">Loading Talent Pool…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== INTERVIEW PLANNER ===== -->
+      <div class="tab-pane" id="tab-planner">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:18px;">Interview Planner</h2>
+        <div class="info-box" style="margin-bottom:18px;">
+          <h4>✅ Current Shortlist</h4>
+          <p>These are the candidates currently marked as <strong>Shortlisted</strong>. These are your priority follow-ups and interviews.</p>
+        </div>
+        <div class="tbl-card">
+          <table><thead><tr><th>Candidate</th><th>Job Title</th><th>Email / Phone</th><th>Applied Date</th><th>Notes</th><th>Actions</th></tr></thead>
+          <tbody id="planner-tbody"><tr class="empty-row"><td colspan="6">No candidates currently shortlisted.</td></tr></tbody></table>
         </div>
       </div>
 
