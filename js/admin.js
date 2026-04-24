@@ -74,7 +74,16 @@ window.addEventListener('DOMContentLoaded', function() {
     qDesc = new Quill('#j-desc-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
     qReq  = new Quill('#j-req-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
   } else {
-    console.error('Quill is not defined. Check CDN or CSP.');
+    // FALLBACK: If Quill is blocked or fails, show standard textareas
+    var dEd = document.getElementById('j-desc-editor');
+    var rEd = document.getElementById('j-req-editor');
+    var dFb = document.getElementById('j-desc-fallback');
+    var rFb = document.getElementById('j-req-fallback');
+    if (dEd) dEd.style.display = 'none';
+    if (rEd) rEd.style.display = 'none';
+    if (dFb) dFb.style.display = 'block';
+    if (rFb) rFb.style.display = 'block';
+    console.warn('Quill not loaded - using textarea fallback');
   }
 
   if (isSA) {
@@ -374,6 +383,12 @@ function openJobModal(job) {
   
   if (qDesc) qDesc.root.innerHTML = isEdit ? (job.desc || '') : '';
   if (qReq)  qReq.root.innerHTML  = isEdit ? (job.req  || '') : '';
+  
+  // Fallback values
+  var dFb = document.getElementById('j-desc-fallback');
+  var rFb = document.getElementById('j-req-fallback');
+  if (dFb) dFb.value = isEdit ? (job.desc || '') : '';
+  if (rFb) rFb.value = isEdit ? (job.req  || '') : '';
 
   // Force re-init if somehow lost (rare)
   if (!qDesc && typeof Quill !== 'undefined') {
@@ -580,8 +595,8 @@ function saveJob() {
     closingDate : document.getElementById('j-closing-date').value,
     seoKeywords : document.getElementById('j-seo-keywords').value.trim(),
     seoDesc     : document.getElementById('j-seo-desc').value.trim(),
-    desc        : qDesc ? qDesc.root.innerHTML : '',
-    req         : qReq ? qReq.root.innerHTML : ''
+    desc        : qDesc ? qDesc.root.innerHTML : (document.getElementById('j-desc-fallback') ? document.getElementById('j-desc-fallback').value : ''),
+    req         : qReq ? qReq.root.innerHTML : (document.getElementById('j-req-fallback') ? document.getElementById('j-req-fallback').value : '')
   };
 
 
