@@ -171,6 +171,16 @@ document.addEventListener('DOMContentLoaded', function() {
         var sjhTitle = document.getElementById('sjh-title');
         if (sjhTitle) sjhTitle.textContent = job.title;
 
+        // Populate sharing links
+        var url = encodeURIComponent(window.location.href);
+        var shareTitle = encodeURIComponent("Check out this job: " + job.title + " at Covenant Crest Group");
+        var wa = document.getElementById('share-wa');
+        if (wa) wa.href = 'https://wa.me/?text=' + shareTitle + '%20' + url;
+        var li = document.getElementById('share-li');
+        if (li) li.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+        var mail = document.getElementById('share-mail');
+        if (mail) mail.href = 'mailto:?subject=' + shareTitle + '&body=View the job listing here: ' + url;
+
         
         var roleNameEl = document.getElementById('if-role-name');
         if (roleNameEl) roleNameEl.textContent = job.title + (job.location ? ' — ' + job.location : '');
@@ -295,6 +305,40 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             showApplyForm();
         });
+    }
+
+    // ── Share Logic ──────────────────────────────
+    function updateShareLinks(job) {
+        var url = encodeURIComponent(window.location.href);
+        var title = encodeURIComponent("Check out this job: " + job.title + " at Covenant Crest Group");
+        
+        var wa = document.getElementById('share-wa');
+        if (wa) wa.href = 'https://wa.me/?text=' + title + '%20' + url;
+        
+        var li = document.getElementById('share-li');
+        if (li) li.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+        
+        var mail = document.getElementById('share-mail');
+        if (mail) mail.href = 'mailto:?subject=' + title + '&body=View the job listing here: ' + url;
+    }
+
+    var copyBtn = document.getElementById('share-copy');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                var msg = document.getElementById('copy-msg');
+                if (msg) {
+                    msg.classList.add('show');
+                    setTimeout(function() { msg.classList.remove('show'); }, 2000);
+                }
+            });
+        });
+    }
+
+    // Call updateShareLinks once job is loaded
+    if (_currentJob) updateShareLinks(_currentJob);
+    else {
+        // If job is still loading, we'll call it inside the CCA.jobs.get().then() block
     }
 });
 

@@ -53,6 +53,16 @@ nav .nav-cta { display: none; }
 .ph-meta{display:flex;flex-wrap:wrap;gap:12px;}
 .ph-meta-item{background:rgba(255,255,255,.1);color:#fff;padding:6px 12px;border-radius:4px;font-size:12px;font-weight:500;}
 
+/* SHARE BUTTONS */
+.ph-share{display:flex;align-items:center;gap:10px;margin-top:24px;}
+.ph-share-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-right:4px;}
+.share-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.12);cursor:pointer;}
+.share-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:translateY(-2px);}
+.share-btn svg{width:14px;height:14px;fill:currentColor;}
+.share-copy-msg{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:var(--gold);padding:10px 20px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:.1em;box-shadow:0 4px 20px rgba(0,0,0,.3);display:none;z-index:9000;}
+.share-copy-msg.show{display:block;animation:fadeInUp .3s ease;}
+@keyframes fadeInUp{from{opacity:0;transform:translate(-50%,20px);}to{opacity:1;transform:translate(-50%,0);}}
+
 /* SECTIONS */
 .sec{padding:80px 48px;}
 .sec-wh{background:#fff;}
@@ -182,6 +192,23 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <div class="ph-meta-item" id="job-pay">Pay</div>
         <div class="ph-meta-item" id="job-expiry" style="background:var(--danger); display:none;">Expired</div>
       </div>
+
+      <div class="ph-share">
+        <span class="ph-share-label">Share This Role</span>
+        <a href="#" id="share-wa" target="_blank" class="share-btn" title="Share on WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+        </a>
+        <a href="#" id="share-li" target="_blank" class="share-btn" title="Share on LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+        <a href="#" id="share-mail" class="share-btn" title="Share via Email">
+          <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 8.138h-18.745l5.479-8.133zm8.23-1.259l4.594-3.722v9.452l-4.594-5.73z"/></svg>
+        </a>
+        <button id="share-copy" class="share-btn" title="Copy Link">
+          <svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg>
+        </button>
+      </div>
+      <div id="copy-msg" class="share-copy-msg">Link copied to clipboard!</div>
 
     </div>
   </section>
