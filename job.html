@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Job Details | Covenant Crest Group Ltd</title>
-<meta name="description" content="View job details and apply for a role with Covenant Crest Group Ltd.">
+<meta name="description" id="meta-desc" content="View job details and apply for a role with Covenant Crest Group Ltd.">
+<meta name="keywords" id="meta-keywords" content="recruitment, jobs, career">
+
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -53,7 +55,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .job-detail-grid{display:grid;grid-template-columns:1fr;gap:40px;}
 .jd-block{margin-bottom:32px;}
 .jd-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:12px;}
-.jd-body{font-size:15px;color:var(--charcoal);line-height:1.8;white-space:pre-wrap;}
+.jd-body{font-size:15px;color:var(--charcoal);line-height:1.8;}
+.jd-body ul, .jd-req-body ul{margin-left:20px; margin-bottom:15px;}
+.jd-body li, .jd-req-body li{margin-bottom:5px;}
+.jd-body p{margin-bottom:12px;}
+
 .jd-req{background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--gold);margin-bottom:32px;}
 .jd-req-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
 .jd-req-body{font-size:14px;color:var(--charcoal);line-height:1.7;}
@@ -161,7 +167,9 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <div class="ph-meta-item" id="job-location">&#x1F4CD; Location</div>
         <div class="ph-meta-item" id="job-type">Type</div>
         <div class="ph-meta-item" id="job-pay">Pay</div>
+        <div class="ph-meta-item" id="job-expiry" style="background:var(--danger); display:none;">Expired</div>
       </div>
+
     </div>
   </section>
 

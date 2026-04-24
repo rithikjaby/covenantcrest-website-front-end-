@@ -143,8 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
         _currentJob = job;
         document.title = job.title + ' | Covenant Crest Recruitment';
         
-        var metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', (job.desc || '').substring(0, 160) + '...');
+        var metaDesc = document.getElementById('meta-desc');
+        if (metaDesc) metaDesc.setAttribute('content', job.seoDesc || (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160) + '...');
+        
+        var metaKeywords = document.getElementById('meta-keywords');
+        if (metaKeywords && job.seoKeywords) metaKeywords.setAttribute('content', job.seoKeywords);
+
         
         var sectorEl = document.getElementById('job-sector');
         if (sectorEl) sectorEl.textContent = sectorLabel[job.sector] || job.sector;
@@ -162,17 +166,34 @@ document.addEventListener('DOMContentLoaded', function() {
         if (payEl) payEl.textContent = job.pay;
         
         var descEl = document.getElementById('job-desc');
-        if (descEl) descEl.textContent = job.desc;
+        if (descEl) descEl.innerHTML = job.desc || '';
+
         
         var roleNameEl = document.getElementById('if-role-name');
         if (roleNameEl) roleNameEl.textContent = job.title + (job.location ? ' — ' + job.location : '');
         
         if (job.req) {
             var reqEl = document.getElementById('job-req');
-            if (reqEl) reqEl.textContent = job.req;
+            if (reqEl) reqEl.innerHTML = job.req;
             var reqContainer = document.getElementById('job-req-container');
             if (reqContainer) reqContainer.style.display = 'block';
         }
+
+        // Handle Expiry
+        if (job.closingDate) {
+            var isExpired = new Date(job.closingDate) < new Date().setHours(0,0,0,0);
+            if (isExpired) {
+                var expEl = document.getElementById('job-expiry');
+                if (expEl) expEl.style.display = 'inline-block';
+                var applyBtn = document.getElementById('apply-btn');
+                if (applyBtn) {
+                    applyBtn.disabled = true;
+                    applyBtn.textContent = 'This application has closed';
+                    applyBtn.style.opacity = '0.5';
+                }
+            }
+        }
+
 
         // Schema.org
         var schema = {

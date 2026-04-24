@@ -36,6 +36,14 @@ var authRole  = sessionStorage.getItem('cc_role') || 'employee';
 var authEmail = sessionStorage.getItem('cc_email')|| 'Staff';
 var isSA      = (authRole === 'superadmin');
 
+// Quill instances
+var qDesc, qReq;
+
+// Pagination
+var _jobsPage = 1, _jobsPerPage = 10;
+var _filteredJobs = [];
+
+
 // Redirect to login if no token — use setTimeout to let functions define first
 if (!jwt) {
   document.body.style.display = 'none';
@@ -56,7 +64,19 @@ window.addEventListener('DOMContentLoaded', function() {
     sbRoleBadge.style.color       = isSA ? 'var(--gold)'        : '#2B8A9C';
   }
 
+  // Initialize Quill
+  if (typeof Quill !== 'undefined') {
+    var toolbarOptions = [
+      ['bold', 'italic', 'underline'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['clean']
+    ];
+    qDesc = new Quill('#j-desc-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+    qReq  = new Quill('#j-req-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+  }
+
   if (isSA) {
+
     document.querySelectorAll('.sa-only').forEach(function(el) { el.style.display = 'flex'; });
   }
   
@@ -99,12 +119,29 @@ window.addEventListener('DOMContentLoaded', function() {
       exportCSV('contacts');
     });
   }
-  var contactsSearch = document.getElementById('contacts-search');
-  if (contactsSearch) {
-    contactsSearch.addEventListener('input', function() {
-      filterContacts();
     });
   }
+
+  // Jobs Search/Filter
+  var jobsSearch = document.getElementById('jobs-search');
+  if (jobsSearch) jobsSearch.addEventListener('input', function() { _jobsPage = 1; filterJobs(); });
+  var jobsSectorFilter = document.getElementById('jobs-sector-filter');
+  if (jobsSectorFilter) jobsSectorFilter.addEventListener('change', function() { _jobsPage = 1; filterJobs(); });
+  var jobsStatusFilter = document.getElementById('jobs-status-filter');
+  if (jobsStatusFilter) jobsStatusFilter.addEventListener('change', function() { _jobsPage = 1; filterJobs(); });
+  var selectAllJobs = document.getElementById('selectAllJobs');
+  if (selectAllJobs) selectAllJobs.addEventListener('click', function() { toggleAllJobs(this); });
+
+  // Jobs Bulk Actions
+  var bulkActivateJobsBtn = document.getElementById('bulkActivateJobsBtn');
+  if (bulkActivateJobsBtn) bulkActivateJobsBtn.addEventListener('click', function() { bulkJobsAction('active'); });
+  var bulkDeactivateJobsBtn = document.getElementById('bulkDeactivateJobsBtn');
+  if (bulkDeactivateJobsBtn) bulkDeactivateJobsBtn.addEventListener('click', function() { bulkJobsAction('inactive'); });
+  var bulkDeleteJobsBtn = document.getElementById('bulkDeleteJobsBtn');
+  if (bulkDeleteJobsBtn) bulkDeleteJobsBtn.addEventListener('click', function() { bulkJobsAction('delete'); });
+
+  // Contacts
+
 
   // Applications
   var exportAppsCSV = document.getElementById('exportAppsCSV');
@@ -250,9 +287,27 @@ window.addEventListener('DOMContentLoaded', function() {
         case 'delete-user':
           deleteUser(rowId);
           break;
+        case 'filter-apps-by-job':
+          showTab('applications', document.getElementById('sb-apps'));
+          var appSearchInput = document.getElementById('apps-search');
+          if (appSearchInput) {
+            appSearchInput.value = rowId; // rowId here is job title
+            filterApps();
+          }
+          break;
       }
     });
   });
+
+  // Checkboxes delegation
+  ['jobs-tbody'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', function(e) {
+      if (e.target.matches('.job-cb')) updateBulkJobsToolbar();
+    });
+  });
+
 
   var jSaveBtn = document.getElementById('j-save-btn');
   if (jSaveBtn) {
@@ -300,14 +355,21 @@ function openJobModal(job) {
   document.getElementById('j-type').value    = isEdit ? job.type     : 'full-time';
   document.getElementById('j-location').value= isEdit ? job.location : '';
   document.getElementById('j-status').value  = isEdit ? job.status   : 'active';
-  document.getElementById('j-desc').value    = isEdit ? (job.desc || '') : '';
-  document.getElementById('j-req').value     = isEdit ? (job.req  || '') : '';
+  document.getElementById('j-location').value= isEdit ? job.location : '';
+  document.getElementById('j-closing-date').value = (isEdit && job.closingDate) ? job.closingDate : '';
+  document.getElementById('j-seo-keywords').value = (isEdit && job.seoKeywords) ? job.seoKeywords : '';
+  document.getElementById('j-seo-desc').value = (isEdit && job.seoDesc) ? job.seoDesc : '';
+  
+  if (qDesc) qDesc.root.innerHTML = isEdit ? (job.desc || '') : '';
+  if (qReq)  qReq.root.innerHTML  = isEdit ? (job.req  || '') : '';
+
   document.getElementById('j-err').classList.remove('show');
   var prev = document.getElementById('j-img-preview');
   prev.src = (isEdit && job.imageUrl) ? job.imageUrl : '';
   prev.className = (isEdit && job.imageUrl) ? 'img-preview show' : 'img-preview';
   document.getElementById('jobModal').classList.add('open');
 }
+
 
 function openUserModal() {
   if (!isSA) { showToast('Super Admin only', 'er'); return; }
@@ -353,33 +415,111 @@ function loadJobs(cb) {
   apiFetch('/jobs/all').then(function(data) {
     if (!data) return;
     _jobs = Array.isArray(data) ? data : [];
-    renderJobs();
+    filterJobs();
     renderDashJobs();
     updateStats();
     if (cb) cb();
   }).catch(function() { showApiOffline(); });
 }
 
+function filterJobs() {
+  var q      = (document.getElementById('jobs-search')?.value || '').toLowerCase();
+  var sector = (document.getElementById('jobs-sector-filter')?.value || '').toLowerCase();
+  var status = (document.getElementById('jobs-status-filter')?.value || '').toLowerCase();
+
+  _filteredJobs = _jobs.filter(function(j) {
+    var matchQ      = !q      || j.title.toLowerCase().includes(q) || (j.location||'').toLowerCase().includes(q);
+    var matchSector = !sector || j.sector === sector;
+    var matchStatus = !status || j.status === status;
+    return matchQ && matchSector && matchStatus;
+  });
+  renderJobs();
+}
+
 function renderJobs() {
   var tbody = document.getElementById('jobs-tbody');
   if (!tbody) return;
-  if (!_jobs.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No job listings yet. Click "Add New Job" to get started.</td></tr>'; return; }
-  tbody.innerHTML = _jobs.map(function(j) {
+  
+  if (!_filteredJobs.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No job listings found matching your filters.</td></tr>';
+    document.getElementById('jobs-pagination').innerHTML = '';
+    return;
+  }
+
+  // Pagination
+  var total = _filteredJobs.length;
+  var pages = Math.ceil(total / _jobsPerPage);
+  var start = (_jobsPage - 1) * _jobsPerPage;
+  var slice = _filteredJobs.slice(start, start + _jobsPerPage);
+
+  tbody.innerHTML = slice.map(function(j) {
+    var appCount = _apps.filter(function(a){ return a.job_id === j.id || (a.job_title === j.title && !a.job_id); }).length;
+    var isExpired = j.closingDate && new Date(j.closingDate) < new Date().setHours(0,0,0,0);
+    
     return '<tr>' +
+      '<td><input type="checkbox" class="job-cb" value="' + j.id + '"></td>' +
       '<td class="td-name">' + esc(j.title) + (j.imageUrl ? ' <span title="Has image" style="color:var(--gold);">🖼</span>' : '') + '</td>' +
       '<td><span class="pill ' + (sectorPill[j.sector] || 'p-read') + '">' + esc(sectorLabel[j.sector] || j.sector) + '</span></td>' +
+      '<td><span class="pill ' + (appCount > 0 ? 'p-haulage' : 'p-read') + '" style="cursor:pointer;" data-id="' + esc(j.title) + '" data-action="filter-apps-by-job">' + appCount + '</span></td>' +
       '<td>' + esc(j.location) + '</td>' +
       '<td class="td-muted">' + esc(typeLabel[j.type] || j.type) + '</td>' +
       '<td style="font-weight:600;">' + esc(j.pay) + '</td>' +
-      '<td><span class="pill ' + (j.status === 'active' ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span></td>' +
-      '<td class="td-muted">' + fmtDate(j.posted) + '</td>' +
+      '<td>' + 
+        '<span class="pill ' + (j.status === 'active' ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span>' +
+        (isExpired ? '<br><span class="pill p-rejected" style="margin-top:4px; font-size:8px;">Expired</span>' : '') +
+      '</td>' +
       '<td style="white-space:nowrap;">' +
         '<button class="btn-sm pr" data-id="' + j.id + '" data-action="edit-job" style="margin-right:4px;">Edit</button>' +
-        '<button class="btn-sm ' + (j.status === 'active' ? 'dn' : 'sc') + '" data-id="' + j.id + '" data-action="toggle-job" style="margin-right:4px;">' + (j.status === 'active' ? 'Deactivate' : 'Activate') + '</button>' +
         '<button class="btn-sm dn" data-id="' + j.id + '" data-action="delete-job">Delete</button>' +
       '</td></tr>';
   }).join('');
+
+  // Render Pagination
+  var pagHtml = '';
+  if (pages > 1) {
+    for (var i = 1; i <= pages; i++) {
+      pagHtml += '<button class="btn-sm ' + (i === _jobsPage ? 'pr' : 'sc') + '" onclick="_jobsPage=' + i + ';renderJobs();">' + i + '</button>';
+    }
+  }
+  document.getElementById('jobs-pagination').innerHTML = pagHtml;
+  updateBulkJobsToolbar();
 }
+
+function toggleAllJobs(cb) {
+  document.querySelectorAll('.job-cb').forEach(function(el) { el.checked = cb.checked; });
+  updateBulkJobsToolbar();
+}
+
+function updateBulkJobsToolbar() {
+  var checked = document.querySelectorAll('.job-cb:checked').length;
+  var tb = document.getElementById('jobs-bulk-toolbar');
+  if (tb) {
+    tb.style.display = checked > 0 ? 'flex' : 'none';
+    var cnt = document.getElementById('jobs-bulk-count');
+    if (cnt) cnt.textContent = checked;
+    if (checked === 0) {
+      var selectAll = document.getElementById('selectAllJobs');
+      if (selectAll) selectAll.checked = false;
+    }
+  }
+}
+
+function bulkJobsAction(action) {
+  var ids = Array.from(document.querySelectorAll('.job-cb:checked')).map(function(el) { return el.value; });
+  if (!ids.length) return;
+  if (action === 'delete' && !confirm('Delete ' + ids.length + ' jobs?')) return;
+  
+  var promises = ids.map(function(id) {
+    if (action === 'delete') return apiFetch('/jobs/' + id, { method: 'DELETE' });
+    return apiFetch('/jobs/' + id, { method: 'PUT', body: JSON.stringify({ status: action }) });
+  });
+
+  Promise.all(promises).then(function() {
+    showToast('Updated ' + ids.length + ' jobs', 'ok');
+    loadJobs();
+  });
+}
+
 
 function renderDashJobs() {
   var tbody = document.getElementById('dash-jobs-tbody');
@@ -414,9 +554,13 @@ function saveJob() {
     type     : document.getElementById('j-type').value,
     location : document.getElementById('j-location').value.trim(),
     status   : document.getElementById('j-status').value,
-    desc     : document.getElementById('j-desc').value.trim(),
-    req      : document.getElementById('j-req').value.trim(),
+    closingDate : document.getElementById('j-closing-date').value,
+    seoKeywords : document.getElementById('j-seo-keywords').value.trim(),
+    seoDesc     : document.getElementById('j-seo-desc').value.trim(),
+    desc        : qDesc ? qDesc.root.innerHTML : '',
+    req         : qReq ? qReq.root.innerHTML : ''
   };
+
 
   // Handle image
   var imgFile = document.getElementById('j-image').files[0];
