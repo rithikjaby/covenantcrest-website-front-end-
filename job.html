@@ -77,6 +77,21 @@ nav .nav-cta { display: none; }
 .jd-body li, .jd-req-body li{margin-bottom:5px;}
 .jd-body p{margin-bottom:12px;}
 
+/* BOTTOM PILL SHARE BUTTONS */
+.jd-share-bottom{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.jds-title{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px;}
+.jds-flex{display:flex;flex-wrap:wrap;gap:12px;}
+.jds-pill{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600;transition:transform .2s, filter .2s;cursor:pointer;border:none;}
+.jds-pill:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.jds-pill svg{width:16px;height:16px;fill:currentColor;}
+
+.jds-fb{background:#3b5998;}
+.jds-li{background:#0077b5;}
+.jds-x{background:#000000;}
+.jds-wa{background:#25D366;}
+.jds-mail{background:#2c2c2c;}
+@media(max-width:600px){.jds-flex{flex-direction:column;}.jds-pill{width:100%;justify-content:center;}}
+
 .jd-req{background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--gold);margin-bottom:32px;}
 .jd-req-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
 .jd-req-body{font-size:14px;color:var(--charcoal);line-height:1.7;}
@@ -229,6 +244,33 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <div class="apply-box-title">Interested in this role?</div>
           <div class="apply-box-desc">Apply securely online. A consultant will contact you within 24 hours.</div>
           <button class="btn-gold" id="apply-btn" aria-label="Apply for this role">Apply for This Role &#8594;</button>
+        </div>
+
+        <!-- NEW BOTTOM SHARE SECTION -->
+        <div class="jd-share-bottom">
+          <div class="jds-title">Share this job</div>
+          <div class="jds-flex">
+            <a href="#" id="jds-fb" target="_blank" class="jds-pill jds-fb">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a href="#" id="jds-wa" target="_blank" class="jds-pill jds-wa">
+              <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+              WhatsApp
+            </a>
+            <a href="#" id="jds-li" target="_blank" class="jds-pill jds-li">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+            <a href="#" id="jds-x" target="_blank" class="jds-pill jds-x">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Post
+            </a>
+            <a href="#" id="jds-mail" class="jds-pill jds-mail">
+              <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 8.138h-18.745l5.479-8.133zm8.23-1.259l4.594-3.722v9.452l-4.594-5.73z"/></svg>
+              Email
+            </a>
+          </div>
         </div>
       </div>
 

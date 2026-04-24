@@ -181,6 +181,18 @@ document.addEventListener('DOMContentLoaded', function() {
         var mail = document.getElementById('share-mail');
         if (mail) mail.href = 'mailto:?subject=' + shareTitle + '&body=View the job listing here: ' + url;
 
+        // Bottom Pills
+        var fbB = document.getElementById('jds-fb');
+        if (fbB) fbB.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+        var waB = document.getElementById('jds-wa');
+        if (waB) waB.href = 'https://wa.me/?text=' + shareTitle + '%20' + url;
+        var liB = document.getElementById('jds-li');
+        if (liB) liB.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+        var xB  = document.getElementById('jds-x');
+        if (xB)  xB.href  = 'https://twitter.com/intent/tweet?text=' + shareTitle + '&url=' + url;
+        var mailB = document.getElementById('jds-mail');
+        if (mailB) mailB.href = 'mailto:?subject=' + shareTitle + '&body=View the job listing here: ' + url;
+
         
         var roleNameEl = document.getElementById('if-role-name');
         if (roleNameEl) roleNameEl.textContent = job.title + (job.location ? ' — ' + job.location : '');
@@ -320,6 +332,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         var mail = document.getElementById('share-mail');
         if (mail) mail.href = 'mailto:?subject=' + title + '&body=View the job listing here: ' + url;
+
+        // Bottom Pills
+        var fbB = document.getElementById('jds-fb');
+        if (fbB) fbB.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+        var waB = document.getElementById('jds-wa');
+        if (waB) waB.href = 'https://wa.me/?text=' + title + '%20' + url;
+        var liB = document.getElementById('jds-li');
+        if (liB) liB.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+        var xB  = document.getElementById('jds-x');
+        if (xB)  xB.href  = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
+        var mailB = document.getElementById('jds-mail');
+        if (mailB) mailB.href = 'mailto:?subject=' + title + '&body=View the job listing here: ' + url;
     }
 
     var copyBtn = document.getElementById('share-copy');
