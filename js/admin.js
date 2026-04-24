@@ -248,7 +248,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // Event Delegation for Dynamic Tables
-  var tbodies = ['jobs-tbody', 'dash-jobs-tbody', 'contacts-tbody', 'dash-contacts-tbody', 'apps-tbody', 'users-tbody'];
+  var tbodies = ['jobs-tbody', 'dash-jobs-tbody', 'contacts-tbody', 'dash-contacts-tbody', 'apps-tbody', 'users-tbody', 'talent-tbody', 'planner-tbody'];
   tbodies.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -472,9 +472,12 @@ function loadJobs(cb) {
 }
 
 function filterJobs() {
-  var q      = (document.getElementById('jobs-search')?.value || '').toLowerCase();
-  var sector = (document.getElementById('jobs-sector-filter')?.value || '').toLowerCase();
-  var status = (document.getElementById('jobs-status-filter')?.value || '').toLowerCase();
+  var qInput = document.getElementById('jobs-search');
+  var sInput = document.getElementById('jobs-sector-filter');
+  var stInput = document.getElementById('jobs-status-filter');
+  var q      = (qInput ? qInput.value : '').toLowerCase();
+  var sector = (sInput ? sInput.value : '').toLowerCase();
+  var status = (stInput ? stInput.value : '').toLowerCase();
 
   _filteredJobs = _jobs.filter(function(j) {
     var matchQ      = !q      || j.title.toLowerCase().includes(q) || (j.location||'').toLowerCase().includes(q);
@@ -999,8 +1002,10 @@ function bulkEmail() {
 function renderTalentPool() {
   var tbody = document.getElementById('talent-tbody');
   if (!tbody) return;
-  var q = (document.getElementById('talent-search')?.value || '').toLowerCase();
-  var sector = (document.getElementById('talent-sector-filter')?.value || '').toLowerCase();
+  var qInput = document.getElementById('talent-search');
+  var sInput = document.getElementById('talent-sector-filter');
+  var q = (qInput ? qInput.value : '').toLowerCase();
+  var sector = (sInput ? sInput.value : '').toLowerCase();
   
   var filtered = _apps.filter(function(a) {
     var text = (a.first_name + ' ' + a.last_name + ' ' + a.email + ' ' + (a.notes||'')).toLowerCase();
@@ -1178,9 +1183,12 @@ function filterContacts() {
 }
 
 function filterApps() {
-  var q      = (document.getElementById('apps-search')?.value || '').toLowerCase();
-  var status = (document.getElementById('apps-status-filter')?.value || '').toLowerCase();
-  var sector = (document.getElementById('apps-sector-filter')?.value || '').toLowerCase();
+  var qInput = document.getElementById('apps-search');
+  var sInput = document.getElementById('apps-status-filter');
+  var scInput = document.getElementById('apps-sector-filter');
+  var q      = (qInput ? qInput.value : '').toLowerCase();
+  var status = (sInput ? sInput.value : '').toLowerCase();
+  var sector = (scInput ? scInput.value : '').toLowerCase();
   var rows   = document.querySelectorAll('#apps-tbody tr:not(.empty-row)');
   var shown  = 0;
   rows.forEach(function(row) {
