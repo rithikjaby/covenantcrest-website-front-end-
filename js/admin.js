@@ -119,8 +119,6 @@ window.addEventListener('DOMContentLoaded', function() {
       exportCSV('contacts');
     });
   }
-    });
-  }
 
   // Jobs Search/Filter
   var jobsSearch = document.getElementById('jobs-search');
