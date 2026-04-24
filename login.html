@@ -68,6 +68,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 .offline-notice{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.4);border-radius:6px;padding:10px 14px;font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:18px;display:none;}
 .offline-notice.show{display:block;}
 </style>
+<script src="/js/login.js"></script>
 </head>
 <body>
 
@@ -93,7 +94,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 
   <div class="err-banner" id="errBanner"></div>
 
-  <form id="loginForm" onsubmit="doLogin(event)" autocomplete="off" novalidate>
+  <form id="loginForm" autocomplete="off" novalidate>
     <div class="fg">
       <label for="loginEmail">Email Address</label>
       <input type="email" id="loginEmail" name="email" placeholder="you@covenantcrest.co.uk" required autocomplete="username">
@@ -102,7 +103,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
       <label for="loginPwd">Password</label>
       <div class="pw-wrap">
         <input type="password" id="loginPwd" name="password" placeholder="Enter your password" required autocomplete="current-password" minlength="6">
-        <button type="button" class="pw-toggle" aria-label="Toggle password visibility" onclick="togglePw()">👁</button>
+        <button type="button" class="pw-toggle" aria-label="Toggle password visibility">👁</button>
       </div>
     </div>
     <div style="display:none;" aria-hidden="true">
@@ -140,177 +141,6 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
   <a href="/index.html" class="back-link" style="margin-top:18px;">&larr; Back to main site</a>
 </div>
 
-<script>
-'use strict';
-// ================================================================
-// COVENANT CREST — STAFF LOGIN  v2.0
-// ----------------------------------------------------------------
-// Calls POST /api/auth/login on the real backend (server.js v2).
-// /api/* is proxied via netlify.toml → Render.com.
-// On success, stores JWT + role + email in sessionStorage.
-// (sessionStorage is cleared automatically when the tab closes.)
-// ================================================================
-
-// If already logged in, skip straight to admin
-if (sessionStorage.getItem('cc_jwt')) {
-  window.location.href = '/admin.html';
-}
-
-window.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('loginEmail').focus();
-});
-
-function togglePw() {
-  var inp = document.getElementById('loginPwd');
-  var btn = document.querySelector('.pw-toggle');
-  if (inp.type === 'password') { inp.type = 'text';     btn.textContent = '🚫'; }
-  else                         { inp.type = 'password'; btn.textContent = '👁';  }
-}
-
-function doLogin(e) {
-  e.preventDefault();
-
-  var email = document.getElementById('loginEmail').value.trim().toLowerCase();
-  var pwd   = document.getElementById('loginPwd').value;
-  var errEl = document.getElementById('errBanner');
-  var btn   = document.getElementById('submitBtn');
-  var label = document.getElementById('btnLabel');
-  var spin  = document.getElementById('btnSpinner');
-
-  errEl.classList.remove('show');
-  document.getElementById('offlineNotice').classList.remove('show');
-
-  if (!email || !pwd) {
-    errEl.textContent = '⚠️ Please enter your email and password.';
-    errEl.classList.add('show');
-    return;
-  }
-
-  // Loading state
-  btn.disabled = true;
-  label.style.display = 'none';
-  spin.style.display  = 'block';
-
-  fetch('/api/auth/login', {
-    method : 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body   : JSON.stringify({ 
-      email: email, 
-      password: pwd, 
-      honeypot: document.getElementById('loginHoneypot').value 
-    }),
-  })
-  .then(function(r) {
-    // If Render cold-start or network error
-    if (!r.ok && r.status === 0) throw new Error('network');
-    return r.json().then(function(data) { return { status: r.status, data: data }; });
-  })
-  .then(function(res) {
-    if (res.status === 200 && res.data.token) {
-      // ── Success — store session ──────────────────────────
-      sessionStorage.setItem('cc_jwt',   res.data.token);
-      sessionStorage.setItem('cc_role',  res.data.role);
-      sessionStorage.setItem('cc_email', res.data.email);
-      window.location.href = '/admin.html';
-    } else if (res.status === 429) {
-      startCooldown(60);
-      showError('⚠️ Too many attempts. Please wait 60 seconds.');
-      resetBtn();
-    } else {
-      showError('⚠️ ' + (res.data.error || 'Incorrect email or password.'));
-      resetBtn();
-    }
-  })
-  .catch(function(err) {
-    console.error('Login fetch error:', err);
-    // Likely Render cold-start — show the offline notice
-    document.getElementById('offlineNotice').classList.add('show');
-    showError('⚠️ Could not reach the server. If this is the first login in a while, Render.com free tier takes ~60 seconds to wake up. Please wait and try again.');
-    resetBtn();
-  });
-}
-
-function showError(msg) {
-  var el = document.getElementById('errBanner');
-  el.textContent = msg;
-  el.classList.add('show');
-}
-
-function resetBtn() {
-  var btn   = document.getElementById('submitBtn');
-  var label = document.getElementById('btnLabel');
-  var spin  = document.getElementById('btnSpinner');
-  if (!btn.disabled) {
-    label.style.display = 'block';
-    spin.style.display  = 'none';
-  }
-  document.getElementById('loginPwd').value = '';
-  document.getElementById('loginPwd').focus();
-}
-
-function startCooldown(seconds) {
-  var btn = document.getElementById('submitBtn');
-  var label = document.getElementById('btnLabel');
-  btn.disabled = true;
-  var timer = setInterval(function() {
-    seconds--;
-    label.textContent = 'Wait ' + seconds + 's...';
-    if (seconds <= 0) {
-      clearInterval(timer);
-      btn.disabled = false;
-      label.textContent = 'Sign In →';
-    }
-  }, 1000);
-}
-
-// ── Zoho SSO — check for error params or token in hash ──────────
-(function() {
-  // Check for error in URL query string
-  var params = new URLSearchParams(window.location.search);
-  var err = params.get('error');
-  var errEl = document.getElementById('ssoError');
-  var ssoBtn = document.getElementById('zohoSSOBtn');
-
-  if (err) {
-    var msgs = {
-      'zoho_cancelled'    : 'Zoho sign-in was cancelled.',
-      'zoho_unauthorised' : 'That Zoho account is not authorised to access the admin panel.',
-      'zoho_token_failed' : 'Zoho authentication failed. Please try again.',
-      'zoho_error'        : 'An error occurred with Zoho sign-in. Please try again.',
-      'zoho_not_configured': 'Zoho SSO is not configured yet. Please use email & password.',
-    };
-    errEl.textContent = msgs[err] || 'Sign-in error: ' + err;
-    errEl.style.display = 'block';
-  }
-
-  // Check if Zoho SSO is available
-  fetch('/api/health').then(function(r){ return r.json(); }).then(function(d){
-    if (!d.zohoSSOConfigured && ssoBtn) {
-      ssoBtn.style.opacity = '.4';
-      ssoBtn.style.pointerEvents = 'none';
-      ssoBtn.title = 'Zoho SSO not configured yet';
-    }
-  }).catch(function(){});
-
-  // Pick up SSO token from URL hash (set by server after successful Zoho login)
-  var hash = window.location.hash;
-  if (hash && hash.indexOf('sso=') !== -1) {
-    var token = hash.replace('#sso=', '');
-    if (token) {
-      // Decode JWT to get role/email
-      try {
-        var payload = JSON.parse(atob(token.split('.')[1]));
-        sessionStorage.setItem('cc_jwt',   token);
-        sessionStorage.setItem('cc_role',  payload.role  || 'superadmin');
-        sessionStorage.setItem('cc_email', payload.email || '');
-        window.location.href = '/admin.html';
-      } catch(e) {
-        showError('SSO token error. Please try again.');
-      }
-    }
-  }
-})();
-</script>
 </body>
 </html>
 

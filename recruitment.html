@@ -15,10 +15,8 @@
 <meta property="og:description" content="Browse live care, security and warehouse jobs. Register as a candidate or hire staff with Covenant Crest Group Ltd.">
 <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
 <meta name="twitter:card" content="summary_large_image">
-<script>
-window.__GA_ID="G-XXXXXXXXXX";window.__gaLoaded=false;
-function loadGA4(){if(window.__gaLoaded)return;window.__gaLoaded=true;var s=document.createElement("script");s.src="https://www.googletagmanager.com/gtag/js?id="+window.__GA_ID;s.async=true;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag("js",new Date());gtag("config",window.__GA_ID,{anonymize_ip:true});}
-</script>
+<script src="/js/common.js"></script>
+<script src="/js/recruitment.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -227,6 +225,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   .apply-wrap{gap:24px;}
   .ft-main{grid-template-columns:1fr;gap:24px;}
 }
+   #wa-btn:hover{transform:scale(1.1)!important;}
 </style>
 </head>
 <body>
@@ -265,11 +264,11 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
 <!-- SECTOR TABS -->
 <div class="sector-bar">
-  <button class="sbt act" id="sbt-all"       onclick="filterSector('',this)">All Sectors</button>
-  <button class="sbt"     id="sbt-care"      onclick="filterSector('care',this)">&#x1F3E5;&nbsp; Healthcare</button>
-  <button class="sbt"     id="sbt-security"  onclick="filterSector('security',this)">&#x1F512;&nbsp; Security</button>
-  <button class="sbt"     id="sbt-warehouse" onclick="filterSector('warehouse',this)">&#x1F4E6;&nbsp; Warehouse</button>
-  <button class="sbt"     id="sbt-construction" onclick="filterSector('construction',this)">&#x1F3D7;&nbsp; Construction</button>
+  <button class="sbt act" id="sbt-all"       data-sector="">All Sectors</button>
+  <button class="sbt"     id="sbt-care"      data-sector="care">&#x1F3E5;&nbsp; Healthcare</button>
+  <button class="sbt"     id="sbt-security"  data-sector="security">&#x1F512;&nbsp; Security</button>
+  <button class="sbt"     id="sbt-warehouse" data-sector="warehouse">&#x1F4E6;&nbsp; Warehouse</button>
+  <button class="sbt"     id="sbt-construction" data-sector="construction">&#x1F3D7;&nbsp; Construction</button>
 </div>
 
 <!-- SECTOR HIGHLIGHTS -->
@@ -291,7 +290,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <div class="sc-role">Senior Carers &amp; Team Leaders</div>
             <div class="sc-role">Healthcare Assistants (HCA)</div>
           </div>
-          <button class="sc-cta" onclick="filterSector('care',null)">View Healthcare Jobs &#8594;</button>
+          <button class="sc-cta" data-sector="care">View Healthcare Jobs &#8594;</button>
         </div>
       </div>
       <div class="sc-card rv d1">
@@ -306,7 +305,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <div class="sc-role">CCTV Operators (SIA Licensed)</div>
             <div class="sc-role">Static &amp; Mobile Patrol Guards</div>
           </div>
-          <button class="sc-cta" onclick="filterSector('security',null)">View Security Jobs &#8594;</button>
+          <button class="sc-cta" data-sector="security">View Security Jobs &#8594;</button>
         </div>
       </div>
       <div class="sc-card rv d2">
@@ -321,7 +320,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <div class="sc-role">Goods-In / Despatch Operatives</div>
             <div class="sc-role">Warehouse Supervisors</div>
           </div>
-          <button class="sc-cta" onclick="filterSector('warehouse',null)">View Warehouse Jobs &#8594;</button>
+          <button class="sc-cta" data-sector="warehouse">View Warehouse Jobs &#8594;</button>
         </div>
       </div>
       <div class="sc-card rv d3">
@@ -336,7 +335,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <div class="sc-role">Site Security &amp; Traffic Marshals</div>
             <div class="sc-role">Electricians &amp; Plumbers</div>
           </div>
-          <button class="sc-cta" onclick="filterSector('construction',null)">View Construction Jobs &#8594;</button>
+          <button class="sc-cta" data-sector="construction">View Construction Jobs &#8594;</button>
         </div>
       </div>
     </div>
@@ -350,15 +349,15 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     <h2 class="s-title rv"><em>Live Jobs</em> Available Now</h2>
     <p class="s-lead rv">All roles actively being filled. Apply via the form below or call <strong>07346 809846</strong> for immediate availability.</p>
     <div class="job-filters rv">
-      <input class="jf-search" id="jf-search" type="text" placeholder="&#128269;  Search jobs&hellip;" oninput="renderJobs()">
-      <select class="jf-sel" id="jf-sector" onchange="renderJobs()">
+      <input class="jf-search" id="jf-search" type="text" placeholder="&#128269;  Search jobs&hellip;">
+      <select class="jf-sel" id="jf-sector">
         <option value="">All Sectors</option>
         <option value="care">Healthcare</option>
         <option value="security">Security</option>
         <option value="warehouse">Warehouse</option>
         <option value="construction">Construction</option>
       </select>
-      <select class="jf-sel" id="jf-type" onchange="renderJobs()">
+      <select class="jf-sel" id="jf-type">
         <option value="">All Types</option>
         <option value="full-time">Full Time</option>
         <option value="part-time">Part Time</option>
@@ -405,7 +404,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <div class="dfc-title">Apply for a Job</div>
         <div class="dfc-sub">A consultant will call you within 24 hours.</div>
         <div class="ok-banner" id="ok-apply">&#x2705; Application received! We&rsquo;ll be in touch within 24 hours.</div>
-        <form name="candidate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleForm(event,'candidate-apply','ok-apply')">
+        <form name="candidate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="candidate-apply-form">
           <input type="hidden" name="form-name" value="candidate-apply">
           <input type="hidden" name="job_title" id="hidden-job-title" value="">
           <input type="hidden" name="job_id" id="hidden-job-id" value="">
@@ -441,14 +440,14 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <div class="dk-fg"><label class="dk-label">Role / Additional Info</label><textarea class="dk-textarea" name="notes" placeholder="Specific role, qualifications (e.g. SIA, DBS, FLT), preferred location&hellip;"></textarea></div>
           <div class="dk-fg">
             <label class="dk-label">Upload CV / Resume <span style="color:rgba(255,255,255,.3);font-size:9px;">(Optional &mdash; PDF, Word or image, max 5MB)</span></label>
-            <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none;" onchange="handleCVSelect(this)">
-            <div id="cv-drop-zone" onclick="document.getElementById('cv-file-input').click()" style="border:1px dashed rgba(201,168,76,.35);border-radius:4px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(201,168,76,.7)'" onmouseout="this.style.borderColor='rgba(201,168,76,.35)'">
+            <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none;">
+            <div id="cv-upload-zone" style="border:1px dashed rgba(201,168,76,.35);border-radius:4px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);transition:border-color .2s;">
               <span style="font-size:22px;">&#x1F4CE;</span>
               <div style="flex:1;">
                 <div id="cv-label" style="font-size:12px;color:rgba(255,255,255,.55);">Click to choose file or drag &amp; drop here</div>
                 <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;">PDF, Word (.doc/.docx), or image &mdash; max 5 MB</div>
               </div>
-              <span id="cv-clear-btn" onclick="clearCV(event)" style="display:none;color:rgba(226,75,74,.8);font-size:18px;padding:4px 8px;" title="Remove">&#x2715;</span>
+              <span id="cv-clear-btn" style="display:none;color:rgba(226,75,74,.8);font-size:18px;padding:4px 8px;" title="Remove">&#x2715;</span>
             </div>
             <div id="cv-progress" style="display:none;margin-top:6px;">
               <div style="background:rgba(255,255,255,.1);border-radius:2px;height:3px;"><div id="cv-bar" style="background:var(--gold);height:100%;width:0%;transition:width .3s;"></div></div>
@@ -472,14 +471,14 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
 <div class="modal-overlay" id="jobModal">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('jobModal').classList.remove('open')">&#x2715;</button>
+    <button class="modal-close">&#x2715;</button>
     <div class="m-sector" id="m-sector"></div>
     <div class="m-title"  id="m-title"></div>
     <div class="m-meta"   id="m-meta"></div>
     <div class="m-pay"    id="m-pay"></div>
     <div class="m-body"   id="m-body"></div>
     <div class="m-req"    id="m-req"></div>
-    <button class="m-apply-btn" onclick="applyForJob()">Apply for This Role &#8594;</button>
+    <button class="m-apply-btn">Apply for This Role &#8594;</button>
   </div>
 </div>
 
@@ -526,261 +525,20 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 <div id="cc-bar">
   <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
   <div class="cc-btns">
-    <button class="cc-no" onclick="setCookie('decline')">Decline</button>
-    <button class="cc-ok" onclick="setCookie('accept')">Accept All</button>
+    <button class="cc-no">Decline</button>
+    <button class="cc-ok">Accept All</button>
   </div>
 </div>
 
 <!-- WhatsApp floating button -->
 <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
    target="_blank" rel="noopener noreferrer"
+   id="wa-btn"
    style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
-   aria-label="Chat on WhatsApp"
-   onmouseover="this.style.transform='scale(1.1)'"
-   onmouseout="this.style.transform='scale(1)'">
+   aria-label="Chat on WhatsApp">
   <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z" fill="#fff"/><path d="M21.5 18.8c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="#25D366"/></svg>
 </a>
 
-<script>
-/* ── LIVE JOBS FROM API ──────────────────────────────── */
-var JOBS = [];  // populated from /api/jobs on load
-var sectorLabel = {care:'Healthcare',security:'Security',warehouse:'Warehouse'};
-var activeSector = '';
-
-function loadJobsFromAPI() {
-  fetch('/api/jobs')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(Array.isArray(data) && data.length > 0){
-        JOBS = data;
-      }
-      // Always render after fetch (uses API data if available, empty state if not)
-      renderJobs();
-    })
-    .catch(function(){
-      // API unavailable — show empty state with contact option
-      JOBS = [];
-      renderJobs();
-    });
-}
-
-function esc(s){ return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):''; }
-
-function renderJobs(){
-  var search = (document.getElementById('jf-search').value||'').toLowerCase();
-  var sector = document.getElementById('jf-sector').value || activeSector;
-  var type   = document.getElementById('jf-type').value;
-
-  var filtered = JOBS.filter(function(j){
-    var mSec  = !sector || j.sector===sector;
-    var mType = !type   || j.type===type;
-    var mSrch = !search || (j.title+' '+j.location+' '+(j.desc||'')).toLowerCase().includes(search);
-    return mSec && mType && mSrch;
-  });
-
-  var container = document.getElementById('jobs-container');
-  if(!filtered.length){
-    container.innerHTML='<div style="text-align:center;padding:40px 0;color:var(--muted);"><p style="font-size:13px;">No matching jobs found. <a href="#apply" style="color:var(--gold);">Apply for a role</a> and we\'ll contact you when a suitable role becomes available.</p></div>';
-    return;
-  }
-
-  container.innerHTML='<div class="jobs-grid">'+filtered.map(function(j){
-    return '<a href="/job.html?id='+encodeURIComponent(j.id)+'" class="job-card" style="display:block;text-decoration:none;color:inherit;">'+
-      '<div class="jc-sector">'+(sectorLabel[j.sector]||j.sector)+'</div>'+
-      '<div class="jc-title">'+esc(j.title)+'</div>'+
-      '<div class="jc-meta">'+
-        (j.location?'<span class="jc-tag">&#x1F4CD;&nbsp;'+esc(j.location)+'</span>':'')+
-        (j.type?'<span class="jc-tag">'+esc(j.type)+'</span>':'')+
-      '</div>'+
-      '<div class="jc-pay">'+esc(j.pay)+'</div>'+
-      '<p class="jc-desc" style="color:var(--muted);">'+esc((j.desc||'').substring(0,110))+'&hellip;</p>'+
-      '<div class="jc-btn" style="margin-top:14px;display:inline-block;">View &amp; Apply &#8594;</div>'+
-    '</a>';
-  }).join('')+'</div>';
-}
-
-function filterSector(sector, btn){
-  activeSector=sector;
-  document.querySelectorAll('.sbt').forEach(function(b){b.classList.remove('act');});
-  if(btn){btn.classList.add('act');}
-  else{
-    var map={'':'sbt-all','care':'sbt-care','security':'sbt-security','warehouse':'sbt-warehouse'};
-    var el=document.getElementById(map[sector]);
-    if(el) el.classList.add('act');
-  }
-  document.getElementById('jf-sector').value=sector;
-  renderJobs();
-  document.getElementById('live-jobs').scrollIntoView({behavior:'smooth'});
-}
-
-/* ── HAMBURGER ─────────────────────────────── */
-document.getElementById('navToggle').addEventListener('click',function(){
-  var l=document.getElementById('navLinks'),o=l.classList.toggle('open');
-  this.innerHTML=o?'&#x2715;':'&#x2630;';
-});
-
-/* ── COOKIE ───────────────────────────────── */
-function setCookie(v){localStorage.setItem('cc_consent',v);document.getElementById('cc-bar').classList.remove('show');if(v==='accept')loadGA4();}
-
-/* ── SCROLL REVEAL & INIT ────────────────────────── */
-window.addEventListener('load',function(){
-  if(localStorage.getItem('cc_consent')==='accept') loadGA4();
-  if(!localStorage.getItem('cc_consent')) setTimeout(function(){document.getElementById('cc-bar').classList.add('show');},1400);
-  var obs=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vs');obs.unobserve(e.target);}});},{threshold:.1});
-  document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);el.classList.add('vs');});
-  loadJobsFromAPI();
-  
-  // Contextual Apply - pre-fill form if coming from job.html
-  var params = new URLSearchParams(window.location.search);
-  var jobTitle = params.get('job_title');
-  var jobSector = params.get('sector');
-  var jobId = params.get('job_id');
-  if (jobTitle) {
-    var notesEl = document.querySelector('textarea[name="notes"]');
-    if (notesEl) notesEl.value = 'Applying for: ' + jobTitle;
-    var hiddenTitle = document.getElementById('hidden-job-title');
-    if (hiddenTitle) hiddenTitle.value = jobTitle;
-  }
-  if (jobId) {
-    var hiddenId = document.getElementById('hidden-job-id');
-    if (hiddenId) hiddenId.value = jobId;
-  }
-  if (jobSector) {
-    var sectorEl = document.querySelector('select[name="sector"]');
-    if (sectorEl) {
-      sectorEl.value = jobSector;
-      sectorEl.dispatchEvent(new Event('change'));
-    }
-  }
-});
-
-/* ── CV FILE HANDLING ────────────────────────── */
-var _cvBase64 = null;
-var _cvFileName = null;
-
-function handleCVSelect(input){
-  var file = input.files[0];
-  if(!file) return;
-  if(file.size > 5 * 1024 * 1024){
-    alert('File is too large. Maximum size is 5 MB.');
-    input.value='';
-    return;
-  }
-  _cvFileName = file.name;
-  document.getElementById('cv-label').textContent = '📎 ' + file.name;
-  document.getElementById('cv-label').style.color = 'rgba(255,255,255,.85)';
-  document.getElementById('cv-clear-btn').style.display = 'inline';
-
-  var reader = new FileReader();
-  reader.onload = function(e){
-    _cvBase64 = e.target.result.split(',')[1];
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearCV(e){
-  e.stopPropagation();
-  _cvBase64 = null;
-  _cvFileName = null;
-  document.getElementById('cv-file-input').value = '';
-  document.getElementById('cv-label').textContent = 'Click to choose file or drag & drop here';
-  document.getElementById('cv-label').style.color = 'rgba(255,255,255,.55)';
-  document.getElementById('cv-clear-btn').style.display = 'none';
-  document.getElementById('cv-url-hidden').value = '';
-  document.getElementById('cv-progress').style.display = 'none';
-}
-
-/* ── FORM SUBMISSION — Netlify + API backend ── */
-function handleForm(e, formName, bannerId){
-  e.preventDefault();
-  var form = e.target;
-  var btn  = document.getElementById('apply-submit-btn');
-  if(btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
-
-  /* Step 1: always submit to Netlify Forms (backup + email notification) */
-  var netlifyData = new URLSearchParams(new FormData(form)).toString();
-  fetch('/', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: netlifyData
-  }).catch(function(){ /* Netlify submit failed silently — API is primary */ });
-
-  /* Step 2: build API payload */
-  var fd  = new FormData(form);
-  var payload = {
-    first_name  : fd.get('first_name')   || '',
-    last_name   : fd.get('last_name')    || '',
-    email       : fd.get('email')        || '',
-    phone       : fd.get('phone')        || '',
-    sector      : fd.get('sector')       || '',
-    availability: fd.get('availability') || '',
-    notes       : fd.get('notes')        || '',
-    job_title   : fd.get('job_title')    || '',
-    job_id      : fd.get('job_id')       || '',
-  };
-
-  /* Step 3: upload CV to Cloudinary via backend if file selected */
-  function submitToAPI(cvUrl){
-    if(_cvBase64) payload.cvBase64 = _cvBase64;
-
-    fetch('/api/applications', {
-      method : 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body   : JSON.stringify(payload)
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      document.getElementById(bannerId).classList.add('show');
-      form.reset();
-      clearCV({ stopPropagation: function(){} });
-      if(btn){ btn.disabled = false; btn.textContent = 'Submit Application →'; }
-    })
-    .catch(function(){
-      /* API failed — Netlify backup already submitted, show success */
-      document.getElementById(bannerId).classList.add('show');
-      form.reset();
-      if(btn){ btn.disabled = false; btn.textContent = 'Submit Application →'; }
-    });
-  }
-
-  if(_cvBase64){
-    /* Send base64 directly in the application payload — no separate upload needed */
-    var prog = document.getElementById('cv-progress');
-    var bar  = document.getElementById('cv-bar');
-    var stat = document.getElementById('cv-status');
-    if(prog){ prog.style.display = 'block'; bar.style.width = '60%'; stat.textContent = 'Attaching CV…'; }
-    payload.cvBase64 = _cvBase64;
-    payload.cvFileName = _cvFileName || 'cv';
-    if(bar){ bar.style.width = '100%'; }
-    if(stat){ stat.textContent = 'CV attached ✓'; }
-    submitToAPI('base64');
-  } else {
-    submitToAPI(null);
-  }
-}
-
-/* ── B2B EMPLOYER FORM HANDLER ──────────────────── */
-function handleReqStaff(e){
-  e.preventDefault();
-  var form=e.target;
-  var btn=document.getElementById('rsb-submit-btn');
-  if(btn){btn.disabled=true;btn.textContent='Sending…';}
-  fetch('/',{
-    method:'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams(new FormData(form)).toString()
-  })
-  .then(function(){
-    document.getElementById('ok-req-b2b').classList.add('show');
-    form.reset();
-    if(btn){btn.disabled=false;btn.textContent='Send Employer Enquiry →';}
-  })
-  .catch(function(){
-    alert('Problem submitting. Please email recruitment@covenantcrest.co.uk or call 07346 809846.');
-    if(btn){btn.disabled=false;btn.textContent='Send Employer Enquiry →';}
-  });
-}
-</script>
 </body>
 </html>
 
