@@ -176,6 +176,7 @@ tbody tr:hover{background:#FAFAFA;}
     <div class="asb-sec-label">Settings</div>
     <a class="asb-item" onclick="showTab('settings',this)"><span class="asb-ic">⚙️</span>Settings &amp; Password</a>
     <a class="asb-item sa-only" id="sb-users" onclick="showTab('users',this)" style="display:none;"><span class="asb-ic">👤</span>User Management</a>
+    <a class="asb-item sa-only" id="sb-security" onclick="showTab('security',this)" style="display:none;"><span class="asb-ic">🛡️</span>Security Logs</a>
 
     <div class="asb-sec-label">Website</div>
     <a href="/" class="asb-item" target="_blank"><span class="asb-ic">🏠</span>View Homepage</a>
@@ -374,6 +375,24 @@ tbody tr:hover{background:#FAFAFA;}
           <div class="tbl-hdr"><div class="tbl-title">Accounts</div></div>
           <table><thead><tr><th>Email</th><th>Role</th><th>Created</th><th>Actions</th></tr></thead>
           <tbody id="users-tbody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== SECURITY LOGS (Super Admin only) ===== -->
+      <div class="tab-pane" id="tab-security">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Security Audit Logs</h2>
+          <button class="btn-sm pr" onclick="loadSecurityLogs()">Refresh Logs</button>
+        </div>
+        <div class="info-box" style="margin-bottom:18px;">
+          <h4>🛡️ Protection Overview</h4>
+          <p>The system automatically logs critical security events like failed login attempts and password changes. 
+          Persistent brute-force attempts from a single IP are automatically throttled.</p>
+        </div>
+        <div class="tbl-card">
+          <div class="tbl-hdr"><div class="tbl-title">Recent Events</div></div>
+          <table><thead><tr><th>Time</th><th>Event</th><th>Email</th><th>IP Address</th><th>Details</th></tr></thead>
+          <tbody id="security-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody></table>
         </div>
       </div>
 
@@ -591,10 +610,10 @@ document.querySelectorAll('.modal-overlay').forEach(function(el) {
 });
 
 // ── Tab switching ─────────────────────────────────────────────────
-var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', settings:'Settings', users:'User Management' };
+var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
 
 function showTab(id, el) {
-  if (!isSA && (id === 'settings' || id === 'users')) { showToast('Super Admin only','er'); return; }
+  if (!isSA && (id === 'settings' || id === 'users' || id === 'security')) { showToast('Super Admin only','er'); return; }
   document.querySelectorAll('.tab-pane').forEach(function(p) { p.classList.remove('active'); });
   document.querySelectorAll('.asb-item').forEach(function(i) { i.classList.remove('act'); });
   document.getElementById('tab-' + id).classList.add('active');
@@ -609,6 +628,7 @@ function loadTab(id) {
   if (id === 'contacts')     { loadContacts(); }
   if (id === 'applications') { loadApplications(); }
   if (id === 'users')        { loadUsers(); }
+  if (id === 'security')     { loadSecurityLogs(); }
   if (id === 'settings')     { checkIntegrations(); }
 }
 
@@ -812,6 +832,30 @@ function viewContact(id) {
   else { delBtn.style.display = 'none'; }
   if (c.status === 'new') markContactRead(id);
   document.getElementById('contactModal').classList.add('open');
+}
+
+// ── SECURITY LOGS ─────────────────────────────────────────────────
+function loadSecurityLogs() {
+  if (!isSA) return;
+  var tbody = document.getElementById('security-tbody');
+  apiFetch('/security-logs').then(function(data) {
+    if (!data || !data.length) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No security events recorded.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(function(l) {
+      var time = new Date(l.timestamp).toLocaleString('en-GB');
+      var typeLabel = { failed_login: '⚠️ Failed Login', password_change: '🔑 Password Change' }[l.type] || l.type;
+      var details = l.role ? ('Role: ' + l.role) : (l.exists === false ? 'Account does not exist' : 'Incorrect password');
+      return '<tr>' +
+        '<td class="td-muted">' + time + '</td>' +
+        '<td style="font-weight:600;">' + typeLabel + '</td>' +
+        '<td>' + esc(l.email) + '</td>' +
+        '<td><code>' + esc(l.ip) + '</code></td>' +
+        '<td class="td-muted">' + details + '</td>' +
+        '</tr>';
+    }).join('');
+  }).catch(function() { showApiOffline(); });
 }
 
 function markContactRead(id) {
