@@ -38,6 +38,11 @@ var isSA      = (authRole === 'superadmin');
 
 // Quill instances
 var qDesc, qReq;
+var toolbarOptions = [
+  ['bold', 'italic', 'underline'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  ['clean']
+];
 
 // Pagination
 var _jobsPage = 1, _jobsPerPage = 10;
@@ -66,13 +71,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // Initialize Quill
   if (typeof Quill !== 'undefined') {
-    var toolbarOptions = [
-      ['bold', 'italic', 'underline'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['clean']
-    ];
     qDesc = new Quill('#j-desc-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
     qReq  = new Quill('#j-req-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+  } else {
+    console.error('Quill is not defined. Check CDN or CSP.');
   }
 
   if (isSA) {
@@ -373,11 +375,22 @@ function openJobModal(job) {
   if (qDesc) qDesc.root.innerHTML = isEdit ? (job.desc || '') : '';
   if (qReq)  qReq.root.innerHTML  = isEdit ? (job.req  || '') : '';
 
+  // Force re-init if somehow lost (rare)
+  if (!qDesc && typeof Quill !== 'undefined') {
+    qDesc = new Quill('#j-desc-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+    qReq  = new Quill('#j-req-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+  }
+
   document.getElementById('j-err').classList.remove('show');
   var prev = document.getElementById('j-img-preview');
   prev.src = (isEdit && job.imageUrl) ? job.imageUrl : '';
   prev.className = (isEdit && job.imageUrl) ? 'img-preview show' : 'img-preview';
   document.getElementById('jobModal').classList.add('open');
+
+  // Fix: some browsers need a tiny delay to enable editing in modals
+  setTimeout(function() {
+    if (qDesc) qDesc.focus();
+  }, 200);
 }
 
 
