@@ -168,6 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var descEl = document.getElementById('job-desc');
         if (descEl) descEl.innerHTML = job.desc || '';
 
+        var sjhTitle = document.getElementById('sjh-title');
+        if (sjhTitle) sjhTitle.textContent = job.title;
+
         
         var roleNameEl = document.getElementById('if-role-name');
         if (roleNameEl) roleNameEl.textContent = job.title + (job.location ? ' — ' + job.location : '');
@@ -270,6 +273,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (applyForm) applyForm.addEventListener('submit', function(e) {
         submitInlineForm(e);
     });
+
+    // Sticky Header Scroll Logic
+    var stickyHdr = document.getElementById('sticky-hdr');
+    var trigger = document.getElementById('ph-trigger');
+    if (stickyHdr && trigger) {
+        window.addEventListener('scroll', function() {
+            var rect = trigger.getBoundingClientRect();
+            // Show sticky bar when the main header has scrolled past the nav (68px)
+            if (rect.bottom < 68) {
+                stickyHdr.classList.add('show');
+            } else {
+                stickyHdr.classList.remove('show');
+            }
+        });
+    }
+
+    var sjhApply = document.getElementById('sjh-apply');
+    if (sjhApply) {
+        sjhApply.addEventListener('click', function(e) {
+            e.preventDefault();
+            showApplyForm();
+        });
+    }
 });
 
 // Attach to window

@@ -30,13 +30,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .nav-cta{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 20px;border-radius:2px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s;white-space:nowrap;flex-shrink:0;}
 .nav-cta:hover{background:var(--gold2);}
 .nav-mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
-@media(max-width:860px){
-  nav{padding:0 20px;}
-  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(13,27,42,.98);flex-direction:column;align-items:flex-start;padding:12px 20px 18px;gap:2px;border-bottom:1px solid rgba(201,168,76,.1);}
-  .nav-links.open{display:flex;}
-  .nl{padding:10px 0;font-size:14px;width:100%;}
-  .nav-mob{display:block;}
   .nav-cta{display:none;}
+}
+/* Hide Nav CTA on Job Page specifically */
+nav .nav-cta { display: none; }
+
+/* STICKY JOB HEADER */
+.sticky-job-hdr{position:fixed;top:68px;left:0;right:0;background:#fff;z-index:400;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05);transform:translateY(-100%);transition:transform .3s ease;pointer-events:none;opacity:0;}
+.sticky-job-hdr.show{transform:translateY(0);pointer-events:auto;opacity:1;}
+.sjh-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:20px;}
+.sjh-btn{background:var(--navy);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:2px;text-decoration:none;transition:all .2s;}
+.sjh-btn:hover{background:var(--gold);color:var(--navy);}
+@media(max-width:860px){
+  .sticky-job-hdr{padding:0 20px; top:68px; height:50px;}
+  .sjh-title{font-size:15px;}
 }
 
 /* PAGE HEADER */
@@ -158,7 +165,13 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 </div>
 
 <div id="job-content" style="display:none;">
-  <section class="page-header">
+  <!-- Sticky bar that appears on scroll -->
+  <div class="sticky-job-hdr" id="sticky-hdr">
+    <div class="sjh-title" id="sjh-title">Job Title</div>
+    <a href="#jd-view" class="sjh-btn" id="sjh-apply">Apply for this role</a>
+  </div>
+
+  <section class="page-header" id="ph-trigger">
     <div class="inner" style="max-width:1000px;margin:0;">
       <a href="/recruitment.html#live-jobs" style="color:var(--gold);font-size:12px;text-decoration:none;display:inline-block;margin-bottom:24px;">&#8592; Back to All Jobs</a>
       <div class="ph-tag" id="job-sector">Sector</div>
