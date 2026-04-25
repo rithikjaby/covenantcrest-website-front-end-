@@ -269,7 +269,8 @@ window.addEventListener('DOMContentLoaded', function() {
       if (target.matches('.app-cb') || action === 'cv-link' || action === 'download-cv') {
         if (target.matches('.app-cb')) updateBulkToolbar();
         if (action === 'download-cv') {
-          var a = _apps.find(function(x) { return x.id === rowId; });
+          var a = null;
+          for(var i=0; i<_apps.length; i++) { if(_apps[i].id === rowId) { a = _apps[i]; break; } }
           if (a) downloadApplicationCV(a);
         }
         return; 
@@ -352,7 +353,11 @@ window.addEventListener('DOMContentLoaded', function() {
 // ── API helper ────────────────────────────────────────────────────
 function apiFetch(path, options) {
   options = options || {};
-  options.headers = Object.assign({ 'Authorization': 'Bearer ' + jwt, 'Content-Type': 'application/json' }, options.headers || {});
+  var headers = { 'Authorization': 'Bearer ' + jwt, 'Content-Type': 'application/json' };
+  if (options.headers) {
+    for (var key in options.headers) { headers[key] = options.headers[key]; }
+  }
+  options.headers = headers;
   return fetch(API + path, options).then(function(r) {
     if (r.status === 401) { logout(); return; }
     return r.json();
@@ -377,7 +382,7 @@ function showToast(msg, type) {
 function openJobModal(job) {
   var isEdit = !!job;
   document.getElementById('jm-title').textContent = isEdit ? 'Edit Job Listing' : 'Add Job Listing';
-  document.getElementById('j-save-btn').textContent = isEdit ? 'Save Changes →' : 'Create Job Listing →';
+  document.getElementById('j-save-btn').textContent = isEdit ? 'Save Changes' : 'Create Job Listing';
   document.getElementById('j-id').value      = isEdit ? job.id    : '';
   document.getElementById('j-title').value   = isEdit ? job.title : '';
   document.getElementById('j-pay').value     = isEdit ? job.pay   : '';
@@ -480,7 +485,9 @@ function filterJobs() {
   var status = (stInput ? stInput.value : '').toLowerCase();
 
   _filteredJobs = _jobs.filter(function(j) {
-    var matchQ      = !q      || j.title.toLowerCase().includes(q) || (j.location||'').toLowerCase().includes(q);
+    var titleL = j.title.toLowerCase();
+    var locL = (j.location || '').toLowerCase();
+    var matchQ      = !q      || titleL.indexOf(q) !== -1 || locL.indexOf(q) !== -1;
     var matchSector = !sector || j.sector === sector;
     var matchStatus = !status || j.status === status;
     return matchQ && matchSector && matchStatus;
@@ -829,8 +836,9 @@ function renderApplications() {
 }
 
 function viewApplication(id) {
-  var a = _apps.find(function(x) { return x.id === id; });
-  if (!a) return;
+    var a = null;
+    for(var i=0; i<_apps.length; i++) { if(_apps[i].id === id) { a = _apps[i]; break; } }
+    if (!a) return;
   window._curAppId = id;
   var sectorDisplay = sectorLabel[a.sector] || a.sector || '—';
   var availDisplay  = { immediate:'Immediately available', '1week':'Within 1 week', '2weeks':'Within 2 weeks', other:'Other' }[a.availability] || a.availability || '—';
@@ -907,9 +915,10 @@ function downloadApplicationCV(a) {
     var byteArray = new Uint8Array(byteNumbers);
     
     var mimeType = 'application/octet-stream';
-    if (filename.toLowerCase().endsWith('.pdf')) mimeType = 'application/pdf';
-    else if (filename.toLowerCase().endsWith('.doc')) mimeType = 'application/msword';
-    else if (filename.toLowerCase().endsWith('.docx')) mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    var fnL = filename.toLowerCase();
+    if (fnL.indexOf('.pdf') !== -1) mimeType = 'application/pdf';
+    else if (fnL.indexOf('.doc') !== -1 && fnL.indexOf('.docx') === -1) mimeType = 'application/msword';
+    else if (fnL.indexOf('.docx') !== -1) mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
     var blob = new Blob([byteArray], { type: mimeType });
     var url = window.URL.createObjectURL(blob);
@@ -968,7 +977,9 @@ function updateBulkToolbar() {
 }
 
 function bulkAction(status) {
-  var ids = Array.from(document.querySelectorAll('.app-cb:checked')).map(function(el) { return el.value; });
+  var cbs = document.querySelectorAll('.app-cb:checked');
+  var ids = [];
+  for(var i=0; i<cbs.length; i++) { ids.push(cbs[i].value); }
   if (!ids.length) return;
   if (!confirm('Mark ' + ids.length + ' candidates as ' + status + '?')) return;
   
@@ -986,13 +997,17 @@ function bulkAction(status) {
 }
 
 function bulkEmail() {
-  var ids = Array.from(document.querySelectorAll('.app-cb:checked')).map(function(el) { return el.value; });
+  var cbs = document.querySelectorAll('.app-cb:checked');
+  var ids = [];
+  for(var i=0; i<cbs.length; i++) { ids.push(cbs[i].value); }
   if (!ids.length) return;
   
-  var emails = ids.map(function(id) {
-    var a = _apps.find(function(x) { return x.id === id; });
-    return a ? a.email : null;
-  }).filter(Boolean);
+  var emails = [];
+  for(var j=0; j<ids.length; j++) {
+    var a = null;
+    for(var k=0; k<_apps.length; k++) { if(_apps[k].id === ids[j]) { a = _apps[k]; break; } }
+    if (a && a.email) emails.push(a.email);
+  }
   
   if (emails.length) {
     window.location.href = 'mailto:?bcc=' + encodeURIComponent(emails.join(','));
@@ -1009,7 +1024,7 @@ function renderTalentPool() {
   
   var filtered = _apps.filter(function(a) {
     var text = (a.first_name + ' ' + a.last_name + ' ' + a.email + ' ' + (a.notes||'')).toLowerCase();
-    return (!q || text.includes(q)) && (!sector || a.sector === sector);
+    return (!q || text.indexOf(q) !== -1) && (!sector || a.sector === sector);
   });
 
   if (!filtered.length) {
