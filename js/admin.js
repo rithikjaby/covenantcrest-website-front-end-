@@ -817,6 +817,7 @@ function renderApplications() {
   var tbody = document.getElementById('apps-tbody');
   if (!tbody) return;
   if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No applications yet.</td></tr>'; return; }
+  tbody.innerHTML = _apps.map(function(a) {
     var cvLink = '—';
     if (a.cvBase64 || a.cvUrl) {
         cvLink = '<button class="btn-sm gd" style="border:none;cursor:pointer;" data-id="' + a.id + '" data-action="download-cv">CV</button>';
