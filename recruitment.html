@@ -49,7 +49,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 /* PAGE HERO */
 .page-hero{min-height:68vh;background:var(--navy);display:flex;align-items:center;padding:100px 48px 80px;position:relative;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:70px 70px;pointer-events:none;}
-.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 60%);pointer-events:none;}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 60%);pointer-events:none;animation:floatGlow 12s infinite ease-in-out;}
 .ph-c{position:relative;z-index:1;max-width:680px;}
 .s-tag{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
 .ph-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,72px);font-weight:300;color:#fff;line-height:1.05;margin-bottom:14px;animation:fU 1s .1s both;}
@@ -61,8 +61,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .btn-ghost{border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.65);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:13px 30px;border-radius:2px;background:none;cursor:pointer;transition:all .2s;display:inline-block;text-decoration:none;}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 @keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatGlow{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-48%,-52%) scale(1.05)}}
+@keyframes shimmer{0%{background-position:-468px 0}100%{background-position:468px 0}}
 
-/* SECTOR BAR */
+/* SKELETON */
+.skel-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;height:240px;display:flex;flex-direction:column;gap:12px;}
+.skel-i{background:#f0f0f0;background-image:linear-gradient(to right,#f0f0f0 0%,#f8f8f8 20%,#f0f0f0 40%,#f0f0f0 100%);background-repeat:no-repeat;background-size:800px 104px;display:inline-block;position:relative;animation:shimmer 1.5s infinite linear;}
+.sk-t1{width:40%;height:10px;border-radius:2px;}
+.sk-t2{width:80%;height:22px;border-radius:4px;}
+.sk-t3{width:100%;height:60px;border-radius:4px;}
+.sk-t4{width:30%;height:14px;border-radius:2px;}
 .sector-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow-x:auto;}
 .sbt{padding:18px 32px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
 .sbt:hover{color:var(--navy);}
@@ -81,8 +89,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 
 /* SECTOR CARDS */
 .sector-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:48px;}
-.sc-card{border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#fff;transition:all .2s;}
-.sc-card:hover{box-shadow:0 8px 28px rgba(13,27,42,.07);transform:translateY(-2px);}
+.sc-card{border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#fff;transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);position:relative;}
+.sc-card:hover{box-shadow:0 20px 40px rgba(13,27,42,.08);transform:translateY(-5px);border-color:var(--gold);}
+.sc-card:hover .sc-stripe{height:8px;}
 .sc-stripe{height:5px;}
 .sc-body{padding:26px;}
 .sc-icon{font-size:32px;margin-bottom:14px;}
@@ -109,12 +118,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .jf-sel{padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--navy);outline:none;background:#fff;cursor:pointer;transition:border-color .2s;}
 .jf-sel:focus{border-color:var(--gold);}
 .jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
-.job-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .2s;cursor:pointer;}
-.job-card:hover{box-shadow:0 6px 24px rgba(13,27,42,.07);transform:translateY(-2px);border-color:rgba(201,168,76,.3);}
+.job-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);cursor:pointer;position:relative;}
+.job-card:hover{box-shadow:0 12px 32px rgba(13,27,42,.08);transform:translateY(-3px);border-color:var(--gold);}
 .jc-sector{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
 .jc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:6px;}
 .jc-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
-.jc-tag{font-size:10px;color:var(--muted);padding:3px 8px;background:var(--cream);border-radius:3px;}
+.jc-tag{font-size:10px;color:var(--muted);padding:4px 10px;background:var(--cream);border-radius:20px;border:1px solid transparent;transition:all .2s;}
+.job-card:hover .jc-tag{border-color:rgba(201,168,76,.2);background:#fff;}
 .jc-pay{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;}
 .jc-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
 .jc-btn{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;padding:0;}
@@ -379,6 +389,33 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <div class="ps-i"><div class="ps-num">01</div><div class="ps-title">Apply Today</div><div class="ps-sub">Takes under 2 minutes</div></div>
       <div class="ps-i"><div class="ps-num">02</div><div class="ps-title">We Call You</div><div class="ps-sub">Within 24 hours</div></div>
       <div class="ps-i"><div class="ps-num">03</div><div class="ps-title">Start Working</div><div class="ps-sub">Get placed fast</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CANDIDATE TRUST -->
+<section class="sec sec-wh" id="candidate-trust">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:52px;">
+      <div class="s-tag rv">Your Career, Our Priority</div>
+      <h2 class="s-title rv">Why Candidates <em>Choose Us</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+      <div class="rv">
+        <div style="font-size:24px;margin-bottom:12px;">⚖️</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;">Transparent & Fair</div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;">We follow Agency Workers Regulations (AWR) strictly, ensuring you get the pay and treatment you deserve from day one.</p>
+      </div>
+      <div class="rv d1">
+        <div style="font-size:24px;margin-bottom:12px;">💸</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;">Fast, Weekly Pay</div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;">No more waiting months for pay. We process payroll weekly so you can manage your finances with confidence.</p>
+      </div>
+      <div class="rv d2">
+        <div style="font-size:24px;margin-bottom:12px;">🛡️</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;">DBS & SIA Support</div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;">We assist with background checks and licence renewals, helping you stay compliant and work-ready.</p>
+      </div>
     </div>
   </div>
 </section>

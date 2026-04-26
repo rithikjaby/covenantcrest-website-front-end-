@@ -47,7 +47,8 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;fo
 
 /* STATS */
 .astat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
-.astat{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);border-left:4px solid var(--gold);}
+.astat{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);border-left:4px solid var(--gold);transition:all .3s ease;cursor:default;}
+.astat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.05);border-left-width:8px;}
 .astat.bl{border-left-color:#2B8A9C;}.astat.gr{border-left-color:var(--success);}.astat.rd{border-left-color:var(--danger);}.astat.or{border-left-color:var(--warn);}
 .astat-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--navy);}
 .astat-lbl{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500;}
@@ -67,10 +68,10 @@ tbody tr:hover{background:#FAFAFA;}
 
 /* PILLS */
 .pill{padding:3px 9px;border-radius:12px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:inline-block;}
-.p-new{background:#FFF0F0;color:var(--danger);}
-.p-active{background:#E8F8F0;color:var(--success);}
-.p-inactive{background:#F0F0F0;color:var(--muted);}
-.p-read{background:#F3F5F8;color:var(--muted);}
+.p-new{background:#FFF0F0;color:var(--danger);border:1px solid rgba(226,75,74,.1);}
+.p-active{background:#E8F8F0;color:var(--success);border:1px solid rgba(29,158,117,.1);}
+.p-inactive{background:#F3F5F8;color:var(--muted);border:1px solid var(--border);}
+.p-read{background:#F3F5F8;color:var(--muted);opacity:.7;}
 .p-haulage{background:#EEF2FF;color:#3D5AA8;}
 .p-trade{background:#FDF6E3;color:#8A6020;}
 .p-construction{background:#FFF5E6;color:#D35400;}
@@ -201,7 +202,7 @@ tbody tr:hover{background:#FAFAFA;}
       </div>
     </div>
 
-    <div class="adm-content">
+    <div class="adm-content" style="animation: fU .4s ease-out both;">
 
       <!-- ===== DASHBOARD ===== -->
       <div class="tab-pane active" id="tab-dashboard">

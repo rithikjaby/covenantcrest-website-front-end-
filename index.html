@@ -120,7 +120,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 /* HERO */
 .hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;text-align:center;}
 .hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:70px 70px;pointer-events:none;}
-.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 60%);pointer-events:none;}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 60%);pointer-events:none;animation:floatGlow 15s infinite ease-in-out;}
 .hero-c{position:relative;z-index:1;max-width:820px;}
 .hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:30px;padding:6px 16px;margin-bottom:40px;animation:fU .8s .1s both;}
 .hp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
@@ -134,7 +134,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .btn-gold{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 30px;border-radius:2px;border:none;cursor:pointer;transition:all .2s;display:inline-block;text-decoration:none;}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
 .btn-ghost{border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.65);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:13px 30px;border-radius:2px;background:none;cursor:pointer;transition:all .2s;display:inline-block;text-decoration:none;}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+@keyframes floatGlow{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-48%,-52%) scale(1.05)}}
 .hero-stats{display:flex;margin-top:60px;border-top:1px solid rgba(201,168,76,.12);padding-top:36px;animation:fU 1s .7s both;}
 .hs-i{flex:1;text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.06);}
 .hs-i:last-child{border-right:none;}
@@ -165,8 +166,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 
 /* SERVICE CARDS */
 .srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
-.srv-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .2s;}
-.srv-card:hover{box-shadow:0 8px 28px rgba(13,27,42,.07);transform:translateY(-2px);}
+.srv-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);position:relative;}
+.srv-card:hover{box-shadow:0 20px 40px rgba(13,27,42,.08);transform:translateY(-5px);border-color:var(--gold);}
 .srv-icon{font-size:28px;margin-bottom:14px;}
 .srv-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:8px;}
 .srv-desc{font-size:12px;color:var(--muted);line-height:1.75;margin-bottom:14px;}
@@ -174,8 +175,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .srv-lnk:hover{text-decoration:underline;}
 
 /* BADGE CARDS (compliance section) */
-.badge-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:12px;padding:22px 20px;transition:all .2s;}
-.badge-card:hover{background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.28);transform:translateY(-1px);}
+.badge-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:12px;padding:22px 20px;transition:all .3s ease;}
+.badge-card:hover{background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.4);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.2);}
 .bc-icon{font-size:26px;margin-bottom:10px;}
 .bc-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:6px;}
 .bc-sub{font-size:11px;color:rgba(255,255,255,.4);line-height:1.7;}
@@ -359,14 +360,14 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);">The regulatory bodies and standards your compliance officers will ask about — displayed here so you don&rsquo;t have to ask.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-      <div class="badge-card"><div class="bc-icon">&#x1F6E1;</div><div class="bc-title">SIA Licence Verification</div><p class="bc-sub">All operatives checked via SIA public register before placement. Licence expiry monitored proactively.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x2714;</div><div class="bc-title">CQC Compliant</div><p class="bc-sub">CQC Regulation 19 (Fit &amp; Proper Persons) compliant recruitment for all care sector placements.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x1F4DC;</div><div class="bc-title">GLAA Status</div><p class="bc-sub">GLAA licence application in progress for compliant labour supply to warehouse and logistics environments.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x1F4BB;</div><div class="bc-title">ICO Registered</div><p class="bc-sub">Registered with the Information Commissioner&rsquo;s Office under UK GDPR. ICO Reg: ZC100629.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x1F465;</div><div class="bc-title">DBS Enhanced</div><p class="bc-sub">Enhanced DBS checks on all care and security candidates. Results verified before placement, no exceptions.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x2696;</div><div class="bc-title">AWR Compliant</div><p class="bc-sub">Agency Workers Regulations 2010 fully observed. All temporary workers receive equal treatment rights from day one.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x1F4CB;</div><div class="bc-title">BS&nbsp;7858:2019</div><p class="bc-sub">Security staff vetted to British Standard BS&nbsp;7858:2019 &mdash; the benchmark security buyers require.</p></div>
-      <div class="badge-card"><div class="bc-icon">&#x1F4C4;</div><div class="bc-title">Employment Agency</div><p class="bc-sub">Registered Employment Agency &amp; Employment Business under the Employment Agencies Act 1973.</p></div>
+      <div class="badge-card rv"><div class="bc-icon">&#x1F6E1;</div><div class="bc-title">SIA Licence Verification</div><p class="bc-sub">All operatives checked via SIA public register before placement. Licence expiry monitored proactively.</p></div>
+      <div class="badge-card rv d1"><div class="bc-icon">&#x2714;</div><div class="bc-title">CQC Compliant</div><p class="bc-sub">CQC Regulation 19 (Fit &amp; Proper Persons) compliant recruitment for all care sector placements.</p></div>
+      <div class="badge-card rv d2"><div class="bc-icon">&#x1F4DC;</div><div class="bc-title">GLAA Status</div><p class="bc-sub">GLAA licence application in progress for compliant labour supply to warehouse and logistics environments.</p></div>
+      <div class="badge-card rv d3"><div class="bc-icon">&#x1F4BB;</div><div class="bc-title">ICO Registered</div><p class="bc-sub">Registered with the Information Commissioner&rsquo;s Office under UK GDPR. ICO Reg: ZC100629.</p></div>
+      <div class="badge-card rv d4"><div class="bc-icon">&#x1F465;</div><div class="bc-title">DBS Enhanced</div><p class="bc-sub">Enhanced DBS checks on all care and security candidates. Results verified before placement, no exceptions.</p></div>
+      <div class="badge-card rv d1"><div class="bc-icon">&#x2696;</div><div class="bc-title">AWR Compliant</div><p class="bc-sub">Agency Workers Regulations 2010 fully observed. All temporary workers receive equal treatment rights from day one.</p></div>
+      <div class="badge-card rv d2"><div class="bc-icon">&#x1F4CB;</div><div class="bc-title">BS&nbsp;7858:2019</div><p class="bc-sub">Security staff vetted to British Standard BS&nbsp;7858:2019 &mdash; the benchmark security buyers require.</p></div>
+      <div class="badge-card rv d3"><div class="bc-icon">&#x1F4C4;</div><div class="bc-title">Employment Agency</div><p class="bc-sub">Registered Employment Agency &amp; Employment Business under the Employment Agencies Act 1973.</p></div>
     </div>
   </div>
 </section>
@@ -447,6 +448,48 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <div class="div-arr">&#8594;</div>
       </a>
     </div>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES (Case Studies) -->
+<section class="sec sec-wh" id="cases" aria-label="Success Stories">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:52px;">
+      <div class="s-tag">Proven Results</div>
+      <h2 class="s-title">Success <em>Stories</em></h2>
+      <p class="s-lead" style="margin:0 auto;text-align:center;">Real-world examples of how we support our clients and candidates every day.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+      <div class="srv-card rv">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Healthcare Sector</div>
+        <div class="srv-name" style="font-size:18px;">2-Hour Emergency Cover</div>
+        <p class="srv-desc">A residential home in Shropshire required 3 support workers for a night shift with only 4 hours notice. We deployed 3 DBS-checked staff within 90 minutes, ensuring 100% compliance and zero service disruption.</p>
+        <div style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px;">"Covenant Crest is our first call for emergency staffing. Reliable and fully compliant."</div>
+      </div>
+      <div class="srv-card rv d1">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2B5EA7;margin-bottom:12px;">Security Sector</div>
+        <div class="srv-name" style="font-size:18px;">Major Event Protection</div>
+        <p class="srv-desc">Supplied 12 SIA-licensed door supervisors for a high-profile corporate event in Birmingham. All staff were ACT-trained (counter-terrorism) and arrived with full vetting records provided to the client in advance.</p>
+        <div style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid #2B5EA7;padding-left:12px;">"The professionalism of the security team was exceptional. Highly recommended."</div>
+      </div>
+      <div class="srv-card rv d2">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px;">Warehouse Sector</div>
+        <div class="srv-name" style="font-size:18px;">Peak Season Ramp-up</div>
+        <p class="srv-desc">Supported a logistics hub during the December peak by providing 25 pick-and-pack operatives on a flexible contract. Managed 100% attendance and right-to-work verification for every worker.</p>
+        <div style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--success);padding-left:12px;">"Consistent quality of labour even during the busiest periods of the year."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE PACK DOWNLOAD -->
+<section class="sec sec-dk" style="padding:60px 48px;">
+  <div class="inner" style="display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:300px;">
+      <h2 class="s-title w" style="font-size:32px;margin-bottom:12px;">Download Our <em>Compliance Pack</em></h2>
+      <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:540px;">Get instant access to our regulatory documents, including ICO registration, insurance certificates, and our compliance policies.</p>
+    </div>
+    <a href="mailto:recruitment@covenantcrest.co.uk?subject=Requesting Compliance Pack" class="btn-gold" style="white-space:nowrap;">Request Full Pack &#8595;</a>
   </div>
 </section>
 

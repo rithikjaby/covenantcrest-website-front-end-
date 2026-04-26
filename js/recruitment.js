@@ -9,18 +9,48 @@ var sectorLabel = { care: 'Healthcare', security: 'Security', warehouse: 'Wareho
 var activeSector = '';
 
 function loadJobsFromAPI() {
-    fetch('/api/jobs')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (Array.isArray(data) && data.length > 0) {
-                JOBS = data;
-            }
-            renderJobs();
-        })
-        .catch(function() {
-            JOBS = [];
-            renderJobs();
-        });
+    renderSkeleton();
+    if (window.CCA && window.CCA.jobs) {
+        window.CCA.jobs.list()
+            .then(function(data) {
+                if (Array.isArray(data)) {
+                    JOBS = data;
+                }
+                renderJobs();
+            })
+            .catch(function() {
+                JOBS = [];
+                renderJobs();
+            });
+    } else {
+        // Fallback to direct fetch if CCA not loaded
+        fetch('/api/jobs')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (Array.isArray(data)) JOBS = data;
+                renderJobs();
+            })
+            .catch(function() {
+                JOBS = [];
+                renderJobs();
+            });
+    }
+}
+
+function renderSkeleton() {
+    var container = document.getElementById('jobs-container');
+    if (!container) return;
+    var cards = '';
+    for (var i = 0; i < 6; i++) {
+        cards += '<div class="skel-card">' +
+            '<div class="skel-i sk-t1"></div>' +
+            '<div class="skel-i sk-t2"></div>' +
+            '<div class="skel-i sk-t3" style="margin-top:auto;"></div>' +
+            '<div class="skel-i sk-t4"></div>' +
+            '</div>';
+    }
+    container.innerHTML = '<div class="jobs-grid">' + cards + '</div>';
+    container.classList.add('vs'); // Ensure skeleton is visible immediately
 }
 
 function esc(s) { return s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
@@ -59,6 +89,11 @@ function renderJobs() {
             '<div class="jc-btn" style="margin-top:14px;display:inline-block;">View &amp; Apply &#8594;</div>' +
             '</a>';
     }).join('') + '</div>';
+
+    // Force reveal now that jobs are rendered
+    setTimeout(function() {
+        container.classList.add('vs');
+    }, 50);
 }
 
 function filterSector(sector, btn) {
@@ -99,6 +134,12 @@ function handleCVSelect(input) {
     var clearBtn = document.getElementById('cv-clear-btn');
     if (clearBtn) clearBtn.style.display = 'inline';
 
+    var zone = document.getElementById('cv-upload-zone');
+    if (zone) {
+        zone.style.borderColor = 'var(--success)';
+        zone.style.background = 'rgba(29, 158, 117, 0.05)';
+    }
+
     var reader = new FileReader();
     reader.onload = function(e) {
         _cvBase64 = e.target.result.split(',')[1];
@@ -119,6 +160,13 @@ function clearCV(e) {
     }
     var clearBtn = document.getElementById('cv-clear-btn');
     if (clearBtn) clearBtn.style.display = 'none';
+
+    var zone = document.getElementById('cv-upload-zone');
+    if (zone) {
+        zone.style.borderColor = 'rgba(201,168,76,.35)';
+        zone.style.background = 'rgba(255,255,255,.03)';
+    }
+
     var hiddenUrl = document.getElementById('cv-url-hidden');
     if (hiddenUrl) hiddenUrl.value = '';
     var progress = document.getElementById('cv-progress');
