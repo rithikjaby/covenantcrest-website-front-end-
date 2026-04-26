@@ -92,6 +92,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 1.6 Quick Enquiry Toggle (Home)
+    var qeBtn = document.getElementById('toggleEnquiry');
+    var qeWrap = document.getElementById('qeFormWrap');
+    if (qeBtn && qeWrap) {
+        qeBtn.addEventListener('click', function() {
+            var isOpen = qeWrap.classList.toggle('open');
+            this.setAttribute('aria-expanded', isOpen);
+            this.textContent = isOpen ? 'Close Enquiry ✕' : 'Send an Enquiry →';
+            if (isOpen) {
+                setTimeout(function() {
+                    qeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+        });
+    }
+
     // 2. Cookie Banner Logic
     var consent = localStorage.getItem('cc_consent');
     if (consent === 'accept') {

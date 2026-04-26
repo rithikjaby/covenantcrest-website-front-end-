@@ -216,6 +216,25 @@
       flex-shrink: 0;
     }
 
+    /* COMPLIANCE RIBBON */
+    .comp-ribbon{background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(201,168,76,0.1); padding:18px 0; overflow:hidden;}
+    .cr-flex{display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;}
+    .cr-i{display:flex; align-items:center; gap:10px; opacity:0.6; transition:opacity .3s;}
+    .cr-i:hover{opacity:1;}
+    .cr-dot{width:6px; height:6px; background:var(--gold); border-radius:50%;}
+    .cr-txt{font-size:10px; font-weight:700; color:#fff; letter-spacing:.15em; text-transform:uppercase;}
+
+    /* QUICK ENQUIRY */
+    .qe-bar{background:var(--navy); padding:60px 48px; text-align:center; border-top:1px solid rgba(201,168,76,0.12);}
+    .qe-h2{font-family:'Cormorant Garamond',serif; font-size:38px; color:#fff; margin-bottom:12px; font-weight:300;}
+    .qe-p{font-size:15px; color:rgba(255,255,255,0.5); margin-bottom:32px; max-width:700px; margin-left:auto; margin-right:auto;}
+    .btn-enq{background:var(--gold); color:var(--navy); font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:16px 40px; border-radius:4px; border:none; cursor:pointer; display:inline-block; text-decoration:none; transition:all .3s;}
+    .btn-enq:hover{background:var(--gold2); transform:translateY(-2px); box-shadow:0 10px 20px rgba(201,168,76,0.2);}
+    
+    .qe-form-wrap{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(0.165, 0.84, 0.44, 1); background:rgba(255,255,255,0.02);}
+    .qe-form-wrap.open{max-height:1000px; padding:60px 0;}
+    .qe-inner{max-width:800px; margin:0 auto; padding:0 24px;}
+
     @media(max-width:860px) {
       nav {
         padding: 0 20px;
@@ -1377,12 +1396,12 @@
     </a>
     <div class="nav-links" id="navLinks">
       <a href="/index.html"       class="nl active">Home</a>
-      <a href="/recruitment.html" class="nl nl-rec">Recruitment</a>
+      <a href="/recruitment.html" class="nl">Browse Jobs</a>
+      <a href="/hire.html"        class="nl">Hire Staff</a>
       <a href="/about.html"       class="nl">About Us</a>
-      <a href="/index.html#contact" class="nl">Contact</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
-      <button class="btn-group">The Group <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
+      <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
         <a href="/haulage.html" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
@@ -1412,8 +1431,8 @@
         fully vetted, reliable professionals backed by rigorous compliance checks and sector-specific expertise — with a
         2-hour response guarantee.</p>
       <div class="hero-btns">
-        <a href="/hire.html#request-staff-b2b" class="btn-gold" id="hero-cta-request">Recruitment Solutions</a>
-        <a href="/recruitment.html" class="btn-ghost" id="hero-cta-jobs">Find Work</a>
+        <a href="/hire.html" class="btn-gold" id="hero-cta-request">Recruitment Solutions</a>
+        <a href="/recruitment.html" class="btn-ghost" id="hero-cta-jobs">Browse Jobs</a>
       </div>
       <div class="hero-stats">
         <div class="hs-i">
@@ -1428,25 +1447,18 @@
     </div>
   </section>
 
-  <!-- RECRUITMENT SPLIT -->
-  <section class="split-section">
-    <div class="split-grid">
-      <div class="split-card employers rv">
-        <div class="split-tag">For Employers</div>
-        <h3 class="split-h3">Need Specialist Staff?</h3>
-        <p class="split-p">CQC-compliant healthcare, SIA-verified security, and skilled trades. We supply vetted
-          professionals within 2 hours of your request.</p>
-        <a href="/hire.html#request-staff-b2b" class="split-btn">Request Staff &#8594;</a>
-      </div>
-      <div class="split-card candidate rv d1">
-        <div class="split-tag">For Candidates</div>
-        <h3 class="split-h3">Looking for Work?</h3>
-        <p class="split-p">Access premium vacancies across care, security, and logistics. Fast weekly pay, DBS
-          assistance, and nationwide placements.</p>
-        <a href="/recruitment.html" class="split-btn">Browse Jobs &#8594;</a>
+  <!-- COMPLIANCE RIBBON -->
+  <div class="comp-ribbon">
+    <div class="inner">
+      <div class="cr-flex">
+        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">CQC Registered</span></div>
+        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">SIA Licence Verified</span></div>
+        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">GLAA Compliant</span></div>
+        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">ICO Registered</span></div>
+        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">UK Nationwide</span></div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- SECTOR EXPERTISE -->
   <section class="sec sec-wh" id="expertise" aria-label="Sector Expertise">
@@ -1710,82 +1722,34 @@
     </div>
   </section>
 
-  <section class="contact-wrap" id="contact">
-    <div class="contact-inner">
-      <div>
-        <div class="s-tag">Get In Touch</div>
-        <h2 class="s-title w" style="margin-bottom:20px;">Let&rsquo;s Talk <em>Business</em></h2>
-        <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:36px;">Whether you need
-          staff, freight, or a supply chain partner — we respond promptly and personally.</p>
-        <div class="ci-item">
-          <div class="ci-label">Phone</div>
-          <div class="ci-val">07346 809846</div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-label">General</div>
-          <div class="ci-val">info@covenantcrest.co.uk</div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-label">Recruitment</div>
-          <div class="ci-val">recruitment@covenantcrest.co.uk</div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-label">Haulage &amp; Logistics</div>
-          <div class="ci-val">haulage@covenantcrest.co.uk</div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-label">Trade &amp; Import</div>
-          <div class="ci-val">trade@covenantcrest.co.uk</div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-label">Company</div>
-          <div class="ci-val">Covenant Crest Group Ltd<br>Company No. 16528951</div>
-        </div>
-      </div>
-      <div class="dfc">
-        <div class="dfc-title">Send Us a Message</div>
-        <div class="dfc-sub">We respond within one business day.</div>
-        <div class="ok-banner" id="ok-contact">&#x2705; Message sent! We&rsquo;ll be in touch shortly.</div>
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-form-name="contact"
-          data-banner-id="ok-contact">
-          <input type="hidden" name="form-name" value="contact">
-          <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
+  <!-- QUICK ENQUIRY SECTION -->
+  <section class="qe-bar" id="enquiry">
+    <div class="inner">
+      <h2 class="qe-h2">Ready to work with us?</h2>
+      <p class="qe-p">Call <strong>07346 809846</strong> or send an enquiry &mdash; we respond personally, the same day.</p>
+      <button class="btn-enq" id="toggleEnquiry" aria-expanded="false">Send an Enquiry &rarr;</button>
+    </div>
+  </section>
+
+  <div class="qe-form-wrap" id="qeFormWrap">
+    <div class="qe-inner">
+      <div class="dfc" style="margin:0; width:100%; max-width:none; background:transparent; border:none; padding:0;">
+        <div class="ok-banner" id="ok-qe">&#x2705; Message received! We'll be in touch today.</div>
+        <form name="quick_enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-form-name="quick_enquiry" data-banner-id="ok-qe">
+          <input type="hidden" name="form-name" value="quick_enquiry">
           <div class="dk-g2">
-            <div class="dk-fg"><label class="dk-label">First Name *</label><input class="dk-input" name="first_name"
-                placeholder="John" required></div>
-            <div class="dk-fg"><label class="dk-label">Last Name *</label><input class="dk-input" name="last_name"
-                placeholder="Smith" required></div>
+            <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name" placeholder="Full Name" required></div>
+            <div class="dk-fg"><label class="dk-label">Email / Phone *</label><input class="dk-input" name="contact" placeholder="How can we reach you?" required></div>
           </div>
-          <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email" name="email"
-              placeholder="john@company.co.uk" required></div>
-          <div class="dk-fg"><label class="dk-label">Phone</label><input class="dk-input" type="tel" name="phone"
-              placeholder="07346 809846"></div>
           <div class="dk-fg">
-            <label class="dk-label">Enquiry Type</label>
-            <select class="dk-select" name="enquiry_type">
-              <option value="general">General Enquiry</option>
-              <option value="recruitment">Recruitment</option>
-              <option value="haulage">Haulage &amp; Freight</option>
-              <option value="trade">Import &amp; Trade</option>
-            </select>
+            <label class="dk-label">How can we help? *</label>
+            <textarea class="dk-textarea" name="message" placeholder="Briefly describe your requirements..." required></textarea>
           </div>
-          <div class="dk-fg"><label class="dk-label">Message *</label><textarea class="dk-textarea" name="message"
-              placeholder="Tell us how we can help&hellip;" required></textarea></div>
-          <div class="dk-fg">
-            <label
-              style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
-              <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-              <span>I consent to my data being processed in accordance with the <a href="/privacy.html"
-                  style="color:var(--gold);">Privacy Policy</a> for the purpose of this enquiry.</span>
-            </label>
-          </div>
-          <button type="submit" class="f-submit" aria-label="Send message">Send Message &#8594;</button>
-          <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:10px;">Your data is processed
-            under UK GDPR. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
+          <button type="submit" class="f-submit" style="margin-top:20px;">Submit Enquiry &rarr;</button>
         </form>
       </div>
     </div>
-  </section>
+  </div>
 
   <footer>
     <div class="ft-main">
