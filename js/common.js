@@ -82,6 +82,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 1.5 Dropdown Toggle (Mobile)
+    var divisionsToggle = document.getElementById('divisionsToggle');
+    if (divisionsToggle) {
+        divisionsToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 860) {
+                this.classList.toggle('open');
+            }
+        });
+    }
+
     // 2. Cookie Banner Logic
     var consent = localStorage.getItem('cc_consent');
     if (consent === 'accept') {
