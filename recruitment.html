@@ -117,18 +117,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .jf-search:focus{border-color:var(--gold);}
 .jf-sel{padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--navy);outline:none;background:#fff;cursor:pointer;transition:border-color .2s;}
 .jf-sel:focus{border-color:var(--gold);}
-.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
-.job-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);cursor:pointer;position:relative;}
-.job-card:hover{box-shadow:0 12px 32px rgba(13,27,42,.08);transform:translateY(-3px);border-color:var(--gold);}
-.jc-sector{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.jc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:6px;}
-.jc-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
-.jc-tag{font-size:10px;color:var(--muted);padding:4px 10px;background:var(--cream);border-radius:20px;border:1px solid transparent;transition:all .2s;}
-.job-card:hover .jc-tag{border-color:rgba(201,168,76,.2);background:#fff;}
-.jc-pay{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;}
-.jc-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
-.jc-btn{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;padding:0;}
-.jc-btn:hover{text-decoration:underline;}
+.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;}
+.job-card{background:#fff; border:1px solid rgba(13,27,42,0.06); border-radius:16px; padding:28px; transition:all .4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor:pointer; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.job-card::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--gold); opacity:0; transition:opacity .3s;}
+.job-card:hover{box-shadow:0 20px 40px rgba(13,27,42,0.06), 0 0 0 1px rgba(201,168,76,0.15); transform:translateY(-5px); background:#fff;}
+.job-card:hover::before{opacity:1;}
+
+.jc-sector{position:absolute; top:28px; right:28px; font-size:8px; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); padding:4px 10px; background:rgba(201,168,76,0.08); border-radius:4px; border:1px solid rgba(201,168,76,0.1);}
+
+.jc-title{font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; color:var(--navy); margin-bottom:10px; padding-right:80px; line-height:1.2;}
+
+.jc-meta{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;}
+.jc-tag{font-size:10px; font-weight:500; color:var(--muted); display:flex; align-items:center; gap:5px;}
+.jc-tag i{color:var(--gold); font-size:12px;}
+
+.jc-pay{font-size:15px; font-weight:700; color:var(--navy); margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+.jc-pay::before{content:""; width:12px; height:1px; background:var(--gold); display:inline-block;}
+
+.jc-desc{font-size:13px; color:var(--muted); line-height:1.75; margin-bottom:20px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; min-height:68px;}
+
+.jc-btn{font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--navy); background:none; border:none; cursor:pointer; font-family:'Montserrat',sans-serif; padding:0; display:flex; align-items:center; gap:8px; transition:gap .3s;}
+.jc-btn::after{content:"→"; font-size:16px; color:var(--gold); transition:transform .3s;}
+.job-card:hover .jc-btn{color:var(--gold);}
+.job-card:hover .jc-btn::after{transform:translateX(5px);}
 
 /* FILTER CHIPS */
 .filter-chip{background:var(--navy); color:#fff; font-size:10px; padding:6px 12px; border-radius:20px; display:flex; align-items:center; gap:8px; border:1px solid rgba(201,168,76,0.2); transition:all .2s;}

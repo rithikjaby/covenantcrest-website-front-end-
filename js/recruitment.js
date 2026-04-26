@@ -42,11 +42,11 @@ function renderSkeleton() {
     if (!container) return;
     var cards = '';
     for (var i = 0; i < 6; i++) {
-        cards += '<div class="skel-card">' +
-            '<div class="skel-i sk-t1"></div>' +
-            '<div class="skel-i sk-t2"></div>' +
-            '<div class="skel-i sk-t3" style="margin-top:auto;"></div>' +
-            '<div class="skel-i sk-t4"></div>' +
+        cards += '<div class="skel-card" style="padding:28px; border-radius:16px;">' +
+            '<div class="skel-i sk-t1" style="width:40%; height:10px; margin-bottom:12px;"></div>' +
+            '<div class="skel-i sk-t2" style="width:80%; height:28px; margin-bottom:16px;"></div>' +
+            '<div class="skel-i sk-t3" style="width:100%; height:80px; margin-bottom:20px;"></div>' +
+            '<div class="skel-i sk-t4" style="width:30%; height:14px;"></div>' +
             '</div>';
     }
     container.innerHTML = '<div class="jobs-grid">' + cards + '</div>';
@@ -104,16 +104,16 @@ function renderJobs() {
     }
 
     var jobsHtml = '<div class="jobs-grid">' + filtered.map(function(j) {
-        return '<a href="/job.html?id=' + encodeURIComponent(j.id) + '" class="job-card" style="display:block;text-decoration:none;color:inherit;">' +
+        return '<a href="/job.html?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
             '<div class="jc-sector">' + (sectorLabel[j.sector] || j.sector) + '</div>' +
             '<div class="jc-title">' + esc(j.title) + '</div>' +
             '<div class="jc-meta">' +
-            (j.location ? '<span class="jc-tag">&#x1F4CD;&nbsp;' + esc(j.location) + '</span>' : '') +
-            (j.type ? '<span class="jc-tag">' + esc(j.type) + '</span>' : '') +
+            (j.location ? '<span class="jc-tag">📍 ' + esc(j.location) + '</span>' : '') +
+            (j.type ? '<span class="jc-tag">🕒 ' + esc(j.type.replace('-',' ')) + '</span>' : '') +
             '</div>' +
             '<div class="jc-pay">' + esc(j.pay) + '</div>' +
-            '<p class="jc-desc" style="color:var(--muted);">' + esc((j.desc || '').substring(0, 110)) + '&hellip;</p>' +
-            '<div class="jc-btn" style="margin-top:14px;display:inline-block;">View &amp; Apply &#8594;</div>' +
+            '<p class="jc-desc">' + esc((j.desc || '').substring(0, 110)) + '&hellip;</p>' +
+            '<div class="jc-btn" style="margin-top:auto;">View &amp; Apply</div>' +
             '</a>';
     }).join('') + '</div>';
 
