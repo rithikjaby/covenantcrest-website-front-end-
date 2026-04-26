@@ -1352,43 +1352,28 @@
 
     /* RESPONSIVE */
     @media(max-width:860px) {
-      nav {
-        padding: 0 20px;
-        height: 68px;
-      }
-
+      nav { padding: 0 16px; height: 68px; justify-content: space-between; }
+      .nav-name { font-size: 24px; }
+      .nav-logo { gap: 6px; }
+      .nav-logo svg { width: 24px; height: 24px; }
       .nav-links {
-        display: none;
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        background: rgba(13, 27, 42, .98);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 12px 20px 18px;
-        gap: 2px;
-        border-bottom: 1px solid rgba(201, 168, 76, .1);
+        display: none; position: absolute; top: 68px; left: 0; right: 0;
+        background: rgba(13, 27, 42, .98); flex-direction: column; align-items: flex-start;
+        padding: 12px 20px 18px; gap: 2px; border-bottom: 1px solid rgba(201, 168, 76, .1); z-index: 1001;
       }
-
-      .nav-links.open {
-        display: flex;
+      .nav-links.open { display: flex; }
+      .nl { padding: 12px 0; font-size: 14px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.03); }
+      .nl:last-child { border-bottom: none; }
+      .nav-mob { display: block; order: 3; }
+      .nav-group-wrap { order: 2; margin-left: auto; margin-right: 10px; }
+      .btn-group { padding: 8px 16px; font-size: 9px; }
+      .group-dd { 
+        position: fixed; top: 68px; left: 0; right: 0; width: 100%; 
+        border-radius: 0; transform: none!important; opacity: 1!important; 
+        visibility: visible!important; display: none; background: rgba(13, 27, 42, .98); 
+        border-bottom: 2px solid var(--gold);
       }
-
-      .nl {
-        padding: 10px 0;
-        font-size: 14px;
-        width: 100%;
-      }
-
-      .nav-mob {
-        display: block;
-      }
-
-      .nav-group-wrap{width:100%; margin-top:10px;}
-      .btn-group{width:100%; justify-content:center;}
-      .group-dd{position:static; transform:none!important; opacity:1!important; visibility:visible!important; border:none; box-shadow:none; padding:10px 0 0 15px; display:none; background:transparent;}
-      .nav-group-wrap.open .group-dd{display:block;}
+      .nav-group-wrap.open .group-dd { display: block; }
 
       .page-hero {
         padding: 100px 24px 60px;
