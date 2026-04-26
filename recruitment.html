@@ -130,6 +130,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .jc-btn{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;padding:0;}
 .jc-btn:hover{text-decoration:underline;}
 
+/* FILTER CHIPS */
+.filter-chip{background:var(--navy); color:#fff; font-size:10px; padding:6px 12px; border-radius:20px; display:flex; align-items:center; gap:8px; border:1px solid rgba(201,168,76,0.2); transition:all .2s;}
+.filter-chip:hover{border-color:var(--gold); transform:translateY(-1px);}
+.filter-chip button{background:none; border:none; color:var(--gold); cursor:pointer; font-weight:700; padding:0; font-size:12px; line-height:1;}
+.filter-chip button:hover{color:#fff;}
+.clear-all-btn{background:none; border:none; color:var(--gold); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; margin-left:8px; opacity:.7; transition:opacity .2s;}
+.clear-all-btn:hover{opacity:1; text-decoration:underline;}
+
 /* APPLY (dark) */
 .apply-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;}
 .dfc{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:32px;}
@@ -356,8 +364,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 <section class="sec sec-wh" id="live-jobs">
   <div class="inner">
     <div class="s-tag rv">Live Vacancies</div>
-    <h2 class="s-title rv"><em>Live Jobs</em> Available Now</h2>
-    <p class="s-lead rv">All roles actively being filled. Apply via the form below or call <strong>07346 809846</strong> for immediate availability.</p>
+    <h2 class="s-title rv" id="live-jobs-title"><em>Live Jobs</em> Available Now</h2>
+    <p class="s-lead rv" id="live-jobs-lead">All roles actively being filled. Apply via the form below or call <strong>07346 809846</strong> for immediate availability.</p>
     <div class="job-filters rv">
       <input class="jf-search" id="jf-search" type="text" placeholder="&#128269;  Search jobs&hellip;">
       <select class="jf-sel" id="jf-sector">
@@ -375,6 +383,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <option value="permanent">Permanent</option>
       </select>
     </div>
+    <div id="active-filters" class="rv" style="margin-bottom:18px; display:flex; gap:8px; flex-wrap:wrap;"></div>
     <div id="jobs-container" class="rv"></div>
   </div>
 </section>

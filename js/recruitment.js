@@ -61,6 +61,33 @@ function renderJobs() {
     var sector = sectorInput ? (sectorInput.value || activeSector) : activeSector;
     var type = document.getElementById('jf-type')?.value || '';
 
+    // Update Headings based on sector
+    var titleEl = document.getElementById('live-jobs-title');
+    var leadEl = document.getElementById('live-jobs-lead');
+    if (titleEl) {
+        if (sector) titleEl.innerHTML = 'Live <em>' + (sectorLabel[sector] || sector) + '</em> Jobs';
+        else titleEl.innerHTML = '<em>Live Jobs</em> Available Now';
+    }
+    if (leadEl) {
+        if (sector) leadEl.textContent = 'Specialist ' + (sectorLabel[sector] || sector) + ' roles currently being filled across the UK.';
+        else leadEl.textContent = 'All roles actively being filled. Apply via the form below or call 07346 809846 for immediate availability.';
+    }
+
+    // Active Filter Bar
+    var filterBar = document.getElementById('active-filters');
+    if (filterBar) {
+        var chips = '';
+        if (sector) chips += '<span class="filter-chip">' + (sectorLabel[sector] || sector) + ' <button onclick="resetSector()">✕</button></span>';
+        if (type) chips += '<span class="filter-chip">' + type.replace('-',' ') + ' <button onclick="resetType()">✕</button></span>';
+        if (search) chips += '<span class="filter-chip">"' + search + '" <button onclick="resetSearch()">✕</button></span>';
+        
+        if (chips) {
+            filterBar.innerHTML = chips + '<button onclick="resetAllFilters()" class="clear-all-btn">Clear All</button>';
+        } else {
+            filterBar.innerHTML = '';
+        }
+    }
+
     var filtered = JOBS.filter(function(j) {
         var mSec = !sector || j.sector === sector;
         var mType = !type || j.type === type;
@@ -72,11 +99,11 @@ function renderJobs() {
     if (!container) return;
 
     if (!filtered.length) {
-        container.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--muted);"><p style="font-size:13px;">No matching jobs found. <a href="#apply" style="color:var(--gold);">Apply for a role</a> and we\'ll contact you when a suitable role becomes available.</p></div>';
+        container.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--muted);"><p style="font-size:13px;">No matching jobs found in this category. <br><br> <button onclick="resetAllFilters()" class="jc-btn" style="color:var(--gold); font-size:12px;">View All Available Jobs &#8594;</button></p></div>';
         return;
     }
 
-    container.innerHTML = '<div class="jobs-grid">' + filtered.map(function(j) {
+    var jobsHtml = '<div class="jobs-grid">' + filtered.map(function(j) {
         return '<a href="/job.html?id=' + encodeURIComponent(j.id) + '" class="job-card" style="display:block;text-decoration:none;color:inherit;">' +
             '<div class="jc-sector">' + (sectorLabel[j.sector] || j.sector) + '</div>' +
             '<div class="jc-title">' + esc(j.title) + '</div>' +
@@ -90,10 +117,57 @@ function renderJobs() {
             '</a>';
     }).join('') + '</div>';
 
+    // Suggestion for other sectors if filtering
+    if (sector && filtered.length > 0) {
+        var otherCount = JOBS.filter(function(j){ return j.sector !== sector; }).length;
+        if (otherCount > 0) {
+            jobsHtml += '<div style="margin-top:32px; text-align:center; padding:24px; border-top:1px solid var(--border);">' +
+                '<p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Interested in other sectors? We also have ' + otherCount + ' roles in Healthcare, Security, and more.</p>' +
+                '<button onclick="resetAllFilters()" class="btn-ghost" style="border-color:var(--gold); color:var(--gold); font-size:11px; padding:8px 20px;">View All ' + JOBS.length + ' Jobs</button>' +
+            '</div>';
+        }
+    }
+
+    container.innerHTML = jobsHtml;
+
     // Force reveal now that jobs are rendered
     setTimeout(function() {
         container.classList.add('vs');
     }, 50);
+}
+
+function resetSector() {
+    var sInput = document.getElementById('jf-sector');
+    if (sInput) sInput.value = '';
+    activeSector = '';
+    document.querySelectorAll('.sbt').forEach(function(b){ b.classList.remove('act'); });
+    document.getElementById('sbt-all')?.classList.add('act');
+    renderJobs();
+}
+
+function resetType() {
+    var tInput = document.getElementById('jf-type');
+    if (tInput) tInput.value = '';
+    renderJobs();
+}
+
+function resetSearch() {
+    var srch = document.getElementById('jf-search');
+    if (srch) srch.value = '';
+    renderJobs();
+}
+
+function resetAllFilters() {
+    activeSector = '';
+    var sInput = document.getElementById('jf-sector');
+    var tInput = document.getElementById('jf-type');
+    var srch = document.getElementById('jf-search');
+    if (sInput) sInput.value = '';
+    if (tInput) tInput.value = '';
+    if (srch) srch.value = '';
+    document.querySelectorAll('.sbt').forEach(function(b){ b.classList.remove('act'); });
+    document.getElementById('sbt-all')?.classList.add('act');
+    renderJobs();
 }
 
 function filterSector(sector, btn) {
