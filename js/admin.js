@@ -897,15 +897,34 @@ function viewApplication(id) {
 function downloadApplicationCV(a) {
   var data = a.cvBase64 || a.cvUrl;
   if (!data) return showToast('No CV data found', 'er');
-  var filename = a.cvFileName || ((a.first_name || 'Candidate') + '_CV.pdf');
   
-  // If it's a direct URL to a file (not base64)
+  var filename = a.cvFileName || ((a.first_name || 'Candidate') + '_CV.pdf');
+  if (filename.indexOf('.') === -1) filename += '.pdf'; // Guess PDF for old ones
+
+  // If it's a direct URL
   if (data.indexOf('http') === 0) {
-    window.open(data, '_blank');
+    // If it's a Cloudinary URL, we can try to force attachment mode
+    var downloadUrl = data;
+    if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('fl_attachment') === -1) {
+       // Insert fl_attachment after /upload/
+       downloadUrl = data.replace('/upload/', '/upload/fl_attachment:' + encodeURIComponent(filename.replace(/\.[^/.]+$/, "")) + '/');
+       // If no extension in URL, append it
+       if (downloadUrl.split('?')[0].split('#')[0].indexOf('.') === -1) {
+          downloadUrl = downloadUrl.replace(/\/v\d+\//, function(m){ return m; }) + '.pdf';
+       }
+    }
+
+    var link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     return;
   }
 
-  // If it's Base64, decode it into a Blob to prevent corruption
+  // If it's Base64, decode it into a Blob
   try {
     var base64Content = data;
     if (data.indexOf('base64,') !== -1) base64Content = data.split('base64,')[1];
@@ -932,7 +951,6 @@ function downloadApplicationCV(a) {
     window.URL.revokeObjectURL(url);
   } catch(e) {
     console.error('CV Download Error:', e);
-    // Last resort fallback
     window.open(data, '_blank');
   }
 }
