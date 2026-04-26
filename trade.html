@@ -143,33 +143,120 @@
     }
 
     @media(max-width:860px) {
-      nav { padding: 0 16px; height: 68px; justify-content: space-between; }
-      .nav-name { font-size: 24px; }
-      .nav-logo { gap: 6px; }
-      .nav-logo svg { width: 24px; height: 24px; }
-      .nav-links {
-        display: none; position: absolute; top: 68px; left: 0; right: 0;
-        background: rgba(13, 27, 42, .98); flex-direction: column; align-items: flex-start;
-        padding: 12px 20px 18px; gap: 2px; border-bottom: 1px solid rgba(201, 168, 76, .1); z-index: 1001;
+      nav {
+        padding: 0 16px;
+        height: 68px;
+        justify-content: space-between;
       }
-      .nav-links.open { display: flex; }
-      .nl { padding: 12px 0; font-size: 14px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.03); }
-      .nl:last-child { border-bottom: none; }
-      .nav-mob { display: block; order: 3; }
-      .nav-group-wrap { order: 2; margin-left: auto; margin-right: 10px; }
-      .btn-group { padding: 8px 16px; font-size: 9px; }
-      .group-dd { 
-        position: fixed; top: 68px; left: 0; right: 0; width: 100%; 
-        border-radius: 0; transform: none!important; opacity: 1!important; 
-        visibility: visible!important; display: none; background: rgba(13, 27, 42, .98); 
+
+      .nav-name {
+        font-size: 22px;
+        flex: 1;
+      }
+
+      .nav-logo {
+        gap: 8px;
+      }
+
+      .nav-logo svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: rgba(13, 27, 42, .98);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        gap: 0;
+        border-bottom: 2px solid var(--gold);
+        z-index: 1001;
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nl {
+        padding: 15px 0;
+        font-size: 15px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .nl:last-child {
+        border-bottom: none;
+      }
+
+      .nav-mob {
+        display: block;
+        order: 3;
+        font-size: 26px;
+        padding: 5px;
+      }
+
+      .nav-group-wrap {
+        order: 2;
+        margin-left: auto;
+        margin-right: 12px;
+      }
+
+      .btn-group {
+        padding: 8px 14px;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+      }
+
+      .group-dd {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: none;
+        background: rgba(13, 27, 42, .98);
         border-bottom: 2px solid var(--gold);
       }
-      .nav-group-wrap.open .group-dd { display: block; }
+
+      .nav-group-wrap.open .group-dd {
+        display: block;
+      }
     }
+
     @media(max-width:480px) {
-      .nav-name { font-size: 18px; }
-      .btn-group { padding: 6px 12px; font-size: 8px; }
-      .nav-group-wrap { margin-right: 5px; }
+      .nav-name {
+        font-size: 18px;
+      }
+
+      .btn-group {
+        padding: 7px 10px;
+        font-size: 8px;
+      }
+
+      .nav-group-wrap {
+        margin-right: 8px;
+      }
+    }
+
+    @media(max-width:360px) {
+      .nav-name {
+        font-size: 16px;
+      }
+
+      .nav-logo {
+        gap: 5px;
+      }
     }
 
     /* PAGE HERO */
@@ -1005,19 +1092,17 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 L90 20 V50 C90 75 70 95 50 105 C30 95 10 75 10 50 V20 Z" stroke="#C9A84C" stroke-width="2" />
-        <path d="M50 12 L82 24 V50 C82 70 65 87 50 95 C35 87 18 70 18 50 V24 Z" stroke="#C9A84C" stroke-width="1.5"
-          stroke-dasharray="3 4" />
-        <line x1="50" y1="28" x2="50" y2="44" stroke="#C9A84C" stroke-width="2" />
-        <line x1="50" y1="56" x2="50" y2="72" stroke="#C9A84C" stroke-width="2" />
-        <line x1="28" y1="50" x2="44" y2="50" stroke="#C9A84C" stroke-width="2" />
-        <line x1="56" y1="50" x2="72" y2="50" stroke="#C9A84C" stroke-width="2" />
-        <polygon points="50,43 57,50 50,57 43,50" fill="#C9A84C" />
-        <circle cx="50" cy="28" r="2.5" fill="#C9A84C" />
-        <circle cx="50" cy="72" r="2.5" fill="#C9A84C" />
-        <circle cx="28" cy="50" r="2.5" fill="#C9A84C" />
-        <circle cx="72" cy="50" r="2.5" fill="#C9A84C" />
+      <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+        <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+          stroke-width="0.75" stroke-dasharray="2 2" />
+        <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+        <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+        <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+        <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+        <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
       </svg>
       <div class="nav-name">Covenant Crest <span>Trade</span></div>
     </a>
@@ -1324,19 +1409,18 @@
   <footer>
     <div class="ft-main">
       <div>
-        <svg width="32" height="32" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 5 L90 20 V50 C90 75 70 95 50 105 C30 95 10 75 10 50 V20 Z" stroke="#C9A84C" stroke-width="2" />
-          <path d="M50 12 L82 24 V50 C82 70 65 87 50 95 C35 87 18 70 18 50 V24 Z" stroke="#C9A84C" stroke-width="1.5"
-            stroke-dasharray="3 4" />
-          <line x1="50" y1="28" x2="50" y2="44" stroke="#C9A84C" stroke-width="2" />
-          <line x1="50" y1="56" x2="50" y2="72" stroke="#C9A84C" stroke-width="2" />
-          <line x1="28" y1="50" x2="44" y2="50" stroke="#C9A84C" stroke-width="2" />
-          <line x1="56" y1="50" x2="72" y2="50" stroke="#C9A84C" stroke-width="2" />
-          <polygon points="50,43 57,50 50,57 43,50" fill="#C9A84C" />
-          <circle cx="50" cy="28" r="2.5" fill="#C9A84C" />
-          <circle cx="50" cy="72" r="2.5" fill="#C9A84C" />
-          <circle cx="28" cy="50" r="2.5" fill="#C9A84C" />
-          <circle cx="72" cy="50" r="2.5" fill="#C9A84C" />
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C"
+            stroke-width="1.5" />
+          <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+            stroke-width="0.75" stroke-dasharray="2 2" />
+          <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+          <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+          <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+          <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+          <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>

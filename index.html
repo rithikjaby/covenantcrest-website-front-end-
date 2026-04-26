@@ -191,18 +191,95 @@
     .nl.active {
       color: var(--gold);
     }
-    .nl-rec{color:var(--gold); font-weight:700;}
+
+    .nl-rec {
+      color: var(--gold);
+      font-weight: 700;
+    }
 
     /* GROUP BUTTON & DROPDOWN */
-    .nav-group-wrap{position:relative; display:inline-block;}
-    .btn-group{background:var(--gold); color:var(--navy); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
-    .btn-group:hover{background:var(--gold2); transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,0.25);}
-    .group-dd{position:absolute; top:100%; right:0; transform:translateY(12px); background:rgba(13,27,42,0.98); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 0; min-width:230px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 25px 50px rgba(0,0,0,0.5); backdrop-filter:blur(12px); z-index:1000;}
-    .nav-group-wrap:hover .group-dd{opacity:1; visibility:visible; transform:translateY(0);}
-    .gm-item{display:block; padding:12px 20px; text-decoration:none; transition:all .2s; border-left:3px solid transparent;}
-    .gm-item:hover{background:rgba(201,168,76,0.08); border-left-color:var(--gold);}
-    .gm-name{font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; margin-bottom:2px;}
-    .gm-desc{font-size:10px; color:rgba(255,255,255,0.4); font-weight:400;}
+    .nav-group-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .btn-group {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      white-space: nowrap;
+    }
+
+    .btn-group:hover {
+      background: var(--gold2);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(201, 168, 76, 0.25);
+    }
+
+    .group-dd {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      transform: translateY(12px);
+      background: rgba(13, 27, 42, 0.98);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 230px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+    }
+
+    .nav-group-wrap:hover .group-dd {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .gm-item {
+      display: block;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: all .2s;
+      border-left: 3px solid transparent;
+    }
+
+    .gm-item:hover {
+      background: rgba(201, 168, 76, 0.08);
+      border-left-color: var(--gold);
+    }
+
+    .gm-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .gm-desc {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 400;
+    }
 
     .nav-mob {
       display: none;
@@ -217,29 +294,134 @@
     }
 
     /* COMPLIANCE RIBBON */
-    .comp-ribbon{background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(201,168,76,0.1); padding:18px 0; overflow:hidden;}
-    .cr-flex{display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;}
-    .cr-i{display:flex; align-items:center; gap:10px; opacity:0.6; transition:opacity .3s;}
-    .cr-i:hover{opacity:1;}
-    .cr-dot{width:6px; height:6px; background:var(--gold); border-radius:50%;}
-    .cr-txt{font-size:10px; font-weight:700; color:#fff; letter-spacing:.15em; text-transform:uppercase;}
+    .comp-ribbon {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 18px 0;
+      overflow: hidden;
+    }
+
+    .cr-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cr-i {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.6;
+      transition: opacity .3s;
+    }
+
+    .cr-i:hover {
+      opacity: 1;
+    }
+
+    .cr-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .cr-txt {
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
 
     /* QUICK ENQUIRY */
-    .qe-bar{background:var(--navy); padding:60px 48px; text-align:center; border-top:1px solid rgba(201,168,76,0.12);}
-    .qe-h2{font-family:'Cormorant Garamond',serif; font-size:38px; color:#fff; margin-bottom:12px; font-weight:300;}
-    .qe-p{font-size:15px; color:rgba(255,255,255,0.5); margin-bottom:32px; max-width:700px; margin-left:auto; margin-right:auto;}
-    .btn-enq{background:var(--gold); color:var(--navy); font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:16px 40px; border-radius:4px; border:none; cursor:pointer; display:inline-block; text-decoration:none; transition:all .3s;}
-    .btn-enq:hover{background:var(--gold2); transform:translateY(-2px); box-shadow:0 10px 20px rgba(201,168,76,0.2);}
-    
-    .qe-form-wrap{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(0.165, 0.84, 0.44, 1); background:rgba(255,255,255,0.02);}
-    .qe-form-wrap.open{max-height:1000px; padding:60px 0;}
-    .qe-inner{max-width:800px; margin:0 auto; padding:0 24px;}
+    .qe-bar {
+      background: var(--navy);
+      padding: 60px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .qe-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      color: #fff;
+      margin-bottom: 12px;
+      font-weight: 300;
+    }
+
+    .qe-p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-enq {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      transition: all .3s;
+    }
+
+    .btn-enq:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(201, 168, 76, 0.2);
+    }
+
+    .qe-form-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .qe-form-wrap.open {
+      max-height: 1000px;
+      padding: 60px 0;
+    }
+
+    .qe-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
     @media(max-width:860px) {
-      nav { padding: 0 16px; height: 68px; justify-content: space-between; }
-      .nav-name { font-size: 24px; }
-      .nav-logo { gap: 6px; }
-      .nav-logo svg { width: 24px; height: 24px; }
+      nav {
+        padding: 0 16px;
+        height: 68px;
+        justify-content: space-between;
+      }
+
+      .nav-name {
+        font-size: 22px;
+        flex: 1;
+      }
+
+      .nav-logo {
+        gap: 8px;
+      }
+
+      .nav-logo svg {
+        width: 24px;
+        height: 24px;
+      }
 
       .nav-links {
         display: none;
@@ -247,36 +429,94 @@
         top: 68px;
         left: 0;
         right: 0;
-        background: rgba(13, 27, 42, .98);
+        background: rgba(13, 27, 42, .99);
         flex-direction: column;
-        align-items: flex-start;
-        padding: 12px 20px 18px;
-        gap: 2px;
-        border-bottom: 1px solid rgba(201, 168, 76, .1);
-        z-index: 1001;
-      }
-
-      .nav-links.open { display: flex; }
-      .nl { padding: 12px 0; font-size: 14px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.03); }
-      .nl:last-child { border-bottom: none; }
-
-      .nav-mob { display: block; order: 3; }
-      
-      .nav-group-wrap { order: 2; margin-left: auto; margin-right: 10px; }
-      .btn-group { padding: 8px 16px; font-size: 9px; }
-      .group-dd { 
-        position: fixed; top: 68px; left: 0; right: 0; width: 100%; 
-        border-radius: 0; transform: none!important; opacity: 1!important; 
-        visibility: visible!important; display: none; background: rgba(13, 27, 42, .98); 
+        align-items: stretch;
+        padding: 20px;
+        gap: 0;
         border-bottom: 2px solid var(--gold);
+        z-index: 1001;
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
       }
-      .nav-group-wrap.open .group-dd { display: block; }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nl {
+        padding: 15px 0;
+        font-size: 15px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .nl:last-child {
+        border-bottom: none;
+      }
+
+      .nav-mob {
+        display: block;
+        order: 3;
+        font-size: 26px;
+        padding: 5px;
+      }
+
+      .nav-group-wrap {
+        order: 2;
+        margin-left: auto;
+        margin-right: 12px;
+      }
+
+      .btn-group {
+        padding: 8px 14px;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+      }
+
+      .group-dd {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: none;
+        background: rgba(13, 27, 42, .99);
+        border-bottom: 3px solid var(--gold);
+      }
+
+      .nav-group-wrap.open .group-dd {
+        display: block;
+      }
     }
 
     @media(max-width:480px) {
-      .nav-name { font-size: 18px; }
-      .btn-group { padding: 6px 12px; font-size: 8px; }
-      .nav-group-wrap { margin-right: 5px; }
+      .nav-name {
+        font-size: 18px;
+      }
+
+      .btn-group {
+        padding: 7px 10px;
+        font-size: 8px;
+      }
+
+      .nav-group-wrap {
+        margin-right: 8px;
+      }
+    }
+
+    @media(max-width:360px) {
+      .nav-name {
+        font-size: 16px;
+      }
+
+      .nav-logo {
+        gap: 5px;
+      }
     }
 
     /* HERO */
@@ -1354,10 +1594,19 @@
       .eco-grid {
         grid-template-columns: 1fr;
       }
-      .nav-group-wrap{width:100%; margin-top:10px;}
-      .btn-group{width:100%; justify-content:center;}
-      .group-dd{position:static; transform:none!important; opacity:1!important; visibility:visible!important; border:none; box-shadow:none; padding:10px 0 0 15px; display:none; background:transparent;}
-      .nav-group-wrap.open .group-dd{display:block;}
+
+    @media(max-width:520px) {
+      .strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hs-i {
+        flex: 0 0 100%;
+      }
+
+      .hero-h1 {
+        font-size: 44px;
+      }
     }
 
     @media(max-width:520px) {
@@ -1384,30 +1633,29 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 L90 20 V50 C90 75 70 95 50 105 C30 95 10 75 10 50 V20 Z" stroke="#C9A84C" stroke-width="2" />
-        <path d="M50 12 L82 24 V50 C82 70 65 87 50 95 C35 87 18 70 18 50 V24 Z" stroke="#C9A84C" stroke-width="1.5"
-          stroke-dasharray="3 4" />
-        <line x1="50" y1="28" x2="50" y2="44" stroke="#C9A84C" stroke-width="2" />
-        <line x1="50" y1="56" x2="50" y2="72" stroke="#C9A84C" stroke-width="2" />
-        <line x1="28" y1="50" x2="44" y2="50" stroke="#C9A84C" stroke-width="2" />
-        <line x1="56" y1="50" x2="72" y2="50" stroke="#C9A84C" stroke-width="2" />
-        <polygon points="50,43 57,50 50,57 43,50" fill="#C9A84C" />
-        <circle cx="50" cy="28" r="2.5" fill="#C9A84C" />
-        <circle cx="50" cy="72" r="2.5" fill="#C9A84C" />
-        <circle cx="28" cy="50" r="2.5" fill="#C9A84C" />
-        <circle cx="72" cy="50" r="2.5" fill="#C9A84C" />
+      <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+        <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+          stroke-width="0.75" stroke-dasharray="2 2" />
+        <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+        <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+        <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+        <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+        <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
       </svg>
       <div class="nav-name">Covenant <span>Crest</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html"       class="nl active">Home</a>
+      <a href="/index.html" class="nl active">Home</a>
       <a href="/recruitment.html" class="nl">Browse Jobs</a>
-      <a href="/hire.html"        class="nl">Hire Staff</a>
-      <a href="/about.html"       class="nl">About Us</a>
+      <a href="/hire.html" class="nl">Hire Staff</a>
+      <a href="/about.html" class="nl">About Us</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
-      <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
+      <button class="btn-group">Our Divisions <span
+          style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
         <a href="/haulage.html" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
@@ -1447,11 +1695,21 @@
   <div class="comp-ribbon">
     <div class="inner">
       <div class="cr-flex">
-        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">CQC Registered</span></div>
-        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">SIA Licence Verified</span></div>
-        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">GLAA Compliant</span></div>
-        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">ICO Registered</span></div>
-        <div class="cr-i"><div class="cr-dot"></div><span class="cr-txt">UK Nationwide</span></div>
+        <div class="cr-i">
+          <div class="cr-dot"></div><span class="cr-txt">CQC Registered</span>
+        </div>
+        <div class="cr-i">
+          <div class="cr-dot"></div><span class="cr-txt">SIA Licence Verified</span>
+        </div>
+        <div class="cr-i">
+          <div class="cr-dot"></div><span class="cr-txt">GLAA Compliant</span>
+        </div>
+        <div class="cr-i">
+          <div class="cr-dot"></div><span class="cr-txt">ICO Registered</span>
+        </div>
+        <div class="cr-i">
+          <div class="cr-dot"></div><span class="cr-txt">UK Nationwide</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1722,7 +1980,8 @@
   <section class="qe-bar" id="enquiry">
     <div class="inner">
       <h2 class="qe-h2">Ready to work with us?</h2>
-      <p class="qe-p">Call <strong>07346 809846</strong> or send an enquiry &mdash; we respond personally, the same day.</p>
+      <p class="qe-p">Call <strong>07346 809846</strong> or send an enquiry &mdash; we respond personally, the same day.
+      </p>
       <button class="btn-enq" id="toggleEnquiry" aria-expanded="false">Send an Enquiry &rarr;</button>
     </div>
   </section>
@@ -1731,15 +1990,19 @@
     <div class="qe-inner">
       <div class="dfc" style="margin:0; width:100%; max-width:none; background:transparent; border:none; padding:0;">
         <div class="ok-banner" id="ok-qe">&#x2705; Message received! We'll be in touch today.</div>
-        <form name="quick_enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-form-name="quick_enquiry" data-banner-id="ok-qe">
+        <form name="quick_enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+          data-form-name="quick_enquiry" data-banner-id="ok-qe">
           <input type="hidden" name="form-name" value="quick_enquiry">
           <div class="dk-g2">
-            <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name" placeholder="Full Name" required></div>
-            <div class="dk-fg"><label class="dk-label">Email / Phone *</label><input class="dk-input" name="contact" placeholder="How can we reach you?" required></div>
+            <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name"
+                placeholder="Full Name" required></div>
+            <div class="dk-fg"><label class="dk-label">Email / Phone *</label><input class="dk-input" name="contact"
+                placeholder="How can we reach you?" required></div>
           </div>
           <div class="dk-fg">
             <label class="dk-label">How can we help? *</label>
-            <textarea class="dk-textarea" name="message" placeholder="Briefly describe your requirements..." required></textarea>
+            <textarea class="dk-textarea" name="message" placeholder="Briefly describe your requirements..."
+              required></textarea>
           </div>
           <button type="submit" class="f-submit" style="margin-top:20px;">Submit Enquiry &rarr;</button>
         </form>
@@ -1750,19 +2013,18 @@
   <footer>
     <div class="ft-main">
       <div>
-        <svg width="32" height="32" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 5 L90 20 V50 C90 75 70 95 50 105 C30 95 10 75 10 50 V20 Z" stroke="#C9A84C" stroke-width="2" />
-          <path d="M50 12 L82 24 V50 C82 70 65 87 50 95 C35 87 18 70 18 50 V24 Z" stroke="#C9A84C" stroke-width="1.5"
-            stroke-dasharray="3 4" />
-          <line x1="50" y1="28" x2="50" y2="44" stroke="#C9A84C" stroke-width="2" />
-          <line x1="50" y1="56" x2="50" y2="72" stroke="#C9A84C" stroke-width="2" />
-          <line x1="28" y1="50" x2="44" y2="50" stroke="#C9A84C" stroke-width="2" />
-          <line x1="56" y1="50" x2="72" y2="50" stroke="#C9A84C" stroke-width="2" />
-          <polygon points="50,43 57,50 50,57 43,50" fill="#C9A84C" />
-          <circle cx="50" cy="28" r="2.5" fill="#C9A84C" />
-          <circle cx="50" cy="72" r="2.5" fill="#C9A84C" />
-          <circle cx="28" cy="50" r="2.5" fill="#C9A84C" />
-          <circle cx="72" cy="50" r="2.5" fill="#C9A84C" />
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C"
+            stroke-width="1.5" />
+          <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+            stroke-width="0.75" stroke-dasharray="2 2" />
+          <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+          <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+          <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+          <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+          <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
@@ -1807,7 +2069,8 @@
 
   <div id="cc-bar">
     <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies.
-      <a href="/privacy.html">Privacy Policy</a>.</p>
+      <a href="/privacy.html">Privacy Policy</a>.
+    </p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>
       <button class="cc-ok">Accept All</button>
