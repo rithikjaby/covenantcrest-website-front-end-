@@ -69,11 +69,12 @@
       background: rgba(13, 27, 42, .97);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(201, 168, 76, .12);
-      height: 68px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 48px;
+      transition: background 0.3s;
     }
 
     .nav-logo {
@@ -112,40 +113,22 @@
       white-space: nowrap;
     }
 
-    .nl:hover,.nl.active{color:var(--gold);}
-    .nl-rec{color:var(--gold); border-bottom:1px solid rgba(201,168,76,0.3); padding-bottom:2px;}
-
-    /* DROPDOWN */
-    .nav-dd{position:relative; display:flex; align-items:center; cursor:pointer;}
-    .nav-dd-menu{position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(10px); background:var(--navy); border:1px solid rgba(201,168,76,0.15); border-radius:8px; padding:12px 0; min-width:200px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 20px 40px rgba(0,0,0,0.3); z-index:1000;}
-    .nav-dd:hover .nav-dd-menu{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
-    .dd-item{display:block; padding:10px 24px; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,0.6); text-decoration:none; transition:all .2s;}
-    .dd-item:hover,.dd-item.active{background:rgba(201,168,76,0.05); color:var(--gold);}
-    .dd-arr{font-size:8px; margin-left:6px; transition:transform .3s; opacity:0.5;}
-    .nav-dd:hover .dd-arr{transform:rotate(180deg); opacity:1;}
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      padding: 9px 20px;
-      border-radius: 2px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background .2s;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .nl:hover,
+    .nl.active {
+      color: var(--gold);
     }
+    .nl-rec{color:var(--gold); font-weight:700;}
 
-    .nav-cta:hover {
-      background: var(--gold2);
-    }
+    /* GROUP BUTTON & DROPDOWN */
+    .nav-group-wrap{position:relative; display:inline-block;}
+    .btn-group{background:var(--gold); color:var(--navy); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
+    .btn-group:hover{background:var(--gold2); transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,0.25);}
+    .group-dd{position:absolute; top:100%; right:0; transform:translateY(12px); background:rgba(13,27,42,0.98); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 0; min-width:230px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 25px 50px rgba(0,0,0,0.5); backdrop-filter:blur(12px); z-index:1000;}
+    .nav-group-wrap:hover .group-dd{opacity:1; visibility:visible; transform:translateY(0);}
+    .gm-item{display:block; padding:12px 20px; text-decoration:none; transition:all .2s; border-left:3px solid transparent;}
+    .gm-item:hover{background:rgba(201,168,76,0.08); border-left-color:var(--gold);}
+    .gm-name{font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; margin-bottom:2px;}
+    .gm-desc{font-size:10px; color:rgba(255,255,255,0.4); font-weight:400;}
 
     .nav-mob {
       display: none;
@@ -162,6 +145,7 @@
     @media(max-width:860px) {
       nav {
         padding: 0 20px;
+        height: 68px;
       }
 
       .nav-links {
@@ -192,13 +176,10 @@
         display: block;
       }
 
-      .nav-cta {
-        display: none;
-      }
-
-      .nav-dd-menu{position:static; transform:none!important; opacity:1!important; visibility:visible!important; border:none; box-shadow:none; padding:0 0 0 15px; display:none; background:transparent;}
-      .nav-dd.open .nav-dd-menu{display:block;}
-      .nav-dd.open .dd-arr{transform:rotate(180deg);}
+      .nav-group-wrap{width:100%; margin-top:10px;}
+      .btn-group{width:100%; justify-content:center;}
+      .group-dd{position:static; transform:none!important; opacity:1!important; visibility:visible!important; border:none; box-shadow:none; padding:10px 0 0 15px; display:none; background:transparent;}
+      .nav-group-wrap.open .group-dd{display:block;}
     }
 
     /* PAGE HERO */
@@ -1053,16 +1034,22 @@
     <div class="nav-links" id="navLinks">
       <a href="/index.html"       class="nl">Home</a>
       <a href="/recruitment.html" class="nl nl-rec">Recruitment</a>
-      <div class="nl nav-dd active" id="divisionsToggle">
-        Our Divisions <span class="dd-arr">&#9662;</span>
-        <div class="nav-dd-menu">
-          <a href="/haulage.html" class="dd-item">Haulage &amp; Freight</a>
-          <a href="/trade.html"   class="dd-item active">Import &amp; Trade</a>
-        </div>
-      </div>
       <a href="/about.html"       class="nl">About Us</a>
+      <a href="/index.html#contact" class="nl">Contact</a>
     </div>
-    <a href="#enquiry" class="nav-cta">Trade Enquiry</a>
+    <div class="nav-group-wrap" id="groupToggle">
+      <button class="btn-group">The Group <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
+      <div class="group-dd">
+        <a href="/haulage.html" class="gm-item">
+          <div class="gm-name">Haulage &amp; Freight</div>
+          <div class="gm-desc">UK logistics &amp; freight solutions.</div>
+        </a>
+        <a href="/trade.html" class="gm-item">
+          <div class="gm-name">Import &amp; Trade</div>
+          <div class="gm-desc">Global food supply &amp; distribution.</div>
+        </a>
+      </div>
+    </div>
     <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
   </nav>
 

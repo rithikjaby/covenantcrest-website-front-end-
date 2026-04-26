@@ -82,10 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 1.5 Dropdown Toggle (Mobile)
-    var divisionsToggle = document.getElementById('divisionsToggle');
-    if (divisionsToggle) {
-        divisionsToggle.addEventListener('click', function(e) {
+    // 1.5 Group Toggle (Mobile)
+    var groupToggle = document.getElementById('groupToggle');
+    if (groupToggle) {
+        groupToggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 860) {
                 this.classList.toggle('open');
             }
