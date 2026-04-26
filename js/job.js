@@ -165,6 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var payEl = document.getElementById('job-pay');
         if (payEl) payEl.textContent = job.pay;
         
+        var mabPayEl = document.getElementById('mab-pay');
+        if (mabPayEl) mabPayEl.textContent = job.pay;
+        
         var descEl = document.getElementById('job-desc');
         if (descEl) descEl.innerHTML = job.desc || '';
 

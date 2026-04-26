@@ -47,11 +47,12 @@ nav .nav-cta { display: none; }
 }
 
 /* PAGE HEADER */
-.page-header{background:var(--navy);padding:140px 48px 80px;position:relative;}
-.ph-tag{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,56px);font-weight:300;color:#fff;line-height:1.1;margin-bottom:16px;max-width:800px;}
+.page-header{background:linear-gradient(rgba(13,27,42,0.92), rgba(13,27,42,0.92)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80'); background-size:cover; background-position:center; padding:140px 48px 80px; position:relative;}
+.ph-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.ph-tag::before{content:""; width:20px; height:1px; background:var(--gold);}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,62px);font-weight:500;color:#fff;line-height:1.1;margin-bottom:20px;max-width:850px;}
 .ph-meta{display:flex;flex-wrap:wrap;gap:12px;}
-.ph-meta-item{background:rgba(255,255,255,.1);color:#fff;padding:6px 12px;border-radius:4px;font-size:12px;font-weight:500;}
+.ph-meta-item{background:rgba(255,255,255,0.08); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.1); color:#fff; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:500; display:flex; align-items:center; gap:8px;}
 
 /* SHARE BUTTONS */
 .ph-share{display:flex;align-items:center;gap:10px;margin-top:24px;}
@@ -66,17 +67,34 @@ nav .nav-cta { display: none; }
 /* SECTIONS */
 .sec{padding:80px 48px;}
 .sec-wh{background:#fff;}
-.inner{max-width:800px;margin:0 auto;}
+.inner{max-width:940px;margin:0 auto;}
 
 /* JOB DETAILS */
-.job-detail-grid{display:grid;grid-template-columns:1fr;gap:40px;}
-.jd-block{margin-bottom:32px;}
-.jd-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:12px;}
-.jd-body{font-size:15px;color:var(--charcoal);line-height:1.8;}
-.jd-body ul, .jd-req-body ul{margin-left:20px; margin-bottom:15px;}
-.jd-body li, .jd-req-body li{margin-bottom:5px;}
-.jd-body p{margin-bottom:12px;}
+.job-detail-wrap{display:grid;grid-template-columns:1fr 320px;gap:56px;}
+@media(max-width:1000px){.job-detail-wrap{grid-template-columns:1fr;}}
 
+.jd-block{margin-bottom:40px;}
+.jd-title{font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:12px;}
+.jd-title::after{content:""; flex:1; height:1px; background:var(--border);}
+.jd-body{font-size:15px;color:var(--charcoal);line-height:1.85;}
+.jd-body ul, .jd-req-body ul{margin-left:20px; margin-bottom:20px; list-style:none;}
+.jd-body li, .jd-req-body li{margin-bottom:10px; position:relative;}
+.jd-body li::before, .jd-req-body li::before{content:"◆"; color:var(--gold); font-size:8px; position:absolute; left:-25px; top:8px;}
+
+.sidebar-box{background:var(--cream); padding:32px; border-radius:16px; border:1px solid var(--border); position:sticky; top:130px;}
+.sb-title{font-size:14px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:16px;}
+.sb-item{display:flex; align-items:flex-start; gap:12px; font-size:12px; color:var(--muted); margin-bottom:16px;}
+.sb-icon{color:var(--gold); font-size:16px; flex-shrink:0;}
+
+.jd-req{background:rgba(201,168,76,0.04); padding:28px; border-radius:12px; border:1px solid rgba(201,168,76,0.15); border-left:4px solid var(--gold); margin-bottom:40px;}
+.jd-req-title{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.jd-req-body{font-size:14px;color:var(--charcoal);line-height:1.75;}
+
+.apply-box{background:var(--navy); padding:48px 32px; border-radius:16px; text-align:center; margin-top:20px; box-shadow:0 20px 40px rgba(13,27,42,0.15);}
+.apply-box-title{font-family:'Cormorant Garamond',serif;font-size:32px;color:#fff;margin-bottom:14px;}
+.apply-box-desc{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:32px;line-height:1.6;}
+.btn-gold{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:18px 48px;border-radius:4px;border:none;cursor:pointer;transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);display:inline-block;text-decoration:none;}
+.btn-gold:hover{background:var(--gold2); transform:translateY(-2px); box-shadow:0 10px 20px rgba(201,168,76,0.2);}
 /* BOTTOM PILL SHARE BUTTONS */
 .jd-share-bottom{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
 .jds-title{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px;}
@@ -92,15 +110,12 @@ nav .nav-cta { display: none; }
 .jds-mail{background:#2c2c2c;}
 @media(max-width:600px){.jds-flex{flex-direction:column;}.jds-pill{width:100%;justify-content:center;}}
 
-.jd-req{background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--gold);margin-bottom:32px;}
-.jd-req-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.jd-req-body{font-size:14px;color:var(--charcoal);line-height:1.7;}
+/* MOBILE STICKY CTA */
+.mob-apply-bar{position:fixed; bottom:0; left:0; right:0; background:#fff; padding:12px 20px; border-top:1px solid var(--border); z-index:450; display:none; justify-content:space-between; align-items:center; box-shadow:0 -5px 15px rgba(0,0,0,0.05);}
+@media(max-width:860px){.mob-apply-bar{display:flex;}}
+.mab-price{font-weight:700; color:var(--navy); font-size:16px;}
+.mab-btn{background:var(--gold); color:var(--navy); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:10px 20px; border-radius:4px; text-decoration:none;}
 
-.apply-box{background:var(--navy);padding:40px;border-radius:12px;text-align:center;margin-top:20px;}
-.apply-box-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;margin-bottom:12px;}
-.apply-box-desc{color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;}
-.btn-gold{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:16px 36px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;display:inline-block;text-decoration:none;}
-.btn-gold:hover{background:var(--gold2);}
 /* INLINE FORM */
 .inline-form-wrap{background:var(--navy);border-radius:14px;padding:36px;margin-top:20px;display:none;}
 .inline-form-wrap.show{display:block;}
@@ -230,25 +245,27 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
   <section class="sec sec-wh">
     <div class="inner">
-      <!-- JOB DESCRIPTION (toggled off when form shown) -->
-      <div id="jd-view">
-        <div class="jd-block">
-          <div class="jd-title">About The Role</div>
-          <div class="jd-body" id="job-desc">Description goes here...</div>
-        </div>
-        <div class="jd-req" id="job-req-container" style="display:none;">
-          <div class="jd-req-title">Requirements &amp; Compliance</div>
-          <div class="jd-req-body" id="job-req">Requirements go here...</div>
-        </div>
-        <div class="apply-box">
-          <div class="apply-box-title">Interested in this role?</div>
-          <div class="apply-box-desc">Apply securely online. A consultant will contact you within 24 hours.</div>
-          <button class="btn-gold" id="apply-btn" aria-label="Apply for this role">Apply for This Role &#8594;</button>
-        </div>
-
-        <!-- NEW BOTTOM SHARE SECTION -->
-        <div class="jd-share-bottom">
-          <div class="jds-title">Share this job</div>
+      <div class="job-detail-wrap">
+        <!-- Main Content -->
+        <div>
+          <div id="jd-view">
+            <div class="jd-block">
+              <div class="jd-title">About The Role</div>
+              <div class="jd-body" id="job-desc">Description goes here...</div>
+            </div>
+            <div class="jd-req" id="job-req-container" style="display:none;">
+              <div class="jd-req-title">Requirements &amp; Compliance</div>
+              <div class="jd-req-body" id="job-req">Requirements go here...</div>
+            </div>
+            <div class="apply-box">
+              <div class="apply-box-title">Interested in this role?</div>
+              <div class="apply-box-desc">Apply securely online. A consultant will contact you within 24 hours.</div>
+              <button class="btn-gold" id="apply-btn" aria-label="Apply for this role">Apply for This Role &#8594;</button>
+            </div>
+            
+            <!-- BOTTOM SHARE SECTION -->
+            <div class="jd-share-bottom">
+              <div class="jds-title">Share this job</div>
           <div class="jds-flex">
             <a href="#" id="jds-fb" target="_blank" class="jds-pill jds-fb">
               <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -272,6 +289,32 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             </a>
           </div>
         </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-box">
+            <div class="sb-title">The Covenant Crest Promise</div>
+            <div class="sb-item">
+              <span class="sb-icon">💸</span>
+              <div><strong>Fast, Weekly Pay</strong><br>Paid every Friday, direct to your bank.</div>
+            </div>
+            <div class="sb-item">
+              <span class="sb-icon">🛡️</span>
+              <div><strong>DBS & Compliance</strong><br>We assist with all required vetting.</div>
+            </div>
+            <div class="sb-item">
+              <span class="sb-icon">⚡</span>
+              <div><strong>Rapid Placement</strong><br>Start working in as little as 24h.</div>
+            </div>
+            <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+              <div class="sb-title" style="font-size:12px;">Need Help?</div>
+              <div style="font-size:13px; color:var(--navy); font-weight:600;">07346 809846</div>
+              <div style="font-size:11px; color:var(--muted);">recruitment@covenantcrest.co.uk</div>
+            </div>
+          </div>
+        </aside>
       </div>
 
       <!-- INLINE APPLICATION FORM -->
@@ -322,6 +365,15 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       </div>
     </div>
   </section>
+</div>
+
+<!-- Mobile Sticky Apply Bar -->
+<div class="mob-apply-bar">
+  <div>
+    <div style="font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Salary</div>
+    <div class="mab-price" id="mab-pay">£---</div>
+  </div>
+  <a href="#jd-view" class="mab-btn" id="mab-apply">Apply Now</a>
 </div>
 
 <!-- FOOTER -->
