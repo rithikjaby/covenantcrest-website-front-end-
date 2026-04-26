@@ -121,36 +121,50 @@ function handleCVSelect(input) {
     var file = input.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-        alert('File is too large. Maximum size is 5 MB.');
+        alert('File is too large. Max 5MB allowed.');
         input.value = '';
         return;
     }
+
     _cvFileName = file.name;
-    var label = document.getElementById('cv-label');
-    if (label) {
-        label.textContent = '📎 ' + file.name;
-        label.style.color = 'rgba(255,255,255,.85)';
-    }
     var clearBtn = document.getElementById('cv-clear-btn');
     if (clearBtn) clearBtn.style.display = 'inline';
 
     var zone = document.getElementById('cv-upload-zone');
+    var progress = document.getElementById('cv-progress');
     if (zone) {
-        zone.style.borderColor = 'var(--success)';
-        zone.style.background = 'rgba(29, 158, 117, 0.05)';
+        zone.style.borderColor = 'var(--gold)';
+        zone.style.background = 'rgba(201, 168, 76, 0.05)';
+    }
+    if (progress) {
+        progress.style.display = 'block';
+        progress.textContent = 'Reading file...';
     }
 
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        _cvBase64 = e.target.result.split(',')[1];
-    };
-    reader.readAsDataURL(file);
+    _cvReadPromise = new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            _cvBase64 = e.target.result.split(',')[1];
+            if (zone) {
+                zone.style.borderColor = 'var(--success)';
+                zone.style.background = 'rgba(29, 158, 117, 0.05)';
+            }
+            if (progress) progress.textContent = 'Ready: ' + _cvFileName;
+            resolve(_cvBase64);
+        };
+        reader.onerror = function() {
+            alert('Failed to read file.');
+            reject();
+        };
+        reader.readAsDataURL(file);
+    });
 }
 
 function clearCV(e) {
     if (e && e.stopPropagation) e.stopPropagation();
     _cvBase64 = null;
     _cvFileName = null;
+    _cvReadPromise = null;
     var input = document.getElementById('cv-file-input');
     if (input) input.value = '';
     var label = document.getElementById('cv-label');
@@ -177,69 +191,56 @@ function clearCV(e) {
 function handleFormWithAPI(e, formName, bannerId) {
     e.preventDefault();
     var form = e.target;
-    var btn = document.getElementById('apply-submit-btn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+    var btn = form.querySelector('button[type="submit"]');
+    var originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Sending...';
 
-    /* Step 1: always submit to Netlify Forms (backup + email notification) */
-    var netlifyData = new URLSearchParams(new FormData(form)).toString();
-    fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: netlifyData
-    }).catch(function() { /* Netlify submit failed silently */ });
+    // Proceed logic
+    var proceed = function() {
+        var payload = {};
+        new FormData(form).forEach(function(v, k) { 
+            if (k !== 'cv-file') payload[k] = v; // don't send raw file in JSON
+        });
+        
+        payload.cvBase64 = _cvBase64;
+        payload.cvFileName = _cvFileName || 'cv';
+        
+        // Ensure sector/job info is present
+        var urlParams = new URLSearchParams(window.location.search);
+        if (!payload.job_id) payload.job_id = urlParams.get('id') || urlParams.get('job_id');
 
-    /* Step 2: build API payload */
-    var fd = new FormData(form);
-    var payload = {
-        first_name: fd.get('first_name') || '',
-        last_name: fd.get('last_name') || '',
-        email: fd.get('email') || '',
-        phone: fd.get('phone') || '',
-        sector: fd.get('sector') || '',
-        availability: fd.get('availability') || '',
-        notes: fd.get('notes') || '',
-        job_title: fd.get('job_title') || '',
-        job_id: fd.get('job_id') || '',
-    };
-
-    function submitToAPI() {
         fetch('/api/applications', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
         .then(function(r) { return r.json(); })
-        .then(function(data) {
+        .then(function(res) {
+            if (res.error) throw new Error(res.error);
             var banner = document.getElementById(bannerId);
             if (banner) banner.classList.add('show');
+            alert('Application sent successfully! Our team will contact you soon.');
             form.reset();
-            clearCV({ stopPropagation: function() {} });
-            if (btn) { btn.disabled = false; btn.textContent = 'Submit Application →'; }
+            clearCV();
         })
-        .catch(function() {
-            var banner = document.getElementById(bannerId);
-            if (banner) banner.classList.add('show');
-            form.reset();
-            if (btn) { btn.disabled = false; btn.textContent = 'Submit Application →'; }
+        .catch(function(err) {
+            console.error('API Error:', err);
+            alert('There was a problem sending your application: ' + (err.message || 'Unknown error'));
+        })
+        .finally(function() {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         });
-    }
+    };
 
-    if (_cvBase64) {
-        var prog = document.getElementById('cv-progress');
-        var bar = document.getElementById('cv-bar');
-        var stat = document.getElementById('cv-status');
-        if (prog) { prog.style.display = 'block'; }
-        if (bar) { bar.style.width = '60%'; }
-        if (stat) { stat.textContent = 'Attaching CV…'; }
-        
-        payload.cvBase64 = _cvBase64;
-        payload.cvFileName = _cvFileName || 'cv';
-        
-        if (bar) { bar.style.width = '100%'; }
-        if (stat) { stat.textContent = 'CV attached ✓'; }
-        submitToAPI();
+    if (_cvReadPromise) {
+        _cvReadPromise.then(proceed).catch(function() {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
     } else {
-        submitToAPI();
+        proceed();
     }
 }
 
