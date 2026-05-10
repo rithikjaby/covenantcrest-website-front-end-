@@ -514,22 +514,21 @@ function renderJobs() {
   tbody.innerHTML = slice.map(function(j) {
     var appCount = _apps.filter(function(a){ return a.job_id === j.id || (a.job_title === j.title && !a.job_id); }).length;
     var isExpired = j.closingDate && new Date(j.closingDate) < new Date().setHours(0,0,0,0);
+    var isActive = j.status === 'active';
     
     return '<tr>' +
       '<td><input type="checkbox" class="job-cb" value="' + j.id + '"></td>' +
-      '<td class="td-name">' + esc(j.title) + (j.imageUrl ? ' <span title="Has image" style="color:var(--gold);">🖼</span>' : '') + '</td>' +
+      '<td class="td-name">' + esc(j.title) + (j.imageUrl ? ' <span title="Has image" style="color:var(--gold);">🖼</span>' : '') + (isExpired ? ' <span style="color:var(--danger);font-size:9px;font-weight:700;">EXPIRED</span>' : '') + '</td>' +
       '<td><span class="pill ' + (sectorPill[j.sector] || 'p-read') + '">' + esc(sectorLabel[j.sector] || j.sector) + '</span></td>' +
-      '<td><span class="pill ' + (appCount > 0 ? 'p-haulage' : 'p-read') + '" style="cursor:pointer;" data-id="' + esc(j.title) + '" data-action="filter-apps-by-job">' + appCount + '</span></td>' +
+      '<td><span class="pill ' + (appCount > 0 ? 'p-haulage' : 'p-read') + '" style="cursor:pointer;" data-id="' + esc(j.title) + '" data-action="filter-apps-by-job" title="View applicants">' + appCount + ' App' + (appCount !== 1 ? 's' : '') + '</span></td>' +
       '<td>' + esc(j.location) + '</td>' +
       '<td class="td-muted">' + esc(typeLabel[j.type] || j.type) + '</td>' +
       '<td style="font-weight:600;">' + esc(j.pay) + '</td>' +
-      '<td>' + 
-        '<span class="pill ' + (j.status === 'active' ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span>' +
-        (isExpired ? '<br><span class="pill p-rejected" style="margin-top:4px; font-size:8px;">Expired</span>' : '') +
-      '</td>' +
+      '<td><span class="pill ' + (isActive ? 'p-active' : 'p-inactive') + '">' + esc(j.status) + '</span></td>' +
       '<td style="white-space:nowrap;">' +
+        '<button class="btn-sm ' + (isActive ? 'pr' : 'sc') + '" data-id="' + j.id + '" data-action="toggle-job" style="margin-right:4px;" title="' + (isActive ? 'Deactivate' : 'Activate') + '">' + (isActive ? '⏸' : '▶') + '</button>' +
         '<button class="btn-sm pr" data-id="' + j.id + '" data-action="edit-job" style="margin-right:4px;">Edit</button>' +
-        '<button class="btn-sm dn" data-id="' + j.id + '" data-action="delete-job">Delete</button>' +
+        '<button class="btn-sm dn" data-id="' + j.id + '" data-action="delete-job">Del</button>' +
       '</td></tr>';
   }).join('');
 
@@ -860,7 +859,7 @@ function viewApplication(id) {
       '</div>' +
       '<div style="margin-bottom:14px;padding:10px 14px;background:#f0f8ff;border-left:4px solid #0077b5;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0077b5;">AI Match Score</div>' +
-        '<span style="font-size:14px;font-weight:700;color:#0077b5;">' + (a.matchScore || Math.floor(Math.random() * 30) + 70) + '% Match</span>' +
+        '<span style="font-size:14px;font-weight:700;color:#0077b5;">' + (a.matchScore != null ? a.matchScore + '% Match' : 'N/A') + '</span>' +
       '</div>' +
       '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (hasCV ? '#C9A84C' : '#e0e0e0') + ';background:' + (hasCV ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
         '<span style="font-size:22px;">' + (hasCV ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
