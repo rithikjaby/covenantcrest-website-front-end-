@@ -522,9 +522,7 @@
     /* HERO */
     .hero {
       min-height: 70vh;
-      background: linear-gradient(rgba(13, 27, 42, 0.85), rgba(13, 27, 42, 0.85)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80');
-      background-size: cover;
-      background-position: center;
+      background: rgba(13, 27, 42, 0.7);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -533,6 +531,16 @@
       position: relative;
       overflow: hidden;
       text-align: center;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
 
     .hero-bg {
@@ -751,6 +759,45 @@
         opacity: 1;
         transform: translateY(0)
       }
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--navy);
+      padding: 0 32px;
+      white-space: nowrap;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .ticker {
+      display: flex;
+      animation: tickerAnim 40s linear infinite;
+      align-items: center;
+      gap: 60px;
+      padding-left: 60px;
+    }
+    .ticker span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    @keyframes tickerAnim {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     /* STRIP */
@@ -1671,6 +1718,9 @@
   </nav>
 
   <section class="hero" aria-label="Hero">
+    <video autoplay loop muted playsinline class="hero-video">
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-business-people-walking-in-a-financial-district-4395-large.mp4" type="video/mp4">
+    </video>
     <div class="hero-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-c">
@@ -1690,6 +1740,27 @@
       </div>
     </div>
   </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-label">Trusted By</div>
+    <div class="ticker">
+      <!-- First Set -->
+      <span>DHL Supply Chain</span>
+      <span>Telford Care Homes</span>
+      <span>Birmingham City Council</span>
+      <span>Wolverhampton Logistics</span>
+      <span>Midlands Security Services</span>
+      <span>National Health Service</span>
+      <!-- Duplicate Set for smooth infinite loop -->
+      <span>DHL Supply Chain</span>
+      <span>Telford Care Homes</span>
+      <span>Birmingham City Council</span>
+      <span>Wolverhampton Logistics</span>
+      <span>Midlands Security Services</span>
+      <span>National Health Service</span>
+    </div>
+  </div>
 
   <!-- COMPLIANCE RIBBON -->
   <div class="comp-ribbon">
@@ -1884,49 +1955,49 @@
   </section>
 
   <!-- SUCCESS STORIES (Case Studies) -->
-  <section class="sec sec-wh" id="cases" aria-label="Success Stories">
+  <section class="sec sec-wh" id="cases" aria-label="Success Stories" style="padding: 40px 48px;">
     <div class="inner">
-      <div style="text-align:center;margin-bottom:52px;">
+      <div style="text-align:center;margin-bottom:32px;">
         <div class="s-tag">Proven Results</div>
         <h2 class="s-title">Success <em>Stories</em></h2>
         <p class="s-lead" style="margin:0 auto;text-align:center;">Real-world examples of how we support our clients and
           candidates every day.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
-        <div class="srv-card rv">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:stretch;">
+        <div class="srv-card rv" style="display:flex;flex-direction:column;height:100%;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
             Healthcare Sector</div>
           <div class="srv-name" style="font-size:18px;">2-Hour Emergency Cover</div>
-          <p class="srv-desc">A residential home in Shropshire required 3 support workers for a night shift with only 4
+          <p class="srv-desc" style="flex:1;">A residential home in Shropshire required 3 support workers for a night shift with only 4
             hours notice. We deployed 3 DBS-checked staff within 90 minutes, ensuring 100% compliance and zero service
             disruption.</p>
           <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px;">
+            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px;margin-top:auto;">
             "Covenant Crest is our first call for emergency staffing. Reliable and fully compliant."</div>
         </div>
-        <div class="srv-card rv d1">
+        <div class="srv-card rv d1" style="display:flex;flex-direction:column;height:100%;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2B5EA7;margin-bottom:12px;">
             Security Sector</div>
           <div class="srv-name" style="font-size:18px;">Major Event Protection</div>
-          <p class="srv-desc">Supplied 12 SIA-licensed door supervisors for a high-profile corporate event in
+          <p class="srv-desc" style="flex:1;">Supplied 12 SIA-licensed door supervisors for a high-profile corporate event in
             Birmingham. All staff were ACT-trained (counter-terrorism) and arrived with full vetting records provided to
             the client in advance.</p>
           <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid #2B5EA7;padding-left:12px;">
+            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid #2B5EA7;padding-left:12px;margin-top:auto;">
             "The professionalism of the security team was exceptional. Highly recommended."</div>
         </div>
-        <div class="srv-card rv d2">
+        <div class="srv-card rv d2" style="display:flex;flex-direction:column;height:100%;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px;">
             Warehouse Sector</div>
           <div class="srv-name" style="font-size:18px;">Peak Season Ramp-up</div>
-          <p class="srv-desc">Supported a logistics hub during the December peak by providing 25 pick-and-pack
+          <p class="srv-desc" style="flex:1;">Supported a logistics hub during the December peak by providing 25 pick-and-pack
             operatives on a flexible contract. Managed 100% attendance and right-to-work verification for every worker.
           </p>
           <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--success);padding-left:12px;">
+            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--success);padding-left:12px;margin-top:auto;">
             "Consistent quality of labour even during the busiest periods of the year."</div>
         </div>
       </div>
@@ -1934,9 +2005,9 @@
   </section>
 
   <!-- CORPORATE GROUP ECOSYSTEM (Repositioned) -->
-  <section class="sec eco-section" aria-label="Corporate Group Ecosystem">
+  <section class="sec eco-section" aria-label="Corporate Group Ecosystem" style="padding: 40px 48px;">
     <div class="inner">
-      <div style="text-align:center;margin-bottom:40px;">
+      <div style="text-align:center;margin-bottom:24px;">
         <div class="s-tag">Covenant Crest Group Ltd</div>
         <h2 class="s-title">Our <em>Corporate Ecosystem</em></h2>
         <p class="s-lead" style="margin:0 auto;text-align:center;">Strategic logistics and trade divisions supporting
@@ -1990,8 +2061,7 @@
     <div class="qe-inner">
       <div class="dfc" style="margin:0; width:100%; max-width:none; background:transparent; border:none; padding:0;">
         <div class="ok-banner" id="ok-qe">&#x2705; Message received! We'll be in touch today.</div>
-        <form name="quick_enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-          data-form-name="quick_enquiry" data-banner-id="ok-qe">
+        <form name="quick_enquiry" method="POST" data-form-name="quick_enquiry" data-banner-id="ok-home">
           <input type="hidden" name="form-name" value="quick_enquiry">
           <div class="dk-g2">
             <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name"

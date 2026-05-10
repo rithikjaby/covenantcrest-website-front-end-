@@ -1425,39 +1425,41 @@
 
     /* ENHANCED HIRE UI */
     .hire-card {
-      background: rgba(255, 255, 255, .02);
-      border: 1px solid rgba(201, 168, 76, .15);
-      border-radius: 14px;
-      padding: 32px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 12px;
+      padding: 24px;
       transition: all .3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .hire-card:hover {
-      background: rgba(201, 168, 76, .06);
-      border-color: rgba(201, 168, 76, .4);
+      background: rgba(201, 168, 76, .08);
+      border-color: rgba(201, 168, 76, .5);
       transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .4), 0 0 15px rgba(201, 168, 76, 0.1);
     }
 
     .hire-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(201, 168, 76, .08);
-      border: 1px solid rgba(201, 168, 76, .25);
-      border-radius: 50%;
-      display: flex;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(201, 168, 76, .15) 0%, rgba(201, 168, 76, .05) 100%);
+      border: 1px solid rgba(201, 168, 76, .35);
+      border-radius: 8px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      margin-bottom: 18px;
-      box-shadow: 0 0 16px rgba(201, 168, 76, .05);
+      font-size: 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(201, 168, 76, .1);
     }
 
     .hire-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 20px;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .hire-desc {
@@ -1709,8 +1711,7 @@
             <strong style="color:rgba(255,255,255,.45);">not</strong> a candidate application form.</div>
           <div class="ok-banner" id="ok-req-b2b">&#x2705; Request received! A consultant will contact you within 2
             hours.</div>
-          <form name="recruitment-request-staff" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-            data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b">
+          <form name="recruitment-request-staff" method="POST" data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b">
             <input type="hidden" name="form-name" value="recruitment-request-staff">
             <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
             <div class="dk-g2">

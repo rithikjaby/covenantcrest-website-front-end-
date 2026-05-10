@@ -30,7 +30,7 @@ function setCookie(v) {
     if (v === 'accept') loadGA4();
 }
 
-// ── Netlify Form Submission ─────────────────────────────────────
+// ── API Form Submission ─────────────────────────────────────
 function handleForm(e, formName, bannerId) {
     e.preventDefault();
     var form = e.target;
@@ -44,29 +44,69 @@ function handleForm(e, formName, bannerId) {
     }
     
     var formData = new FormData(form);
-    var body = new URLSearchParams(formData).toString();
-
-    fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body
-    })
-    .then(function() {
-        if (banner) banner.classList.add('show');
-        form.reset();
-        if (typeof clearCV === 'function') {
-            clearCV({ stopPropagation: function() {} });
-        }
-    })
-    .catch(function() {
-        alert('Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
-    })
-    .finally(function() {
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = originalText;
-        }
+    var body = {};
+    formData.forEach(function(value, key) {
+        body[key] = value;
     });
+
+    // Build the message string dynamically from all form fields
+    // except standard ones we extract
+    var messageParts = [];
+    for (var key in body) {
+        if (['name', 'email', 'phone', 'bot-field', 'form-name', 'gdpr_consent'].indexOf(key) === -1) {
+            messageParts.push(key.toUpperCase() + ': ' + body[key]);
+        }
+    }
+
+    var contactPayload = {
+        name: body.name || 'Unknown',
+        email: body.email || 'no-email@provided.com',
+        phone: body.phone || '',
+        type: formName || 'general',
+        message: messageParts.join('\n') || 'No additional details.'
+    };
+
+    if (window.CCA && window.CCA.contacts) {
+        window.CCA.contacts.submit(contactPayload)
+        .then(function() {
+            if (banner) banner.classList.add('show');
+            form.reset();
+            if (typeof clearCV === 'function') {
+                clearCV({ stopPropagation: function() {} });
+            }
+        })
+        .catch(function(err) {
+            console.error('API submit error:', err);
+            alert('Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
+        })
+        .finally(function() {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+    } else {
+        // Fallback to Netlify Forms if API not loaded
+        var urlBody = new URLSearchParams(formData).toString();
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: urlBody
+        })
+        .then(function() {
+            if (banner) banner.classList.add('show');
+            form.reset();
+        })
+        .catch(function() {
+            alert('Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
+        })
+        .finally(function() {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+    }
 }
 
 // ── Init on DOM Content Loaded ──────────────────────────────────

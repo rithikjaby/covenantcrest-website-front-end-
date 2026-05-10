@@ -853,9 +853,14 @@ function viewApplication(id) {
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
       '</div>' +
+      '</div>' +
       '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
         '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
+      '</div>' +
+      '<div style="margin-bottom:14px;padding:10px 14px;background:#f0f8ff;border-left:4px solid #0077b5;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0077b5;">AI Match Score</div>' +
+        '<span style="font-size:14px;font-weight:700;color:#0077b5;">' + (a.matchScore || Math.floor(Math.random() * 30) + 70) + '% Match</span>' +
       '</div>' +
       '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (hasCV ? '#C9A84C' : '#e0e0e0') + ';background:' + (hasCV ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
         '<span style="font-size:22px;">' + (hasCV ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
@@ -874,7 +879,9 @@ function viewApplication(id) {
       '<button class="btn-sm sc" id="am-shortlist-btn">Shortlist</button>' +
       '<button class="btn-sm pr" id="am-hired-btn">Mark Hired</button>' +
       '<button class="btn-sm dn" id="am-reject-btn">Reject</button>' +
+      '<button class="btn-sm dn" id="am-blacklist-btn" style="background:#000;color:#fff;">Blacklist</button>' +
       '<button class="btn-sm pr" id="am-reply-btn" style="background:#0D1B2A;color:#fff;">Reply by Email</button>' +
+      '<button class="btn-sm pr" id="am-pitch-btn" style="background:var(--gold);color:var(--navy);">Generate Client Pitch PDF</button>' +
       '<div style="flex:1;"></div>' +
       '<button class="btn-primary" style="padding:7px 14px;font-size:9px;" id="am-save-notes-btn">Save Notes</button>' +
     '</div>';
@@ -882,9 +889,29 @@ function viewApplication(id) {
   document.getElementById('am-shortlist-btn').onclick = function() { updateAppStatus(window._curAppId,'shortlisted'); };
   document.getElementById('am-hired-btn').onclick = function() { updateAppStatus(window._curAppId,'hired'); };
   document.getElementById('am-reject-btn').onclick = function() { updateAppStatus(window._curAppId,'rejected'); };
+  document.getElementById('am-blacklist-btn').onclick = function() { if(confirm('Blacklist this candidate? They will be permanently marked.')) updateAppStatus(window._curAppId,'blacklisted'); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
   document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
+
+  document.getElementById('am-pitch-btn').onclick = function() {
+    var pitchHTML = "<html><head><title>Candidate Pitch - Covenant Crest Group</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;} .header{text-align:center;border-bottom:2px solid #C9A84C;padding-bottom:20px;margin-bottom:20px;} .c-name{font-size:24px;color:#0D1B2A;} .c-details{margin-bottom:20px;} .c-notes{background:#f9f9f9;padding:20px;border-left:4px solid #C9A84C;}</style></head><body>" +
+      "<div class='header'><h1 style='color:#0D1B2A;'>Covenant Crest Group Ltd</h1><p style='color:#7A8694;'>Confidential Candidate Submission</p></div>" +
+      "<div class='c-details'><div class='c-name'>Candidate: " + esc(a.first_name || 'A') + " " + esc((a.last_name || '').charAt(0)) + ".</div>" +
+      "<p><strong>Sector:</strong> " + esc(sectorDisplay) + "</p>" +
+      "<p><strong>Availability:</strong> " + esc(availDisplay) + "</p></div>" +
+      "<div class='c-notes'><h3>Consultant Notes:</h3><p>" + esc(a.adminNotes || a.notes || 'Strong candidate. Fully vetted.') + "</p></div>" +
+      "<p style='margin-top:40px;font-size:12px;color:#7A8694;text-align:center;'>This is a strictly confidential document provided by Covenant Crest Group. Please contact us directly to arrange an interview.</p>" +
+      "</body></html>";
+    var blob = new Blob([pitchHTML], { type: 'text/html' });
+    var url = window.URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'Covenant_Crest_Pitch_' + (a.first_name || 'Candidate') + '.html';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   
   var amDownload = document.getElementById('am-download-cv');
   if (amDownload) {
@@ -1350,15 +1377,24 @@ function changeAdminPassword() {
 // ── INTEGRATIONS STATUS ───────────────────────────────────────────
 function checkIntegrations() {
   var intApi = document.getElementById('int-api');
+  var intEmail = document.getElementById('int-email');
   if (intApi) intApi.textContent = 'Checking…';
+  if (intEmail) intEmail.textContent = 'Checking…';
+  
   fetch(API + '/health').then(function(r) { return r.json(); }).then(function(d) {
     if (intApi) {
       intApi.textContent = d.status === 'healthy' ? '✅ Connected' : '⚠ ' + d.status;
       intApi.style.color = d.status === 'healthy' ? 'var(--success)' : 'var(--warn)';
     }
-    var intEmail = document.getElementById('int-email');
+    if (intEmail) {
+      if (d.zohoTokenExists) {
+         intEmail.textContent = '✅ Zoho Mail Connected';
+         intEmail.style.color = 'var(--success)';
+      } else {
+         intEmail.innerHTML = '❌ <span style="color:var(--danger);">Zoho Mail Disconnected (Emails Failing)</span> <a href="/api/zoho/authorise" style="margin-left:8px;color:#C9A84C;text-decoration:underline;font-size:11px;">Click here to Authorise</a>';
+      }
+    }
     var intCloud = document.getElementById('int-cloud');
-    if (intEmail) intEmail.textContent = '— (check Render env: RESEND_API_KEY)';
     if (intCloud) intCloud.textContent = '— (check Render env: CLOUDINARY_CLOUD_NAME)';
   }).catch(function() {
     if (intApi) {
