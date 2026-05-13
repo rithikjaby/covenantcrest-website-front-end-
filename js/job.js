@@ -80,6 +80,23 @@ function submitInlineForm(e) {
         stat.textContent = 'Attaching CV...';
     }
 
+    var postcode = document.getElementById('if-postcode') ? document.getElementById('if-postcode').value.trim() : '';
+    var rtw = document.getElementById('if-right-to-work') ? document.getElementById('if-right-to-work').value : '';
+    var exp = document.getElementById('if-experience') ? document.getElementById('if-experience').value : '';
+    var shifts = document.getElementById('if-shifts') ? document.getElementById('if-shifts').value : '';
+    var rawNotes = document.getElementById('if-notes') ? document.getElementById('if-notes').value.trim() : '';
+    
+    var certEls = document.querySelectorAll('input[name="certs"]:checked');
+    var certs = [];
+    for (var i = 0; i < certEls.length; i++) certs.push(certEls[i].value);
+
+    var comprehensiveNotes = "Postcode: " + postcode + "\n" +
+                             "Right to Work: " + rtw + "\n" +
+                             "Experience: " + exp + "\n" +
+                             "Preferred Shifts: " + shifts + "\n" +
+                             "Certifications: " + (certs.length ? certs.join(', ') : 'None') + "\n\n" +
+                             "Additional Notes:\n" + (rawNotes || "None provided.");
+
     var payload = {
         first_name: document.getElementById('if-first').value.trim(),
         last_name: document.getElementById('if-last').value.trim(),
@@ -89,7 +106,7 @@ function submitInlineForm(e) {
         job_id: _currentJob.id || '',
         job_title: _currentJob.title || '',
         availability: document.getElementById('if-avail').value,
-        notes: document.getElementById('if-notes').value.trim(),
+        notes: comprehensiveNotes,
     };
 
     if (_inlineCVBase64) {

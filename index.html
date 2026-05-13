@@ -97,7 +97,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -127,7 +127,7 @@
     body {
       background: var(--cream);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -160,7 +160,7 @@
     }
 
     .nav-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       letter-spacing: .05em;
@@ -206,7 +206,7 @@
     .btn-group {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -347,7 +347,7 @@
     }
 
     .qe-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 38px;
       color: #fff;
       margin-bottom: 12px;
@@ -366,7 +366,7 @@
     .btn-enq {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -464,7 +464,9 @@
         padding: 5px;
       }
 
-      .nav-group-wrap {
+      .nav-group-wrap { display: none !important; }
+      .mob-only { display: block !important; color: var(--gold) !important; }
+      .nav-group-wrap.old {
         order: 2;
         margin-left: auto;
         margin-right: 12px;
@@ -523,13 +525,13 @@
 
     /* HERO */
     .hero {
-      min-height: 70vh;
-      background: rgba(13, 27, 42, 0.7);
+      min-height: 85vh;
+      background: #0D1B2A;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 100px 48px 40px;
+      padding: 120px 48px 60px;
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -542,15 +544,21 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
+      z-index: 0;
+      opacity: 0.3;
+      filter: grayscale(100%) contrast(120%) brightness(50%);
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: linear-gradient(rgba(201, 168, 76, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 168, 76, .025) 1px, transparent 1px);
-      background-size: 70px 70px;
+      background-image: 
+        linear-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black, transparent 85%);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero-glow {
@@ -558,11 +566,14 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 900px;
-      height: 900px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, .08) 0%, transparent 60%);
+      width: 80vw;
+      height: 80vw;
+      max-width: 1000px;
+      max-height: 1000px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+      filter: blur(60px);
       pointer-events: none;
+      z-index: 1;
       animation: floatGlow 15s infinite ease-in-out;
     }
 
@@ -613,7 +624,7 @@
     }
 
     .hero-h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(48px, 7vw, 88px);
       font-weight: 300;
       color: #fff;
@@ -628,7 +639,7 @@
     }
 
     .hero-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(17px, 2.4vw, 24px);
       font-weight: 300;
       color: rgba(255, 255, 255, .5);
@@ -657,7 +668,7 @@
     .btn-gold {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -681,7 +692,7 @@
     .btn-ghost {
       border: 1px solid rgba(255, 255, 255, .3);
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .18em;
@@ -735,7 +746,7 @@
     }
 
     .hs-n {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       font-weight: 300;
       color: var(--gold);
@@ -791,7 +802,7 @@
       padding-left: 60px;
     }
     .ticker span {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 20px;
       color: var(--muted);
       font-weight: 600;
@@ -840,7 +851,7 @@
     }
 
     .strip-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 17px;
       font-weight: 500;
       color: var(--navy);
@@ -883,7 +894,7 @@
     }
 
     .s-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(28px, 4vw, 46px);
       font-weight: 300;
       color: var(--navy);
@@ -937,7 +948,7 @@
     }
 
     .srv-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 20px;
       font-weight: 500;
       color: var(--navy);
@@ -964,12 +975,11 @@
       text-decoration: underline;
     }
 
-    /* BADGE CARDS (compliance section) */
     .badge-card {
       background: rgba(255, 255, 255, .04);
       border: 1px solid rgba(201, 168, 76, .12);
       border-radius: 12px;
-      padding: 22px 20px;
+      padding: 16px 18px;
       transition: all .3s ease;
     }
 
@@ -986,7 +996,7 @@
     }
 
     .bc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       color: #fff;
       margin-bottom: 6px;
@@ -1020,7 +1030,7 @@
     }
 
     .wcu-n {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 30px;
       font-weight: 300;
       color: var(--gold);
@@ -1103,7 +1113,7 @@
     }
 
     .eco-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
       font-weight: 600;
       color: var(--navy);
@@ -1171,7 +1181,7 @@
     }
 
     .dfc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 24px;
       color: #fff;
       margin-bottom: 4px;
@@ -1221,7 +1231,7 @@
       background: rgba(255, 255, 255, .05);
       border: 1px solid rgba(201, 168, 76, .15);
       border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       color: #fff;
       outline: none;
@@ -1258,7 +1268,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -1290,7 +1300,7 @@
     }
 
     .ft-logo-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       margin: 12px 0 2px;
@@ -1309,8 +1319,8 @@
     }
 
     .ft-desc {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .28);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.8;
       margin-top: 12px;
       max-width: 240px;
@@ -1327,8 +1337,8 @@
 
     .ft-link {
       display: block;
-      font-size: 12px;
-      color: rgba(255, 255, 255, .3);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
       text-decoration: none;
       margin-bottom: 8px;
       transition: color .2s;
@@ -1348,8 +1358,8 @@
     }
 
     .ft-copy {
-      font-size: 10px;
-      color: rgba(255, 255, 255, .18);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
     }
 
     /* COOKIE */
@@ -1398,7 +1408,7 @@
       border: none;
       padding: 8px 20px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -1412,7 +1422,7 @@
       border: 1px solid rgba(255, 255, 255, .15);
       padding: 8px 16px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       cursor: pointer;
       transition: color .2s;
@@ -1469,7 +1479,7 @@
     }
 
     .split-h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 32px;
       color: var(--navy);
       margin-bottom: 12px;
@@ -1682,7 +1692,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1701,6 +1711,8 @@
       <a href="/recruitment.html" class="nl">Browse Jobs</a>
       <a href="/hire.html" class="nl">Hire Staff</a>
       <a href="/about.html" class="nl">About Us</a>
+      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span
@@ -1720,22 +1732,12 @@
   </nav>
 
   <section class="hero" aria-label="Hero">
-    <video autoplay loop muted playsinline class="hero-video">
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-business-people-walking-in-a-financial-district-4395-large.mp4" type="video/mp4">
-    </video>
     <div class="hero-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-c">
-      <div class="hero-pill">
-        <div class="hp-dot"></div><span class="hp-text">Specialist Recruitment · Care · Security · Warehouse ·
-          Construction · UK Wide</span>
-      </div>
-      <h1 class="hero-h1">Your Trusted UK <em>Recruitment</em> Partner</h1>
-      <p class="hero-h2">Care &amp; Healthcare &nbsp;·&nbsp; Security &nbsp;·&nbsp; Warehouse &amp; Logistics
-        &nbsp;·&nbsp; Construction &amp; Trades</p>
-      <p class="hero-desc">CQC-compliant. SIA Licence Verification. GLAA licence application in progress. We supply
-        fully vetted, reliable professionals backed by rigorous compliance checks and sector-specific expertise — with a
-        2-hour response guarantee.</p>
+      <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Your Trusted UK <em>Recruitment</em> Partner</h1>
+      <p class="hero-h2" style="font-size: clamp(14px, 2vw, 20px); letter-spacing: 0.05em; color: var(--gold);">Care &amp; Healthcare &nbsp;·&nbsp; Security &nbsp;·&nbsp; Warehouse &amp; Logistics &nbsp;·&nbsp; Construction &amp; Trades</p>
+      <p class="hero-desc">We supply fully vetted, reliable professionals backed by rigorous compliance checks and sector-specific expertise &mdash; with a 2-hour response guarantee.</p>
       <div class="hero-btns" style="margin-bottom:0;">
         <a href="/hire.html" class="btn-gold" id="hero-cta-request">Recruitment Solutions</a>
         <a href="/recruitment.html" class="btn-ghost" id="hero-cta-jobs">Browse Jobs</a>
@@ -1743,26 +1745,7 @@
     </div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker-wrap">
-    <div class="ticker-label">Trusted By</div>
-    <div class="ticker">
-      <!-- First Set -->
-      <span>DHL Supply Chain</span>
-      <span>Telford Care Homes</span>
-      <span>Birmingham City Council</span>
-      <span>Wolverhampton Logistics</span>
-      <span>Midlands Security Services</span>
-      <span>National Health Service</span>
-      <!-- Duplicate Set for smooth infinite loop -->
-      <span>DHL Supply Chain</span>
-      <span>Telford Care Homes</span>
-      <span>Birmingham City Council</span>
-      <span>Wolverhampton Logistics</span>
-      <span>Midlands Security Services</span>
-      <span>National Health Service</span>
-    </div>
-  </div>
+
 
   <!-- COMPLIANCE RIBBON -->
   <div class="comp-ribbon">
@@ -1798,7 +1781,7 @@
       </div>
       <div class="srv-grid">
         <div class="srv-card rv" style="border-top:3px solid #1D9E75;">
-          <div class="srv-icon">&#x1F3E5;</div>
+          <div class="srv-icon" style="color:#1D9E75;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
           <div class="srv-name">Care &amp; Healthcare</div>
           <p class="srv-desc">CQC Regulation 19 compliant vetting. Enhanced DBS on all candidates. NMC Pin verification
             for nursing staff. Skills for Care aligned training. Safeguarding Level 2 minimum. Residential and
@@ -1806,14 +1789,14 @@
           <a href="/recruitment.html" class="srv-lnk">View Healthcare Roles &#8594;</a>
         </div>
         <div class="srv-card rv d1" style="border-top:3px solid #2B5EA7;">
-          <div class="srv-icon">&#x1F512;</div>
+          <div class="srv-icon" style="color:#2B5EA7;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="srv-name">Security</div>
           <p class="srv-desc">All operatives SIA licence-verified with expiry monitoring. Vetted to BS&nbsp;7858:2019.
             Counter-terrorism awareness (ACT) trained staff available. Proactive licence renewal alerts to clients.</p>
           <a href="/recruitment.html" class="srv-lnk">View Security Roles &#8594;</a>
         </div>
         <div class="srv-card rv d2" style="border-top:3px solid var(--gold);">
-          <div class="srv-icon">&#x1F4E6;</div>
+          <div class="srv-icon" style="color:var(--gold);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
           <div class="srv-name">Warehouse &amp; Logistics</div>
           <p class="srv-desc">GLAA licence application in progress for compliant labour supply. FLT licence verified for
             all forklift operatives. CSCS card checks. RIDDOR awareness. Site induction compliance management. PPE and
@@ -1821,7 +1804,7 @@
           <a href="/recruitment.html" class="srv-lnk">View Warehouse Roles &#8594;</a>
         </div>
         <div class="srv-card rv d3" style="border-top:3px solid #D35400;">
-          <div class="srv-icon">&#x1F3D7;</div>
+          <div class="srv-icon" style="color:#D35400;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
           <div class="srv-name">Construction &amp; Trades</div>
           <p class="srv-desc">CSCS-certified labourers, machine operators (CPCS/NPORS), and skilled trades for
             residential, commercial, and infrastructure sites. Right-to-work and qualifications verified.</p>
@@ -2010,14 +1993,14 @@
   <section class="sec eco-section" aria-label="Corporate Group Ecosystem" style="padding: 40px 48px;">
     <div class="inner">
       <div style="text-align:center;margin-bottom:24px;">
-        <div class="s-tag">Covenant Crest Group Ltd</div>
+        <div class="s-tag" style="font-size: 14px; letter-spacing: 0.15em; color: var(--navy); font-weight: 800;">COVENANT CREST GROUP LTD</div>
         <h2 class="s-title">Our <em>Corporate Ecosystem</em></h2>
         <p class="s-lead" style="margin:0 auto;text-align:center;">Strategic logistics and trade divisions supporting
           the UK economy.</p>
       </div>
       <div class="eco-grid rv">
         <a href="/haulage.html" class="eco-card">
-          <div class="eco-ic">&#x1F69A;</div>
+          <div class="eco-ic" style="color:var(--gold);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect><path d="M18 10h4v6h-4"></path><circle cx="6" cy="17" r="2"></circle><circle cx="14" cy="17" r="2"></circle></svg></div>
           <div>
             <div class="eco-name">Haulage &amp; Freight</div>
             <div class="eco-sub">UK road haulage, freight logistics &amp; distribution.</div>
@@ -2025,7 +2008,7 @@
           <div class="eco-arr">&#8594;</div>
         </a>
         <a href="/trade.html" class="eco-card">
-          <div class="eco-ic">&#x1F30D;</div>
+          <div class="eco-ic" style="color:var(--gold);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
           <div>
             <div class="eco-name">Import &amp; Trade</div>
             <div class="eco-sub">Global food import &amp; wholesale distribution.</div>
@@ -2082,7 +2065,61 @@
     </div>
   </div>
 
-  <footer>
+  <!-- CONTACT BLOCK -->
+  <section class="sec sec-dk" id="contact" style="padding:80px 48px; border-top: 1px solid rgba(255,255,255,.05);">
+    <div class="inner">
+      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;">
+        <div>
+          <div class="s-tag" style="color:var(--gold);">Get In Touch</div>
+          <h2 class="w" style="margin-bottom:16px;">Ready to Work <em>With Us?</em></h2>
+          <p style="color:rgba(255,255,255,.45);font-size:15px;line-height:1.85;margin-bottom:32px;">Whether you’re an employer looking to hire, a candidate seeking a new role, or a business partner &mdash; we respond personally and quickly. Experience the Covenant Crest difference today.</p>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div style="display:flex;align-items:center;gap:18px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.55 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6.29 6.29l.81-1.81a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/></svg>
+              </div>
+              <div>
+                <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Call Our Specialist Team</div>
+                <a href="tel:07346809846" style="font-size:16px;color:#fff;text-decoration:none;font-weight:600;letter-spacing:.02em;">07346 809846</a>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">General Enquiries</div>
+                <a href="mailto:info@covenantcrest.co.uk" style="font-size:16px;color:#fff;text-decoration:none;font-weight:600;letter-spacing:.02em;">info@covenantcrest.co.uk</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:40px;backdrop-filter:blur(10px);">
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-bottom:6px;">Send a Direct Message</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:28px;">We typically respond within 60 minutes during business hours.</div>
+          <div class="ok-banner" id="ok-index-contact" style="background:rgba(29,158,117,.12);border:1px solid #1D9E75;border-radius:8px;padding:13px 16px;color:#1D9E75;font-size:13px;font-weight:500;margin-bottom:16px;display:none;">&#x2705; Message received! We’ll be in touch shortly.</div>
+          <form name="index_contact" method="POST" data-form-name="index_contact" data-banner-id="ok-index-contact">
+            <input type="hidden" name="form-name" value="index_contact">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Full Name *</label><input style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="name" placeholder="John Smith" required></div>
+              <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Phone Number</label><input style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="phone" placeholder="07xxx xxxxxx"></div>
+            </div>
+            <div style="margin-bottom:16px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Email Address *</label><input type="email" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="email" placeholder="john@example.com" required></div>
+            <div style="margin-bottom:20px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Your Message *</label><textarea style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;resize:vertical;min-height:110px;" name="message" placeholder="How can we help you today?" required></textarea></div>
+            <button type="submit" style="width:100%;background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:16px;border:none;border-radius:6px;cursor:pointer;transition:all .3s;box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);">Send Message &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media(max-width:900px) {
+      #contact > .inner > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+    }
+  </style>
+
+    <footer>
     <div class="ft-main">
       <div>
         <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2100,21 +2137,20 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England &amp;
-          Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
         <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage</a>
-        <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
+        <a href="/trade.html" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
         <a href="/index.html" class="ft-link">Home</a>
         <a href="/about.html" class="ft-link">About Us</a>
         <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
+        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
         <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
@@ -2135,7 +2171,7 @@
     </div>
     <div class="ft-bottom">
       <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
-      <span class="ft-copy">Registered in England &amp; Wales &middot; Built on Promise.</span>
+      <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
     </div>
   </footer>
 
@@ -2150,10 +2186,10 @@
   </div>
 
   <!-- WhatsApp floating button (item 15) -->
-  <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
+    <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
     target="_blank" rel="noopener noreferrer" id="wa-btn"
     style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
-    aria-label="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+    aria-label="Chat on WhatsApp">
     <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z"

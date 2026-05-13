@@ -692,11 +692,16 @@ function loadContacts(cb) {
 function renderContacts() {
   var tbody = document.getElementById('contacts-tbody');
   if (!tbody) return;
-  if (!_contacts.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No enquiries recorded yet.</td></tr>'; return; }
-  tbody.innerHTML = _contacts.map(function(c) {
+  var searchVal = (document.getElementById('contacts-search') ? document.getElementById('contacts-search').value : '').toLowerCase();
+  var filtered = searchVal ? _contacts.filter(function(c) {
+    return (c.name||'').toLowerCase().indexOf(searchVal) !== -1 || (c.email||'').toLowerCase().indexOf(searchVal) !== -1;
+  }) : _contacts;
+  if (!filtered.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No enquiries recorded yet.</td></tr>'; return; }
+  tbody.innerHTML = filtered.map(function(c) {
     return '<tr style="cursor:pointer;" data-id="' + c.id + '" data-action="view-contact">' +
       '<td class="td-name">' + esc(c.name) + '</td>' +
       '<td>' + esc(c.email) + '</td>' +
+      '<td>' + (c.phone ? '<a href="tel:' + esc(c.phone) + '" style="color:var(--navy);font-weight:600;" onclick="event.stopPropagation();">' + esc(c.phone) + '</a>' : '<span class="td-muted">—</span>') + '</td>' +
       '<td><span class="pill ' + (enquiryPill[c.type] || 'p-general') + '">' + esc(c.type || 'general') + '</span></td>' +
       '<td class="td-muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc((c.message || '').substring(0, 80)) + '</td>' +
       '<td class="td-muted">' + fmtDate(c.date) + '</td>' +
@@ -707,6 +712,7 @@ function renderContacts() {
       '</td></tr>';
   }).join('');
 }
+
 
 function renderDashContacts() {
   var tbody = document.getElementById('dash-contacts-tbody');

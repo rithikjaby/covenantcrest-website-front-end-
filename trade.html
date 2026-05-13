@@ -18,11 +18,12 @@
     content="Premium food imports from India: ginger powder, spices, pulses, fresh produce. CIF delivered to UK wholesalers and retailers.">
   <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <script src="/api.js"></script>
   <script src="js/common.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -53,7 +54,7 @@
     body {
       background: var(--cream);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -86,7 +87,7 @@
     }
 
     .nav-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       letter-spacing: .05em;
@@ -121,7 +122,7 @@
 
     /* GROUP BUTTON & DROPDOWN */
     .nav-group-wrap{position:relative; display:inline-block;}
-    .btn-group{background:var(--gold); color:var(--navy); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
+    .btn-group{background:var(--gold); color:var(--navy); font-family:'Plus Jakarta Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
     .btn-group:hover{background:var(--gold2); transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,0.25);}
     .group-dd{position:absolute; top:100%; right:0; transform:translateY(12px); background:rgba(13,27,42,0.98); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 0; min-width:230px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 25px 50px rgba(0,0,0,0.5); backdrop-filter:blur(12px); z-index:1000;}
     .nav-group-wrap:hover .group-dd{opacity:1; visibility:visible; transform:translateY(0);}
@@ -202,7 +203,9 @@
         padding: 5px;
       }
 
-      .nav-group-wrap {
+      .nav-group-wrap { display: none !important; }
+      .mob-only { display: block !important; color: var(--gold) !important; }
+      .nav-group-wrap.old {
         order: 2;
         margin-left: auto;
         margin-right: 12px;
@@ -306,7 +309,7 @@
     }
 
     .ph-h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(42px, 6vw, 72px);
       font-weight: 300;
       color: #fff;
@@ -339,7 +342,7 @@
     .btn-gold {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -360,7 +363,7 @@
     .btn-ghost {
       border: 1px solid rgba(255, 255, 255, .22);
       color: rgba(255, 255, 255, .65);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .18em;
@@ -414,7 +417,7 @@
     }
 
     .s-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(28px, 4vw, 46px);
       font-weight: 300;
       color: var(--navy);
@@ -475,7 +478,7 @@
     }
 
     .product-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 20px;
       font-weight: 500;
       color: var(--navy);
@@ -509,7 +512,7 @@
     }
 
     .stat-n {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 46px;
       font-weight: 300;
       color: var(--gold);
@@ -574,7 +577,7 @@
     }
 
     .rb-loc {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 14px;
       color: #fff;
       flex: 1;
@@ -651,7 +654,7 @@
     }
 
     .dfc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 24px;
       color: #fff;
       margin-bottom: 4px;
@@ -701,7 +704,7 @@
       background: rgba(255, 255, 255, .05);
       border: 1px solid rgba(201, 168, 76, .15);
       border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       color: #fff;
       outline: none;
@@ -738,7 +741,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -792,7 +795,7 @@
     }
 
     .ft-logo-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       margin: 12px 0 2px;
@@ -811,8 +814,8 @@
     }
 
     .ft-desc {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .28);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.8;
       margin-top: 12px;
       max-width: 240px;
@@ -829,8 +832,8 @@
 
     .ft-link {
       display: block;
-      font-size: 12px;
-      color: rgba(255, 255, 255, .3);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
       text-decoration: none;
       margin-bottom: 8px;
       transition: color .2s;
@@ -850,8 +853,8 @@
     }
 
     .ft-copy {
-      font-size: 10px;
-      color: rgba(255, 255, 255, .18);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
     }
 
     /* COOKIE */
@@ -898,7 +901,7 @@
       border: none;
       padding: 8px 20px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -912,7 +915,7 @@
       border: 1px solid rgba(255, 255, 255, .15);
       padding: 8px 16px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       cursor: pointer;
     }
@@ -1092,7 +1095,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1405,7 +1408,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
+    <footer>
     <div class="ft-main">
       <div>
         <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1423,27 +1426,29 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951.</div>
+        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
         <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage</a>
-        <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
+        <a href="/trade.html" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
         <a href="/index.html" class="ft-link">Home</a>
         <a href="/about.html" class="ft-link">About Us</a>
         <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
+        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
+        <a href="/contact.html" class="ft-link">Contact Us</a>
         <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact</div>
         <span class="ft-link" style="cursor:default;">07346 809846</span>
-        <span class="ft-link" style="cursor:default;">trade@covenantcrest.co.uk</span>
         <span class="ft-link" style="cursor:default;">info@covenantcrest.co.uk</span>
+        <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
+        <span class="ft-link" style="cursor:default;">haulage@covenantcrest.co.uk</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -1456,7 +1461,7 @@
     </div>
     <div class="ft-bottom">
       <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
-      <span class="ft-copy">Registered in England &amp; Wales.</span>
+      <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
     </div>
   </footer>
 
@@ -1470,11 +1475,11 @@
   </div>
 
   <!-- WhatsApp floating button -->
-  <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
+    <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
     target="_blank" rel="noopener noreferrer" id="wa-btn"
     style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
     aria-label="Chat on WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z"
         fill="#fff" />

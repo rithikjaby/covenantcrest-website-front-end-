@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -53,7 +53,7 @@
     body {
       background: var(--cream);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -85,7 +85,7 @@
     }
 
     .nav-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       letter-spacing: .05em;
@@ -131,7 +131,7 @@
     .btn-group {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -278,7 +278,9 @@
         padding: 5px;
       }
 
-      .nav-group-wrap {
+      .nav-group-wrap { display: none !important; }
+      .mob-only { display: block !important; color: var(--gold) !important; }
+      .nav-group-wrap.old {
         order: 2;
         margin-left: auto;
         margin-right: 12px;
@@ -407,7 +409,7 @@
     }
 
     .ph-h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(42px, 6vw, 72px);
       font-weight: 300;
       color: #fff;
@@ -441,7 +443,7 @@
     .btn-gold {
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -462,7 +464,7 @@
     .btn-ghost {
       border: 1px solid rgba(255, 255, 255, .22);
       color: rgba(255, 255, 255, .65);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .18em;
@@ -572,7 +574,7 @@
 
     .sbt {
       padding: 18px 32px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -618,7 +620,7 @@
     }
 
     .s-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(28px, 4vw, 46px);
       font-weight: 300;
       color: var(--navy);
@@ -685,7 +687,7 @@
     }
 
     .sc-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
       font-weight: 500;
       color: var(--navy);
@@ -731,7 +733,7 @@
       cursor: pointer;
       background: none;
       border: none;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     .sc-cta:hover {
@@ -779,7 +781,7 @@
     }
 
     .ps-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 28px;
       color: var(--gold);
       line-height: 1;
@@ -813,7 +815,7 @@
       padding: 10px 14px;
       border: 1px solid var(--border);
       border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       color: var(--navy);
       outline: none;
@@ -828,7 +830,7 @@
       padding: 10px 12px;
       border: 1px solid var(--border);
       border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 12px;
       color: var(--navy);
       outline: none;
@@ -898,7 +900,7 @@
     }
 
     .jc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 24px;
       font-weight: 600;
       color: var(--navy);
@@ -967,7 +969,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       padding: 0;
       display: flex;
       align-items: center;
@@ -1059,7 +1061,7 @@
     }
 
     .dfc-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 24px;
       color: #fff;
       margin-bottom: 4px;
@@ -1109,7 +1111,7 @@
       background: rgba(255, 255, 255, .05);
       border: 1px solid rgba(201, 168, 76, .15);
       border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       color: #fff;
       outline: none;
@@ -1146,7 +1148,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -1205,7 +1207,7 @@
     }
 
     .hire-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       color: #fff;
       margin-bottom: 6px;
@@ -1289,7 +1291,7 @@
     }
 
     .m-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 28px;
       color: var(--navy);
       margin-bottom: 6px;
@@ -1330,7 +1332,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--navy);
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .18em;
@@ -1361,7 +1363,7 @@
     }
 
     .ft-logo-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
       margin: 12px 0 2px;
@@ -1380,8 +1382,8 @@
     }
 
     .ft-desc {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .28);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.8;
       margin-top: 12px;
       max-width: 240px;
@@ -1398,8 +1400,8 @@
 
     .ft-link {
       display: block;
-      font-size: 12px;
-      color: rgba(255, 255, 255, .3);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
       text-decoration: none;
       margin-bottom: 8px;
       transition: color .2s;
@@ -1419,8 +1421,8 @@
     }
 
     .ft-copy {
-      font-size: 10px;
-      color: rgba(255, 255, 255, .18);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
     }
 
     /* COOKIE */
@@ -1467,7 +1469,7 @@
       border: none;
       padding: 8px 20px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .15em;
@@ -1481,7 +1483,7 @@
       border: 1px solid rgba(255, 255, 255, .15);
       padding: 8px 16px;
       border-radius: 2px;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       cursor: pointer;
     }
@@ -1648,7 +1650,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1667,6 +1669,8 @@
       <a href="/recruitment.html" class="nl active">Browse Jobs</a>
       <a href="/hire.html" class="nl">Hire Staff</a>
       <a href="/about.html" class="nl">About Us</a>
+      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span
@@ -1705,10 +1709,10 @@
   <!-- SECTOR TABS -->
   <div class="sector-bar">
     <button class="sbt act" id="sbt-all" data-sector="">All Sectors</button>
-    <button class="sbt" id="sbt-care" data-sector="care">&#x1F3E5;&nbsp; Healthcare</button>
-    <button class="sbt" id="sbt-security" data-sector="security">&#x1F512;&nbsp; Security</button>
-    <button class="sbt" id="sbt-warehouse" data-sector="warehouse">&#x1F4E6;&nbsp; Warehouse</button>
-    <button class="sbt" id="sbt-construction" data-sector="construction">&#x1F3D7;&nbsp; Construction</button>
+    <button class="sbt" id="sbt-care" data-sector="care"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Healthcare</button>
+    <button class="sbt" id="sbt-security" data-sector="security"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security</button>
+    <button class="sbt" id="sbt-warehouse" data-sector="warehouse"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Warehouse</button>
+    <button class="sbt" id="sbt-construction" data-sector="construction"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg> Construction</button>
   </div>
 
   <!-- LIVE JOBS (Priority View) -->
@@ -1750,29 +1754,29 @@
       </div>
       <div class="expertise-grid">
         <div class="rv">
-          <div style="font-size:32px; margin-bottom:14px;">🏥</div>
-          <div style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
+          <div style="color:#1D9E75; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+          <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Healthcare</div>
           <p style="font-size:12px; color:var(--muted); line-height:1.7;">DBS-checked professionals for care homes, NHS,
             and private sectors.</p>
         </div>
         <div class="rv d1">
-          <div style="font-size:32px; margin-bottom:14px;">🛡️</div>
-          <div style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
+          <div style="color:#2B5EA7; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Security</div>
           <p style="font-size:12px; color:var(--muted); line-height:1.7;">SIA-licensed personnel for corporate, retail,
             and event protection.</p>
         </div>
         <div class="rv d2">
-          <div style="font-size:32px; margin-bottom:14px;">📦</div>
-          <div style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
+          <div style="color:var(--gold); margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+          <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Logistics</div>
           <p style="font-size:12px; color:var(--muted); line-height:1.7;">Warehouse operatives, pickers, and FLT drivers
             for supply chain excellence.</p>
         </div>
         <div class="rv d3">
-          <div style="font-size:32px; margin-bottom:14px;">🏗️</div>
-          <div style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
+          <div style="color:#D35400; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+          <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Construction</div>
           <p style="font-size:12px; color:var(--muted); line-height:1.7;">CSCS-carded labourers and tradesmen for all
             project scales.</p>
@@ -1807,46 +1811,51 @@
     </div>
   </section>
 
-  <!-- APPLY SECTION -->
+  <!-- TALENT POOL SECTION -->
   <section class="sec sec-dk" id="apply">
     <div class="inner">
-      <div class="apply-wrap">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="s-tag" style="color:var(--gold);">Join Our Talent Pool</div>
+        <h2 class="s-title w" style="text-align:center;">Register for <em>Future Roles</em></h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:580px;margin:0 auto;line-height:1.85;">Register your details and we will match you to current and upcoming vacancies across healthcare, security, warehouse, and construction. Free to register — a consultant will contact you within 24 hours.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start;" id="apply-wrap">
         <div>
-          <div class="s-tag">Candidates</div>
-          <h2 class="s-title w" style="margin-bottom:14px;">Apply <em>Now</em></h2>
-          <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:28px;">Apply now and a
-            consultant will contact you within 24 hours to discuss suitable roles. Attach your CV or apply without one.
-          </p>
-          <div class="promise-list">
-            <div class="pl-i">Free to register — no fees, ever</div>
-            <div class="pl-i">We match you to roles that fit your skills and availability</div>
-            <div class="pl-i">Weekly pay, flexible shifts available</div>
-            <div class="pl-i">Support with DBS checks and SIA verification</div>
-            <div class="pl-i">Call us: <strong style="color:rgba(255,255,255,.7);">07346 809846</strong></div>
-            <div class="pl-i">recruitment@covenantcrest.co.uk</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:16px 20px;">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Free to Join</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;">No fees, ever. We are paid by the employer, not the candidate.</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:16px 20px;">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Matched to Your Skills</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;">We match you to roles that suit your experience, sector, and availability — not just the first available posting.</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:16px 20px;">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Support Throughout</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;">We help with DBS checks, SIA verification, and site inductions. Weekly pay, flexible shifts available.</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.07);padding-top:16px;">
+            <div>&#128222; <a href="tel:07346809846" style="color:rgba(201,168,76,.7);text-decoration:none;">07346 809846</a></div>
+            <div style="margin-top:6px;">&#9993; <a href="mailto:recruitment@covenantcrest.co.uk" style="color:rgba(201,168,76,.7);text-decoration:none;">recruitment@covenantcrest.co.uk</a></div>
           </div>
         </div>
         <div class="dfc" id="apply-form">
-          <div class="dfc-title">Apply for a Job</div>
-          <div class="dfc-sub">A consultant will call you within 24 hours.</div>
-          <div class="ok-banner" id="ok-apply">&#x2705; Application received! We&rsquo;ll be in touch within 24 hours.
-          </div>
+          <div class="dfc-title">Register Your Details</div>
+          <div class="dfc-sub">A consultant will be in touch within 24 hours.</div>
+          <div class="ok-banner" id="ok-apply">&#x2705; Registration received! We&rsquo;ll be in touch within 24 hours.</div>
           <form name="candidate-apply" method="POST" id="candidate-apply-form">
             <input type="hidden" name="form-name" value="candidate-apply">
             <input type="hidden" name="job_title" id="hidden-job-title" value="">
             <input type="hidden" name="job_id" id="hidden-job-id" value="">
             <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
             <div class="dk-g2">
-              <div class="dk-fg"><label class="dk-label">First Name *</label><input class="dk-input" name="first_name"
-                  placeholder="John" required></div>
-              <div class="dk-fg"><label class="dk-label">Last Name *</label><input class="dk-input" name="last_name"
-                  placeholder="Smith" required></div>
+              <div class="dk-fg"><label class="dk-label">First Name *</label><input class="dk-input" name="first_name" placeholder="John" required></div>
+              <div class="dk-fg"><label class="dk-label">Last Name *</label><input class="dk-input" name="last_name" placeholder="Smith" required></div>
             </div>
             <div class="dk-g2">
-              <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email"
-                  name="email" placeholder="john@email.co.uk" required></div>
-              <div class="dk-fg"><label class="dk-label">Phone *</label><input class="dk-input" type="tel" name="phone"
-                  placeholder="07700 000000" required></div>
+              <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email" name="email" placeholder="john@email.co.uk" required></div>
+              <div class="dk-fg"><label class="dk-label">Phone *</label><input class="dk-input" type="tel" name="phone" placeholder="07700 000000" required></div>
             </div>
             <div class="dk-fg">
               <label class="dk-label">Sector *</label>
@@ -1868,55 +1877,34 @@
                 <option value="other">Other (specify below)</option>
               </select>
             </div>
-            <div class="dk-fg"><label class="dk-label">Role / Additional Info</label><textarea class="dk-textarea"
-                name="notes"
-                placeholder="Specific role, qualifications (e.g. SIA, DBS, FLT), preferred location&hellip;"></textarea>
-            </div>
+            <div class="dk-fg"><label class="dk-label">Role / Additional Info</label><textarea class="dk-textarea" name="notes" placeholder="Specific role, qualifications (e.g. SIA, DBS, FLT), preferred location&hellip;"></textarea></div>
             <div class="dk-fg">
-              <label class="dk-label">Upload CV / Resume <span
-                  style="color:rgba(255,255,255,.3);font-size:9px;">(Optional &mdash; PDF, Word or image, max
-                  5MB)</span></label>
+              <label class="dk-label">Upload CV / Resume <span style="color:rgba(255,255,255,.3);font-size:9px;">(Optional &mdash; PDF, Word or image, max 5MB)</span></label>
               <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none;">
-              <div id="cv-upload-zone"
-                style="border:1px dashed rgba(201,168,76,.35);border-radius:4px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);transition:border-color .2s;">
+              <div id="cv-upload-zone" style="border:1px dashed rgba(201,168,76,.35);border-radius:4px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);transition:border-color .2s;">
                 <span style="font-size:22px;">&#x1F4CE;</span>
-                <div style="flex:1;">
-                  <div id="cv-label" style="font-size:12px;color:rgba(255,255,255,.55);">Click to choose file or drag
-                    &amp; drop here</div>
-                  <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;">PDF, Word (.doc/.docx), or
-                    image &mdash; max 5 MB</div>
-                </div>
-                <span id="cv-clear-btn" style="display:none;color:rgba(226,75,74,.8);font-size:18px;padding:4px 8px;"
-                  title="Remove">&#x2715;</span>
+                <div style="flex:1;"><div id="cv-label" style="font-size:12px;color:rgba(255,255,255,.55);">Click to choose file or drag &amp; drop here</div><div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;">PDF, Word (.doc/.docx), or image &mdash; max 5 MB</div></div>
+                <span id="cv-clear-btn" style="display:none;color:rgba(226,75,74,.8);font-size:18px;padding:4px 8px;" title="Remove">&#x2715;</span>
               </div>
-              <div id="cv-progress" style="display:none;margin-top:6px;">
-                <div style="background:rgba(255,255,255,.1);border-radius:2px;height:3px;">
-                  <div id="cv-bar" style="background:var(--gold);height:100%;width:0%;transition:width .3s;"></div>
-                </div>
-                <div id="cv-status" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;">Uploading…</div>
-              </div>
+              <div id="cv-progress" style="display:none;margin-top:6px;"><div style="background:rgba(255,255,255,.1);border-radius:2px;height:3px;"><div id="cv-bar" style="background:var(--gold);height:100%;width:0%;transition:width .3s;"></div></div><div id="cv-status" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;">Uploading&hellip;</div></div>
               <input type="hidden" id="cv-url-hidden" name="cv_url" value="">
-              <p style="font-size:10px;color:rgba(255,255,255,.2);line-height:1.6;margin-top:6px;">Your CV is stored
-                securely and used solely for recruitment matching. Processed under UK GDPR (pre-contractual steps /
-                legitimate interests). You may request deletion at any time. See our <a href="/privacy.html"
-                  style="color:rgba(201,168,76,.55);">Privacy Policy</a>. Covenant Crest Group Ltd &mdash; ICO Reg:
-                ZC100629.</p>
             </div>
             <div class="dk-fg">
-              <label
-                style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
+              <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
                 <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-                <span>I consent to my data being processed in accordance with the <a href="/privacy.html"
-                    style="color:var(--gold);">Privacy Policy</a> for the purpose of this application.</span>
+                <span>I consent to my data being processed for recruitment matching under UK GDPR. See our <a href="/privacy.html" style="color:var(--gold);">Privacy Policy</a>.</span>
               </label>
             </div>
-            <button type="submit" class="f-submit" id="apply-submit-btn" aria-label="Submit application">Submit
-              Application &#8594;</button>
+            <button type="submit" class="f-submit" id="apply-submit-btn" aria-label="Submit registration">Join the Talent Pool &#8594;</button>
           </form>
         </div>
       </div>
     </div>
   </section>
+  <style>
+    @media(max-width:860px) { #apply-wrap { grid-template-columns: 1fr !important; } }
+  </style>
+
 
   <div class="modal-overlay" id="jobModal">
     <div class="modal">
@@ -1932,7 +1920,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer>
+    <footer>
     <div class="ft-main">
       <div>
         <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1950,27 +1938,29 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951.</div>
+        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
         <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage</a>
-        <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
+        <a href="/trade.html" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
         <a href="/index.html" class="ft-link">Home</a>
         <a href="/about.html" class="ft-link">About Us</a>
         <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
+        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
+        <a href="/contact.html" class="ft-link">Contact Us</a>
         <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact</div>
         <span class="ft-link" style="cursor:default;">07346 809846</span>
-        <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
         <span class="ft-link" style="cursor:default;">info@covenantcrest.co.uk</span>
+        <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
+        <span class="ft-link" style="cursor:default;">haulage@covenantcrest.co.uk</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -1983,7 +1973,7 @@
     </div>
     <div class="ft-bottom">
       <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
-      <span class="ft-copy">Registered in England &amp; Wales.</span>
+      <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
     </div>
   </footer>
 
@@ -1998,11 +1988,11 @@
   </div>
 
   <!-- WhatsApp floating button -->
-  <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
+    <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
     target="_blank" rel="noopener noreferrer" id="wa-btn"
     style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
     aria-label="Chat on WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z"
         fill="#fff" />
@@ -2013,7 +2003,5 @@
   </a>
 
 </body>
-
-</html>
 
 </html>

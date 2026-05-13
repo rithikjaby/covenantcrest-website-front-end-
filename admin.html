@@ -8,13 +8,13 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 <style>
 :root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;--warn:#F5A623;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.6;}
+body{background:#F3F5F8;color:var(--navy);font-family:'Plus Jakarta Sans', sans-serif;font-size:13px;line-height:1.6;}
 
 /* LAYOUT */
 .adm-layout{display:flex;min-height:100vh;}
@@ -22,7 +22,7 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;fo
 
 /* SIDEBAR */
 .asb-logo{padding:20px 22px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.asb-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;line-height:1.2;}
+.asb-logo-text{font-family:'Playfair Display', serif;font-size:18px;color:#fff;line-height:1.2;}
 .asb-logo-text span{color:var(--gold);}
 .asb-badge{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:3px;}
 .asb-sec-label{padding:18px 0 5px 22px;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18);}
@@ -34,13 +34,13 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;fo
 .asb-cnt.show{display:inline-block;}
 .asb-footer{margin-top:auto;padding:16px 22px;border-top:1px solid rgba(255,255,255,.06);}
 .asb-user{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.asb-logout{width:100%;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);color:var(--danger);padding:9px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.asb-logout{width:100%;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);color:var(--danger);padding:9px;border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
 .asb-logout:hover{background:var(--danger);color:#fff;}
 
 /* MAIN */
 .adm-main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
 .adm-topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.atb-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);}
+.atb-title{font-family:'Playfair Display', serif;font-size:22px;color:var(--navy);}
 .atb-right{display:flex;align-items:center;gap:14px;}
 .atb-site-link{font-size:11px;color:var(--gold);text-decoration:none;font-weight:600;}
 .adm-content{padding:24px 28px;flex:1;}
@@ -50,13 +50,13 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Montserrat',sans-serif;fo
 .astat{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);border-left:4px solid var(--gold);transition:all .3s ease;cursor:default;}
 .astat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.05);border-left-width:8px;}
 .astat.bl{border-left-color:#2B8A9C;}.astat.gr{border-left-color:var(--success);}.astat.rd{border-left-color:var(--danger);}.astat.or{border-left-color:var(--warn);}
-.astat-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--navy);}
+.astat-num{font-family:'Playfair Display', serif;font-size:34px;font-weight:300;color:var(--navy);}
 .astat-lbl{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500;}
 
 /* TABLES */
 .tbl-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:18px;}
 .tbl-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.tbl-title{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--navy);}
+.tbl-title{font-family:'Playfair Display', serif;font-size:19px;color:var(--navy);}
 table{width:100%;border-collapse:collapse;}
 thead th{padding:10px 14px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:#FAFAFA;border-bottom:1px solid var(--border);}
 tbody td{padding:12px 14px;font-size:12px;color:var(--charcoal);border-bottom:1px solid var(--border);vertical-align:top;}
@@ -79,21 +79,21 @@ tbody tr:hover{background:#FAFAFA;}
 .p-general{background:#F0FFF4;color:#2D7A4F;}
 
 /* BUTTONS */
-.btn-sm{padding:5px 11px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;}
+.btn-sm{padding:5px 11px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans', sans-serif;}
 .btn-sm.pr{background:var(--navy);color:var(--gold);}.btn-sm.pr:hover{background:var(--gold);color:var(--navy);}
 .btn-sm.dn{background:#FFF0F0;color:var(--danger);}.btn-sm.dn:hover{background:var(--danger);color:#fff;}
 .btn-sm.sc{background:#E8F8F0;color:var(--success);}.btn-sm.sc:hover{background:var(--success);color:#fff;}
 .btn-sm.gd{background:var(--gold);color:var(--navy);}.btn-sm.gd:hover{background:var(--gold2);}
-.btn-primary{background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;border:none;border-radius:2px;cursor:pointer;transition:all .2s;}
+.btn-primary{background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans', sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;border:none;border-radius:2px;cursor:pointer;transition:all .2s;}
 .btn-primary:hover{background:var(--gold2);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;}
 
 /* FORM CARD */
 .adm-form-card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:22px;margin-bottom:18px;}
-.adm-form-title{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.adm-form-title{font-family:'Playfair Display', serif;font-size:19px;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .af-group{margin-bottom:12px;}
 .af-label{display:block;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.af-input,.af-select,.af-textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--navy);outline:none;background:#fff;transition:border-color .2s;}
+.af-input,.af-select,.af-textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;color:var(--navy);outline:none;background:#fff;transition:border-color .2s;}
 .af-input:focus,.af-select:focus,.af-textarea:focus{border-color:var(--gold);}
 .af-textarea{min-height:76px;resize:vertical;}
 .ag2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -106,7 +106,7 @@ tbody tr:hover{background:#FAFAFA;}
 @keyframes mIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 .modal-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .modal-close:hover{background:var(--border);}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--navy);margin-bottom:4px;}
+.modal-title{font-family:'Playfair Display', serif;font-size:24px;color:var(--navy);margin-bottom:4px;}
 .modal-sub{font-size:12px;color:var(--muted);margin-bottom:20px;}
 .modal-err{color:var(--danger);font-size:12px;margin-top:10px;padding:8px 12px;background:#FFF0F0;border-radius:4px;display:none;}
 .modal-err.show{display:block;}
@@ -169,21 +169,21 @@ tbody tr:hover{background:#FAFAFA;}
     </div>
 
     <div class="asb-sec-label">Dashboard</div>
-    <a class="asb-item act" data-tab="dashboard"><span class="asb-ic">📊</span>Overview</a>
+    <a class="asb-item act" data-tab="dashboard"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Overview</a>
 
     <div class="asb-sec-label">Manage</div>
-    <a class="asb-item" data-tab="jobs"><span class="asb-ic">💼</span>Job Listings</a>
-    <a class="asb-item" data-tab="contacts" id="sb-contacts"><span class="asb-ic">📧</span>Contact Enquiries <span class="asb-cnt" id="contacts-badge">0</span></a>
-    <a class="asb-item" data-tab="applications" id="sb-apps"><span class="asb-ic">📋</span>Applications <span class="asb-cnt" id="apps-badge">0</span></a>
+    <a class="asb-item" data-tab="jobs"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Job Listings</a>
+    <a class="asb-item" data-tab="contacts" id="sb-contacts"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Contact Enquiries <span class="asb-cnt" id="contacts-badge">0</span></a>
+    <a class="asb-item" data-tab="applications" id="sb-apps"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>Applications <span class="asb-cnt" id="apps-badge">0</span></a>
 
     <div class="asb-sec-label">Settings</div>
-    <a class="asb-item" data-tab="settings"><span class="asb-ic">⚙️</span>Settings &amp; Password</a>
-    <a class="asb-item sa-only" id="sb-users" data-tab="users" style="display:none;"><span class="asb-ic">👤</span>User Management</a>
-    <a class="asb-item sa-only" id="sb-security" data-tab="security" style="display:none;"><span class="asb-ic">🛡️</span>Security Logs</a>
+    <a class="asb-item" data-tab="settings"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Settings &amp; Password</a>
+    <a class="asb-item sa-only" id="sb-users" data-tab="users" style="display:none;"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>User Management</a>
+    <a class="asb-item sa-only" id="sb-security" data-tab="security" style="display:none;"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Security Logs</a>
 
     <div class="asb-sec-label">Recruitment Tools</div>
-    <a class="asb-item" data-tab="talent"><span class="asb-ic">📂</span>Talent Pool</a>
-    <a class="asb-item" data-tab="planner"><span class="asb-ic">🗓️</span>Interview Planner</a>
+    <a class="asb-item" data-tab="talent"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg></span>Talent Pool</a>
+    <a class="asb-item" data-tab="planner"><span class="asb-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Interview Planner</a>
 
     <div class="asb-footer">
       <div class="asb-user" id="sbUserEmail">loading…</div>
@@ -207,19 +207,58 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== DASHBOARD ===== -->
       <div class="tab-pane active" id="tab-dashboard">
         <div class="astat-row">
-          <div class="astat"><div class="astat-num" id="stat-active-jobs">—</div><div class="astat-lbl">Active Job Listings</div></div>
-          <div class="astat bl"><div class="astat-num" id="stat-new-contacts">—</div><div class="astat-lbl">New Enquiries</div></div>
-          <div class="astat gr"><div class="astat-num" id="stat-total-jobs">—</div><div class="astat-lbl">Total Jobs Posted</div></div>
-          <div class="astat or"><div class="astat-num" id="stat-new-apps">—</div><div class="astat-lbl">New Applications</div></div>
+          <div class="astat">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <div class="astat-num" id="stat-active-jobs">—</div>
+              <div style="color:var(--gold);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+            </div>
+            <div class="astat-lbl">Active Job Listings</div>
+          </div>
+          <div class="astat bl">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <div class="astat-num" id="stat-new-contacts">—</div>
+              <div style="color:#2B8A9C;opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            </div>
+            <div class="astat-lbl">New Enquiries</div>
+          </div>
+          <div class="astat gr">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <div class="astat-num" id="stat-total-jobs">—</div>
+              <div style="color:var(--success);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            </div>
+            <div class="astat-lbl">Total Jobs Posted</div>
+          </div>
+          <div class="astat or">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <div class="astat-num" id="stat-new-apps">—</div>
+              <div style="color:var(--warn);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            </div>
+            <div class="astat-lbl">New Applications</div>
+          </div>
         </div>
         <!-- Activity Timeline -->
-        <div class="tbl-card" style="margin-bottom:18px;">
-          <div class="tbl-hdr"><div class="tbl-title">Activity — Last 7 Days</div><span style="font-size:11px;color:var(--muted);" id="timeline-updated"></span></div>
-          <div id="timeline-body" style="padding:16px 18px;display:flex;gap:24px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">📋</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-apps">—</div><div style="font-size:11px;color:var(--muted);">New Applications</div></div></div>
-            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">📧</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-enquiries">—</div><div style="font-size:11px;color:var(--muted);">New Enquiries</div></div></div>
-            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">✅</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-hired">—</div><div style="font-size:11px;color:var(--muted);">Hired This Week</div></div></div>
-            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">💼</span><div><div style="font-size:22px;font-weight:700;color:var(--navy);" id="tl-shortlisted">—</div><div style="font-size:11px;color:var(--muted);">Shortlisted</div></div></div>
+        <div class="tbl-card" style="margin-bottom:18px; border-top: 2px solid var(--gold);">
+          <div class="tbl-hdr">
+            <div class="tbl-title">Weekly Performance Snapshot</div>
+            <span style="font-size:11px;color:var(--muted);" id="timeline-updated"></span>
+          </div>
+          <div id="timeline-body" style="padding:24px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+            <div style="background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(201,168,76,.08)); border:1px solid rgba(201,168,76,.15); border-radius:12px; padding:20px;">
+              <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-apps">—</div>
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;">Applications</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(43,138,156,.04),rgba(43,138,156,.08)); border:1px solid rgba(43,138,156,.15); border-radius:12px; padding:20px;">
+              <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-enquiries">—</div>
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;">B2B Enquiries</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(29,158,117,.04),rgba(29,158,117,.08)); border:1px solid rgba(29,158,117,.15); border-radius:12px; padding:20px;">
+              <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-hired">—</div>
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;">Placements</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(61,90,168,.04),rgba(61,90,168,.08)); border:1px solid rgba(61,90,168,.15); border-radius:12px; padding:20px;">
+              <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-shortlisted">—</div>
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;">Shortlisted</div>
+            </div>
           </div>
         </div>
         <div class="tbl-card">
@@ -240,19 +279,19 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== JOBS ===== -->
       <div class="tab-pane" id="tab-jobs">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Job Listings</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Job Listings</h2>
           <button class="btn-primary" id="addJobBtnMain">+ Add New Job</button>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-          <input id="jobs-search" type="text" placeholder="Search title or location…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
-          <select id="jobs-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+          <input id="jobs-search" type="text" placeholder="Search title or location…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
+          <select id="jobs-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
             <option value="care">Care</option>
             <option value="security">Security</option>
             <option value="warehouse">Warehouse</option>
             <option value="construction">Construction</option>
           </select>
-          <select id="jobs-status-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+          <select id="jobs-status-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Statuses</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
@@ -277,37 +316,37 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== CONTACTS ===== -->
       <div class="tab-pane" id="tab-contacts">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Contact Enquiries</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Contact Enquiries</h2>
           <div style="display:flex;gap:8px;">
             <button class="btn-sm dn sa-only" style="display:none;" id="clearContactsBtn">Clear All</button>
             <button id="exportContactsCSV" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
           </div>
         </div>
         <div style="margin-bottom:12px;">
-          <input id="contacts-search" type="text" placeholder="Search name or email…" style="width:100%;max-width:340px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
+          <input id="contacts-search" type="text" placeholder="Search name or email…" style="width:100%;max-width:340px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
         </div>
         <div class="tbl-card">
-          <table><thead><tr><th>Name</th><th>Email</th><th>Type</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="contacts-tbody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody></table>
+          <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Type</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="contacts-tbody"><tr class="empty-row"><td colspan="8">Loading…</td></tr></tbody></table>
         </div>
       </div>
 
       <!-- ===== APPLICATIONS ===== -->
       <div class="tab-pane" id="tab-applications">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Candidate Applications</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Candidate Applications</h2>
           <button id="exportAppsCSV" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-          <input id="apps-search" type="text" placeholder="Search name, email or job…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
-          <select id="apps-status-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+          <input id="apps-search" type="text" placeholder="Search name, email or job…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
+          <select id="apps-status-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Statuses</option>
             <option value="new">New</option>
             <option value="shortlisted">Shortlisted</option>
             <option value="hired">Hired</option>
             <option value="rejected">Rejected</option>
           </select>
-          <select id="apps-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+          <select id="apps-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
             <option value="care">Care</option>
             <option value="security">Security</option>
@@ -332,7 +371,7 @@ tbody tr:hover{background:#FAFAFA;}
 
       <!-- ===== SETTINGS ===== -->
       <div class="tab-pane" id="tab-settings">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:18px;">Settings</h2>
+        <h2 style="font-family:'Playfair Display', serif;font-size:26px;margin-bottom:18px;">Settings</h2>
         <div class="adm-form-card">
           <div class="adm-form-title">Business Information</div>
           <div class="ag2">
@@ -390,7 +429,7 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== USER MANAGEMENT (Super Admin only) ===== -->
       <div class="tab-pane" id="tab-users">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">User Management</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">User Management</h2>
           <button class="btn-primary" id="addUserBtn">+ Add Employee Account</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
@@ -408,7 +447,7 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== SECURITY LOGS (Super Admin only) ===== -->
       <div class="tab-pane" id="tab-security">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Security Audit Logs</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Security Audit Logs</h2>
           <button class="btn-sm pr" id="refreshSecurityLogsBtn">Refresh Logs</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
@@ -426,7 +465,7 @@ tbody tr:hover{background:#FAFAFA;}
       <!-- ===== TALENT POOL ===== -->
       <div class="tab-pane" id="tab-talent">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;">Talent Pool</h2>
+          <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Talent Pool</h2>
           <button class="btn-primary" onclick="exportCSV('talent')">Export Talent List</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
@@ -434,8 +473,8 @@ tbody tr:hover{background:#FAFAFA;}
           <p>Search through all historical applicants to find candidates for new roles before you even post them. Use the filters below to narrow down by skill or sector.</p>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-          <input id="talent-search" type="text" placeholder="Search skills, names, or locations…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;">
-          <select id="talent-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;background:#fff;">
+          <input id="talent-search" type="text" placeholder="Search skills, names, or locations…" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
+          <select id="talent-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
             <option value="care">Care</option>
             <option value="security">Security</option>
@@ -451,7 +490,7 @@ tbody tr:hover{background:#FAFAFA;}
 
       <!-- ===== INTERVIEW PLANNER ===== -->
       <div class="tab-pane" id="tab-planner">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:18px;">Interview Planner</h2>
+        <h2 style="font-family:'Playfair Display', serif;font-size:26px;margin-bottom:18px;">Interview Planner</h2>
         <div class="info-box" style="margin-bottom:18px;">
           <h4>✅ Current Shortlist</h4>
           <p>These are the candidates currently marked as <strong>Shortlisted</strong>. These are your priority follow-ups and interviews.</p>
