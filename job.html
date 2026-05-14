@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Job Details | Covenant Crest Group Ltd</title>
-<meta name="description" id="meta-desc" content="View job details and apply for a role with Covenant Crest Group Ltd.">
+<title>Job Details | Covenant Crest</title>
+<meta name="description" id="meta-desc" content="View job details and apply for a role with Covenant Crest.">
 <meta name="keywords" id="meta-keywords" content="recruitment, jobs, career">
 <meta name="robots" content="index, follow">
+<meta property="og:site_name" content="Covenant Crest">
+<meta property="og:title" content="Job Details | Covenant Crest">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +23,8 @@ body{background:var(--cream);color:var(--navy);font-family:var(--font-body);font
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
-.nav-name{font-family:var(--font-head);font-size:32px;color:#fff;letter-spacing:.02em;}
-.nav-name span{color:var(--gold);}
+.nav-name{font-family:var(--font-head);font-size:34px;color:#fff;letter-spacing:0.04em;font-weight:600;}
+.nav-name span{color:#D4AF37;}
 .nav-links{display:flex;align-items:center;gap:32px;}
 .nl{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .3s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
@@ -33,8 +35,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .sticky-job-hdr{position:fixed;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:400;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateY(-100%);transition:transform .4s cubic-bezier(0.165, 0.84, 0.44, 1);pointer-events:none;opacity:0;}
 .sticky-job-hdr.show{transform:translateY(0);pointer-events:auto;opacity:1;}
 .sjh-title{font-family:var(--font-head);font-size:20px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:24px;}
-.sjh-btn{background:var(--navy);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:12px 24px;border-radius:4px;text-decoration:none;transition:all .3s;}
-.sjh-btn:hover{background:var(--gold);color:var(--navy);}
+.sjh-btn{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:12px 24px;border-radius:4px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;}
+.sjh-btn:hover{background:var(--gold2);transform:translateY(-1px);}
 
 /* PAGE HEADER */
 .page-header{background:linear-gradient(rgba(13,27,42,0.92), rgba(13,27,42,0.96)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80'); background-size:cover; background-position:center; background-attachment:fixed; padding:120px 48px 60px; position:relative;}
@@ -51,18 +53,72 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .main-section{padding:80px 48px; background:var(--cream);}
 .job-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:64px;}
 
-.jd-block{margin-bottom:48px;}
-.jd-title{font-family:var(--font-head); font-size:28px; font-weight:600; color:var(--navy); margin-bottom:24px; display:flex; align-items:center; gap:16px;}
-.jd-title::after{content:""; flex:1; height:1px; background:var(--border);}
-.jd-body{font-size:16px;color:var(--charcoal);line-height:1.9;}
-.jd-body p{margin-bottom:16px;}
-.jd-body ul, .jd-req-body ul{margin-left:24px; margin-bottom:24px; list-style:none;}
-.jd-body li, .jd-req-body li{margin-bottom:12px; position:relative; padding-left:8px;}
-.jd-body li::before, .jd-req-body li::before{content:""; position:absolute; left:-24px; top:10px; width:6px; height:6px; border-radius:50%; background:var(--gold);}
-
-.jd-req{background:#fff; padding:40px; border-radius:16px; border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,0.02); margin-bottom:48px; border-top:4px solid var(--gold);}
-.jd-req-title{font-family:var(--font-head); font-size:24px; color:var(--navy); margin-bottom:20px;}
 .jd-req-body{font-size:15px;color:var(--charcoal);line-height:1.8;}
+.jd-body ul, .jd-req-body ul { margin: 24px 0 24px 20px; list-style: none; }
+.jd-body li, .jd-req-body li { margin-bottom: 12px; position: relative; padding-left: 10px; line-height: 1.6; }
+.jd-body li::before, .jd-req-body li::before { content: ""; position: absolute; left: -20px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.jd-body p { margin-bottom: 16px; }
+
+/* JD UPGRADES */
+.jd-card {
+  background: #fff;
+  padding: 48px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+  margin-bottom: 40px;
+}
+.jd-block-h {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.jd-block-h svg {
+  color: var(--gold);
+}
+.jd-block-h::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+.ben-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  background: var(--cream);
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+/* REVEAL FORM WRAP */
+
+/* REVEAL FORM WRAP */
+.form-reveal-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.8s cubic-bezier(0, 1, 0, 1);
+}
+.form-reveal-wrap.open {
+  max-height: 2500px;
+  transition: max-height 1.2s ease-in-out;
+  margin-top: 40px;
+}
 
 /* SIDEBAR */
 .sidebar{position:sticky; top:150px;}
@@ -122,9 +178,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 
 /* FOOTER */
 footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
-.ft-main{padding:60px 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;max-width:1200px;margin:0 auto;}
-.ft-logo-name{font-family:var(--font-head);font-size:32px;color:#fff;margin:16px 0 4px;}
-.ft-logo-name span{color:var(--gold);}
+.ft-main{padding:52px 48px 36px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;max-width:1200px;margin:0 auto;}
+.ft-logo-name{font-family:var(--font-head);font-size:34px;color:#fff;font-weight:600;letter-spacing:0.04em;margin:16px 0 4px;}
+.ft-logo-name span{color:#D4AF37;}
 .ft-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:16px;}
 .ft-col-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
 .ft-link{display:block;font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:12px;transition:color .3s;}
@@ -197,7 +253,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 <div id="job-content" style="display:none;">
   <div class="sticky-job-hdr" id="sticky-hdr">
     <div class="sjh-title" id="sjh-title">Job Title</div>
-    <a href="#apply-section" class="sjh-btn" id="sjh-apply">Apply Now</a>
+    <button class="sjh-btn" id="sticky-apply-btn">Apply Now</button>
   </div>
 
   <section class="page-header" id="ph-trigger">
@@ -215,7 +271,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <span>Full-time</span>
         </div>
         <div class="ph-meta-item" id="job-pay">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7c0-5.333-8-5.333-8 0v14M6 13h7M7 21h10"/></svg>
           <span>£---</span>
         </div>
         <div class="ph-meta-item" id="job-expiry" style="background:var(--danger); border-color:var(--danger); display:none;">
@@ -229,146 +285,186 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     <div class="job-layout">
       <!-- Main Content -->
       <div>
-        <div class="jd-block">
-          <h2 class="jd-title">About The Role</h2>
+        <div class="jd-card">
+          <h2 class="jd-block-h">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            About The Role
+          </h2>
           <div class="jd-body" id="job-desc"></div>
+          
+          <div class="benefit-grid">
+            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Competitive Pay</div>
+            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Immediate Start</div>
+            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Weekly Payment</div>
+            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Full Support</div>
+          </div>
         </div>
         
-        <div class="jd-req" id="job-req-container" style="display:none;">
-          <h3 class="jd-req-title">Requirements &amp; Compliance</h3>
+        <div class="jd-card" id="job-req-container" style="display:none; border-top: 4px solid var(--gold);">
+          <h3 class="jd-block-h">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Requirements &amp; Compliance
+          </h3>
           <div class="jd-req-body" id="job-req"></div>
         </div>
 
-        <div class="share-links">
-          <div class="sl-title">Share Role:</div>
-          <a href="#" id="share-li" target="_blank" class="sl-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-          <a href="#" id="share-wa" target="_blank" class="sl-btn" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg></a>
-          <button id="share-copy" class="sl-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg></button>
+        <div style="margin-top:40px; text-align:center;" id="reveal-trigger-area">
+          <button class="f-submit" id="main-apply-btn" style="max-width:400px; margin:0 auto;">Apply for This Role &rarr;</button>
         </div>
 
-        <!-- EXTENDED APPLICATION FORM -->
-        <div class="form-container" id="apply-section">
-          <div class="form-header">
-            <h3 class="form-title">Apply for This Role</h3>
-            <p class="form-desc">Complete your comprehensive profile below to fast-track your application.</p>
+        <div class="form-reveal-wrap" id="formRevealWrap">
+          <!-- EXTENDED APPLICATION FORM -->
+          <div class="form-container" id="apply-section">
+            <div class="form-header">
+              <h3 class="form-title">Apply for This Role</h3>
+              <p class="form-desc">Complete your comprehensive profile below to fast-track your application.</p>
+            </div>
+            
+            <div class="f-ok" id="if-ok">
+              <strong>Application Received</strong><br>
+              A consultant will review your profile and contact you within 24 hours.
+            </div>
+
+            <form id="inline-apply-form">
+              <!-- Basic Details -->
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label">First Name *</label>
+                  <input type="text" class="f-input" id="if-first" required placeholder="Jane">
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Last Name *</label>
+                  <input type="text" class="f-input" id="if-last" required placeholder="Doe">
+                </div>
+              </div>
+
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label">Email Address *</label>
+                  <input type="email" class="f-input" id="if-email" required placeholder="jane.doe@example.com">
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Phone Number *</label>
+                  <input type="tel" class="f-input" id="if-phone" required placeholder="07700 900000">
+                </div>
+              </div>
+
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label">Postcode *</label>
+                  <input type="text" class="f-input" id="if-postcode" required placeholder="e.g. TF3 4NT">
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Right to work in the UK? *</label>
+                  <select class="f-select" id="if-right-to-work" required>
+                    <option value="" disabled selected>Select status</option>
+                    <option value="yes">Yes, I have the right to work</option>
+                    <option value="no">No, I require sponsorship</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Professional Details -->
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label">Years of Experience *</label>
+                  <select class="f-select" id="if-experience" required>
+                    <option value="" disabled selected>Select experience</option>
+                    <option value="entry">Less than 1 year</option>
+                    <option value="1-3">1 to 3 years</option>
+                    <option value="3-5">3 to 5 years</option>
+                    <option value="5+">5+ years</option>
+                  </select>
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Preferred Shifts</label>
+                  <select class="f-select" id="if-shifts">
+                    <option value="any">Flexible / Any</option>
+                    <option value="days">Days Only</option>
+                    <option value="nights">Nights Only</option>
+                    <option value="weekends">Weekends Included</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Availability *</label>
+                <select class="f-select" id="if-avail" required>
+                  <option value="immediate">Immediately Available</option>
+                  <option value="1week">1 Week Notice</option>
+                  <option value="2weeks">2 Weeks Notice</option>
+                  <option value="1month">1 Month Notice</option>
+                  <option value="other">Other (Specify in notes)</option>
+                </select>
+              </div>
+
+              <!-- New Compliance Fields -->
+              <div class="f-group">
+                <label class="f-label">Right to Work in the UK *</label>
+                <select class="f-select" name="rtw_status" id="if-rtw" required onchange="const d=document.getElementById('visa-details-wrap'); if(this.value==='visa'){d.style.display='block'; d.querySelector('input').required=true;}else{d.style.display='none'; d.querySelector('input').required=false;}">
+                  <option value="" disabled selected>Please select...</option>
+                  <option value="british_irish">British or Irish Passport</option>
+                  <option value="eu_settlement">EU Settlement Scheme</option>
+                  <option value="visa">Visa / Work Permit</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="f-group" id="visa-details-wrap" style="display:none;">
+                <label class="f-label">Visa Type & Expiry *</label>
+                <input class="f-input" name="visa_details" id="if-visa-details" placeholder="e.g. Skilled Worker Visa, Expires 2026">
+              </div>
+
+              <div class="f-group">
+                <div class="f-checkbox-group" style="grid-template-columns: 1fr;">
+                  <label class="f-check-label" style="font-size:13px; color:rgba(255,255,255,0.7);"><input type="checkbox" name="is_veteran" value="yes"> Are you a Veteran of the British Armed Forces?</label>
+                </div>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Interview Assistance / Adjustments</label>
+                <textarea class="f-textarea" name="assistance" id="if-assistance" placeholder="Do you require any reasonable adjustments for the interview process? (e.g. wheelchair access, large print, etc.)" style="min-height: 60px;"></textarea>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Relevant Certifications / Licences</label>
+                <div class="f-checkbox-group">
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="Forklift"> Forklift (RTITB/ITSSAR)</label>
+                  <label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>
+                </div>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Additional Information</label>
+                <textarea class="f-textarea" id="if-notes" placeholder="Please outline your relevant experience, transport situation, and any other details that support your application..."></textarea>
+              </div>
+
+              <!-- CV Upload -->
+              <div class="f-group">
+                <label class="f-label">CV / Resume (Optional)</label>
+                <input type="file" id="if-cv-input" accept=".pdf,.doc,.docx" style="display:none;">
+                <div class="f-cv-zone" id="if-cv-zone">
+                  <span class="f-cv-icon">📄</span>
+                  <div class="f-cv-text" id="if-cv-label">Click to upload your CV</div>
+                  <div class="f-cv-sub">PDF or Word Document (Max 5MB)</div>
+                  <button type="button" class="f-cv-clear" id="if-cv-clear">Remove File</button>
+                </div>
+              </div>
+
+              <div class="f-group" style="margin-top:32px;">
+                <label class="f-check-label" style="align-items:flex-start; font-size:13px; color:rgba(255,255,255,0.6);">
+                  <input type="checkbox" id="if-gdpr" required style="margin-top:3px;">
+                  <span>I consent to my personal data being processed by Covenant Crest Group Ltd in accordance with the <a href="/privacy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a> for recruitment purposes.</span>
+                </label>
+              </div>
+
+              <button type="submit" class="f-submit" id="if-submit-btn">Submit Application</button>
+            </form>
           </div>
-          
-          <div class="f-ok" id="if-ok">
-            <strong>Application Received</strong><br>
-            A consultant will review your profile and contact you within 24 hours.
-          </div>
-
-          <form id="inline-apply-form">
-            <!-- Basic Details -->
-            <div class="f-row">
-              <div class="f-group">
-                <label class="f-label">First Name *</label>
-                <input type="text" class="f-input" id="if-first" required placeholder="Jane">
-              </div>
-              <div class="f-group">
-                <label class="f-label">Last Name *</label>
-                <input type="text" class="f-input" id="if-last" required placeholder="Doe">
-              </div>
-            </div>
-
-            <div class="f-row">
-              <div class="f-group">
-                <label class="f-label">Email Address *</label>
-                <input type="email" class="f-input" id="if-email" required placeholder="jane.doe@example.com">
-              </div>
-              <div class="f-group">
-                <label class="f-label">Phone Number *</label>
-                <input type="tel" class="f-input" id="if-phone" required placeholder="07700 900000">
-              </div>
-            </div>
-
-            <div class="f-row">
-              <div class="f-group">
-                <label class="f-label">Postcode *</label>
-                <input type="text" class="f-input" id="if-postcode" required placeholder="e.g. TF3 4NT">
-              </div>
-              <div class="f-group">
-                <label class="f-label">Right to work in the UK? *</label>
-                <select class="f-select" id="if-right-to-work" required>
-                  <option value="" disabled selected>Select status</option>
-                  <option value="yes">Yes, I have the right to work</option>
-                  <option value="no">No, I require sponsorship</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Professional Details -->
-            <div class="f-row">
-              <div class="f-group">
-                <label class="f-label">Years of Experience *</label>
-                <select class="f-select" id="if-experience" required>
-                  <option value="" disabled selected>Select experience</option>
-                  <option value="entry">Less than 1 year</option>
-                  <option value="1-3">1 to 3 years</option>
-                  <option value="3-5">3 to 5 years</option>
-                  <option value="5+">5+ years</option>
-                </select>
-              </div>
-              <div class="f-group">
-                <label class="f-label">Preferred Shifts</label>
-                <select class="f-select" id="if-shifts">
-                  <option value="any">Flexible / Any</option>
-                  <option value="days">Days Only</option>
-                  <option value="nights">Nights Only</option>
-                  <option value="weekends">Weekends Included</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="f-group">
-              <label class="f-label">Availability *</label>
-              <select class="f-select" id="if-avail" required>
-                <option value="immediate">Immediately Available</option>
-                <option value="1week">1 Week Notice</option>
-                <option value="2weeks">2 Weeks Notice</option>
-                <option value="1month">1 Month Notice</option>
-                <option value="other">Other (Specify in notes)</option>
-              </select>
-            </div>
-
-            <div class="f-group">
-              <label class="f-label">Relevant Certifications / Licences</label>
-              <div class="f-checkbox-group">
-                <label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>
-                <label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>
-                <label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>
-                <label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>
-                <label class="f-check-label"><input type="checkbox" name="certs" value="Forklift"> Forklift (RTITB/ITSSAR)</label>
-                <label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>
-              </div>
-            </div>
-
-            <div class="f-group">
-              <label class="f-label">Additional Information</label>
-              <textarea class="f-textarea" id="if-notes" placeholder="Please outline your relevant experience, transport situation, and any other details that support your application..."></textarea>
-            </div>
-
-            <!-- CV Upload -->
-            <div class="f-group">
-              <label class="f-label">CV / Resume (Optional)</label>
-              <input type="file" id="if-cv-input" accept=".pdf,.doc,.docx" style="display:none;">
-              <div class="f-cv-zone" id="if-cv-zone">
-                <span class="f-cv-icon">📄</span>
-                <div class="f-cv-text" id="if-cv-label">Click to upload your CV</div>
-                <div class="f-cv-sub">PDF or Word Document (Max 5MB)</div>
-                <button type="button" class="f-cv-clear" id="if-cv-clear">Remove File</button>
-              </div>
-            </div>
-
-            <div class="f-group" style="margin-top:32px;">
-              <label class="f-check-label" style="align-items:flex-start; font-size:13px; color:rgba(255,255,255,0.6);">
-                <input type="checkbox" id="if-gdpr" required style="margin-top:3px;">
-                <span>I consent to my personal data being processed by Covenant Crest Group Ltd in accordance with the <a href="/privacy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a> for recruitment purposes.</span>
-              </label>
-            </div>
-
-            <button type="submit" class="f-submit" id="if-submit-btn">Submit Application</button>
-          </form>
         </div>
       </div>
 
@@ -403,6 +499,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               Start working in as little as 24 hours.
             </div>
           </div>
+          <button class="f-submit" id="side-apply-btn" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
         </div>
 
         <div class="sb-contact">
@@ -416,6 +513,14 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             recruitment@covenantcrest.co.uk
           </div>
+          </div>
+        </div>
+
+        <div class="share-links">
+          <div class="sl-title">Share Role:</div>
+          <a href="#" id="share-li" target="_blank" class="sl-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" id="share-wa" target="_blank" class="sl-btn" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg></a>
+          <button id="share-copy" class="sl-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg></button>
         </div>
       </aside>
     </div>
@@ -453,10 +558,10 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
     </div>
     <div>
-      <div class="ft-col-title">Contact</div>
-      <span class="ft-link" style="cursor:default; color:#fff;">07346 809846</span>
-      <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
-      <span class="ft-link" style="cursor:default;">info@covenantcrest.co.uk</span>
+      <div class="ft-col-title">Contact Us</div>
+      <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+      <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+      <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
     </div>
   </div>
   <div class="ft-bottom">

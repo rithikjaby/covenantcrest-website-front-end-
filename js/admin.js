@@ -857,7 +857,11 @@ function viewApplication(id) {
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sector</div><div style="font-size:13px;font-weight:600;color:var(--navy);"><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorDisplay) + '</span></div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
+        '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Right to Work</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.rtw_status ? (a.rtw_status === 'british_irish' ? 'UK/Irish Passport' : (a.rtw_status === 'visa' ? 'Visa' : a.rtw_status)) : 'Not Specified') + '</div></div>' +
+        (a.visa_details ? '<div style="background:#fff4e5;border-radius:6px;padding:10px 14px;grid-column: span 2;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d35400;margin-bottom:3px;">Visa Specifics</div><div style="font-size:13px;font-weight:600;color:#d35400;">' + esc(a.visa_details) + '</div></div>' : '') +
+        (a.is_veteran === 'yes' ? '<div style="background:#eef8f3;border-radius:6px;padding:10px 14px;grid-column: span 2;border-left:3px solid var(--success);"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:3px;">Armed Forces Background</div><div style="font-size:13px;font-weight:600;color:var(--navy);">British Armed Forces Veteran</div></div>' : '') +
       '</div>' +
+      (a.assistance ? '<div style="background:#fefefe;border:1px solid #ffccbc;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#ff5722;margin-bottom:3px;">Assistance Required</div><div style="font-size:12px;color:var(--navy);">' + esc(a.assistance) + '</div></div>' : '') +
       '</div>' +
       '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
@@ -930,33 +934,20 @@ function downloadApplicationCV(a) {
   var data = a.cvBase64 || a.cvUrl;
   if (!data) return showToast('No CV data found', 'er');
   
-  var filename = a.cvFileName || ((a.first_name || 'Candidate') + '_CV.pdf');
-  if (filename.indexOf('.') === -1) filename += '.pdf'; // Guess PDF for old ones
+  var candidateName = ((a.first_name || 'Candidate') + '_' + (a.last_name || 'CV')).replace(/\s+/g, '_');
+  var filename = a.cvFileName || (candidateName + '.pdf');
 
-  // If it's a direct URL
+  // 1. Direct URL Handling (Cloudinary)
   if (data.indexOf('http') === 0) {
-    // If it's a Cloudinary URL, we can try to force attachment mode
     var downloadUrl = data;
     if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('fl_attachment') === -1) {
-       // Insert fl_attachment after /upload/
        downloadUrl = data.replace('/upload/', '/upload/fl_attachment:' + encodeURIComponent(filename.replace(/\.[^/.]+$/, "")) + '/');
-       // If no extension in URL, append it
-       if (downloadUrl.split('?')[0].split('#')[0].indexOf('.') === -1) {
-          downloadUrl = downloadUrl.replace(/\/v\d+\//, function(m){ return m; }) + '.pdf';
-       }
     }
-
-    var link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = filename;
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    window.open(downloadUrl, '_blank');
     return;
   }
 
-  // If it's Base64, decode it into a Blob
+  // 2. Base64 Handling (Internal DB)
   try {
     var base64Content = data;
     if (data.indexOf('base64,') !== -1) base64Content = data.split('base64,')[1];
@@ -966,23 +957,49 @@ function downloadApplicationCV(a) {
     for (var i = 0; i < byteCharacters.length; i++) byteNumbers[i] = byteCharacters.charCodeAt(i);
     var byteArray = new Uint8Array(byteNumbers);
     
+    // SMART DETECTION: Check "Magic Bytes" to determine real file type
     var mimeType = 'application/octet-stream';
-    var fnL = filename.toLowerCase();
-    if (fnL.indexOf('.pdf') !== -1) mimeType = 'application/pdf';
-    else if (fnL.indexOf('.doc') !== -1 && fnL.indexOf('.docx') === -1) mimeType = 'application/msword';
-    else if (fnL.indexOf('.docx') !== -1) mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    var ext = '.file';
+    
+    // PDF magic bytes: %PDF- (25 50 44 46)
+    if (byteArray[0] === 0x25 && byteArray[1] === 0x50 && byteArray[2] === 0x44 && byteArray[3] === 0x46) {
+      mimeType = 'application/pdf';
+      ext = '.pdf';
+    } 
+    // Word (.docx) or Zip magic bytes: PK (50 4B)
+    else if (byteArray[0] === 0x50 && byteArray[1] === 0x4B) {
+      mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      ext = '.docx';
+    }
+    // Word (.doc) old magic bytes
+    else if (byteArray[0] === 0xD0 && byteArray[1] === 0xCF) {
+      mimeType = 'application/msword';
+      ext = '.doc';
+    }
+
+    // Ensure filename has the correct extension
+    if (!filename.toLowerCase().endsWith(ext)) {
+      filename = filename.replace(/\.[^/.]+$/, "") + ext;
+    }
 
     var blob = new Blob([byteArray], { type: mimeType });
     var url = window.URL.createObjectURL(blob);
-    var link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    
+    // ACTION: If it's a PDF, OPEN in new tab. Otherwise, DOWNLOAD.
+    if (mimeType === 'application/pdf') {
+      window.open(url, '_blank');
+    } else {
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    setTimeout(function() { window.URL.revokeObjectURL(url); }, 1000);
   } catch(e) {
-    console.error('CV Download Error:', e);
+    console.error('CV Processing Error:', e);
     window.open(data, '_blank');
   }
 }

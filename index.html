@@ -8,7 +8,7 @@
   <meta name="description"
     content="CQC-compliant recruitment agency supplying SIA verified security operatives, warehouse staff and construction trades across the UK. Request staff today — Company No. 16528951.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://covenantcrest.co.uk/">
+  <link rel="canonical" href="/">
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
@@ -21,7 +21,7 @@
     content="Covenant Crest Group Ltd | Care, Security, Warehouse &amp; Construction Recruitment | UK">
   <meta property="og:description"
     content="CQC-compliant recruitment agency. Vetted care, security, warehouse and construction staff supplied across the UK. Request staff in 2 hours.">
-  <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
+  <meta property="og:image" content="/og-image.svg" loading="lazy">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Covenant Crest">
@@ -161,13 +161,15 @@
 
     .nav-name {
       font-family: 'Playfair Display', serif;
-      font-size: 34px;
+      font-size: clamp(20px, 3vw, 34px);
       color: #fff;
-      letter-spacing: .05em;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      line-height: 1;
     }
 
     .nav-name span {
-      color: var(--gold);
+      color: #D4AF37;
     }
 
     .nav-links {
@@ -1285,6 +1287,60 @@
       background: var(--gold2);
     }
 
+    /* QUICK ENQUIRY */
+    .qe-bar {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 40px 48px;
+      text-align: center;
+    }
+    .qe-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .qe-p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .btn-enq {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-enq:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+    }
+    .qe-form-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+      background: var(--navy);
+    }
+    .qe-form-wrap.open {
+      max-height: 1000px;
+      transition: max-height 1s ease-in-out;
+      border-bottom: 1px solid rgba(201, 168, 76, .1);
+    }
+    .qe-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 48px;
+    }
+
     /* FOOTER */
     footer {
       background: var(--navy);
@@ -1303,11 +1359,13 @@
       font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       margin: 12px 0 2px;
     }
 
     .ft-logo-name span {
-      color: var(--gold);
+      color: #D4AF37;
     }
 
     .ft-logo-sub {
@@ -1654,17 +1712,12 @@
         grid-template-columns: 1fr;
       }
 
-    @media(max-width:520px) {
-      .strip {
-        grid-template-columns: 1fr;
+      .qe-bar {
+        padding: 40px 24px;
       }
 
-      .hs-i {
-        flex: 0 0 100%;
-      }
-
-      .hero-h1 {
-        font-size: 44px;
+      .qe-inner {
+        padding: 40px 24px;
       }
     }
 
@@ -1804,7 +1857,7 @@
           <a href="/recruitment.html" class="srv-lnk">View Warehouse Roles &#8594;</a>
         </div>
         <div class="srv-card rv d3" style="border-top:3px solid #D35400;">
-          <div class="srv-icon" style="color:#D35400;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+          <div class="srv-icon" style="color:#D35400;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg></div>
           <div class="srv-name">Construction &amp; Trades</div>
           <p class="srv-desc">CSCS-certified labourers, machine operators (CPCS/NPORS), and skilled trades for
             residential, commercial, and infrastructure sites. Right-to-work and qualifications verified.</p>
@@ -1939,53 +1992,15 @@
     </div>
   </section>
 
-  <!-- SUCCESS STORIES (Case Studies) -->
-  <section class="sec sec-wh" id="cases" aria-label="Success Stories" style="padding: 40px 48px;">
-    <div class="inner">
-      <div style="text-align:center;margin-bottom:32px;">
-        <div class="s-tag">Proven Results</div>
-        <h2 class="s-title">Success <em>Stories</em></h2>
-        <p class="s-lead" style="margin:0 auto;text-align:center;">Real-world examples of how we support our clients and
-          candidates every day.</p>
+  <!-- TRUST TEASER (Replacement for heavy Success Stories) -->
+  <section class="sec sec-wh" style="padding: 30px 48px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="inner" style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; text-align:center;">
+      <div style="font-size:14px; font-weight:600; color:var(--navy); letter-spacing:0.02em;">
+        Proven Success Across <span style="color:var(--gold);">Healthcare, Security & Logistics</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:stretch;">
-        <div class="srv-card rv" style="display:flex;flex-direction:column;height:100%;">
-          <div
-            style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
-            Healthcare Sector</div>
-          <div class="srv-name" style="font-size:18px;">2-Hour Emergency Cover</div>
-          <p class="srv-desc" style="flex:1;">A residential home in Shropshire required 3 support workers for a night shift with only 4
-            hours notice. We deployed 3 DBS-checked staff within 90 minutes, ensuring 100% compliance and zero service
-            disruption.</p>
-          <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px;margin-top:auto;">
-            "Covenant Crest is our first call for emergency staffing. Reliable and fully compliant."</div>
-        </div>
-        <div class="srv-card rv d1" style="display:flex;flex-direction:column;height:100%;">
-          <div
-            style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2B5EA7;margin-bottom:12px;">
-            Security Sector</div>
-          <div class="srv-name" style="font-size:18px;">Major Event Protection</div>
-          <p class="srv-desc" style="flex:1;">Supplied 12 SIA-licensed door supervisors for a high-profile corporate event in
-            Birmingham. All staff were ACT-trained (counter-terrorism) and arrived with full vetting records provided to
-            the client in advance.</p>
-          <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid #2B5EA7;padding-left:12px;margin-top:auto;">
-            "The professionalism of the security team was exceptional. Highly recommended."</div>
-        </div>
-        <div class="srv-card rv d2" style="display:flex;flex-direction:column;height:100%;">
-          <div
-            style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px;">
-            Warehouse Sector</div>
-          <div class="srv-name" style="font-size:18px;">Peak Season Ramp-up</div>
-          <p class="srv-desc" style="flex:1;">Supported a logistics hub during the December peak by providing 25 pick-and-pack
-            operatives on a flexible contract. Managed 100% attendance and right-to-work verification for every worker.
-          </p>
-          <div
-            style="font-style:italic;font-size:11px;color:var(--muted);border-left:2px solid var(--success);padding-left:12px;margin-top:auto;">
-            "Consistent quality of labour even during the busiest periods of the year."</div>
-        </div>
-      </div>
+      <a href="/about.html#cases" style="font-size:11px; font-weight:700; color:var(--gold); text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--gold); padding-bottom:2px;">
+        Read Our Success Stories &rarr;
+      </a>
     </div>
   </section>
 
@@ -2065,60 +2080,6 @@
     </div>
   </div>
 
-  <!-- CONTACT BLOCK -->
-  <section class="sec sec-dk" id="contact" style="padding:80px 48px; border-top: 1px solid rgba(255,255,255,.05);">
-    <div class="inner">
-      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;">
-        <div>
-          <div class="s-tag" style="color:var(--gold);">Get In Touch</div>
-          <h2 class="w" style="margin-bottom:16px;">Ready to Work <em>With Us?</em></h2>
-          <p style="color:rgba(255,255,255,.45);font-size:15px;line-height:1.85;margin-bottom:32px;">Whether you’re an employer looking to hire, a candidate seeking a new role, or a business partner &mdash; we respond personally and quickly. Experience the Covenant Crest difference today.</p>
-          <div style="display:flex;flex-direction:column;gap:20px;">
-            <div style="display:flex;align-items:center;gap:18px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.55 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6.29 6.29l.81-1.81a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/></svg>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Call Our Specialist Team</div>
-                <a href="tel:07346809846" style="font-size:16px;color:#fff;text-decoration:none;font-weight:600;letter-spacing:.02em;">07346 809846</a>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;gap:18px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">General Enquiries</div>
-                <a href="mailto:info@covenantcrest.co.uk" style="font-size:16px;color:#fff;text-decoration:none;font-weight:600;letter-spacing:.02em;">info@covenantcrest.co.uk</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:40px;backdrop-filter:blur(10px);">
-          <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-bottom:6px;">Send a Direct Message</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:28px;">We typically respond within 60 minutes during business hours.</div>
-          <div class="ok-banner" id="ok-index-contact" style="background:rgba(29,158,117,.12);border:1px solid #1D9E75;border-radius:8px;padding:13px 16px;color:#1D9E75;font-size:13px;font-weight:500;margin-bottom:16px;display:none;">&#x2705; Message received! We’ll be in touch shortly.</div>
-          <form name="index_contact" method="POST" data-form-name="index_contact" data-banner-id="ok-index-contact">
-            <input type="hidden" name="form-name" value="index_contact">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-              <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Full Name *</label><input style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="name" placeholder="John Smith" required></div>
-              <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Phone Number</label><input style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="phone" placeholder="07xxx xxxxxx"></div>
-            </div>
-            <div style="margin-bottom:16px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Email Address *</label><input type="email" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;" name="email" placeholder="john@example.com" required></div>
-            <div style="margin-bottom:20px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Your Message *</label><textarea style="width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-family:inherit;font-size:14px;color:#fff;outline:none;resize:vertical;min-height:110px;" name="message" placeholder="How can we help you today?" required></textarea></div>
-            <button type="submit" style="width:100%;background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:16px;border:none;border-radius:6px;cursor:pointer;transition:all .3s;box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);">Send Message &rarr;</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    @media(max-width:900px) {
-      #contact > .inner > div { grid-template-columns: 1fr !important; gap: 40px !important; }
-    }
-  </style>
-
     <footer>
     <div class="ft-main">
       <div>
@@ -2154,11 +2115,11 @@
         <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
-        <div class="ft-col-title">Contact</div>
-        <span class="ft-link" style="cursor:default;">07346 809846</span>
-        <span class="ft-link" style="cursor:default;">info@covenantcrest.co.uk</span>
-        <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
-        <span class="ft-link" style="cursor:default;">haulage@covenantcrest.co.uk</span>
+        <div class="ft-col-title">Contact Us</div>
+        <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+        <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
+        <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+        <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">

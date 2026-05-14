@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard — Covenant Crest Group Ltd</title>
+<title>Admin Dashboard | Covenant Crest</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,8 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Plus Jakarta Sans', sans-
 
 /* SIDEBAR */
 .asb-logo{padding:20px 22px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.asb-logo-text{font-family:'Playfair Display', serif;font-size:18px;color:#fff;line-height:1.2;}
-.asb-logo-text span{color:var(--gold);}
+.asb-logo-text{font-family:'Playfair Display', serif;font-size:20px;color:#fff;line-height:1.2;letter-spacing:0.04em;font-weight:500;}
+.asb-logo-text span{color:#D4AF37;}
 .asb-badge{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:3px;}
 .asb-sec-label{padding:18px 0 5px 22px;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18);}
 .asb-item{display:flex;align-items:center;gap:10px;padding:10px 22px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);font-size:12px;font-weight:500;border-left:3px solid transparent;text-decoration:none;}
@@ -47,11 +47,11 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Plus Jakarta Sans', sans-
 
 /* STATS */
 .astat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
-.astat{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);border-left:4px solid var(--gold);transition:all .3s ease;cursor:default;}
-.astat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.05);border-left-width:8px;}
-.astat.bl{border-left-color:#2B8A9C;}.astat.gr{border-left-color:var(--success);}.astat.rd{border-left-color:var(--danger);}.astat.or{border-left-color:var(--warn);}
-.astat-num{font-family:'Playfair Display', serif;font-size:34px;font-weight:300;color:var(--navy);}
-.astat-lbl{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500;}
+.astat{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--border);border-top:4px solid var(--gold);transition:all .3s ease;cursor:default;box-shadow:0 2px 8px rgba(0,0,0,.02);}
+.astat:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.06);border-top-width:6px;}
+.astat.bl{border-top-color:#2B8A9C;}.astat.gr{border-top-color:var(--success);}.astat.rd{border-top-color:var(--danger);}.astat.or{border-top-color:var(--warn);}
+.astat-num{font-family:'Playfair Display', serif;font-size:38px;font-weight:500;color:var(--navy);margin-bottom:4px;}
+.astat-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;}
 
 /* TABLES */
 .tbl-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:18px;}
@@ -208,32 +208,60 @@ tbody tr:hover{background:#FAFAFA;}
       <div class="tab-pane active" id="tab-dashboard">
         <div class="astat-row">
           <div class="astat">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="stat-active-jobs">—</div>
-              <div style="color:var(--gold);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;color:var(--gold);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
             </div>
-            <div class="astat-lbl">Active Job Listings</div>
+            <div class="astat-lbl">Live Listings</div>
           </div>
           <div class="astat bl">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="stat-new-contacts">—</div>
-              <div style="color:#2B8A9C;opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(43,138,156,.1);display:flex;align-items:center;justify-content:center;color:#2B8A9C;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
             </div>
             <div class="astat-lbl">New Enquiries</div>
           </div>
           <div class="astat gr">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="stat-total-jobs">—</div>
-              <div style="color:var(--success);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(29,158,117,.1);display:flex;align-items:center;justify-content:center;color:var(--success);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             </div>
-            <div class="astat-lbl">Total Jobs Posted</div>
+            <div class="astat-lbl">Historical Total</div>
           </div>
           <div class="astat or">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="stat-new-apps">—</div>
-              <div style="color:var(--warn);opacity:0.6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(245,166,35,.1);display:flex;align-items:center;justify-content:center;color:var(--warn);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
             </div>
             <div class="astat-lbl">New Applications</div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div style="margin-bottom:24px;">
+          <div style="font-size:10px; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Quick Action Hub</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+            <button onclick="document.querySelector('[data-tab=jobs]').click(); document.getElementById('addJobBtnMain').click();" style="background:#fff; border:1px solid var(--border); padding:16px; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all .2s; text-align:left;">
+              <div style="width:32px; height:32px; border-radius:8px; background:var(--navy); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:18px;">+</div>
+              <div>
+                <div style="font-weight:700; color:var(--navy); font-size:13px;">Post New Job</div>
+                <div style="font-size:10px; color:var(--muted);">Add to recruitment page</div>
+              </div>
+            </button>
+            <button onclick="document.querySelector('[data-tab=applications]').click();" style="background:#fff; border:1px solid var(--border); padding:16px; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all .2s; text-align:left;">
+              <div style="width:32px; height:32px; border-radius:8px; background:rgba(29,158,117,.1); color:var(--success); display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div>
+                <div style="font-weight:700; color:var(--navy); font-size:13px;">Review Applicants</div>
+                <div style="font-size:10px; color:var(--muted);">Manage talent pipeline</div>
+              </div>
+            </button>
+            <button onclick="document.querySelector('[data-tab=contacts]').click();" style="background:#fff; border:1px solid var(--border); padding:16px; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all .2s; text-align:left;">
+              <div style="width:32px; height:32px; border-radius:8px; background:rgba(43,138,156,.1); color:#2B8A9C; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div>
+                <div style="font-weight:700; color:var(--navy); font-size:13px;">B2B Enquiries</div>
+                <div style="font-size:10px; color:var(--muted);">Check client messages</div>
+              </div>
+            </button>
           </div>
         </div>
         <!-- Activity Timeline -->

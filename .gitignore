@@ -1,2 +1,30 @@
+# OS Junk
+.DS_Store
+Thumbs.db
+
+# Environment / Secrets
+.env
+.env.local
+.env.development
+.env.production
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Backend (if local)
 covenant-crest-backend-for-rendor/
-*.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

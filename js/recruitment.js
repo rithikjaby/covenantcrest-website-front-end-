@@ -8,6 +8,33 @@ var JOBS = [];  // populated from /api/jobs on load
 var sectorLabel = { care: 'Healthcare', security: 'Security', warehouse: 'Warehouse', construction: 'Construction' };
 var activeSector = '';
 
+// ── Registration Toggle Logic ───────────────────────────────
+function toggleReg(shouldOpen) {
+    var regBtn = document.getElementById('toggleRegistration');
+    var regWrap = document.getElementById('regFormWrap');
+    if (!regBtn || !regWrap) return;
+    
+    var isOpen = regWrap.classList.contains('open');
+    if (shouldOpen === true && isOpen) return; // already open
+    
+    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
+    
+    if (nextOpen) {
+        regWrap.classList.add('open');
+    } else {
+        regWrap.classList.remove('open');
+    }
+    
+    regBtn.setAttribute('aria-expanded', nextOpen);
+    regBtn.innerHTML = nextOpen ? 'Close Registration ✕' : 'Register Your Details &rarr;';
+    
+    if (nextOpen) {
+        setTimeout(function() {
+            regWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+    }
+}
+
 function loadJobsFromAPI() {
     renderSkeleton();
     if (window.CCA && window.CCA.jobs) {
@@ -274,11 +301,18 @@ function handleFormWithAPI(e, formName, bannerId) {
     var proceed = function() {
         var payload = {};
         new FormData(form).forEach(function(v, k) { 
-            if (k !== 'cv-file') payload[k] = v; // don't send raw file in JSON
+            if (k !== 'cv-file') {
+                // Special handling for checkboxes (veteran status)
+                if (k === 'is_veteran') {
+                    payload[k] = (v === 'yes' || v === 'on') ? 'yes' : 'no';
+                } else {
+                    payload[k] = v;
+                }
+            }
         });
         
         payload.cvBase64 = _cvBase64;
-        payload.cvFileName = _cvFileName || 'cv';
+        payload.cvFileName = _cvFileName || (payload.first_name + '_' + payload.last_name + '_CV.pdf');
         
         // Ensure sector/job info is present
         var urlParams = new URLSearchParams(window.location.search);
@@ -432,13 +466,26 @@ document.addEventListener('DOMContentLoaded', function() {
             renderJobs();
         });
     }
+
+    // Registration Toggles
+    var regBtn = document.getElementById('toggleRegistration');
+    if (regBtn) {
+        regBtn.addEventListener('click', function() {
+            toggleReg();
+        });
+    }
+    var regHeroBtn = document.getElementById('heroRegisterTrigger');
+    if (regHeroBtn) {
+        regHeroBtn.addEventListener('click', function() {
+            toggleReg(true);
+        });
+    }
 });
 
 function applyForJob() {
     var modal = document.getElementById('jobModal');
     if (modal) modal.classList.remove('open');
-    var applyForm = document.getElementById('apply-form');
-    if (applyForm) applyForm.scrollIntoView({ behavior: 'smooth' });
+    toggleReg(true);
 }
 
 // Attach to window for now
@@ -448,3 +495,4 @@ window.clearCV = clearCV;
 window.handleFormWithAPI = handleFormWithAPI;
 window.renderJobs = renderJobs;
 window.applyForJob = applyForJob;
+window.toggleReg = toggleReg;

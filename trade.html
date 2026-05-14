@@ -18,6 +18,7 @@
     content="Premium food imports from India: ginger powder, spices, pulses, fresh produce. CIF delivered to UK wholesalers and retailers.">
   <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:site_name" content="Covenant Crest">
   <script src="/api.js"></script>
   <script src="js/common.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,13 +89,15 @@
 
     .nav-name {
       font-family: 'Playfair Display', serif;
-      font-size: 34px;
+      font-size: clamp(20px, 3vw, 34px);
       color: #fff;
-      letter-spacing: .05em;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      line-height: 1;
     }
 
     .nav-name span {
-      color: var(--gold);
+      color: #D4AF37;
     }
 
     .nav-links {
@@ -798,11 +801,13 @@
       font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       margin: 12px 0 2px;
     }
 
     .ft-logo-name span {
-      color: var(--gold);
+      color: #D4AF37;
     }
 
     .ft-logo-sub {
@@ -1440,15 +1445,14 @@
         <a href="/about.html" class="ft-link">About Us</a>
         <a href="/privacy.html" class="ft-link">Privacy Policy</a>
         <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/contact.html" class="ft-link">Contact Us</a>
         <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
-        <div class="ft-col-title">Contact</div>
-        <span class="ft-link" style="cursor:default;">07346 809846</span>
-        <span class="ft-link" style="cursor:default;">info@covenantcrest.co.uk</span>
-        <span class="ft-link" style="cursor:default;">recruitment@covenantcrest.co.uk</span>
-        <span class="ft-link" style="cursor:default;">haulage@covenantcrest.co.uk</span>
+        <div class="ft-col-title">Contact Us</div>
+        <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+        <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
+        <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+        <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">

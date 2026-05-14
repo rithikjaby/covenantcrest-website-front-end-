@@ -11,21 +11,34 @@ var _currentJob = null;
 var _inlineCVBase64 = null;
 var _inlineCVFileName = null;
 
-function showApplyForm() {
-    var jdView = document.getElementById('jd-view');
-    var formView = document.getElementById('form-view');
-    if (jdView) jdView.style.display = 'none';
-    if (formView) {
-        formView.classList.add('show');
-        window.scrollTo({ top: formView.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+function cleanPay(val) {
+    if (!val) return 'Competitive Rate';
+    return String(val).replace(/\$/g, '£');
+}
+
+function toggleApplyForm(shouldOpen) {
+    var wrap = document.getElementById('formRevealWrap');
+    var triggerArea = document.getElementById('reveal-trigger-area');
+    if (!wrap) return;
+
+    var isOpen = wrap.classList.contains('open');
+    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
+
+    if (nextOpen) {
+        wrap.classList.add('open');
+        if (triggerArea) triggerArea.style.display = 'none';
+        setTimeout(function() {
+            var rect = wrap.getBoundingClientRect();
+            window.scrollTo({ top: window.scrollY + rect.top - 100, behavior: 'smooth' });
+        }, 300);
+    } else {
+        wrap.classList.remove('open');
+        if (triggerArea) triggerArea.style.display = 'block';
     }
 }
 
 function showJobDesc() {
-    var formView = document.getElementById('form-view');
-    var jdView = document.getElementById('jd-view');
-    if (formView) formView.classList.remove('show');
-    if (jdView) jdView.style.display = 'block';
+    toggleApplyForm(false);
 }
 
 function handleInlineCV(input) {
@@ -80,10 +93,10 @@ function submitInlineForm(e) {
         stat.textContent = 'Attaching CV...';
     }
 
-    var postcode = document.getElementById('if-postcode') ? document.getElementById('if-postcode').value.trim() : '';
-    var rtw = document.getElementById('if-right-to-work') ? document.getElementById('if-right-to-work').value : '';
-    var exp = document.getElementById('if-experience') ? document.getElementById('if-experience').value : '';
-    var shifts = document.getElementById('if-shifts') ? document.getElementById('if-shifts').value : '';
+    var rtw_status = document.getElementById('if-rtw') ? document.getElementById('if-rtw').value : '';
+    var visa_details = document.getElementById('if-visa-details') ? document.getElementById('if-visa-details').value.trim() : '';
+    var is_veteran = document.querySelector('input[name="is_veteran"]:checked') ? 'yes' : 'no';
+    var assistance = document.getElementById('if-assistance') ? document.getElementById('if-assistance').value.trim() : '';
     var rawNotes = document.getElementById('if-notes') ? document.getElementById('if-notes').value.trim() : '';
     
     var certEls = document.querySelectorAll('input[name="certs"]:checked');
@@ -91,7 +104,7 @@ function submitInlineForm(e) {
     for (var i = 0; i < certEls.length; i++) certs.push(certEls[i].value);
 
     var comprehensiveNotes = "Postcode: " + postcode + "\n" +
-                             "Right to Work: " + rtw + "\n" +
+                             "Availability: " + document.getElementById('if-avail').value + "\n" +
                              "Experience: " + exp + "\n" +
                              "Preferred Shifts: " + shifts + "\n" +
                              "Certifications: " + (certs.length ? certs.join(', ') : 'None') + "\n\n" +
@@ -106,12 +119,16 @@ function submitInlineForm(e) {
         job_id: _currentJob.id || '',
         job_title: _currentJob.title || '',
         availability: document.getElementById('if-avail').value,
+        rtw_status: rtw_status,
+        visa_details: visa_details,
+        is_veteran: is_veteran,
+        assistance: assistance,
         notes: comprehensiveNotes,
     };
 
     if (_inlineCVBase64) {
         payload.cvBase64 = _inlineCVBase64;
-        payload.cvFileName = _inlineCVFileName || 'cv';
+        payload.cvFileName = _inlineCVFileName || (payload.first_name + '_' + payload.last_name + '_CV.pdf');
     }
 
     if (bar) bar.style.width = '80%';
@@ -180,10 +197,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeEl) typeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
         
         var payEl = document.getElementById('job-pay');
-        if (payEl) payEl.textContent = job.pay;
+        if (payEl) payEl.querySelector('span').textContent = cleanPay(job.pay);
         
         var mabPayEl = document.getElementById('mab-pay');
-        if (mabPayEl) mabPayEl.textContent = job.pay;
+        if (mabPayEl) mabPayEl.textContent = cleanPay(job.pay);
         
         var descEl = document.getElementById('job-desc');
         if (descEl) descEl.innerHTML = job.desc || '';
@@ -247,11 +264,13 @@ document.addEventListener('DOMContentLoaded', function() {
             "title": job.title,
             "description": job.desc,
             "datePosted": job.posted || new Date().toISOString(),
+            "validThrough": job.closingDate ? new Date(job.closingDate).toISOString() : undefined,
             "employmentType": job.type === 'part-time' ? "PART_TIME" : job.type === 'temporary' ? "TEMPORARY" : "FULL_TIME",
             "hiringOrganization": {
                 "@type": "Organization",
                 "name": "Covenant Crest Group Ltd",
-                "sameAs": "https://covenantcrest.co.uk"
+                "sameAs": "https://covenantcrest.co.uk",
+                "logo": "https://covenantcrest.co.uk/favicon.svg"
             },
             "jobLocation": {
                 "@type": "Place",
@@ -269,7 +288,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     "value": job.pay,
                     "unitText": "HOUR"
                 }
-            }
+            },
+            "identifier": {
+                "@type": "PropertyValue",
+                "name": "Covenant Crest",
+                "value": job.id
+            },
+            "directApply": true
         };
         var s = document.createElement('script');
         s.type = 'application/ld+json';
@@ -289,8 +314,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     // ── Event Listeners ──────────────────────────
-    var applyBtn = document.getElementById('apply-btn');
-    if (applyBtn) applyBtn.addEventListener('click', showApplyForm);
+    var applyBtn = document.getElementById('main-apply-btn');
+    if (applyBtn) applyBtn.addEventListener('click', function() { toggleApplyForm(true); });
+
+    var sideApplyBtn = document.getElementById('side-apply-btn');
+    if (sideApplyBtn) sideApplyBtn.addEventListener('click', function() { toggleApplyForm(true); });
+
+    var stickyApplyBtn = document.getElementById('sticky-apply-btn');
+    if (stickyApplyBtn) stickyApplyBtn.addEventListener('click', function() { toggleApplyForm(true); });
 
     var backBtn = document.querySelector('.if-back');
     if (backBtn) backBtn.addEventListener('click', showJobDesc);
@@ -331,11 +362,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    var sjhApply = document.getElementById('sjh-apply');
+    var sjhApply = document.getElementById('sticky-apply-btn');
     if (sjhApply) {
         sjhApply.addEventListener('click', function(e) {
             e.preventDefault();
-            showApplyForm();
+            toggleApplyForm(true);
         });
     }
 
@@ -387,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Attach to window
-window.showApplyForm = showApplyForm;
+window.toggleApplyForm = toggleApplyForm;
 window.showJobDesc = showJobDesc;
 window.handleInlineCV = handleInlineCV;
 window.clearInlineCV = clearInlineCV;
