@@ -17,32 +17,10 @@ function cleanPay(val) {
 }
 
 // Global Exports
-window.toggleApplyForm = toggleApplyForm;
 window.showJobDesc = showJobDesc;
 window.handleInlineCV = handleInlineCV;
 window.clearInlineCV = clearInlineCV;
 window.submitInlineForm = submitInlineForm;
-
-function toggleApplyForm(shouldOpen) {
-    var wrap = document.getElementById('formRevealWrap');
-    var triggerArea = document.getElementById('reveal-trigger-area');
-    if (!wrap) return;
-
-    var isOpen = wrap.classList.contains('open');
-    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
-
-    if (nextOpen) {
-        wrap.classList.add('open');
-        if (triggerArea) triggerArea.style.display = 'none';
-        setTimeout(function() {
-            var rect = wrap.getBoundingClientRect();
-            window.scrollTo({ top: window.scrollY + rect.top - 100, behavior: 'smooth' });
-        }, 300);
-    } else {
-        wrap.classList.remove('open');
-        if (triggerArea) triggerArea.style.display = 'block';
-    }
-}
 
 function showJobDesc() {
     toggleApplyForm(false);

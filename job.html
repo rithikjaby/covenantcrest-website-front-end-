@@ -23,13 +23,32 @@ body{background:var(--cream);color:var(--navy);font-family:var(--font-body);font
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
-.nav-name{font-family:var(--font-head);font-size:34px;color:#fff;letter-spacing:0.04em;font-weight:600;}
+.nav-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 34px);
+  color: #fff;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  line-height: 1;
+}
 .nav-name span{color:#D4AF37;}
 .nav-links{display:flex;align-items:center;gap:32px;}
 .nl{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .3s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
 .nav-cta{display:none;}
-.nav-mob{display:none;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
+.nav-group-wrap { position: relative; display: inline-block; }
+.group-dd {
+  position: absolute; top: 100%; right: 0; transform: translateY(12px);
+  background: rgba(13, 27, 42, 0.98); border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 8px; padding: 10px 0; min-width: 230px; opacity: 0; visibility: hidden;
+  transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px); z-index: 1000;
+}
+.nav-group-wrap:hover .group-dd { opacity: 1; visibility: visible; transform: translateY(0); }
+.gm-item { display: block; padding: 12px 20px; text-decoration: none; transition: all .2s; border-left: 3px solid transparent; }
+.gm-item:hover { background: rgba(201, 168, 76, 0.08); border-left-color: var(--gold); }
+.gm-name { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2px; }
+.gm-desc { font-size: 10px; color: rgba(255, 255, 255, 0.4); font-weight: 400; }
 
 /* STICKY JOB HEADER */
 .sticky-job-hdr{position:fixed;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:400;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateY(-100%);transition:transform .4s cubic-bezier(0.165, 0.84, 0.44, 1);pointer-events:none;opacity:0;}
@@ -183,8 +202,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 /* FOOTER */
 footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 .ft-main{padding:52px 48px 36px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;max-width:1200px;margin:0 auto;}
-.ft-logo-name{font-family:var(--font-head);font-size:34px;color:#fff;font-weight:600;letter-spacing:0.04em;margin:16px 0 4px;}
+.ft-logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 12px 0 2px;
+}
 .ft-logo-name span{color:#D4AF37;}
+.ft-logo-sub { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 16px; opacity: 0.9; }
 .ft-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:16px;}
 .ft-col-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
 .ft-link{display:block;font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:12px;transition:color .3s;}
@@ -218,6 +245,28 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 </style>
 <script src="/api.js"></script>
 <script src="/js/common.js"></script>
+<script>
+  // Direct fail-safe for the Apply button
+  function toggleApplyForm(shouldOpen) {
+    var wrap = document.getElementById('formRevealWrap');
+    var triggerArea = document.getElementById('reveal-trigger-area');
+    if (!wrap) return;
+    var isOpen = wrap.classList.contains('open');
+    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
+    if (nextOpen) {
+      wrap.classList.add('open');
+      if (triggerArea) triggerArea.style.display = 'none';
+      setTimeout(function() {
+        var rect = wrap.getBoundingClientRect();
+        window.scrollTo({ top: window.scrollY + rect.top - 100, behavior: 'smooth' });
+      }, 300);
+    } else {
+      wrap.classList.remove('open');
+      if (triggerArea) triggerArea.style.display = 'block';
+    }
+  }
+  window.toggleApplyForm = toggleApplyForm;
+</script>
 <script src="/js/job.js"></script>
 </head>
 <body>
@@ -239,12 +288,22 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   </a>
   <div class="nav-links" id="navLinks">
     <a href="/index.html" class="nl">Home</a>
-    <a href="/recruitment.html" class="nl active">Recruitment</a>
-    <a href="/haulage.html" class="nl">Haulage</a>
-    <a href="/trade.html" class="nl">Trade</a>
+    <a href="/recruitment.html" class="nl active">Browse Jobs</a>
+    <a href="/hire.html" class="nl">Hire Staff</a>
     <a href="/about.html" class="nl">About Us</a>
-      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+    <div class="nav-group-wrap">
+        <span class="nl">Our Divisions <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="group-dd">
+          <a href="/haulage.html" class="gm-item">
+            <div class="gm-name">Haulage &amp; Freight</div>
+            <div class="gm-desc">UK logistics &amp; freight solutions.</div>
+          </a>
+          <a href="/trade.html" class="gm-item">
+            <div class="gm-name">Import &amp; Trade</div>
+            <div class="gm-desc">Global food supply &amp; distribution.</div>
+          </a>
+        </div>
+    </div>
   </div>
   <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
 </nav>
@@ -546,11 +605,12 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
       </svg>
       <div class="ft-logo-name">Covenant <span>Crest</span></div>
+      <div class="ft-logo-sub">Group Ltd</div>
       <div class="ft-desc">A premium multi-division UK recruitment and logistics group built on promise.</div>
     </div>
     <div>
       <div class="ft-col-title">Divisions</div>
-      <a href="/recruitment.html" class="ft-link">Recruitment</a>
+      <a href="/recruitment.html" class="ft-link">Specialist Recruitment</a>
       <a href="/haulage.html" class="ft-link">Haulage &amp; Freight</a>
       <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
     </div>
