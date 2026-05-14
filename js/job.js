@@ -16,6 +16,13 @@ function cleanPay(val) {
     return String(val).replace(/\$/g, '£');
 }
 
+// Global Exports
+window.toggleApplyForm = toggleApplyForm;
+window.showJobDesc = showJobDesc;
+window.handleInlineCV = handleInlineCV;
+window.clearInlineCV = clearInlineCV;
+window.submitInlineForm = submitInlineForm;
+
 function toggleApplyForm(shouldOpen) {
     var wrap = document.getElementById('formRevealWrap');
     var triggerArea = document.getElementById('reveal-trigger-area');
@@ -315,13 +322,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // ── Event Listeners ──────────────────────────
     var applyBtn = document.getElementById('main-apply-btn');
-    if (applyBtn) applyBtn.addEventListener('click', function() { toggleApplyForm(true); });
+    if (applyBtn) {
+        applyBtn.onclick = function(e) {
+            e.preventDefault();
+            toggleApplyForm(true);
+        };
+    }
 
     var sideApplyBtn = document.getElementById('side-apply-btn');
-    if (sideApplyBtn) sideApplyBtn.addEventListener('click', function() { toggleApplyForm(true); });
-
-    var stickyApplyBtn = document.getElementById('sticky-apply-btn');
-    if (stickyApplyBtn) stickyApplyBtn.addEventListener('click', function() { toggleApplyForm(true); });
+    if (sideApplyBtn) {
+        sideApplyBtn.onclick = function(e) {
+            e.preventDefault();
+            toggleApplyForm(true);
+        };
+    }
 
     var backBtn = document.querySelector('.if-back');
     if (backBtn) backBtn.addEventListener('click', showJobDesc);
@@ -364,10 +378,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var sjhApply = document.getElementById('sticky-apply-btn');
     if (sjhApply) {
-        sjhApply.addEventListener('click', function(e) {
+        sjhApply.onclick = function(e) {
             e.preventDefault();
             toggleApplyForm(true);
-        });
+        };
     }
 
     // ── Share Logic ──────────────────────────────
@@ -416,10 +430,3 @@ document.addEventListener('DOMContentLoaded', function() {
         // If job is still loading, we'll call it inside the CCA.jobs.get().then() block
     }
 });
-
-// Attach to window
-window.toggleApplyForm = toggleApplyForm;
-window.showJobDesc = showJobDesc;
-window.handleInlineCV = handleInlineCV;
-window.clearInlineCV = clearInlineCV;
-window.submitInlineForm = submitInlineForm;

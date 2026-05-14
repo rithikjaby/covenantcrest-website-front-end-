@@ -112,11 +112,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .form-reveal-wrap {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.8s cubic-bezier(0, 1, 0, 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.8s cubic-bezier(0, 1, 0, 1), opacity 0.4s ease;
 }
 .form-reveal-wrap.open {
-  max-height: 2500px;
-  transition: max-height 1.2s ease-in-out;
+  max-height: 4000px;
+  opacity: 1;
+  visibility: visible;
+  transition: max-height 1.2s ease-in-out, opacity 0.5s ease;
   margin-top: 40px;
 }
 
@@ -253,7 +257,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 <div id="job-content" style="display:none;">
   <div class="sticky-job-hdr" id="sticky-hdr">
     <div class="sjh-title" id="sjh-title">Job Title</div>
-    <button class="sjh-btn" id="sticky-apply-btn">Apply Now</button>
+    <button class="sjh-btn" id="sticky-apply-btn" onclick="toggleApplyForm(true)">Apply Now</button>
   </div>
 
   <section class="page-header" id="ph-trigger">
@@ -308,8 +312,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <div class="jd-req-body" id="job-req"></div>
         </div>
 
-        <div style="margin-top:40px; text-align:center;" id="reveal-trigger-area">
-          <button class="f-submit" id="main-apply-btn" style="max-width:400px; margin:0 auto;">Apply for This Role &rarr;</button>
+        <div style="margin-top:40px; text-align:center; position:relative; z-index:50;" id="reveal-trigger-area">
+          <button class="f-submit" id="main-apply-btn" onclick="toggleApplyForm(true)" style="max-width:400px; margin:0 auto;">Apply for This Role &rarr;</button>
         </div>
 
         <div class="form-reveal-wrap" id="formRevealWrap">
@@ -499,7 +503,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               Start working in as little as 24 hours.
             </div>
           </div>
-          <button class="f-submit" id="side-apply-btn" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
+          <button class="f-submit" id="side-apply-btn" onclick="toggleApplyForm(true)" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
         </div>
 
         <div class="sb-contact">
