@@ -9,7 +9,6 @@ var urlParams = new URLSearchParams(window.location.search);
 var jobId = urlParams.get('id');
 var _currentJob = null;
 var _inlineCVBase64 = null;
-var _inlineCVFileName = null;
 
 function cleanPay(val) {
     if (!val) return 'Competitive Rate';
@@ -17,134 +16,9 @@ function cleanPay(val) {
 }
 
 // Global Exports
-window.showJobDesc = showJobDesc;
-window.handleInlineCV = handleInlineCV;
-window.clearInlineCV = clearInlineCV;
-window.submitInlineForm = submitInlineForm;
-
-function showJobDesc() {
-    toggleApplyForm(false);
-}
-
-function handleInlineCV(input) {
-    var file = input.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-        alert('File must be under 5MB.');
-        input.value = '';
-        return;
-    }
-    _inlineCVFileName = file.name;
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        _inlineCVBase64 = e.target.result.split(',')[1];
-        var label = document.getElementById('if-cv-label');
-        if (label) label.textContent = '📄 ' + file.name;
-        var clearBtn = document.getElementById('if-cv-clear');
-        if (clearBtn) clearBtn.style.display = 'inline';
-    };
-    reader.readAsDataURL(file);
-}
-
-function clearInlineCV(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    _inlineCVBase64 = null;
-    _inlineCVFileName = null;
-    var input = document.getElementById('if-cv-input');
-    if (input) input.value = '';
-    var label = document.getElementById('if-cv-label');
-    if (label) label.textContent = 'Upload CV / Resume (Optional — PDF, Word, max 5MB)';
-    var clearBtn = document.getElementById('if-cv-clear');
-    if (clearBtn) clearBtn.style.display = 'none';
-}
-
-function submitInlineForm(e) {
-    e.preventDefault();
-    if (!_currentJob) return;
-    var btn = document.getElementById('if-submit-btn');
-    var ok = document.getElementById('if-ok');
-    var prog = document.getElementById('if-prog');
-    var bar = document.getElementById('if-bar');
-    var stat = document.getElementById('if-stat');
-
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = 'Submitting...';
-    }
-
-    if (_inlineCVBase64 && prog && bar && stat) {
-        prog.style.display = 'block';
-        bar.style.width = '40%';
-        stat.textContent = 'Attaching CV...';
-    }
-
-    var rtw_status = document.getElementById('if-rtw') ? document.getElementById('if-rtw').value : '';
-    var visa_details = document.getElementById('if-visa-details') ? document.getElementById('if-visa-details').value.trim() : '';
-    var is_veteran = document.querySelector('input[name="is_veteran"]:checked') ? 'yes' : 'no';
-    var assistance = document.getElementById('if-assistance') ? document.getElementById('if-assistance').value.trim() : '';
-    var rawNotes = document.getElementById('if-notes') ? document.getElementById('if-notes').value.trim() : '';
-    
-    var certEls = document.querySelectorAll('input[name="certs"]:checked');
-    var certs = [];
-    for (var i = 0; i < certEls.length; i++) certs.push(certEls[i].value);
-
-    var comprehensiveNotes = "Postcode: " + postcode + "\n" +
-                             "Availability: " + document.getElementById('if-avail').value + "\n" +
-                             "Experience: " + exp + "\n" +
-                             "Preferred Shifts: " + shifts + "\n" +
-                             "Certifications: " + (certs.length ? certs.join(', ') : 'None') + "\n\n" +
-                             "Additional Notes:\n" + (rawNotes || "None provided.");
-
-    var payload = {
-        first_name: document.getElementById('if-first').value.trim(),
-        last_name: document.getElementById('if-last').value.trim(),
-        email: document.getElementById('if-email').value.trim(),
-        phone: document.getElementById('if-phone').value.trim(),
-        sector: _currentJob.sector || '',
-        job_id: _currentJob.id || '',
-        job_title: _currentJob.title || '',
-        availability: document.getElementById('if-avail').value,
-        rtw_status: rtw_status,
-        visa_details: visa_details,
-        is_veteran: is_veteran,
-        assistance: assistance,
-        notes: comprehensiveNotes,
-    };
-
-    if (_inlineCVBase64) {
-        payload.cvBase64 = _inlineCVBase64;
-        payload.cvFileName = _inlineCVFileName || (payload.first_name + '_' + payload.last_name + '_CV.pdf');
-    }
-
-    if (bar) bar.style.width = '80%';
-
-    fetch('/api/applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-    .then(function(r) { return r.json(); })
-    .then(function() {
-        if (bar) bar.style.width = '100%';
-        if (stat) stat.textContent = _inlineCVBase64 ? 'CV attached ✓' : '';
-        if (ok) ok.classList.add('show');
-        var form = document.getElementById('inline-apply-form');
-        if (form) form.style.display = 'none';
-    })
-    .catch(function() {
-        if (ok) {
-            ok.textContent = '✅ Application received! A consultant will contact you within 24 hours.';
-            ok.classList.add('show');
-        }
-        var form = document.getElementById('inline-apply-form');
-        if (form) form.style.display = 'none';
-    })
-    .finally(function() {
-        if (btn) {
-            btn.disabled = false;
-        }
-    });
-}
+window.openApplyPage = function() {
+    if (jobId) window.location.href = '/apply.html?id=' + jobId;
+};
 
 document.addEventListener('DOMContentLoaded', function() {
     if (!jobId) {
@@ -176,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (titleEl) titleEl.textContent = job.title;
         
         var locationEl = document.getElementById('job-location');
-        if (locationEl) locationEl.innerHTML = '&#x1F4CD; ' + (job.location || 'UK');
+        if (locationEl) { locationEl.textContent = ''; locationEl.insertAdjacentHTML('beforeend', '&#x1F4CD; '); locationEl.appendChild(document.createTextNode(job.location || 'UK')); }
         
         var typeEl = document.getElementById('job-type');
         if (typeEl) typeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
@@ -192,6 +66,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var sjhTitle = document.getElementById('sjh-title');
         if (sjhTitle) sjhTitle.textContent = job.title;
+
+        // WhatsApp Apply button — pre-fill with job title and location
+        var waApplyEl = document.getElementById('wa-apply-btn');
+        if (waApplyEl) {
+            var applyMsg = encodeURIComponent('Hi Covenant Crest, I\'d like to apply for the ' + job.title + ' role' + (job.location ? ' in ' + job.location : '') + '. Can you help me register?');
+            waApplyEl.href = 'https://wa.me/447346809846?text=' + applyMsg;
+        }
+        var waDirectEl = document.getElementById('wa-apply-direct');
+        if (waDirectEl) {
+            var directMsg = encodeURIComponent('Hi, I\'d like to apply for: ' + job.title + (job.location ? ' in ' + job.location : '') + '. My name is ');
+            waDirectEl.href = 'https://wa.me/447346809846?text=' + directMsg;
+        }
 
         // Populate sharing links
         var url = encodeURIComponent(window.location.href);

@@ -32,6 +32,20 @@ function doLogin(e) {
         }
         return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (err) {
+            err.textContent = 'Please enter a valid email address.';
+            err.style.display = 'block';
+        }
+        return;
+    }
+    if (pwd.length < 8) {
+        if (err) {
+            err.textContent = 'Password must be at least 8 characters.';
+            err.style.display = 'block';
+        }
+        return;
+    }
 
     if (btn) btn.disabled = true;
     if (label) label.style.opacity = '0';
@@ -44,18 +58,19 @@ function doLogin(e) {
     })
     .then(function(r) { return r.json(); })
     .then(function(d) {
-        if (d.success) {
+        if (d.token) {
             sessionStorage.setItem('cc_jwt',   d.token);
             sessionStorage.setItem('cc_role',  d.role  || 'superadmin');
             sessionStorage.setItem('cc_email', d.email || '');
             window.location.href = '/admin.html';
         } else {
-            throw new Error(d.message || 'Invalid credentials');
+            throw new Error(d.error || d.message || 'Invalid credentials');
         }
     })
     .catch(function(errObj) {
+        console.error('Login error:', errObj.message);
         if (err) {
-            err.textContent = errObj.message || 'Login failed. Please try again.';
+            err.textContent = 'Invalid email or password. Please try again.';
             err.style.display = 'block';
         }
         if (off) off.style.display = 'block';

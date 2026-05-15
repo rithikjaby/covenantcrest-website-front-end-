@@ -27,7 +27,25 @@ function setCookie(v) {
     localStorage.setItem('cc_consent', v);
     var bar = document.getElementById('cc-bar');
     if (bar) bar.classList.remove('show');
-    if (v === 'accept') loadGA4();
+    if (v === 'accept') {
+        loadGA4();
+        // Update GA4 consent state once script is ready
+        setTimeout(function() {
+            if (window.gtag) {
+                gtag('consent', 'update', {
+                    analytics_storage: 'granted',
+                    functionality_storage: 'granted'
+                });
+            }
+        }, 500);
+    } else {
+        if (window.gtag) {
+            gtag('consent', 'update', {
+                analytics_storage: 'denied',
+                functionality_storage: 'denied'
+            });
+        }
+    }
 }
 
 // ── API Form Submission ─────────────────────────────────────
@@ -73,6 +91,13 @@ function handleForm(e, formName, bannerId) {
             form.reset();
             if (typeof clearCV === 'function') {
                 clearCV({ stopPropagation: function() {} });
+            }
+            if (window.gtag) {
+                gtag('event', 'form_submission', {
+                    form_name: formName || 'general',
+                    form_id: form.id || '',
+                    event_category: 'engagement'
+                });
             }
         })
         .catch(function(err) {

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy | Covenant Crest</title>
-<meta name="description" content="Privacy Policy for Covenant Crest. How we collect, use, and protect your personal data under the UK General Data Protection Regulation (UK GDPR) and Data Protection Act 2018.">
+<meta name="description" content="Privacy Policy for Covenant Crest Group Ltd. How we collect, use and protect your personal data under UK GDPR and the Data Protection Act 2018.">
 <meta name="robots" content="index, follow">
 <meta property="og:site_name" content="Covenant Crest">
 <meta property="og:title" content="Privacy Policy | Covenant Crest">
@@ -14,14 +14,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="/js/common.js"></script>
+<script src="/js/common.js" defer></script>
 <style>
 :root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--success:#1D9E75;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--navy);font-family:'Plus Jakarta Sans', sans-serif;font-size:14px;line-height:1.7;}
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.12);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-name{font-family:'Playfair Display', serif;font-size:34px;color:#fff;letter-spacing:0.04em;font-weight:600;}
 .nav-name span{color:#D4AF37;}
@@ -126,20 +126,22 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     gap: 5px;
   }
 }
-#cc-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:16px 48px;z-index:9000;display:none;align-items:center;justify-content:space-between;gap:24px;box-shadow:0 -4px 20px rgba(0,0,0,.15);border-top:1px solid var(--gold);}
-#cc-bar.show{display:flex;}
-#cc-bar p{font-size:12px;color:var(--muted);margin:0;}
-#cc-bar a{color:var(--gold);text-decoration:none;font-weight:600;}
-.cc-btns{display:flex;gap:12px;flex-shrink:0;}
-.cc-no{background:none;border:none;color:var(--muted);font-family:inherit;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;padding:8px 12px;}
-.cc-ok{background:var(--gold);border:none;color:var(--navy);font-family:inherit;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;cursor:pointer;padding:10px 20px;border-radius:2px;}
+#cc-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(201,168,76,.15);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9000;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s;}
+#cc-bar.show{transform:translateY(0);}
+#cc-bar p{font-size:12px;color:rgba(255,255,255,.55);flex:1;min-width:180px;}
+#cc-bar a{color:var(--gold);}
+.cc-btns{display:flex;gap:10px;flex-shrink:0;}
+.cc-ok{background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.05em;cursor:pointer;}
+.cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-size:12px;cursor:pointer;}
+#wa-btn{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:8999;transition:transform .3s;}
+#wa-btn:hover{transform:scale(1.1)!important;}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="26" height="26" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="26" height="26" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
       <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
         stroke-width="0.75" stroke-dasharray="2 2" />
@@ -373,13 +375,16 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   </footer>
 
 <div id="cc-bar">
-  <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
+  <p>We use cookies to improve your experience and analyse site traffic. See our <a href="/privacy.html">Privacy Policy</a>.</p>
   <div class="cc-btns">
     <button class="cc-no">Decline</button>
-    <button class="cc-ok">Accept All</button>
+    <button class="cc-ok">Accept</button>
   </div>
 </div>
-
+<!-- WhatsApp button -->
+<a id="wa-btn" href="https://wa.me/447346809846" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+</a>
 </body>
 </html>
 

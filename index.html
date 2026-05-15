@@ -93,9 +93,11 @@
 </script>
   <!-- Google Analytics 4 — replace G-9GK6PRM1NC with your real Measurement ID from analytics.google.com -->
   <!-- GA4 is loaded only AFTER the user clicks Accept on the cookie banner (PECR compliant) -->
-  <script src="js/common.js"></script>
+  <script src="api.js" defer></script>
+  <script src="js/common.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -1735,8 +1737,78 @@
       }
     }
 
+    @media(max-width:480px) {
+      .wcu-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 16px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+      .wcu-grid::-webkit-scrollbar { display: none; }
+      .wcu-i {
+        flex: 0 0 56vw;
+        scroll-snap-align: start;
+        border: 1px solid var(--border) !important;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(13,27,42,0.05);
+      }
+
+      .creds-flex {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 16px;
+        padding-left: 4px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .creds-flex::-webkit-scrollbar { display: none; }
+      .creds-flex .badge-card {
+        flex: 0 0 72vw;
+        scroll-snap-align: start;
+      }
+    }
+
     #wa-btn:hover {
       transform: scale(1.1) !important;
+    }
+
+    /* DUAL-PATH SPLIT */
+    .path-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .path-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px; }
+    .path-card-dk { background: var(--navy); border-color: rgba(201,168,76,.2); }
+    .path-icon { width: 56px; height: 56px; border-radius: 12px; background: rgba(13,27,42,.06); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+    .path-h3 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; color: var(--navy); line-height: 1.2; margin: 0; }
+    .path-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin: 0; flex: 1; }
+    .path-btns { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+
+    /* LIVE JOBS TEASER */
+    .hp-jobs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .hp-job-card { display: block; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .hp-job-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13,27,42,.10); }
+    .hp-job-apply { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+    .hp-job-skel { background: linear-gradient(90deg, #f0ede8 25%, #e8e4dc 50%, #f0ede8 75%); background-size: 200%; border-radius: 12px; height: 160px; animation: shimmer 1.5s infinite; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    @media(max-width:860px) {
+      .path-split { grid-template-columns: 1fr; }
+      .hp-jobs-grid { grid-template-columns: 1fr; }
+    }
+    @media(max-width:600px) {
+      .path-card { padding: 28px 20px; }
+      .hp-jobs-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 12px; padding-bottom: 8px; }
+      .hp-jobs-grid::-webkit-scrollbar { display: none; }
+      .hp-job-card, .hp-job-skel { flex: 0 0 75vw; max-width: 280px; scroll-snap-align: start; }
     }
   </style>
 </head>
@@ -1745,7 +1817,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1788,12 +1860,12 @@
     <div class="hero-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-c">
-      <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Your Trusted UK <em>Recruitment</em> Partner</h1>
+      <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Specialist Recruitment. <em>Zero Compliance Compromise.</em></h1>
       <p class="hero-h2" style="font-size: clamp(14px, 2vw, 20px); letter-spacing: 0.05em; color: var(--gold);">Care &amp; Healthcare &nbsp;·&nbsp; Security &nbsp;·&nbsp; Warehouse &amp; Logistics &nbsp;·&nbsp; Construction &amp; Trades</p>
-      <p class="hero-desc">We supply fully vetted, reliable professionals backed by rigorous compliance checks and sector-specific expertise &mdash; with a 2-hour response guarantee.</p>
+      <p class="hero-desc">Every candidate CQC, SIA and RTW verified before we make a single introduction. We protect your reputation as fiercely as we fill your shifts &mdash; with a 2-hour employer response guarantee.</p>
       <div class="hero-btns" style="margin-bottom:0;">
-        <a href="/hire.html" class="btn-gold" id="hero-cta-request">Recruitment Solutions</a>
-        <a href="/recruitment.html" class="btn-ghost" id="hero-cta-jobs">Browse Jobs</a>
+        <a href="/hire.html" class="btn-gold" id="hero-cta-request">Get Staff in 2 Hours</a>
+        <a href="/recruitment.html" class="btn-ghost" id="hero-cta-jobs">Search Live Jobs</a>
       </div>
     </div>
   </section>
@@ -1823,14 +1895,48 @@
     </div>
   </div>
 
+  <!-- DUAL AUDIENCE SPLIT -->
+  <section class="sec sec-wh" aria-label="Candidate and Employer Paths" style="padding:60px 48px;">
+    <div class="inner">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="s-tag">Who Are You Here For?</div>
+        <h2 class="s-title">Two Paths. <em>One Trusted Agency.</em></h2>
+      </div>
+      <div class="path-split rv">
+        <div class="path-card">
+          <div class="path-icon">&#x1F4BC;</div>
+          <h3 class="path-h3">Looking for Work?</h3>
+          <p class="path-desc">Weekly pay. Real roles. Full compliance support from day one. We register you once and keep you working &mdash; in care, security, warehouse or construction across the UK.</p>
+          <div class="path-btns">
+            <a href="/recruitment.html" class="btn-gold" style="text-align:center;">Browse Live Jobs &#8594;</a>
+            <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20register%20for%20available%20roles." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px 24px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Register via WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="path-card path-card-dk">
+          <div class="path-icon" style="background:rgba(201,168,76,.12);font-size:26px;">&#x1F3E2;</div>
+          <h3 class="path-h3" style="color:#fff;">Need Staff?</h3>
+          <p class="path-desc" style="color:rgba(255,255,255,.55);">Staff confirmed on site in 24 hours. Every candidate compliance-checked before placement. 2-hour guaranteed response &mdash; or we escalate personally. Your CQC record stays clean.</p>
+          <div class="path-btns">
+            <a href="/hire.html" class="btn-gold" style="text-align:center;">Request Staff in 2 Hours &#8594;</a>
+            <a href="tel:+447346809846" style="display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(255,255,255,.65);padding:13px 24px;border:1px solid rgba(255,255,255,.15);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
+              &#x260E; Call 07346&nbsp;809846
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SECTOR EXPERTISE -->
   <section class="sec sec-wh" id="expertise" aria-label="Sector Expertise">
     <div class="inner">
       <div style="text-align:center;margin-bottom:52px;">
         <div class="s-tag">Sector Expertise</div>
-        <h2 class="s-title" style="text-align:center;">Four Sectors. <em>One Trusted Partner.</em></h2>
-        <p class="s-lead" style="margin:0 auto;text-align:center;">Pre-vetted candidates, right-to-work verified,
-          compliance-ready. Temporary, permanent and contract placements across the UK.</p>
+        <h2 class="s-title" style="text-align:center;">Four Sectors. <em>One Standard of Excellence.</em></h2>
+        <p class="s-lead" style="margin:0 auto;text-align:center;">Every candidate right-to-work verified, sector-certified and compliance-ready on day one. Temporary, permanent and contract placements across the UK.</p>
       </div>
       <div class="srv-grid">
         <div class="srv-card rv" style="border-top:3px solid #1D9E75;">
@@ -1867,16 +1973,39 @@
     </div>
   </section>
 
+  <!-- LIVE JOBS TEASER -->
+  <section class="sec sec-wh" id="live-jobs-preview" aria-label="Live Job Vacancies" style="padding:60px 48px;border-top:1px solid var(--border);">
+    <div class="inner">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:36px;">
+        <div>
+          <div class="s-tag">Currently Hiring</div>
+          <h2 class="s-title" style="margin-bottom:0;">Latest Jobs, <em>Live Right Now.</em></h2>
+        </div>
+        <a href="/recruitment.html#live-jobs" class="btn-gold" style="white-space:nowrap;flex-shrink:0;">View All Jobs &#8594;</a>
+      </div>
+      <div id="hp-jobs-grid" class="hp-jobs-grid">
+        <div class="hp-job-skel"></div>
+        <div class="hp-job-skel"></div>
+        <div class="hp-job-skel"></div>
+      </div>
+      <div style="text-align:center;margin-top:28px;">
+        <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20register%20and%20hear%20about%20new%20job%20opportunities." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(37,211,102,.25);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Notified of New Roles via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- COMPLIANCE ACCREDITATIONS -->
   <section class="sec sec-dk" id="compliance" aria-label="Compliance and Accreditations">
     <div class="inner">
       <div style="text-align:center;margin-bottom:48px;">
         <div class="s-tag" style="color:var(--gold);">Regulatory &amp; Compliance</div>
-        <h2 class="s-title w" style="text-align:center;">Our <em>Credentials</em></h2>
-        <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);">The regulatory bodies and
-          standards your compliance officers will ask about — displayed here so you don&rsquo;t have to ask.</p>
+        <h2 class="s-title w" style="text-align:center;">The Credentials That <em>Matter to Your Auditors</em></h2>
+        <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);">Every regulatory body and standard your compliance officers will ask about &mdash; documented, verified and available on request.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <div class="creds-flex" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
         <div class="badge-card rv">
           <div class="bc-icon">&#x1F6E1;</div>
           <div class="bc-title">SIA Licence Verification</div>
@@ -1934,7 +2063,7 @@
     <div class="inner">
       <div style="text-align:center;margin-bottom:36px;">
         <div class="s-tag">Why Choose Covenant Crest</div>
-        <h2 class="s-title" style="text-align:center;">Built on <em>Compliance.</em> Delivered with Speed.</h2>
+        <h2 class="s-title" style="text-align:center;">The Standards Your <em>Compliance Team</em> Expects.</h2>
       </div>
       <div class="wcu-grid rv">
         <div class="wcu-i">
@@ -1954,8 +2083,8 @@
           <div class="wcu-l">Emergency Cover</div>
         </div>
         <div class="wcu-i">
-          <div class="wcu-n">UK</div>
-          <div class="wcu-l">Nationwide Placement</div>
+          <div class="wcu-n">Zero</div>
+          <div class="wcu-l">Hidden Fees, Ever</div>
         </div>
       </div>
       <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;"
@@ -2009,9 +2138,8 @@
     <div class="inner">
       <div style="text-align:center;margin-bottom:24px;">
         <div class="s-tag" style="font-size: 14px; letter-spacing: 0.15em; color: var(--navy); font-weight: 800;">COVENANT CREST GROUP LTD</div>
-        <h2 class="s-title">Our <em>Corporate Ecosystem</em></h2>
-        <p class="s-lead" style="margin:0 auto;text-align:center;">Strategic logistics and trade divisions supporting
-          the UK economy.</p>
+        <h2 class="s-title">The <em>Covenant Crest Group</em></h2>
+        <p class="s-lead" style="margin:0 auto;text-align:center;">Three specialist divisions. One unwavering standard.</p>
       </div>
       <div class="eco-grid rv">
         <a href="/haulage.html" class="eco-card">
@@ -2038,21 +2166,18 @@
   <section class="sec sec-dk" style="padding:60px 48px;">
     <div class="inner" style="display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
       <div style="flex:1;min-width:300px;">
-        <h2 class="s-title w" style="font-size:32px;margin-bottom:12px;">Download Our <em>Compliance Pack</em></h2>
-        <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:540px;">Get instant access to our regulatory
-          documents, including ICO registration, insurance certificates, and our compliance policies.</p>
+        <h2 class="s-title w" style="font-size:32px;margin-bottom:12px;">Your Procurement Team&rsquo;s <em>Due Diligence &mdash; Already Done.</em></h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:540px;">ICO registration, insurance certificates, DBS vetting policy, AWR compliance framework and our full candidate verification procedures &mdash; packaged and ready for your legal and compliance teams.</p>
       </div>
-      <a href="mailto:recruitment@covenantcrest.co.uk?subject=Requesting Compliance Pack" class="btn-gold"
-        style="white-space:nowrap;">Request Full Pack &#8595;</a>
+      <button onclick="openPackModal()" class="btn-gold" style="white-space:nowrap;border:none;cursor:pointer;">Request Compliance Pack &#8594;</button>
     </div>
   </section>
 
   <!-- QUICK ENQUIRY SECTION -->
   <section class="qe-bar" id="enquiry">
     <div class="inner">
-      <h2 class="qe-h2">Ready to work with us?</h2>
-      <p class="qe-p">Call <strong>07346 809846</strong> or send an enquiry &mdash; we respond personally, the same day.
-      </p>
+      <h2 class="qe-h2">One Call. Two Outcomes.</h2>
+      <p class="qe-p">Employer needing staff or professional seeking a role &mdash; call <strong>07346 809846</strong> or drop us a message. We respond personally, the same day, without exception.</p>
       <button class="btn-enq" id="toggleEnquiry" aria-expanded="false">Send an Enquiry &rarr;</button>
     </div>
   </section>
@@ -2061,8 +2186,11 @@
     <div class="qe-inner">
       <div class="dfc" style="margin:0; width:100%; max-width:none; background:transparent; border:none; padding:0;">
         <div class="ok-banner" id="ok-qe">&#x2705; Message received! We'll be in touch today.</div>
-        <form name="quick_enquiry" method="POST" data-form-name="quick_enquiry" data-banner-id="ok-home">
+        <form name="quick_enquiry" method="POST" data-netlify="true" data-form-name="quick_enquiry" data-banner-id="ok-home">
           <input type="hidden" name="form-name" value="quick_enquiry">
+          <input type="hidden" name="crm_lead_source" value="Website - Quick Enquiry">
+          <input type="hidden" name="crm_module" value="Leads">
+          <input type="hidden" name="crm_type" value="General_Enquiry">
           <div class="dk-g2">
             <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name"
                 placeholder="Full Name" required></div>
@@ -2160,6 +2288,110 @@
         fill="#25D366" />
     </svg>
   </a>
+
+  <!-- ═══ COMPLIANCE PACK GATE MODAL ═══ -->
+  <div id="pack-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(13,27,42,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;">
+    <div style="background:var(--navy);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:48px;max-width:540px;width:100%;position:relative;box-shadow:0 40px 80px rgba(0,0,0,.6);animation:packIn .3s cubic-bezier(0.165,0.84,0.44,1);">
+      <style>@keyframes packIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}</style>
+      <button onclick="closePackModal()" aria-label="Close" style="position:absolute;top:18px;right:22px;background:none;border:none;color:rgba(255,255,255,.35);font-size:28px;cursor:pointer;line-height:1;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.35)'">&#x2715;</button>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Compliance Pack Request</div>
+      <h2 style="font-family:'Playfair Display',serif;color:#fff;font-size:clamp(22px,3vw,28px);margin-bottom:10px;line-height:1.2;">One Document. <em style="color:var(--gold);">Every Question Answered.</em></h2>
+      <p style="color:rgba(255,255,255,.45);font-size:13px;line-height:1.75;margin-bottom:32px;">ICO registration, insurance certificates, DBS vetting policy, AWR compliance framework and full candidate verification procedures &mdash; packaged for your legal and procurement teams.</p>
+      <div id="pack-form-wrap">
+        <form name="compliance-pack-request" method="POST" data-netlify="true" id="pack-form">
+          <input type="hidden" name="form-name" value="compliance-pack-request">
+          <input type="hidden" name="crm_lead_source" value="Website - Compliance Pack">
+          <input type="hidden" name="crm_module" value="Leads">
+          <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;">Full Name *</label>
+              <input type="text" name="full_name" required placeholder="Jane Smith" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(201,168,76,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            </div>
+            <div>
+              <label style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;">Company Name *</label>
+              <input type="text" name="company" required placeholder="ABC Care Ltd" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(201,168,76,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;">Work Email *</label>
+              <input type="email" name="email" required placeholder="jane@company.co.uk" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(201,168,76,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            </div>
+            <div>
+              <label style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;">Your Role</label>
+              <input type="text" name="role" placeholder="HR Manager, Ops Director…" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(201,168,76,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            </div>
+          </div>
+          <button type="submit" id="pack-submit-btn" style="width:100%;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:16px;border-radius:8px;border:none;cursor:pointer;margin-top:6px;transition:background .2s;" onmouseover="this.style.background='#E8C96A'" onmouseout="this.style.background='var(--gold)'">Send Me the Compliance Pack &rarr;</button>
+          <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;">We&rsquo;ll email your pack within 1 business hour. No marketing. No subscriptions.</p>
+        </form>
+      </div>
+      <div id="pack-success" style="display:none;text-align:center;padding:16px 0;">
+        <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,158,117,.15);border:1px solid rgba(29,158,117,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;">&#x2713;</div>
+        <h3 style="color:#fff;font-family:'Playfair Display',serif;font-size:22px;margin-bottom:10px;">Pack on its way.</h3>
+        <p style="color:rgba(255,255,255,.5);font-size:13px;line-height:1.7;">We&rsquo;ll send your full compliance documentation to the email you provided within 1 business hour. If you need it sooner, call <strong style="color:var(--gold);">07346 809846</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openPackModal() {
+      var m = document.getElementById('pack-modal');
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closePackModal() {
+      document.getElementById('pack-modal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('pack-modal').addEventListener('click', function(e) {
+      if (e.target === this) closePackModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePackModal();
+    });
+    // Load 3 featured jobs on homepage
+    document.addEventListener('DOMContentLoaded', function() {
+      var grid = document.getElementById('hp-jobs-grid');
+      if (!grid || typeof CCA === 'undefined') return;
+      var sLabel = { care: 'Healthcare & Care', security: 'Security', warehouse: 'Warehouse & Logistics', construction: 'Construction & Trades' };
+      CCA.jobs.list({ limit: 3 }).then(function(jobs) {
+        if (!jobs || !jobs.length) { grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0;">Check back soon &mdash; roles are posted weekly.</p>'; return; }
+        grid.innerHTML = jobs.slice(0, 3).map(function(j) {
+          var pay = j.pay ? String(j.pay).replace(/\$/g, '£') : 'Competitive';
+          var type = j.type ? j.type.charAt(0).toUpperCase() + j.type.slice(1).replace('-', ' ') : 'Full-time';
+          return '<a href="/job.html?id=' + j.id + '" class="hp-job-card rv">' +
+            '<div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">' + (sLabel[j.sector] || j.sector || 'Recruitment') + '</div>' +
+            '<div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.3;">' + j.title + '</div>' +
+            '<div style="font-size:12px;color:var(--muted);margin-bottom:4px;">&#x1F4CD; ' + (j.location || 'UK') + '</div>' +
+            '<div style="font-size:12px;color:var(--muted);margin-bottom:0;">&#x23F1; ' + type + '</div>' +
+            '<div class="hp-job-apply">' + pay + ' &nbsp;&mdash;&nbsp; Apply Now &#8594;</div>' +
+          '</a>';
+        }).join('');
+      }).catch(function() { grid.innerHTML = ''; });
+    });
+
+    document.getElementById('pack-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('pack-submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(this)).toString()
+      }).then(function() {
+        document.getElementById('pack-form-wrap').style.display = 'none';
+        document.getElementById('pack-success').style.display = 'block';
+        if (window.gtag) gtag('event', 'compliance_pack_request', { event_category: 'lead_generation', event_label: 'compliance_pack_modal' });
+      }).catch(function() {
+        btn.textContent = 'Send Me the Compliance Pack →';
+        btn.disabled = false;
+        alert('There was an issue. Please email recruitment@covenantcrest.co.uk directly.');
+      });
+    });
+  </script>
 
 </body>
 

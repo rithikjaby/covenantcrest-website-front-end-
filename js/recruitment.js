@@ -104,9 +104,9 @@ function renderJobs() {
     var filterBar = document.getElementById('active-filters');
     if (filterBar) {
         var chips = '';
-        if (sector) chips += '<span class="filter-chip">' + (sectorLabel[sector] || sector) + ' <button onclick="resetSector()">✕</button></span>';
-        if (type) chips += '<span class="filter-chip">' + type.replace('-',' ') + ' <button onclick="resetType()">✕</button></span>';
-        if (search) chips += '<span class="filter-chip">"' + search + '" <button onclick="resetSearch()">✕</button></span>';
+        if (sector) chips += '<span class="filter-chip">' + esc(sectorLabel[sector] || sector) + ' <button onclick="resetSector()">✕</button></span>';
+        if (type) chips += '<span class="filter-chip">' + esc(type.replace('-',' ')) + ' <button onclick="resetType()">✕</button></span>';
+        if (search) chips += '<span class="filter-chip">"' + esc(search) + '" <button onclick="resetSearch()">✕</button></span>';
         
         if (chips) {
             filterBar.innerHTML = chips + '<button onclick="resetAllFilters()" class="clear-all-btn">Clear All</button>';
@@ -132,7 +132,7 @@ function renderJobs() {
 
     var jobsHtml = '<div class="jobs-grid">' + filtered.map(function(j) {
         return '<a href="/job.html?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
-            '<div class="jc-sector">' + (sectorLabel[j.sector] || j.sector) + '</div>' +
+            '<div class="jc-sector">' + esc(sectorLabel[j.sector] || j.sector) + '</div>' +
             '<div class="jc-title">' + esc(j.title) + '</div>' +
             '<div class="jc-meta">' +
             (j.location ? '<span class="jc-tag">📍 ' + esc(j.location) + '</span>' : '') +

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Application Portal | Covenant Crest</title>
+<meta name="description" content="Official job application portal for Covenant Crest Group. Join our team of professionals.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<script src="/js/common.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;--font-head:'Playfair Display',serif;--font-body:'Plus Jakarta Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--navy);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
+.nav-name{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,34px);color:#fff;letter-spacing:0.04em;font-weight:500;line-height:1;}
+.nav-name span{color:#D4AF37;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
+.nl:hover,.nl.active{color:var(--gold);}
+.nav-group-wrap{position:relative;display:inline-block;}
+.btn-group{background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:10px 22px;border-radius:4px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s cubic-bezier(0.165,0.84,0.44,1);white-space:nowrap;}
+.btn-group:hover{background:var(--gold2);transform:translateY(-1px);}
+.group-dd{position:absolute;top:100%;right:0;transform:translateY(12px);background:rgba(13,27,42,0.98);border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:10px 0;min-width:230px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(0.165,0.84,0.44,1);box-shadow:0 25px 50px rgba(0,0,0,0.5);backdrop-filter:blur(12px);z-index:1000;}
+.nav-group-wrap:hover .group-dd{opacity:1;visibility:visible;transform:translateY(0);}
+.gm-item{display:block;padding:12px 20px;text-decoration:none;transition:all .2s;border-left:3px solid transparent;}
+.gm-item:hover{background:rgba(201,168,76,0.08);border-left-color:var(--gold);}
+.gm-name{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+.gm-desc{font-size:10px;color:rgba(255,255,255,0.4);font-weight:400;}
+.nav-mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
+@media(max-width:860px){
+  nav{padding:0 16px;height:68px;}
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(13,27,42,.99);flex-direction:column;align-items:stretch;padding:20px;gap:0;border-bottom:2px solid var(--gold);z-index:1001;max-height:calc(100vh - 68px);overflow-y:auto;}
+  .nav-links.open{display:flex;}
+  .nl{padding:15px 0;font-size:15px;width:100%;border-bottom:1px solid rgba(255,255,255,0.05);}
+  .nl:last-child{border-bottom:none;}
+  .nav-mob{display:block;font-size:26px;padding:5px;}
+  .nav-group-wrap{display:none !important;}
+  .mob-only{display:block !important;color:var(--gold) !important;}
+}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
+.ft-main{padding:52px 48px 36px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;max-width:1200px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.05);}
+.ft-logo-name{font-family:'Playfair Display',serif;font-size:34px;color:#fff;font-weight:500;letter-spacing:0.04em;margin:12px 0 2px;}
+.ft-logo-name span{color:#D4AF37;}
+.ft-logo-sub{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.4em;text-transform:uppercase;margin-bottom:16px;opacity:0.9;}
+.ft-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.8;margin-top:12px;max-width:240px;}
+.ft-col-title{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.ft-link{display:block;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px;transition:color .2s;}
+.ft-link:hover{color:var(--gold);}
+.ft-bottom{padding:16px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.ft-copy{font-size:11px;color:rgba(255,255,255,.5);}
+/* COOKIE */
+#cc-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(201,168,76,.15);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9000;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s;}
+#cc-bar.show{transform:translateY(0);}
+#cc-bar p{font-size:12px;color:rgba(255,255,255,.55);flex:1;min-width:180px;}
+#cc-bar a{color:var(--gold);}
+.cc-btns{display:flex;gap:10px;flex-shrink:0;}
+.cc-ok{background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:2px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;}
+.cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;cursor:pointer;}
+@media(max-width:860px){
+  .ft-main{grid-template-columns:1fr 1fr;padding:40px 24px 28px;gap:28px;}
+  .ft-bottom{padding:14px 24px;flex-direction:column;text-align:center;}
+}
+@media(max-width:480px){.ft-main{grid-template-columns:1fr;}}
+
+.container{max-width:800px; margin:0 auto; padding:100px 24px 80px;}
+.apply-card{background:#fff; border-radius:24px; border:1px solid var(--border); box-shadow:0 30px 60px rgba(13,27,42,0.06); padding:48px; position:relative; overflow:hidden;}
+.apply-card::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(to right, var(--gold), var(--navy));}
+
+.header-meta{display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:16px;}
+.job-title{font-family:var(--font-head); font-size:32px; color:var(--navy); margin-bottom:8px; line-height:1.2;}
+.job-loc{font-size:15px; color:var(--muted); margin-bottom:32px; display:flex; align-items:center; gap:8px;}
+
+/* FORM */
+.f-section-title{font-size:14px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.1em; margin:40px 0 24px; padding-bottom:12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px;}
+.f-section-title span{background:var(--gold); color:var(--navy); width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px;}
+
+.f-row{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;}
+.f-group{margin-bottom:24px;}
+.f-label{display:block; font-size:12px; font-weight:600; color:var(--navy); margin-bottom:8px;}
+.f-input, .f-select, .f-textarea{width:100%; padding:14px 16px; background:#fff; border:1px solid var(--border); border-radius:10px; font-family:var(--font-body); font-size:15px; color:var(--navy); transition:all .3s;}
+.f-input:focus, .f-select:focus, .f-textarea:focus{border-color:var(--gold); outline:none; box-shadow:0 0 0 4px rgba(201,168,76,0.1);}
+.f-textarea{min-height:100px; resize:vertical;}
+
+.f-check-label{display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--charcoal); cursor:pointer; margin-bottom:12px;}
+.f-check-label input{margin-top:4px; accent-color:var(--gold); width:18px; height:18px; flex-shrink:0;}
+
+.f-cv-zone{border:2px dashed var(--border); border-radius:16px; padding:40px; text-align:center; cursor:pointer; background:rgba(201,168,76,0.02); transition:all .3s;}
+.f-cv-zone:hover{border-color:var(--gold); background:rgba(201,168,76,0.05);}
+.f-cv-icon{font-size:40px; margin-bottom:16px; display:block;}
+.f-cv-text{font-size:16px; font-weight:600; color:var(--navy); margin-bottom:4px;}
+.f-cv-sub{font-size:13px; color:var(--muted);}
+.f-cv-clear{display:none; color:var(--danger); font-size:13px; font-weight:700; text-transform:uppercase; margin-top:16px; border:none; background:none; cursor:pointer;}
+
+.f-submit{width:100%; background:var(--navy); color:#fff; font-family:var(--font-body); font-size:14px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:22px; border:none; border-radius:12px; cursor:pointer; transition:all .3s; margin-top:40px; box-shadow:0 10px 30px rgba(13,27,42,0.15);}
+.f-submit:hover{background:var(--gold); transform:translateY(-2px); box-shadow:0 15px 35px rgba(201,168,76,0.25);}
+.f-submit:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
+
+.success-card{display:none; text-align:center; padding:60px 0;}
+.success-icon{width:80px; height:80px; background:var(--success); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; margin:0 auto 32px; box-shadow:0 20px 40px rgba(29,158,117,0.2);}
+.success-title{font-family:var(--font-head); font-size:36px; color:var(--navy); margin-bottom:16px;}
+.success-desc{font-size:16px; color:var(--muted); max-width:460px; margin:0 auto 32px; line-height:1.6;}
+.btn-home{display:inline-flex; align-items:center; gap:12px; background:var(--navy); color:#fff; padding:16px 32px; border-radius:12px; text-decoration:none; font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; transition:all .3s;}
+.btn-home:hover{background:var(--gold); transform:translateY(-2px);}
+
+#loading{position:fixed; inset:0; background:var(--cream); z-index:1000; display:flex; align-items:center; justify-content:center; flex-direction:column;}
+.spinner{width:50px; height:50px; border:4px solid rgba(201,168,76,0.1); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:20px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:768px){
+    .f-row{grid-template-columns:1fr;}
+    .apply-card{padding:32px 24px;}
+    .job-title{font-size:26px;}
+    .container{padding:88px 20px 60px;}
+}
+</style>
+</head>
+<body>
+
+<div id="loading">
+    <div class="spinner"></div>
+    <p style="font-weight:600; color:var(--navy);">Loading Application Portal...</p>
+</div>
+
+<nav id="mainNav">
+  <a href="/index.html" class="nav-logo">
+    <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+      <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
+      <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+      <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+      <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+      <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+      <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+    </svg>
+    <div class="nav-name">Covenant <span>Crest</span></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="/index.html" class="nl">Home</a>
+    <a href="/recruitment.html" class="nl active">Browse Jobs</a>
+    <a href="/hire.html" class="nl">Hire Staff</a>
+    <a href="/about.html" class="nl">About Us</a>
+    <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+    <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+  </div>
+  <div class="nav-group-wrap" id="groupToggle">
+    <button class="btn-group">Our Divisions <span style="font-size:8px;opacity:0.6;margin-left:4px;">&#9662;</span></button>
+    <div class="group-dd">
+      <a href="/haulage.html" class="gm-item">
+        <div class="gm-name">Haulage &amp; Freight</div>
+        <div class="gm-desc">UK logistics &amp; freight solutions.</div>
+      </a>
+      <a href="/trade.html" class="gm-item">
+        <div class="gm-name">Import &amp; Trade</div>
+        <div class="gm-desc">Global food supply &amp; distribution.</div>
+      </a>
+    </div>
+  </div>
+  <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
+</nav>
+
+<div class="container">
+    <div class="apply-card">
+        <div id="form-content">
+            <div class="header-meta"><span id="job-sector">Job Posting</span> &bull; Reference #<span id="job-id-display">---</span></div>
+            <h1 class="job-title" id="job-title">Loading job details...</h1>
+            <div class="job-loc" id="job-location">Please wait while we prepare your application.</div>
+
+            <div style="background:#f0fdf4;border:1px solid rgba(37,211,102,0.35);border-radius:10px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:200px;">
+                <div style="font-weight:700;font-size:13px;color:#15803d;margin-bottom:3px;">Prefer WhatsApp? Skip the form.</div>
+                <div style="font-size:12px;color:#166534;line-height:1.5;">Message us your name and the role you want — we'll reply within minutes and handle the rest.</div>
+              </div>
+              <a id="wa-apply-direct" href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20apply.%20My%20name%20is%20..." target="_blank" rel="noopener" style="background:#25D366;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+                WhatsApp Us →
+              </a>
+            </div>
+
+            <form id="apply-form">
+                <div class="f-section-title"><span>1</span> Personal Details</div>
+                <div class="f-row">
+                    <div class="f-group">
+                        <label class="f-label">First Name *</label>
+                        <input type="text" class="f-input" id="first_name" required placeholder="Jane">
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label">Last Name *</label>
+                        <input type="text" class="f-input" id="last_name" required placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="f-row">
+                    <div class="f-group">
+                        <label class="f-label">Email Address *</label>
+                        <input type="email" class="f-input" id="email" required placeholder="jane.doe@example.com">
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label">Phone Number *</label>
+                        <input type="tel" class="f-input" id="phone" required placeholder="07700 900000">
+                    </div>
+                </div>
+
+                <div class="f-row">
+                    <div class="f-group">
+                        <label class="f-label">Postcode *</label>
+                        <input type="text" class="f-input" id="postcode" required placeholder="e.g. TF3 4NT">
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label">Availability *</label>
+                        <select class="f-select" id="availability" required>
+                            <option value="immediate">Immediately Available</option>
+                            <option value="1week">1 Week Notice</option>
+                            <option value="2weeks">2 Weeks Notice</option>
+                            <option value="1month">1 Month Notice</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="f-section-title"><span>2</span> Compliance & Experience</div>
+                
+                <div class="f-row">
+                    <div class="f-group">
+                        <label class="f-label">Right to Work in the UK *</label>
+                        <select class="f-select" id="rtw_status" required>
+                            <option value="" disabled selected>Please select...</option>
+                            <option value="british_irish">British or Irish Passport</option>
+                            <option value="eu_settlement">EU Settlement Scheme</option>
+                            <option value="visa">Visa / Work Permit</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label">Years of Experience *</label>
+                        <select class="f-select" id="experience" required>
+                            <option value="entry">Less than 1 year</option>
+                            <option value="1-3">1 to 3 years</option>
+                            <option value="3-5">3 to 5 years</option>
+                            <option value="5+">5+ years</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="f-group" id="visa-details-wrap" style="display:none;">
+                    <label class="f-label">Visa Details & Expiry *</label>
+                    <input type="text" class="f-input" id="visa_details" placeholder="e.g. Skilled Worker, Expires 2026">
+                </div>
+
+                <div class="f-group">
+                    <label class="f-label">Certifications / Licences</label>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px;">
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="Forklift"> Forklift</label>
+                        <label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>
+                    </div>
+                </div>
+
+                <div class="f-group">
+                    <label class="f-check-label" style="font-weight:600;"><input type="checkbox" id="is_veteran"> Are you a Veteran of the British Armed Forces?</label>
+                </div>
+
+                <div class="f-section-title"><span>3</span> Supporting Information</div>
+
+                <div class="f-group">
+                    <label class="f-label">Additional Notes</label>
+                    <textarea class="f-textarea" id="notes" placeholder="Tell us about your relevant experience or specific requirements..."></textarea>
+                </div>
+
+                <div class="f-group">
+                    <label class="f-label">Upload CV (Optional)</label>
+                    <input type="file" id="cv-input" accept=".pdf,.doc,.docx" style="display:none;" onchange="handleFile(this)">
+                    <div class="f-cv-zone" onclick="document.getElementById('cv-input').click()">
+                        <span class="f-cv-icon">📄</span>
+                        <div class="f-cv-text" id="cv-label">Click to select your CV</div>
+                        <div class="f-cv-sub">PDF or Word (Max 5MB)</div>
+                        <button type="button" class="f-cv-clear" id="cv-clear" onclick="clearFile(event)">Remove File</button>
+                    </div>
+                </div>
+
+                <div class="f-group" style="margin-top:32px;">
+                    <label class="f-check-label" style="font-size:13px; color:var(--muted);">
+                        <input type="checkbox" required>
+                        I consent to Covenant Crest processing my data for recruitment purposes in accordance with the <a href="/privacy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="f-submit" id="submit-btn">Submit Application</button>
+            </form>
+        </div>
+
+        <div class="success-card" id="success-screen">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Application Sent!</h2>
+            <p class="success-desc">Thank you for your interest. A recruitment consultant will review your profile and get in touch within 24 hours.</p>
+            <a href="/recruitment.html" class="btn-home">Browse More Jobs</a>
+        </div>
+    </div>
+</div>
+
+<script src="/api.js" defer></script>
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var jobId = urlParams.get('id');
+    var _jobData = null;
+    var _cvBase64 = null;
+    var _cvName = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!jobId) { window.location.href = '/recruitment.html'; return; }
+        
+        CCA.jobs.get(jobId).then(function(job) {
+            if (!job) { alert('Job not found'); window.location.href = '/recruitment.html'; return; }
+            _jobData = job;
+            document.getElementById('job-title').textContent = job.title;
+            document.getElementById('job-location').textContent = job.location || 'United Kingdom';
+            document.getElementById('job-id-display').textContent = job.id.substring(0,8).toUpperCase();
+            document.getElementById('job-sector').textContent = (job.sector || 'Recruitment').charAt(0).toUpperCase() + job.sector.slice(1);
+            document.getElementById('loading').style.display = 'none';
+        }).catch(function() {
+            alert('Error loading job details');
+            window.location.href = '/recruitment.html';
+        });
+
+        document.getElementById('rtw_status').onchange = function() {
+            document.getElementById('visa-details-wrap').style.display = this.value === 'visa' ? 'block' : 'none';
+        };
+
+        document.getElementById('apply-form').onsubmit = submitApplication;
+    });
+
+    function handleFile(input) {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { alert('File too large (Max 5MB)'); input.value = ''; return; }
+        
+        _cvName = file.name;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            _cvBase64 = e.target.result.split(',')[1];
+            document.getElementById('cv-label').textContent = file.name;
+            document.getElementById('cv-clear').style.display = 'inline-block';
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearFile(e) {
+        e.stopPropagation();
+        _cvBase64 = null;
+        _cvName = null;
+        document.getElementById('cv-input').value = '';
+        document.getElementById('cv-label').textContent = 'Click to select your CV';
+        document.getElementById('cv-clear').style.display = 'none';
+    }
+
+    function submitApplication(e) {
+        e.preventDefault();
+        var btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+
+        var certs = [];
+        document.querySelectorAll('input[name="certs"]:checked').forEach(el => certs.push(el.value));
+
+        var payload = {
+            job_id: jobId,
+            job_title: _jobData.title,
+            sector: _jobData.sector,
+            first_name: document.getElementById('first_name').value,
+            last_name: document.getElementById('last_name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            availability: document.getElementById('availability').value,
+            rtw_status: document.getElementById('rtw_status').value,
+            visa_details: document.getElementById('visa_details').value,
+            is_veteran: document.getElementById('is_veteran').checked ? 'yes' : 'no',
+            notes: "Experience: " + document.getElementById('experience').value + "\nCerts: " + certs.join(', ') + "\n\n" + document.getElementById('notes').value
+        };
+
+        if (_cvBase64) {
+            payload.cvBase64 = _cvBase64;
+            payload.cvFileName = _cvName;
+        }
+
+        fetch('/api/applications', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(function() {
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+            window.scrollTo(0,0);
+        })
+        .catch(function() {
+            alert('There was an issue submitting your application. Please try again or email us directly.');
+            btn.disabled = false;
+            btn.textContent = 'Submit Application';
+        });
+    }
+</script>
+
+  <footer>
+    <div class="ft-main">
+      <div>
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+          <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
+          <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+          <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+          <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+          <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+          <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+        </svg>
+        <div class="ft-logo-name">Covenant <span>Crest</span></div>
+        <div class="ft-logo-sub">Group Ltd</div>
+        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England &amp; Wales.</div>
+      </div>
+      <div>
+        <div class="ft-col-title">Services</div>
+        <a href="/recruitment.html" class="ft-link">Recruitment</a>
+        <a href="/haulage.html" class="ft-link">Haulage &amp; Freight</a>
+        <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+      </div>
+      <div>
+        <div class="ft-col-title">Company</div>
+        <a href="/index.html" class="ft-link">Home</a>
+        <a href="/about.html" class="ft-link">About Us</a>
+        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
+        <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <div class="ft-col-title">Contact Us</div>
+        <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+        <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+        <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer" class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
+      <span class="ft-copy">Registered in England &amp; Wales &middot; Built on Promise.</span>
+    </div>
+  </footer>
+
+  <div id="cc-bar">
+    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
+    <div class="cc-btns">
+      <button class="cc-no">Decline</button>
+      <button class="cc-ok">Accept All</button>
+    </div>
+  </div>
+
+  <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
+    target="_blank" rel="noopener noreferrer" id="wa-btn"
+    style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
+    aria-label="Chat on WhatsApp"
+    onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z" fill="#fff" />
+      <path d="M21.5 18.8c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.97.12.6-.089 1.77-.756 2.02-1.485.25-.729.25-1.354.17-1.485-.07-.13-.27-.208-.57-.364z" fill="#25D366" />
+    </svg>
+  </a>
+
+</body>
+</html>

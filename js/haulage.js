@@ -42,8 +42,40 @@ function calcEst() {
     resultEl.style.display = 'block';
 }
 
+function prefillAndGoToQuote() {
+    var vehicleEl  = document.getElementById('est-vehicle');
+    var milesEl    = document.getElementById('est-miles');
+    var serviceEl  = document.getElementById('est-service');
+    var totalEl    = document.getElementById('er-total');
+
+    var vehicleLabels = { van: 'Luton Van / Transit', '7.5t': '7.5 Tonne Rigid', '18t': '18 Tonne Rigid', artic: 'Articulated / 44t FTL', ltl: 'Part Load (LTL)' };
+    var vehicle  = vehicleEl  ? vehicleEl.value  : '';
+    var miles    = milesEl    ? milesEl.value    : '';
+    var service  = serviceEl  ? serviceEl.value  : '';
+    var total    = totalEl    ? totalEl.textContent : '';
+
+    // Map estimator vehicle to form load_type
+    var loadTypeMap = { van: 'ftl', '7.5t': 'ftl', '18t': 'ftl', artic: 'ftl', ltl: 'ltl' };
+    var loadType = loadTypeMap[vehicle] || 'ftl';
+    if (service === 'temp') loadType = 'temp';
+    if (service === 'same' || service === 'express') loadType = 'specialist';
+
+    var formLoadType = document.querySelector('select[name="load_type"]');
+    if (formLoadType) formLoadType.value = loadType;
+
+    var detailsField = document.querySelector('textarea[name="details"]');
+    if (detailsField && vehicle && miles) {
+        var serviceLabels = { standard: 'Standard (2–3 days)', express: 'Express (Next Day)', same: 'Same Day', temp: 'Temperature Controlled' };
+        detailsField.value = 'From estimator — Vehicle: ' + (vehicleLabels[vehicle] || vehicle) + ' | Distance: ~' + miles + ' miles | Service: ' + (serviceLabels[service] || service) + ' | Guide price: ' + total;
+    }
+
+    var quoteSection = document.getElementById('quote');
+    if (quoteSection) quoteSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // Attach to window
 window.calcEst = calcEst;
+window.prefillAndGoToQuote = prefillAndGoToQuote;
 
 document.addEventListener('DOMContentLoaded', function() {
     var milesInput = document.getElementById('est-miles');

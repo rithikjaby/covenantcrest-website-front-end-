@@ -177,6 +177,16 @@ window.addEventListener('DOMContentLoaded', function() {
   if (talentSearch) talentSearch.addEventListener('input', renderTalentPool);
   var talentSector = document.getElementById('talent-sector-filter');
   if (talentSector) talentSector.addEventListener('change', renderTalentPool);
+
+  // Compliance Filters
+  var compSearch = document.getElementById('comp-search');
+  if (compSearch) compSearch.addEventListener('input', renderCompliance);
+  var compSector = document.getElementById('comp-sector-filter');
+  if (compSector) compSector.addEventListener('change', renderCompliance);
+  var compUrgency = document.getElementById('comp-urgency-filter');
+  if (compUrgency) compUrgency.addEventListener('change', renderCompliance);
+  var compPool = document.getElementById('comp-pool-filter');
+  if (compPool) compPool.addEventListener('change', renderCompliance);
   var selectAllApps = document.getElementById('selectAllApps');
   if (selectAllApps) {
     selectAllApps.addEventListener('click', function() {
@@ -248,7 +258,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // Event Delegation for Dynamic Tables
-  var tbodies = ['jobs-tbody', 'dash-jobs-tbody', 'contacts-tbody', 'dash-contacts-tbody', 'apps-tbody', 'users-tbody', 'talent-tbody', 'planner-tbody'];
+  var tbodies = ['jobs-tbody', 'dash-jobs-tbody', 'contacts-tbody', 'dash-contacts-tbody', 'apps-tbody', 'users-tbody', 'talent-tbody', 'planner-tbody', 'compliance-tbody'];
   tbodies.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -431,7 +441,7 @@ function openUserModal() {
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ── Tab switching ─────────────────────────────────────────────────
-var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', talent:'Talent Pool', planner:'Interview Planner', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
+var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', talent:'Talent Pool', planner:'Interview Planner', compliance:'Compliance Dashboard', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
 
 function showTab(id, el) {
   if (!isSA && (id === 'settings' || id === 'users' || id === 'security')) { showToast('Super Admin only','er'); return; }
@@ -450,6 +460,7 @@ function loadTab(id) {
   if (id === 'applications') { loadApplications(); }
   if (id === 'talent')       { loadApplications(renderTalentPool); }
   if (id === 'planner')      { loadApplications(renderPlanner); }
+  if (id === 'compliance')   { loadApplications(renderCompliance); }
   if (id === 'users')        { loadUsers(); }
   if (id === 'security')     { loadSecurityLogs(); }
   if (id === 'settings')     { checkIntegrations(); }
@@ -693,8 +704,16 @@ function renderContacts() {
   var tbody = document.getElementById('contacts-tbody');
   if (!tbody) return;
   var searchVal = (document.getElementById('contacts-search') ? document.getElementById('contacts-search').value : '').toLowerCase();
+  
+  // Sort by date descending to ensure previous requests are at top/visible
+  _contacts.sort(function(a, b) {
+     return new Date(b.date || 0) - new Date(a.date || 0);
+  });
+
   var filtered = searchVal ? _contacts.filter(function(c) {
-    return (c.name||'').toLowerCase().indexOf(searchVal) !== -1 || (c.email||'').toLowerCase().indexOf(searchVal) !== -1;
+    return (c.name||'').toLowerCase().indexOf(searchVal) !== -1 || 
+           (c.email||'').toLowerCase().indexOf(searchVal) !== -1 ||
+           (c.message||'').toLowerCase().indexOf(searchVal) !== -1;
   }) : _contacts;
   if (!filtered.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No enquiries recorded yet.</td></tr>'; return; }
   tbody.innerHTML = filtered.map(function(c) {
@@ -851,6 +870,72 @@ function viewApplication(id) {
   document.getElementById('am-title').textContent = (a.first_name || '') + ' ' + (a.last_name || '');
   document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + sectorDisplay + ' · ' + fmtDate(a.date);
     var hasCV = !!(a.cvBase64 || a.cvUrl);
+  var dbsStatus = getDocStatus(a.dbs_expiry_date);
+  var siaStatus = getDocStatus(a.sia_expiry_date);
+  var rtwStatus = getDocStatus(a.rtw_expiry_date);
+  var mhStatus  = getDocStatus(a.manual_handling_cert);
+  var compHtml =
+    '<div id="am-compliance-section" style="margin-top:18px;border-top:2px solid var(--border);padding-top:16px;">' +
+    '<div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Compliance Records</div>' +
+    // DBS
+    '<div style="background:#f8f9fa;border-radius:6px;padding:12px;margin-bottom:8px;">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;">DBS Check <span class="comp-status ' + dbsStatus.cls + '">' + dbsStatus.label + '</span></div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">' +
+        '<div><label class="af-label">Level</label>' +
+          '<select class="af-select" id="cm-dbs-level">' +
+            '<option value=""' + (!a.dbs_level ? ' selected' : '') + '>Not Required</option>' +
+            '<option value="enhanced"' + (a.dbs_level === 'enhanced' ? ' selected' : '') + '>Enhanced</option>' +
+            '<option value="standard"' + (a.dbs_level === 'standard' ? ' selected' : '') + '>Standard</option>' +
+            '<option value="basic"' + (a.dbs_level === 'basic' ? ' selected' : '') + '>Basic</option>' +
+          '</select></div>' +
+        '<div><label class="af-label">Certificate No.</label>' +
+          '<input class="af-input" id="cm-dbs-cert" value="' + esc(a.dbs_cert_number || '') + '" placeholder="e.g. 001234567890"></div>' +
+        '<div><label class="af-label">Expiry / Renewal Date</label>' +
+          '<input type="date" class="af-input" id="cm-dbs-expiry" value="' + esc(a.dbs_expiry_date || '') + '"></div>' +
+      '</div>' +
+    '</div>' +
+    // SIA
+    '<div style="background:#f8f9fa;border-radius:6px;padding:12px;margin-bottom:8px;">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;">SIA Licence <span class="comp-status ' + siaStatus.cls + '">' + siaStatus.label + '</span></div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+        '<div><label class="af-label">Licence Number</label>' +
+          '<input class="af-input" id="cm-sia-number" value="' + esc(a.sia_licence_number || '') + '" placeholder="e.g. 1234-5678-9012-3456"></div>' +
+        '<div><label class="af-label">Expiry Date</label>' +
+          '<input type="date" class="af-input" id="cm-sia-expiry" value="' + esc(a.sia_expiry_date || '') + '"></div>' +
+      '</div>' +
+    '</div>' +
+    // RTW
+    '<div style="background:#f8f9fa;border-radius:6px;padding:12px;margin-bottom:8px;">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;">Right to Work <span class="comp-status ' + rtwStatus.cls + '">' + (a.rtw_verified ? '✓ Verified · ' : '') + rtwStatus.label + '</span></div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+        '<div><label class="af-label">Document Type</label>' +
+          '<select class="af-select" id="cm-rtw-type">' +
+            '<option value=""' + (!a.rtw_doc_type ? ' selected' : '') + '>Not Recorded</option>' +
+            '<option value="british_passport"' + (a.rtw_doc_type === 'british_passport' ? ' selected' : '') + '>British / Irish Passport</option>' +
+            '<option value="eu_settled"' + (a.rtw_doc_type === 'eu_settled' ? ' selected' : '') + '>EU Settled Status</option>' +
+            '<option value="visa"' + (a.rtw_doc_type === 'visa' ? ' selected' : '') + '>Visa</option>' +
+            '<option value="brp"' + (a.rtw_doc_type === 'brp' ? ' selected' : '') + '>Biometric Residence Permit</option>' +
+            '<option value="other"' + (a.rtw_doc_type === 'other' ? ' selected' : '') + '>Other</option>' +
+          '</select></div>' +
+        '<div><label class="af-label">Document Expiry (if applicable)</label>' +
+          '<input type="date" class="af-input" id="cm-rtw-expiry" value="' + esc(a.rtw_expiry_date || '') + '"></div>' +
+      '</div>' +
+      '<div style="margin-top:6px;"><label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">' +
+        '<input type="checkbox" id="cm-rtw-verified"' + (a.rtw_verified ? ' checked' : '') + '> Right to Work document verified by compliance officer</label></div>' +
+    '</div>' +
+    // Manual Handling
+    '<div style="background:#f8f9fa;border-radius:6px;padding:12px;margin-bottom:8px;">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;">Manual Handling Certificate <span class="comp-status ' + mhStatus.cls + '">' + mhStatus.label + '</span></div>' +
+      '<div style="max-width:220px;">' +
+        '<label class="af-label">Expiry Date</label>' +
+        '<input type="date" class="af-input" id="cm-mh-expiry" value="' + esc(a.manual_handling_cert || '') + '">' +
+      '</div>' +
+    '</div>' +
+    // Compliance Notes
+    '<div style="margin-bottom:12px;"><label class="af-label">Compliance Notes</label>' +
+      '<textarea id="cm-compliance-notes" class="af-textarea" placeholder="Internal compliance notes...">' + esc(a.compliance_notes || '') + '</textarea></div>' +
+    '<button class="btn-primary" style="width:100%;padding:10px;" id="am-save-compliance-btn">Save Compliance Records</button>' +
+    '</div>';
     document.getElementById('am-body').innerHTML =
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Phone</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.phone || '—') + '</div></div>' +
@@ -880,7 +965,11 @@ function viewApplication(id) {
       '</div>' +
     (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-bottom:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Candidate Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '') +
     '<div><label class="af-label">Internal Admin Notes</label><textarea id="am-admin-notes" class="af-textarea" placeholder="Private notes about this candidate...">' + esc(a.adminNotes || '') + '</textarea></div>';
-  
+
+  document.getElementById('am-body').insertAdjacentHTML('beforeend', compHtml);
+  var saveCompBtn = document.getElementById('am-save-compliance-btn');
+  if (saveCompBtn) saveCompBtn.onclick = function() { saveCompliance(window._curAppId); };
+
   var jobSubject = a.job_title ? 'Re: Your application for ' + (a.job_title) + ' — Covenant Crest Group' : 'Re: Your application to Covenant Crest Group';
   
   document.getElementById('am-footer-container').innerHTML = 
@@ -959,7 +1048,7 @@ function downloadApplicationCV(a) {
     
     // SMART DETECTION: Check "Magic Bytes" to determine real file type
     var mimeType = 'application/octet-stream';
-    var ext = '.file';
+    var ext = '.pdf'; // Default to .pdf if we're not sure, as most CVs are PDFs
     
     // PDF magic bytes: %PDF- (25 50 44 46)
     if (byteArray[0] === 0x25 && byteArray[1] === 0x50 && byteArray[2] === 0x44 && byteArray[3] === 0x46) {
@@ -977,9 +1066,9 @@ function downloadApplicationCV(a) {
       ext = '.doc';
     }
 
-    // Ensure filename has the correct extension
-    if (!filename.toLowerCase().endsWith(ext)) {
-      filename = filename.replace(/\.[^/.]+$/, "") + ext;
+    // FORCE PDF if no extension or unknown extension
+    if (!filename.toLowerCase().endsWith('.pdf') && !filename.toLowerCase().endsWith('.docx') && !filename.toLowerCase().endsWith('.doc')) {
+       filename += ext;
     }
 
     var blob = new Blob([byteArray], { type: mimeType });
@@ -987,7 +1076,16 @@ function downloadApplicationCV(a) {
     
     // ACTION: If it's a PDF, OPEN in new tab. Otherwise, DOWNLOAD.
     if (mimeType === 'application/pdf') {
-      window.open(url, '_blank');
+      var win = window.open(url, '_blank');
+      if(!win || win.closed || typeof win.closed=='undefined') {
+         // Pop-up blocked, fallback to download
+         var link = document.createElement('a');
+         link.href = url;
+         link.download = filename;
+         document.body.appendChild(link);
+         link.click();
+         document.body.removeChild(link);
+      }
     } else {
       var link = document.createElement('a');
       link.href = url;
@@ -1136,6 +1234,185 @@ function renderPlanner() {
   }).join('');
 }
 
+// ── COMPLIANCE ────────────────────────────────────────────────────
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var exp = new Date(dateStr + 'T00:00:00');
+  if (isNaN(exp.getTime())) return null;
+  return Math.floor((exp - today) / (1000 * 60 * 60 * 24));
+}
+
+function getDocStatus(expiryDate) {
+  var d = daysUntil(expiryDate);
+  if (d === null) return { cls: 'comp-unknown', label: '—', days: null };
+  if (d < 0)    return { cls: 'comp-expired',  label: 'EXPIRED',       days: d };
+  if (d <= 30)  return { cls: 'comp-critical', label: d + 'd left',    days: d };
+  if (d <= 90)  return { cls: 'comp-warn',     label: d + 'd left',    days: d };
+  return          { cls: 'comp-ok',      label: 'Valid · ' + d + 'd', days: d };
+}
+
+function worstStatus(arr) {
+  var order = ['comp-expired', 'comp-critical', 'comp-warn', 'comp-ok', 'comp-unknown'];
+  var worst = order.length - 1;
+  for (var i = 0; i < arr.length; i++) {
+    var idx = order.indexOf(arr[i].cls);
+    if (idx !== -1 && idx < worst) worst = idx;
+  }
+  return order[worst];
+}
+
+function renderCompliance() {
+  var tbody = document.getElementById('compliance-tbody');
+  if (!tbody) return;
+
+  var q       = ((document.getElementById('comp-search')         || {}).value || '').toLowerCase();
+  var sector  = ((document.getElementById('comp-sector-filter')  || {}).value || '');
+  var urgency = ((document.getElementById('comp-urgency-filter') || {}).value || '');
+  var pool    = ((document.getElementById('comp-pool-filter')    || {}).value || 'hired');
+
+  var workers = _apps.filter(function(a) {
+    if (pool === 'hired' && a.status !== 'hired') return false;
+    if (sector && a.sector !== sector) return false;
+    var name = ((a.first_name || '') + ' ' + (a.last_name || '')).toLowerCase();
+    return !q || name.indexOf(q) !== -1;
+  });
+
+  // Stats
+  var counts = { expired: 0, critical: 0, warn: 0, ok: 0 };
+  workers.forEach(function(a) {
+    var docs = [getDocStatus(a.dbs_expiry_date), getDocStatus(a.rtw_expiry_date), getDocStatus(a.manual_handling_cert)];
+    if (a.sector === 'security') docs.push(getDocStatus(a.sia_expiry_date));
+    var w = worstStatus(docs);
+    if (w === 'comp-expired')        counts.expired++;
+    else if (w === 'comp-critical')  counts.critical++;
+    else if (w === 'comp-warn')      counts.warn++;
+    else if (w === 'comp-ok')        counts.ok++;
+  });
+  var setEl = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+  setEl('comp-stat-expired',  counts.expired);
+  setEl('comp-stat-critical', counts.critical);
+  setEl('comp-stat-warn',     counts.warn);
+  setEl('comp-stat-ok',       counts.ok);
+
+  // Urgency filter (applied after stats are calculated)
+  if (urgency) {
+    workers = workers.filter(function(a) {
+      var docs = [getDocStatus(a.dbs_expiry_date), getDocStatus(a.rtw_expiry_date), getDocStatus(a.manual_handling_cert)];
+      if (a.sector === 'security') docs.push(getDocStatus(a.sia_expiry_date));
+      var w = worstStatus(docs);
+      if (urgency === 'expired')    return w === 'comp-expired';
+      if (urgency === 'critical')   return w === 'comp-critical';
+      if (urgency === 'warn')       return w === 'comp-warn';
+      if (urgency === 'ok')         return w === 'comp-ok';
+      if (urgency === 'incomplete') return w === 'comp-unknown';
+      return true;
+    });
+  }
+
+  if (!workers.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No workers found matching your criteria.</td></tr>';
+    return;
+  }
+
+  var rtwLabels = { british_passport: 'UK Passport', eu_settled: 'EU Settled', visa: 'Visa', brp: 'BRP', other: 'Other' };
+
+  tbody.innerHTML = workers.map(function(a) {
+    var dbsS = getDocStatus(a.dbs_expiry_date);
+    var siaS = getDocStatus(a.sia_expiry_date);
+    var rtwS = getDocStatus(a.rtw_expiry_date);
+    var mhS  = getDocStatus(a.manual_handling_cert);
+
+    var allDocs = [dbsS, rtwS, mhS];
+    if (a.sector === 'security') allDocs.push(siaS);
+    var worst = worstStatus(allDocs);
+    var rowCls = (worst === 'comp-expired') ? 'cmp-row-expired' : (worst === 'comp-critical') ? 'cmp-row-critical' : '';
+
+    var dbsCell = '<span class="comp-status ' + dbsS.cls + '">' + (a.dbs_level ? esc(a.dbs_level) + ' · ' : '') + dbsS.label + '</span>';
+    var siaCell = (a.sector === 'security') ? '<span class="comp-status ' + siaS.cls + '">' + siaS.label + '</span>' : '<span class="td-muted">N/A</span>';
+    var rtwCell = '<span class="comp-status ' + rtwS.cls + '">' + (a.rtw_doc_type ? (esc(rtwLabels[a.rtw_doc_type] || a.rtw_doc_type) + ' · ') : '') + rtwS.label + '</span>' + (a.rtw_verified ? ' <span style="color:var(--success);font-size:9px;" title="Verified">✓</span>' : '');
+    var mhCell  = '<span class="comp-status ' + mhS.cls + '">' + mhS.label + '</span>';
+
+    return '<tr class="' + rowCls + '" style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
+      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
+      '<td>' + dbsCell + '</td>' +
+      '<td>' + siaCell + '</td>' +
+      '<td>' + rtwCell + '</td>' +
+      '<td>' + mhCell  + '</td>' +
+      '<td><button class="btn-sm gd" data-id="' + a.id + '" data-action="view-app">Update</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function saveCompliance(id) {
+  var dbsLevel  = (document.getElementById('cm-dbs-level')  || { value: '' }).value;
+  var dbsCert   = (document.getElementById('cm-dbs-cert')   || { value: '' }).value;
+  var dbsExpiry = (document.getElementById('cm-dbs-expiry') || { value: '' }).value;
+  var siaNum    = (document.getElementById('cm-sia-number') || { value: '' }).value;
+  var siaExpiry = (document.getElementById('cm-sia-expiry') || { value: '' }).value;
+  var rtwType   = (document.getElementById('cm-rtw-type')   || { value: '' }).value;
+  var rtwExpiry = (document.getElementById('cm-rtw-expiry') || { value: '' }).value;
+  var rtwEl     = document.getElementById('cm-rtw-verified');
+  var rtwVerif  = !!(rtwEl && rtwEl.checked);
+  var mhExpiry  = (document.getElementById('cm-mh-expiry')  || { value: '' }).value;
+  var compNotes = (document.getElementById('cm-compliance-notes') || { value: '' }).value;
+
+  // Auto-calculate compliance_status
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var d30   = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+  var exps  = [dbsExpiry, siaExpiry, rtwExpiry, mhExpiry].filter(Boolean);
+  var compStatus = exps.length ? 'compliant' : 'incomplete';
+  for (var i = 0; i < exps.length; i++) {
+    var d = new Date(exps[i]);
+    if (d < today) { compStatus = 'expired'; break; }
+    if (d <= d30 && compStatus === 'compliant') compStatus = 'expiring';
+  }
+
+  var payload = {
+    dbs_level:            dbsLevel,
+    dbs_cert_number:      dbsCert,
+    dbs_expiry_date:      dbsExpiry,
+    sia_licence_number:   siaNum,
+    sia_expiry_date:      siaExpiry,
+    rtw_doc_type:         rtwType,
+    rtw_expiry_date:      rtwExpiry,
+    rtw_verified:         rtwVerif,
+    manual_handling_cert: mhExpiry,
+    compliance_notes:     compNotes,
+    compliance_status:    compStatus,
+  };
+
+  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify(payload) }).then(function(data) {
+    if (data && !data.error) {
+      // Update local cache so re-opening the modal shows fresh data
+      for (var j = 0; j < _apps.length; j++) {
+        if (_apps[j].id === id) {
+          _apps[j].dbs_level            = dbsLevel;
+          _apps[j].dbs_cert_number      = dbsCert;
+          _apps[j].dbs_expiry_date      = dbsExpiry;
+          _apps[j].sia_licence_number   = siaNum;
+          _apps[j].sia_expiry_date      = siaExpiry;
+          _apps[j].rtw_doc_type         = rtwType;
+          _apps[j].rtw_expiry_date      = rtwExpiry;
+          _apps[j].rtw_verified         = rtwVerif;
+          _apps[j].manual_handling_cert = mhExpiry;
+          _apps[j].compliance_notes     = compNotes;
+          _apps[j].compliance_status    = compStatus;
+          break;
+        }
+      }
+      showToast('Compliance records saved', 'ok');
+      var compTab = document.getElementById('tab-compliance');
+      if (compTab && compTab.classList.contains('active')) renderCompliance();
+      updateStats();
+    } else {
+      showToast('Failed to save compliance data', 'er');
+    }
+  });
+}
+
 // ── USERS ─────────────────────────────────────────────────────────
 var _users = [];
 
@@ -1229,6 +1506,21 @@ function updateStats() {
   if (tlShortEl) tlShortEl.textContent = tlShortlist;
   var upd = document.getElementById('timeline-updated');
   if (upd) upd.textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+  // Compliance sidebar badge — expired + expiring ≤30 days among placed workers
+  var compAlert = 0;
+  _apps.filter(function(a) { return a.status === 'hired'; }).forEach(function(a) {
+    var dates = [a.dbs_expiry_date, a.sia_expiry_date, a.rtw_expiry_date, a.manual_handling_cert].filter(Boolean);
+    for (var di = 0; di < dates.length; di++) {
+      var dv = daysUntil(dates[di]);
+      if (dv !== null && dv <= 30) { compAlert++; break; }
+    }
+  });
+  var compBadgeEl = document.getElementById('compliance-badge');
+  if (compBadgeEl) {
+    if (compAlert > 0) { compBadgeEl.textContent = compAlert; compBadgeEl.classList.add('show'); }
+    else compBadgeEl.classList.remove('show');
+  }
 }
 
 // ── DASHBOARD ─────────────────────────────────────────────────────
@@ -1257,7 +1549,7 @@ function filterContacts() {
     if (!empty) {
       var tr = document.createElement('tr');
       tr.className = 'empty-row no-results-row';
-      tr.innerHTML = '<td colspan="7" style="text-align:center;color:var(--muted);padding:24px;">No results for "' + q + '"</td>';
+      tr.innerHTML = '<td colspan="7" style="text-align:center;color:var(--muted);padding:24px;">No results for &ldquo;' + esc(q) + '&rdquo;</td>';
       document.getElementById('contacts-tbody').appendChild(tr);
     }
   } else if (empty) {
@@ -1488,6 +1780,10 @@ window.filterContacts = filterContacts;
 window.filterApps = filterApps;
 window.renderTalentPool = renderTalentPool;
 window.renderPlanner = renderPlanner;
+window.renderCompliance = renderCompliance;
+window.saveCompliance = saveCompliance;
+window.daysUntil = daysUntil;
+window.getDocStatus = getDocStatus;
 window.loadSecurityLogs = loadSecurityLogs;
 window.logout = logout;
 window.apiClearAll = apiClearAll;

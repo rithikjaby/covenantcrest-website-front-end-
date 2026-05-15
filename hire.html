@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hire Staff — Request Care, Security &amp; Warehouse Staff | Covenant Crest Group Ltd</title>
+  <title>Hire Care, Security &amp; Warehouse Staff | Covenant Crest Group</title>
   <meta name="description"
-    content="Hire vetted healthcare, security, warehouse and construction staff across the UK. Fast, reliable, and fully compliant recruitment solutions.">
+    content="Hire vetted care, security, warehouse and construction staff in Telford, Shropshire &amp; across the UK. CQC-compliant. 2-hour response guarantee.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://covenantcrest.co.uk/hire.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -17,11 +17,18 @@
   <meta property="og:description"
     content="Hire vetted healthcare, security, warehouse and construction staff across the UK. Fast, reliable, and fully compliant recruitment solutions.">
   <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Covenant Crest">
-  <script src="js/common.js"></script>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hire Care, Security &amp; Warehouse Staff | Covenant Crest">
+  <meta name="twitter:description" content="Vetted care, security, warehouse and construction workers supplied across Telford, Shropshire &amp; UK. Request staff in 2 hours. CQC-compliant.">
+  <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
+  <script src="api.js" defer></script>
+  <script src="js/common.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -69,7 +76,7 @@
       background: rgba(13, 27, 42, .97);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(201, 168, 76, .12);
-      height: 68px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -984,6 +991,44 @@
       gap: 20px;
     }
 
+    /* SECTOR EXPERTISE GRID */
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .srv-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 16px rgba(13,27,42,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .srv-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(13,27,42,0.10);
+    }
+
+    .srv-icon {
+      margin-bottom: 14px;
+    }
+
+    .srv-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--navy);
+    }
+
+    .srv-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
 
 
 
@@ -1338,6 +1383,10 @@
         grid-template-columns: 1fr;
       }
 
+      .srv-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .apply-wrap {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -1427,6 +1476,29 @@
       .ft-main {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+    }
+
+    @media(max-width:600px) {
+      .srv-grid {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 -20px;
+        width: calc(100% + 40px);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .srv-grid::-webkit-scrollbar { display: none; }
+      .srv-card {
+        flex: 0 0 78vw;
+        max-width: 300px;
+        scroll-snap-align: start;
       }
     }
 
@@ -1570,7 +1642,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1615,10 +1687,10 @@
     <div class="hero-glow"></div>
     <div class="ph-c">
       <div class="s-tag">For Employers</div>
-      <h1 class="ph-h1">Hire Staff <em>Fast</em></h1>
-      <p class="ph-desc">Fully vetted, compliant professionals across healthcare, security, warehouse and construction. We provide a 2-hour response guarantee and can often have staff on site within 24-48 hours.</p>
+      <h1 class="ph-h1">Staff On Site in 24 Hours. <em>Your Compliance Record Intact.</em></h1>
+      <p class="ph-desc">RTW verified, DBS checked, sector-certified. We run every compliance check so your care manager, security contract, or warehouse operation never faces an unpleasant inspection finding. 2-hour response. No excuses.</p>
       <div class="hero-btns">
-        <a href="#request-staff-b2b" class="btn-gold">Request Staff</a>
+        <a href="#request-staff-b2b" class="btn-gold">Request Staff Now</a>
         <a href="tel:07346809846" class="btn-ghost">Call 07346 809846</a>
       </div>
     </div>
@@ -1678,30 +1750,30 @@
     <div class="inner" style="padding-top:80px;">
       <div style="text-align:center;margin-bottom:60px;">
         <div class="s-tag">Employers</div>
-        <h2 class="s-title w">Flexible <em>Staffing Solutions</em></h2>
-        <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.8;max-width:640px;margin:0 auto;">We supply fully vetted, reliable professionals backed by rigorous compliance checks and sector-specific expertise. Whether you need ad-hoc cover or long-term staffing partners, we deliver on promise.</p>
+        <h2 class="s-title w">The Standard Your <em>Compliance Team Demands</em></h2>
+        <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.8;max-width:640px;margin:0 auto;">Every worker passes Right to Work verification, enhanced DBS (where applicable), sector licence checks and site induction before their first shift. Your compliance burden transfers to us &mdash; permanently.</p>
       </div>
 
       <div class="hire-grid rv">
         <div class="hire-card">
           <div class="hire-icon">&#x1F4CB;</div>
-          <div class="hire-title">Right to Work Verified</div>
-          <p class="hire-desc" style="margin-top:8px;">Mandatory RTW checks on every candidate &mdash; share codes verified, document originals confirmed. Protects you from illegal working civil penalties.</p>
+          <div class="hire-title">Right to Work — No Exceptions</div>
+          <p class="hire-desc" style="margin-top:8px;">Share codes verified, document originals confirmed before every introduction. You will never receive a candidate whose right to work hasn&rsquo;t been independently validated by us.</p>
         </div>
         <div class="hire-card">
           <div class="hire-icon">&#x26A1;</div>
-          <div class="hire-title">Emergency Cover</div>
-          <p class="hire-desc" style="margin-top:8px;">Last-minute staffing emergencies. We maintain a pool of available, compliant workers ready to be placed at short notice, with a 2-hour response guarantee.</p>
+          <div class="hire-title">Emergency Cover. 2-Hour Guarantee.</div>
+          <p class="hire-desc" style="margin-top:8px;">We maintain a warm pool of available, fully-compliant workers. Call us at midnight before a 7am shift &mdash; we&rsquo;ll have someone there. That&rsquo;s the guarantee.</p>
         </div>
         <div class="hire-card">
           <div class="hire-icon">&#x1F91D;</div>
-          <div class="hire-title">Flexible Contracts</div>
-          <p class="hire-desc" style="margin-top:8px;">Temporary ad-hoc cover, temp-to-permanent, or ongoing framework agreements with a dedicated single point of contact for your account.</p>
+          <div class="hire-title">One Number. One Person. Always.</div>
+          <p class="hire-desc" style="margin-top:8px;">You get a named account manager who knows your site, your shift patterns, and your compliance requirements. Not a call centre. Not a ticket system. A person.</p>
         </div>
         <div class="hire-card">
           <div class="hire-icon">&#x1F4B7;</div>
-          <div class="hire-title">Transparent Pricing</div>
-          <p class="hire-desc" style="margin-top:8px;">Clear, agreed charge rates with no hidden fees. Invoiced weekly. Volume discounts and preferred supplier rates available for regular requirements.</p>
+          <div class="hire-title">No-Surprise Invoicing</div>
+          <p class="hire-desc" style="margin-top:8px;">Agreed charge rates confirmed in writing before placement. Invoiced weekly. No hidden margin, no admin surcharges. Volume discounts available from shift three onwards.</p>
         </div>
       </div>
     </div>
@@ -1745,24 +1817,24 @@
     <div class="inner">
       <div style="text-align:center;margin-bottom:48px;">
         <div class="s-tag" style="color:var(--gold);">Compliance Standards</div>
-        <h2 class="s-title w">Why Choose <em>Covenant Crest?</em></h2>
-        <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);max-width:600px;">We go beyond standard recruitment by providing a full compliance-as-a-service model for our clients.</p>
+        <h2 class="s-title w">Our Pledge to <em>Every Client</em></h2>
+        <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);max-width:600px;">These aren&rsquo;t aspirations. They&rsquo;re commitments written into every engagement we take on.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
         <div class="badge-card rv" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);padding:32px;border-radius:12px;">
           <div style="font-size:32px;margin-bottom:16px;">🛡️</div>
-          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">Zero-Risk Compliance</div>
-          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">We assume the burden of vetting. Every staff member is RTW verified, DBS checked, and qualification-confirmed before arrival.</p>
+          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">We Take the Compliance Hit. You Take the Credit.</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">Every staff member RTW verified, DBS checked, and qualification-confirmed before they arrive. If an auditor asks, we have the paperwork.</p>
         </div>
         <div class="badge-card rv d1" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);padding:32px;border-radius:12px;">
           <div style="font-size:32px;margin-bottom:16px;">⚡</div>
-          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">Rapid Deployment</div>
-          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">Our talent pool is 'warm'. We maintain active relationships with compliant workers ready for immediate start.</p>
+          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">Your Shift Covered. Usually Before Lunch.</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">Our candidate pool is active and warm. We don&rsquo;t just hold CVs &mdash; we maintain relationships with workers who are ready, available, and already cleared.</p>
         </div>
         <div class="badge-card rv d2" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);padding:32px;border-radius:12px;">
           <div style="font-size:32px;margin-bottom:16px;">🤝</div>
-          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">Dedicated Support</div>
-          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">You'll have a single point of contact who knows your site, your shift patterns, and your specific requirements.</p>
+          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;">One Number. One Person. Any Hour.</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;">Your named account manager knows your site, your standards, and your shift patterns. Call at any hour &mdash; you speak to a person, not a process.</p>
         </div>
       </div>
     </div>
@@ -1774,31 +1846,33 @@
       <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start;" class="rsb-grid">
         <div>
           <div class="s-tag">For Employers</div>
-          <h2 class="s-title">Request <em>Staff</em></h2>
-          <p class="s-lead">Fill in the form and a dedicated consultant will contact you within 2 hours to discuss your
-            staffing requirements.</p>
+          <h2 class="s-title">Tell Us What You Need. <em>We&rsquo;ll Handle the Rest.</em></h2>
+          <p class="s-lead">Complete the form and your dedicated consultant will call within 2 hours &mdash; with candidates already in mind.</p>
           <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px;">
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Dedicated account manager from
-              first contact</div>
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Named account manager assigned from first contact &mdash; no handoffs</div>
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>All candidates pre-vetted &amp;
-              compliance-ready</div>
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Every candidate RTW verified, DBS checked and sector-qualified before introduction</div>
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Staff on site within 24&ndash;48
-              hours where possible</div>
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Staff on site within 24 hours on standard requests; same-day on emergencies</div>
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Transparent charge rates, no
-              hidden fees</div>
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>Charge rates agreed in writing before placement &mdash; no hidden fees, ever</div>
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>24/7 emergency cover available
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>24/7 emergency cover &mdash; call us at midnight before a 7am shift</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>CQC, SIA and GLAA-compliant supply as standard across all sectors</div>
+          </div>
+          <div style="margin-top:20px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 18px;display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);">
+              <span style="font-size:14px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;">JK</span>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>GLAA licence application in
-              progress &mdash; fully compliant labour supply</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;">Jaby Kamidi, Director</div>
+              <p style="font-size:13px;color:var(--muted);line-height:1.7;font-style:italic;margin:0;">&ldquo;When you request staff, I review the requirement personally. Every placement carries my name.&rdquo;</p>
+            </div>
           </div>
           <div
-            style="margin-top:28px;padding:16px 18px;background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;">
+            style="margin-top:20px;padding:16px 18px;background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;">
             <div
               style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">
               Prefer to call?</div>
@@ -1813,8 +1887,11 @@
             <strong style="color:rgba(255,255,255,.45);">not</strong> a candidate application form.</div>
           <div class="ok-banner" id="ok-req-b2b">&#x2705; Request received! A consultant will contact you within 2
             hours.</div>
-          <form name="recruitment-request-staff" method="POST" data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b">
+          <form name="recruitment-request-staff" method="POST" data-netlify="true" data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b">
             <input type="hidden" name="form-name" value="recruitment-request-staff">
+            <input type="hidden" name="crm_lead_source" value="Website - Staff Request Form">
+            <input type="hidden" name="crm_module" value="Leads">
+            <input type="hidden" name="crm_type" value="B2B_Employer">
             <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
             <div class="dk-g2">
               <div class="dk-fg"><label class="dk-label">Company Name *</label><input class="dk-input"

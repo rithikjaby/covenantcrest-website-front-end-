@@ -23,8 +23,16 @@
   <!-- Recruitment -->
   <url>
     <loc>https://covenantcrest.co.uk/recruitment.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Hire Staff -->
+  <url>
+    <loc>https://covenantcrest.co.uk/hire.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
@@ -33,7 +41,7 @@
     <loc>https://covenantcrest.co.uk/haulage.html</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 
   <!-- Import & Trade -->
@@ -41,7 +49,7 @@
     <loc>https://covenantcrest.co.uk/trade.html</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 
   <!-- Terms & Conditions -->

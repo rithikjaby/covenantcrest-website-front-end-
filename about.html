@@ -17,12 +17,18 @@
   <meta property="og:description"
     content="A multi-division UK company built on promise. Specialist recruitment, UK road haulage, and global food import & distribution.">
   <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Covenant Crest">
-  <script src="/api.js"></script>
-  <script src="js/common.js"></script>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Covenant Crest Group Ltd | Telford, UK">
+  <meta name="twitter:description" content="A multi-division UK company built on promise. Specialist recruitment, UK road haulage and global food import. Based in Telford, Shropshire.">
+  <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
+  <script src="/api.js" defer></script>
+  <script src="js/common.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -601,7 +607,9 @@
         padding: 52px 24px;
       }
 
-      .values-grid,
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .div-grid {
         grid-template-columns: 1fr;
       }
@@ -621,6 +629,29 @@
         padding: 14px 24px;
         flex-direction: column;
         text-align: center;
+      }
+    }
+
+    @media(max-width:600px) {
+      .values-grid {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        padding-bottom: 20px;
+        padding-left: 24px;
+        padding-right: 24px;
+        margin: 0 -24px;
+        width: calc(100% + 48px);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .values-grid::-webkit-scrollbar { display: none; }
+      .v-card {
+        flex: 0 0 78vw;
+        max-width: 280px;
+        scroll-snap-align: start;
       }
     }
 
@@ -648,6 +679,16 @@
         gap: 5px;
       }
     }
+
+    /* COOKIE BANNER */
+    #cc-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(201,168,76,.15);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9000;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s;}
+    #cc-bar.show{transform:translateY(0);}
+    #cc-bar p{font-size:12px;color:rgba(255,255,255,.55);flex:1;min-width:180px;}
+    #cc-bar a{color:var(--gold);}
+    .cc-btns{display:flex;gap:10px;flex-shrink:0;}
+    .cc-ok{background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:2px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;}
+    .cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;cursor:pointer;}
+    #wa-btn:hover{transform:scale(1.1)!important;}
   </style>
 </head>
 
@@ -655,7 +696,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -698,9 +739,9 @@
     <div class="ph-c">
       <div class="s-tag">Who We Are</div>
       <h1 class="ph-h1">Built on <em>Promise.</em><br>Driven by <em>Results.</em></h1>
-      <p class="ph-lead">Covenant Crest Group Ltd is a multi-division UK company providing specialist recruitment,
-        professional road haulage, and global food import &amp; distribution services from our base in Telford,
-        Shropshire.</p>
+      <p class="ph-lead">Three divisions. One standard: no shortcuts, no excuses, no hidden costs. From Telford we place
+        candidates, move freight, and source commodities — with the compliance rigour your auditors require and the
+        personal accountability that no call centre can offer.</p>
     </div>
   </section>
 
@@ -708,27 +749,28 @@
     <div class="inner">
       <div class="gold-line"></div>
       <h2>Our <em>Story</em></h2>
-      <p>Covenant Crest Group Ltd (Company No. 16528951) was founded with one clear mission: to deliver genuine value
-        across three sectors that are fundamental to the UK economy — people, logistics, and supply chains.</p>
-      <p>We believe that the best businesses are built not on transactions, but on relationships grounded in honesty,
-        reliability, and a commitment to doing things properly. That is what &ldquo;built on promise&rdquo; means to us
-        — not just a tagline, but a standard we hold ourselves to every day.</p>
-      <p>Based in Telford, Shropshire, we serve businesses and candidates across the UK, and partner with suppliers and
-        buyers across international markets, with a particular focus on trade with India.</p>
+      <p>Covenant Crest Group Ltd (Company No. 16528951) was founded after one observation repeated across every
+        sector we work in: agencies over-promise, under-deliver, and disappear when things go wrong. We were built
+        to be the exception.</p>
+      <p>&ldquo;Built on promise&rdquo; is not a slogan. It is the operating principle behind every placement we make,
+        every load we move, and every trade relationship we broker. When Covenant Crest makes a commitment, the
+        founder's name is behind it — not a client services team reading from a script.</p>
+      <p>Headquartered in Telford, Shropshire, we serve clients and candidates across the UK, and work with importers,
+        exporters and buyers in international markets — with particular depth in UK–India trade routes.</p>
     </div>
   </section>
 
   <section class="sec sec-cr">
     <div class="inner">
       <div class="gold-line"></div>
-      <h2>Our <em>Values</em></h2>
-      <p>Everything we do flows from a small set of principles we refuse to compromise on.</p>
+      <h2>The Six Principles <em>We Don&rsquo;t Negotiate On</em></h2>
+      <p>We put our values in writing and hold ourselves publicly accountable to them. Judge us against these.</p>
       <div class="values-grid">
         <div class="v-card">
           <div class="v-num">01</div>
           <div class="v-title">Accountability</div>
-          <div class="v-desc">We own our commitments. If we say we will do something, we do it — and if something goes
-            wrong, we fix it without excuses.</div>
+          <div class="v-desc">We own every outcome. When something goes wrong — and in fast-moving sectors it sometimes
+            does — we fix it without excuses and without billing you for the privilege.</div>
         </div>
         <div class="v-card">
           <div class="v-num">02</div>
@@ -738,27 +780,27 @@
         </div>
         <div class="v-card">
           <div class="v-num">03</div>
-          <div class="v-title">Speed</div>
-          <div class="v-desc">In recruitment and logistics, speed matters. We move quickly — without cutting corners on
-            compliance, quality, or care.</div>
+          <div class="v-title">Speed Without Shortcuts</div>
+          <div class="v-desc">2-hour response guarantees. Same-day deployments. Quote turnarounds before lunch. Speed
+            is non-negotiable — but so is the compliance check that precedes every action.</div>
         </div>
         <div class="v-card">
           <div class="v-num">04</div>
-          <div class="v-title">Compliance First</div>
-          <div class="v-desc">Every candidate is right-to-work verified. Every shipment is properly documented. Every
-            contract is fair. We never take shortcuts.</div>
+          <div class="v-title">Compliance Before Revenue</div>
+          <div class="v-desc">Every candidate RTW and DBS-verified. Every shipment documented. Every contract
+            auditable. We have turned work away rather than place an unvetted candidate. We always will.</div>
         </div>
         <div class="v-card">
           <div class="v-num">05</div>
-          <div class="v-title">Relationships</div>
-          <div class="v-desc">We are a small, personal team. Clients and candidates speak to real people, not call
-            centres. We remember who you are and what you need.</div>
+          <div class="v-title">Relationships Over Transactions</div>
+          <div class="v-desc">You speak to the same person every time. We know your site, your compliance requirements,
+            and your preferred shift patterns — because we wrote them down the first time you told us.</div>
         </div>
         <div class="v-card">
           <div class="v-num">06</div>
-          <div class="v-title">Growth</div>
-          <div class="v-desc">We are ambitious. We grow through doing good work, earning trust, and continuously
-            improving — not through marketing promises.</div>
+          <div class="v-title">Earned Growth</div>
+          <div class="v-desc">We grow by doing the work, not by winning the pitch. Every new client has come through a
+            referral or a reputation — not a cold outreach campaign or a discounted rate.</div>
         </div>
       </div>
     </div>
@@ -768,7 +810,7 @@
     <div class="inner-wide">
       <div class="gold-line"></div>
       <h2 class="w">Our Three <em>Divisions</em></h2>
-      <p class="w">Three distinct services. One accountable team.</p>
+      <p class="w">Each division operates to the same standard. All three answer to the same director.</p>
       <div class="div-grid">
         <div class="div-card">
           <div class="div-icon">&#x1F465;</div>
@@ -801,15 +843,14 @@
   <section class="sec sec-wh">
     <div class="inner">
       <div class="gold-line"></div>
-      <h2>Why Choose <em>Covenant Crest?</em></h2>
-      <p>We are a small, focused, founder-led business. That means:</p>
+      <h2>What You Actually Get <em>When You Work With Us</em></h2>
+      <p>No intermediaries. No automated queues. No surprises on invoicing. These aren&rsquo;t aspirations — they&rsquo;re the operating model:</p>
       <div class="promise">
-        <div class="pl-i">You always deal with a decision-maker — not a middleman or an automated system</div>
-        <div class="pl-i">Responses are fast — enquiries are typically acknowledged within hours, not days</div>
-        <div class="pl-i">We are honest about what we can and cannot do — we will not over-promise</div>
-        <div class="pl-i">Every placement, every shipment, every trade relationship matters to us personally</div>
-        <div class="pl-i">We are fully compliant and properly registered: Company No. 16528951, Registered in England
-          &amp; Wales</div>
+        <div class="pl-i">Every client speaks directly to a decision-maker — the same person who built this business</div>
+        <div class="pl-i">Enquiries acknowledged within hours. Shifts covered the same day. Freight quoted before lunch.</div>
+        <div class="pl-i">If we cannot deliver something, we say so before you sign — not after the shift is missed</div>
+        <div class="pl-i">Your account is not managed by a junior. It is owned by the director, personally.</div>
+        <div class="pl-i">Fully compliant and Companies House registered (No. 16528951) — accounts filed and auditable</div>
       </div>
     </div>
   </section>
@@ -817,7 +858,7 @@
   <section class="sec sec-wh" id="cases" style="padding: 60px 48px;">
     <div class="inner">
       <div style="text-align:center;margin-bottom:48px;">
-        <div class="s-tag">Proven Results</div>
+        <div class="s-tag" style="text-align:center;">Proven Results</div>
         <h2 style="text-align:center;">Success <em>Stories</em></h2>
         <p style="text-align:center;max-width:600px;margin:0 auto;">Real examples of how we’ve helped our clients solve critical staffing and logistics challenges.</p>
       </div>
@@ -846,18 +887,20 @@
     <div class="inner">
       <div class="gold-line"></div>
       <h2>Meet the <em>Founder</em></h2>
-      <div style="display:flex; gap: 40px; align-items: center; margin-top: 32px; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 300px;">
-          <h3>Jaby Kamidi</h3>
-          <div
-            style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:40px;box-shadow:0 8px 32px rgba(13,27,42,0.07);display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;margin-top:32px;">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);">
+          <span style="font-size:22px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;">JK</span>
+        </div>
+        <div style="flex: 1; min-width: 260px;">
+          <h3 style="margin-bottom:4px;">Jaby Kamidi</h3>
+          <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">
             Founder &amp; Director</div>
-          <p>With a background spanning both operations and compliance, I founded Covenant Crest Group to address a
-            simple but persistent problem: the gap between what recruitment and logistics agencies promise, and what
-            they actually deliver.</p>
-          <p>My philosophy is straightforward. We don't cut corners on compliance, we treat our staff with respect, and
-            we never make a commitment to a client that we cannot fulfill. When you work with Covenant Crest, you have
-            my personal assurance of quality, transparency, and relentless dedication to your business.</p>
+          <p>I built Covenant Crest because I watched too many businesses get let down by agencies that win the pitch
+            and vanish at the first sign of difficulty. The compliance failures, the last-minute cancellations, the
+            invoices with charges nobody agreed to — I saw all of it, and I built the alternative.</p>
+          <p>My standard is simple: if I wouldn&rsquo;t be comfortable with my name on it, we don&rsquo;t do it. Every
+            placement I authorise, every load we move, every trade deal we broker carries that same weight. When you
+            work with Covenant Crest, you have my direct number — and my personal guarantee.</p>
         </div>
       </div>
     </div>
@@ -895,8 +938,11 @@
           <div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:4px;">Send an Enquiry</div>
           <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:22px;">We respond the same day.</div>
           <div class="ok-banner" id="ok-about" style="background:rgba(29,158,117,.12);border:1px solid #1D9E75;border-radius:8px;padding:13px 16px;color:#1D9E75;font-size:13px;font-weight:500;margin-bottom:16px;display:none;">&#x2705; Message received! We’ll be in touch today.</div>
-          <form name="about_enquiry" method="POST" data-form-name="about_enquiry" data-banner-id="ok-about">
+          <form name="about_enquiry" method="POST" data-netlify="true" data-form-name="about_enquiry" data-banner-id="ok-about">
             <input type="hidden" name="form-name" value="about_enquiry">
+            <input type="hidden" name="crm_lead_source" value="Website - About Page Enquiry">
+            <input type="hidden" name="crm_module" value="Leads">
+            <input type="hidden" name="crm_type" value="General_Enquiry">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:13px;">
               <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;">Your Name *</label><input style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:4px;font-family:inherit;font-size:13px;color:#fff;outline:none;" name="name" placeholder="Full Name" required></div>
               <div><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;">Phone</label><input style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:4px;font-family:inherit;font-size:13px;color:#fff;outline:none;" name="phone" placeholder="07xxx"></div>
@@ -973,6 +1019,25 @@
       <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
     </div>
   </footer>
+
+
+  <div id="cc-bar">
+    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
+    <div class="cc-btns">
+      <button class="cc-no">Decline</button>
+      <button class="cc-ok">Accept All</button>
+    </div>
+  </div>
+
+  <a href="https://wa.me/447346809846?text=Hello%20Covenant%20Crest%2C%20I%27d%20like%20to%20enquire%20about%20your%20services."
+    target="_blank" rel="noopener noreferrer" id="wa-btn"
+    style="position:fixed;bottom:24px;right:24px;z-index:8000;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .2s;text-decoration:none;"
+    aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.663 4.614 1.816 6.516L4 29l7.703-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z" fill="#fff" />
+      <path d="M21.5 18.8c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.97.12.6-.089 1.77-.756 2.02-1.485.25-.729.25-1.354.17-1.485-.07-.13-.27-.208-.57-.364z" fill="#25D366" />
+    </svg>
+  </a>
 
 </body>
 

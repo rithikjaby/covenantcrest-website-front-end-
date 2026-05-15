@@ -17,13 +17,19 @@
   <meta property="og:description"
     content="Professional UK haulage and freight. FTL, LTL, temperature-controlled. Quote within 2 hours.">
   <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Covenant Crest">
-  <script src="/api.js"></script>
-  <script src="js/common.js"></script>
-  <script src="js/haulage.js"></script>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Haulage &amp; Road Freight | Covenant Crest Group">
+  <meta name="twitter:description" content="Professional UK haulage and road freight. FTL, LTL, temperature-controlled transport. Quote within 2 hours. Covenant Crest Group Ltd.">
+  <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
+  <script src="/api.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/haulage.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -572,7 +578,11 @@
 
     .stat-card {
       text-align: center;
-      padding: 20px;
+      padding: 24px 20px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(13,27,42,0.05);
     }
 
     .stat-n {
@@ -1150,16 +1160,62 @@
       }
 
       .process-bar {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 16px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .process-bar::-webkit-scrollbar { display: none; }
+
+      .pb-i {
+        flex: 0 0 65vw;
+        scroll-snap-align: start;
+        border-right: none !important;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px 16px;
       }
 
       .stats-row {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 16px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .stats-row::-webkit-scrollbar { display: none; }
+
+      .stat-card {
+        flex: 0 0 48vw;
+        scroll-snap-align: start;
       }
 
       .ft-main {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+    }
+
+    .form-2col {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    @media(max-width:860px) {
+      .form-2col {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
     }
 
@@ -1173,7 +1229,7 @@
 
   <nav id="mainNav">
     <a href="/index.html" class="nav-logo">
-      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
           stroke-width="0.75" stroke-dasharray="2 2" />
@@ -1215,11 +1271,11 @@
     <div class="hero-glow"></div>
     <div class="ph-c">
       <div class="s-tag">Covenant Crest Haulage</div>
-      <h1 class="ph-h1">Professional <em>Haulage &amp; Road Freight</em></h1>
-      <p class="ph-desc">Nationwide freight solutions for businesses of all sizes. FTL, LTL, temperature-controlled, and
-        specialist haulage — reliable, tracked, on time, every time.</p>
+      <h1 class="ph-h1">Your Load <em>Quoted in 2 Hours.</em><br>Delivered <em>on Time.</em></h1>
+      <p class="ph-desc">FTL, LTL, temperature-controlled and specialist road freight across the UK. Digital proof of
+        delivery on every consignment. No sub-contractors managing your cargo without your knowledge.</p>
       <div class="hero-btns">
-        <a href="#quote" class="btn-gold">Request a Quote</a>
+        <a href="#quote" class="btn-gold">Get a Quote in 2 Hours</a>
         <a href="/index.html" class="btn-ghost">&#8592; Back to Home</a>
       </div>
     </div>
@@ -1237,22 +1293,22 @@
     <div class="pb-i">
       <div class="pb-num">02</div>
       <div>
-        <div class="pb-title">We Quote Fast</div>
-        <div class="pb-sub">Response within 2 hours</div>
+        <div class="pb-title">Quoted in 2 Hours</div>
+        <div class="pb-sub">Confirmed written quote, same day</div>
       </div>
     </div>
     <div class="pb-i">
       <div class="pb-num">03</div>
       <div>
-        <div class="pb-title">Vehicle Assigned</div>
-        <div class="pb-sub">Appropriate vehicle dispatched</div>
+        <div class="pb-title">Vehicle Confirmed</div>
+        <div class="pb-sub">Right vehicle, right driver, named</div>
       </div>
     </div>
     <div class="pb-i">
       <div class="pb-num">04</div>
       <div>
-        <div class="pb-title">Tracked Delivery</div>
-        <div class="pb-sub">Real-time status updates</div>
+        <div class="pb-title">Delivered &amp; Signed</div>
+        <div class="pb-sub">GPS tracking + digital POD sent</div>
       </div>
     </div>
   </div>
@@ -1261,9 +1317,9 @@
   <section class="sec sec-cr">
     <div class="inner">
       <div class="s-tag rv">What We Offer</div>
-      <h2 class="s-title rv">Our <em>Haulage Services</em></h2>
-      <p class="s-lead rv">From single pallets to full artic loads — professional road freight for businesses across the
-        UK.</p>
+      <h2 class="s-title rv">Every Load Type. <em>One Reliable Partner.</em></h2>
+      <p class="s-lead rv">From a single pallet to a full artic — quoted in 2 hours, tracked in real time, delivered
+        with a digital signature.</p>
       <div class="haul-2col">
         <div class="haul-card rv">
           <div class="haul-card-hdr">
@@ -1411,6 +1467,7 @@
                 class="qr-val total" id="er-total">&mdash;</span></div>
             <div class="qr-note">&#x26A0;&#xFE0F; Guide price only. VAT not included. Submit below for a confirmed
               written quote.</div>
+            <button type="button" onclick="prefillAndGoToQuote()" style="width:100%;margin-top:14px;background:var(--gold);color:var(--navy);border:none;border-radius:4px;padding:13px 20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;">Get a Confirmed Written Quote &#8594;</button>
           </div>
           <button class="btn-calc">Calculate Guide Price</button>
         </div>
@@ -1420,7 +1477,7 @@
 
   <!-- QUOTE FORM (dark) -->
   <section class="sec sec-dk" id="quote">
-    <div class="inner" style="display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start;">
+    <div class="form-2col">
       <div>
         <div class="s-tag">Confirmed Quotation</div>
         <h2 class="s-title w" style="margin-bottom:14px;">Request a <em>Freight Quote</em></h2>
@@ -1440,8 +1497,11 @@
         <div class="dfc-sub">All fields marked * are required.</div>
         <div class="ok-banner" id="ok-haulage">&#x2705; Quote request received! We&rsquo;ll respond within 2 business
           hours.</div>
-        <form name="haulage-quote" method="POST" data-form-name="haulage-quote" data-banner-id="ok-haulage">
+        <form name="haulage-quote" method="POST" data-netlify="true" data-form-name="haulage-quote" data-banner-id="ok-haulage">
           <input type="hidden" name="form-name" value="haulage-quote">
+          <input type="hidden" name="crm_lead_source" value="Website - Freight Quote Request">
+          <input type="hidden" name="crm_module" value="Leads">
+          <input type="hidden" name="crm_type" value="B2B_Haulage">
           <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
           <div class="dk-g2">
             <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name"

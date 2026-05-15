@@ -69,8 +69,11 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 /* API offline notice */
 .offline-notice{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.4);border-radius:6px;padding:10px 14px;font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:18px;display:none;}
 .offline-notice.show{display:block;}
+@media(max-width:480px){
+  .login-card{padding:28px 24px;}
+}
 </style>
-<script src="/js/login.js"></script>
+<script src="/js/login.js" defer></script>
 </head>
 <body>
 
@@ -94,7 +97,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
     ⚠ The API server appears to be offline. If this is the first login after a period of inactivity, <strong>Render.com's free tier takes ~1 minute to wake up</strong>. Please wait 60 seconds and try again.
   </div>
 
-  <div class="err-banner" id="errBanner"></div>
+  <div class="err-banner" id="errBanner" role="alert"></div>
 
   <form id="loginForm" autocomplete="off" novalidate>
     <div class="fg">

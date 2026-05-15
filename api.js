@@ -37,7 +37,27 @@
     return sessionStorage.getItem('cc_jwt') || '';
   }
 
+  function isTokenExpired() {
+    var token = getToken();
+    if (!token) return true;
+    try {
+      var payload = JSON.parse(atob(token.split('.')[1]));
+      return Date.now() >= payload.exp * 1000;
+    } catch (e) {
+      return true;
+    }
+  }
+
   function authHeaders() {
+    if (isTokenExpired()) {
+      sessionStorage.removeItem('cc_jwt');
+      sessionStorage.removeItem('cc_role');
+      sessionStorage.removeItem('cc_email');
+      if (window.location.pathname.includes('admin')) {
+        window.location.href = '/login.html';
+      }
+      return {};
+    }
     var token = getToken();
     return token ? { 'Authorization': 'Bearer ' + token } : {};
   }
@@ -230,7 +250,13 @@
        * Returns: { url, publicId }
        */
       file: function (fileOrBase64, folder) {
+        var MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+
         var doUpload = function (b64) {
+          // base64 is ~33% larger than binary; reject if decoded size exceeds limit
+          if (b64.length * 0.75 > MAX_BYTES) {
+            return Promise.reject(new Error('File must be smaller than 5 MB.'));
+          }
           return unwrap(post('/upload', {
             base64  : b64,
             folder  : folder || 'covenantcrest/general',
@@ -238,12 +264,15 @@
         };
 
         if (typeof fileOrBase64 === 'string') {
-          // Already base64
           var raw = fileOrBase64.includes(',') ? fileOrBase64.split(',')[1] : fileOrBase64;
           return doUpload(raw);
         }
 
-        // File object — read as base64 first
+        // File object — check size before reading
+        if (fileOrBase64.size > MAX_BYTES) {
+          return Promise.reject(new Error('File must be smaller than 5 MB.'));
+        }
+
         return new Promise(function (resolve, reject) {
           var reader = new FileReader();
           reader.onload = function (e) {

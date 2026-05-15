@@ -9,10 +9,17 @@
 <meta name="robots" content="index, follow">
 <meta property="og:site_name" content="Covenant Crest">
 <meta property="og:title" content="Job Details | Covenant Crest">
+<meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Job Details | Covenant Crest">
+<meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;--font-head:'Playfair Display',serif;--font-body:'Plus Jakarta Sans',sans-serif;}
@@ -58,13 +65,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .sjh-btn:hover{background:var(--gold2);transform:translateY(-1px);}
 
 /* PAGE HEADER */
-.page-header{background:linear-gradient(rgba(13,27,42,0.92), rgba(13,27,42,0.96)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80'); background-size:cover; background-position:center; background-attachment:fixed; padding:120px 48px 60px; position:relative;}
+.page-header{background:linear-gradient(rgba(13,27,42,0.92), rgba(13,27,42,0.96)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80'); background-size:cover; background-position:center; background-attachment:fixed; padding:60px 48px 40px; position:relative;}
 .ph-inner{max-width:1100px;margin:0 auto;}
 .back-link{color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;transition:opacity .3s;}
 .back-link:hover{opacity:0.8;}
 .ph-tag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
 .ph-tag::before{content:""; width:30px; height:1px; background:var(--gold);}
-.ph-title{font-family:var(--font-head);font-size:clamp(40px,6vw,72px);font-weight:500;color:#fff;line-height:1.1;margin-bottom:32px;max-width:900px;}
+.ph-title{font-family:var(--font-head);font-size:clamp(32px,5vw,56px);font-weight:500;color:#fff;line-height:1.1;margin-bottom:24px;max-width:900px;}
 .ph-meta{display:flex;flex-wrap:wrap;gap:16px;}
 .ph-meta-item{background:rgba(255,255,255,0.05); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1); color:#fff; padding:12px 20px; border-radius:8px; font-size:14px; font-weight:500; display:flex; align-items:center; gap:10px;}
 
@@ -228,7 +235,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   nav{padding:0 24px;}
   .nav-links{display:none;}
   .nav-mob{display:block;}
-  .page-header{padding:100px 24px 40px;}
+  .page-header{padding:60px 24px 40px;}
   .main-section{padding:40px 24px;}
   .sidebar{grid-template-columns:1fr;}
   .f-row{grid-template-columns:1fr;}
@@ -242,71 +249,74 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 #loading{text-align:center;padding:120px 20px;}
 .spinner{width:48px;height:48px;border:4px solid rgba(201,168,76,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px;}
 @keyframes spin{to{transform:rotate(360deg);}}
+/* COOKIE BANNER */
+#cc-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(201,168,76,.15);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9000;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s;}
+#cc-bar.show{transform:translateY(0);}
+#cc-bar p{font-size:12px;color:rgba(255,255,255,.55);flex:1;min-width:180px;}
+#cc-bar a{color:var(--gold);}
+.cc-btns{display:flex;gap:10px;flex-shrink:0;}
+.cc-ok{background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.05em;cursor:pointer;}
+.cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-size:12px;cursor:pointer;}
+/* WHATSAPP BUTTON */
+#wa-btn{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:8999;transition:transform .3s;}
+#wa-btn:hover{transform:scale(1.1)!important;}
 </style>
-<script src="/api.js"></script>
-<script src="/js/common.js"></script>
+<script src="/api.js" defer></script>
+<script src="/js/common.js" defer></script>
 <script>
-  // Direct fail-safe for the Apply button
-  function toggleApplyForm(shouldOpen) {
-    var wrap = document.getElementById('formRevealWrap');
-    var triggerArea = document.getElementById('reveal-trigger-area');
-    if (!wrap) return;
-    var isOpen = wrap.classList.contains('open');
-    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
-    if (nextOpen) {
-      wrap.classList.add('open');
-      if (triggerArea) triggerArea.style.display = 'none';
-      setTimeout(function() {
-        var rect = wrap.getBoundingClientRect();
-        window.scrollTo({ top: window.scrollY + rect.top - 100, behavior: 'smooth' });
-      }, 300);
-    } else {
-      wrap.classList.remove('open');
-      if (triggerArea) triggerArea.style.display = 'block';
+  // Redirect to dedicated apply page
+  function openApplyPage() {
+    if (jobId) {
+       window.location.href = '/apply.html?id=' + jobId;
     }
   }
-  window.toggleApplyForm = toggleApplyForm;
+  window.openApplyPage = openApplyPage;
+  window.toggleApplyForm = openApplyPage; // Alias for safety
 </script>
-<script src="/js/job.js"></script>
+<script src="/js/job.js" defer></script>
 </head>
 <body>
 
 <nav id="mainNav">
-  <a href="/index.html" class="nav-logo" aria-label="Covenant Crest Home">
-    <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
-      <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
-      <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-      <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-      <circle cx="40" cy="24" r="2" fill="#C9A84C" />
-      <circle cx="40" cy="58" r="2" fill="#C9A84C" />
-      <circle cx="24" cy="40" r="2" fill="#C9A84C" />
-      <circle cx="56" cy="40" r="2" fill="#C9A84C" />
-      <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
-    </svg>
-    <div class="nav-name">Covenant <span>Crest</span></div>
-  </a>
-  <div class="nav-links" id="navLinks">
-    <a href="/index.html" class="nl">Home</a>
-    <a href="/recruitment.html" class="nl active">Browse Jobs</a>
-    <a href="/hire.html" class="nl">Hire Staff</a>
-    <a href="/about.html" class="nl">About Us</a>
-    <div class="nav-group-wrap">
-        <span class="nl">Our Divisions <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="group-dd">
-          <a href="/haulage.html" class="gm-item">
-            <div class="gm-name">Haulage &amp; Freight</div>
-            <div class="gm-desc">UK logistics &amp; freight solutions.</div>
-          </a>
-          <a href="/trade.html" class="gm-item">
-            <div class="gm-name">Import &amp; Trade</div>
-            <div class="gm-desc">Global food supply &amp; distribution.</div>
-          </a>
-        </div>
+    <a href="/index.html" class="nav-logo">
+      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+        <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+          stroke-width="0.75" stroke-dasharray="2 2" />
+        <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+        <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+        <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+        <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+        <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+      </svg>
+      <div class="nav-name">Covenant <span>Crest</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/index.html" class="nl">Home</a>
+      <a href="/recruitment.html" class="nl active">Browse Jobs</a>
+      <a href="/hire.html" class="nl">Hire Staff</a>
+      <a href="/about.html" class="nl">About Us</a>
+      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
-  </div>
-  <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
-</nav>
+    <div class="nav-group-wrap" id="groupToggle">
+      <button class="btn-group">Our Divisions <span
+          style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
+      <div class="group-dd">
+        <a href="/haulage.html" class="gm-item">
+          <div class="gm-name">Haulage &amp; Freight</div>
+          <div class="gm-desc">UK logistics &amp; freight solutions.</div>
+        </a>
+        <a href="/trade.html" class="gm-item">
+          <div class="gm-name">Import &amp; Trade</div>
+          <div class="gm-desc">Global food supply &amp; distribution.</div>
+        </a>
+      </div>
+    </div>
+    <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
+  </nav>
 
 <div id="loading">
   <div class="spinner"></div>
@@ -371,163 +381,11 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <div class="jd-req-body" id="job-req"></div>
         </div>
 
-        <div style="margin-top:40px; text-align:center; position:relative; z-index:50;" id="reveal-trigger-area">
-          <button class="f-submit" id="main-apply-btn" onclick="toggleApplyForm(true)" style="max-width:400px; margin:0 auto;">Apply for This Role &rarr;</button>
-        </div>
-
-        <div class="form-reveal-wrap" id="formRevealWrap">
-          <!-- EXTENDED APPLICATION FORM -->
-          <div class="form-container" id="apply-section">
-            <div class="form-header">
-              <h3 class="form-title">Apply for This Role</h3>
-              <p class="form-desc">Complete your comprehensive profile below to fast-track your application.</p>
-            </div>
-            
-            <div class="f-ok" id="if-ok">
-              <strong>Application Received</strong><br>
-              A consultant will review your profile and contact you within 24 hours.
-            </div>
-
-            <form id="inline-apply-form">
-              <!-- Basic Details -->
-              <div class="f-row">
-                <div class="f-group">
-                  <label class="f-label">First Name *</label>
-                  <input type="text" class="f-input" id="if-first" required placeholder="Jane">
-                </div>
-                <div class="f-group">
-                  <label class="f-label">Last Name *</label>
-                  <input type="text" class="f-input" id="if-last" required placeholder="Doe">
-                </div>
-              </div>
-
-              <div class="f-row">
-                <div class="f-group">
-                  <label class="f-label">Email Address *</label>
-                  <input type="email" class="f-input" id="if-email" required placeholder="jane.doe@example.com">
-                </div>
-                <div class="f-group">
-                  <label class="f-label">Phone Number *</label>
-                  <input type="tel" class="f-input" id="if-phone" required placeholder="07700 900000">
-                </div>
-              </div>
-
-              <div class="f-row">
-                <div class="f-group">
-                  <label class="f-label">Postcode *</label>
-                  <input type="text" class="f-input" id="if-postcode" required placeholder="e.g. TF3 4NT">
-                </div>
-                <div class="f-group">
-                  <label class="f-label">Right to work in the UK? *</label>
-                  <select class="f-select" id="if-right-to-work" required>
-                    <option value="" disabled selected>Select status</option>
-                    <option value="yes">Yes, I have the right to work</option>
-                    <option value="no">No, I require sponsorship</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Professional Details -->
-              <div class="f-row">
-                <div class="f-group">
-                  <label class="f-label">Years of Experience *</label>
-                  <select class="f-select" id="if-experience" required>
-                    <option value="" disabled selected>Select experience</option>
-                    <option value="entry">Less than 1 year</option>
-                    <option value="1-3">1 to 3 years</option>
-                    <option value="3-5">3 to 5 years</option>
-                    <option value="5+">5+ years</option>
-                  </select>
-                </div>
-                <div class="f-group">
-                  <label class="f-label">Preferred Shifts</label>
-                  <select class="f-select" id="if-shifts">
-                    <option value="any">Flexible / Any</option>
-                    <option value="days">Days Only</option>
-                    <option value="nights">Nights Only</option>
-                    <option value="weekends">Weekends Included</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="f-group">
-                <label class="f-label">Availability *</label>
-                <select class="f-select" id="if-avail" required>
-                  <option value="immediate">Immediately Available</option>
-                  <option value="1week">1 Week Notice</option>
-                  <option value="2weeks">2 Weeks Notice</option>
-                  <option value="1month">1 Month Notice</option>
-                  <option value="other">Other (Specify in notes)</option>
-                </select>
-              </div>
-
-              <!-- New Compliance Fields -->
-              <div class="f-group">
-                <label class="f-label">Right to Work in the UK *</label>
-                <select class="f-select" name="rtw_status" id="if-rtw" required onchange="const d=document.getElementById('visa-details-wrap'); if(this.value==='visa'){d.style.display='block'; d.querySelector('input').required=true;}else{d.style.display='none'; d.querySelector('input').required=false;}">
-                  <option value="" disabled selected>Please select...</option>
-                  <option value="british_irish">British or Irish Passport</option>
-                  <option value="eu_settlement">EU Settlement Scheme</option>
-                  <option value="visa">Visa / Work Permit</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="f-group" id="visa-details-wrap" style="display:none;">
-                <label class="f-label">Visa Type & Expiry *</label>
-                <input class="f-input" name="visa_details" id="if-visa-details" placeholder="e.g. Skilled Worker Visa, Expires 2026">
-              </div>
-
-              <div class="f-group">
-                <div class="f-checkbox-group" style="grid-template-columns: 1fr;">
-                  <label class="f-check-label" style="font-size:13px; color:rgba(255,255,255,0.7);"><input type="checkbox" name="is_veteran" value="yes"> Are you a Veteran of the British Armed Forces?</label>
-                </div>
-              </div>
-
-              <div class="f-group">
-                <label class="f-label">Interview Assistance / Adjustments</label>
-                <textarea class="f-textarea" name="assistance" id="if-assistance" placeholder="Do you require any reasonable adjustments for the interview process? (e.g. wheelchair access, large print, etc.)" style="min-height: 60px;"></textarea>
-              </div>
-
-              <div class="f-group">
-                <label class="f-label">Relevant Certifications / Licences</label>
-                <div class="f-checkbox-group">
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="Forklift"> Forklift (RTITB/ITSSAR)</label>
-                  <label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>
-                </div>
-              </div>
-
-              <div class="f-group">
-                <label class="f-label">Additional Information</label>
-                <textarea class="f-textarea" id="if-notes" placeholder="Please outline your relevant experience, transport situation, and any other details that support your application..."></textarea>
-              </div>
-
-              <!-- CV Upload -->
-              <div class="f-group">
-                <label class="f-label">CV / Resume (Optional)</label>
-                <input type="file" id="if-cv-input" accept=".pdf,.doc,.docx" style="display:none;">
-                <div class="f-cv-zone" id="if-cv-zone">
-                  <span class="f-cv-icon">📄</span>
-                  <div class="f-cv-text" id="if-cv-label">Click to upload your CV</div>
-                  <div class="f-cv-sub">PDF or Word Document (Max 5MB)</div>
-                  <button type="button" class="f-cv-clear" id="if-cv-clear">Remove File</button>
-                </div>
-              </div>
-
-              <div class="f-group" style="margin-top:32px;">
-                <label class="f-check-label" style="align-items:flex-start; font-size:13px; color:rgba(255,255,255,0.6);">
-                  <input type="checkbox" id="if-gdpr" required style="margin-top:3px;">
-                  <span>I consent to my personal data being processed by Covenant Crest Group Ltd in accordance with the <a href="/privacy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a> for recruitment purposes.</span>
-                </label>
-              </div>
-
-              <button type="submit" class="f-submit" id="if-submit-btn">Submit Application</button>
-            </form>
-          </div>
+        <!-- Apply trigger area -->
+        <div id="reveal-trigger-area" style="text-align:center; padding:60px 0; border-top:1px solid var(--border); margin-top:40px;">
+          <h3 style="font-family:var(--font-head); font-size:28px; margin-bottom:16px;">Ready to take the next step?</h3>
+          <p style="color:var(--muted); margin-bottom:32px;">Click below to open our secure application portal and start your journey with us.</p>
+          <button class="f-submit" onclick="openApplyPage()" style="max-width:300px; margin-top:0;">Start Application &rarr;</button>
         </div>
       </div>
 
@@ -540,8 +398,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
             </div>
             <div class="sb-text">
-              <strong>Fast, Weekly Pay</strong>
-              Processed efficiently and paid every Friday.
+              <strong>Weekly Pay — Every Friday</strong>
+              No delays, no chasing. Your wages processed and landed on time, guaranteed.
             </div>
           </div>
           <div class="sb-item">
@@ -549,8 +407,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </div>
             <div class="sb-text">
-              <strong>Compliance Support</strong>
-              Assistance with DBS, referencing, and right-to-work checks.
+              <strong>We Handle Your Compliance</strong>
+              DBS, right-to-work, and referencing managed by us — so you turn up ready to work.
             </div>
           </div>
           <div class="sb-item">
@@ -558,16 +416,21 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
             </div>
             <div class="sb-text">
-              <strong>Rapid Placement</strong>
-              Start working in as little as 24 hours.
+              <strong>First Shift in 24–48 Hours</strong>
+              Register today. We match, verify, and confirm your placement — fast.
             </div>
           </div>
-          <button class="f-submit" id="side-apply-btn" onclick="toggleApplyForm(true)" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
+          <button class="f-submit" id="side-apply-btn" onclick="openApplyPage()" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
+          <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20apply%20for%20a%20role." id="wa-apply-btn" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:14px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;margin-top:10px;transition:background .2s;" onmouseover="this.style.background='#1da851'" onmouseout="this.style.background='#25D366'">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+            Apply via WhatsApp
+          </a>
+          <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.4;">Prefer a quick message? We reply in minutes.</p>
         </div>
 
         <div class="sb-contact">
-          <div class="sb-contact-title">Need Assistance?</div>
-          <div class="sb-contact-desc">Our recruitment team is available to discuss this role or help with your application.</div>
+          <div class="sb-contact-title">Speak to a Real Person</div>
+          <div class="sb-contact-desc">Questions about this role? Call or email us directly — no automated queues, no ticketing system.</div>
           <div class="sb-contact-info">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
             07346 809846
@@ -590,48 +453,61 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   </section>
 </div>
 
-<footer>
-  <div class="ft-main">
-    <div>
-      <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
-        <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
-        <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-        <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-        <circle cx="40" cy="24" r="2" fill="#C9A84C" />
-        <circle cx="40" cy="58" r="2" fill="#C9A84C" />
-        <circle cx="24" cy="40" r="2" fill="#C9A84C" />
-        <circle cx="56" cy="40" r="2" fill="#C9A84C" />
-        <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
-      </svg>
-      <div class="ft-logo-name">Covenant <span>Crest</span></div>
-      <div class="ft-logo-sub">Group Ltd</div>
-      <div class="ft-desc">A premium multi-division UK recruitment and logistics group built on promise.</div>
+    <footer>
+    <div class="ft-main">
+      <div>
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C"
+            stroke-width="1.5" />
+          <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
+            stroke-width="0.75" stroke-dasharray="2 2" />
+          <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+          <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+          <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+          <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+          <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+        </svg>
+        <div class="ft-logo-name">Covenant <span>Crest</span></div>
+        <div class="ft-logo-sub">Group Ltd</div>
+        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+      </div>
+      <div>
+        <div class="ft-col-title">Services</div>
+        <a href="/recruitment.html" class="ft-link">Recruitment</a>
+        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
+        <a href="/trade.html" class="ft-link">Import & Trade</a>
+      </div>
+      <div>
+        <div class="ft-col-title">Company</div>
+        <a href="/index.html" class="ft-link">Home</a>
+        <a href="/about.html" class="ft-link">About Us</a>
+        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
+        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
+        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+      </div>
+      <div>
+        <div class="ft-col-title">Contact Us</div>
+        <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+        <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
+        <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+        <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
+          class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          </svg>
+          LinkedIn
+        </a>
+      </div>
     </div>
-    <div>
-      <div class="ft-col-title">Divisions</div>
-      <a href="/recruitment.html" class="ft-link">Specialist Recruitment</a>
-      <a href="/haulage.html" class="ft-link">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+    <div class="ft-bottom">
+      <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
+      <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
     </div>
-    <div>
-      <div class="ft-col-title">Company</div>
-      <a href="/index.html" class="ft-link">Home</a>
-      <a href="/about.html" class="ft-link">About Us</a>
-      <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-      <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
-    </div>
-    <div>
-      <div class="ft-col-title">Contact Us</div>
-      <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
-      <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
-      <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
-    </div>
-  </div>
-  <div class="ft-bottom">
-    &copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951. Registered in England &amp; Wales.
-  </div>
-</footer>
+  </footer>
 
 <script>
   // Simple copy to clipboard script for the share button
@@ -642,5 +518,17 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     setTimeout(() => { this.innerHTML = originalText; }, 2000);
   });
 </script>
+<!-- Cookie consent bar -->
+<div id="cc-bar">
+  <p>We use cookies to improve your experience and analyse site traffic. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+  <div class="cc-btns">
+    <button class="cc-no">Decline</button>
+    <button class="cc-ok">Accept</button>
+  </div>
+</div>
+<!-- WhatsApp button -->
+<a id="wa-btn" href="https://wa.me/447346809846" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+</a>
 </body>
 </html>

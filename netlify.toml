@@ -30,6 +30,28 @@
 [build]
   publish = "."
 
+# ─── FORM SUBMISSION FLOW ──────────────────────────────────────
+# Primary path  : JS → CCA API (Render.com) → MongoDB + email alerts
+# Fallback path : JS → Netlify Forms → n8n webhook → Zoho CRM
+#
+# n8n WEBHOOK SETUP (one-time):
+#   1. In Netlify: Site settings → Forms → Form notifications
+#      → Add notification → Outgoing webhook
+#   2. Webhook URL: https://your-n8n-instance.com/webhook/covenant-crest
+#   3. Set the same secret in n8n and as NETLIFY_WEBHOOK_SECRET on Render
+#   4. In n8n, route by form_name field:
+#        candidate-apply    → Zoho CRM Contacts (crm_type=Candidate)
+#        recruitment-request-staff → Zoho CRM Leads (crm_type=B2B_Employer)
+#        haulage-quote      → Zoho CRM Leads (crm_type=B2B_Haulage)
+#        trade-enquiry      → Zoho CRM Leads (crm_type=B2B_Trade)
+#        quick_enquiry      → Zoho CRM Leads (crm_type=General_Enquiry)
+#        compliance-pack-request → Zoho CRM Leads (crm_type=Compliance_Pack)
+#        about_enquiry      → Zoho CRM Leads (crm_type=General_Enquiry)
+#
+# All form payloads include hidden fields: crm_lead_source, crm_module, crm_type
+# These can be used directly as n8n filter/routing conditions.
+# ─────────────────────────────────────────────────────────────────
+
 # ─── API Proxy → Render.com backend ────────────────────────────
 # IMPORTANT: Replace YOUR_RENDER_URL with your actual Render URL
 # Example: https://covenant-crest-api.onrender.com
@@ -96,9 +118,14 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     Referrer-Policy           = "strict-origin-when-cross-origin"
     Permissions-Policy        = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy   = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.quilljs.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.quilljs.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com https://www.google-analytics.com https://analytics.google.com https://fonts.googleapis.com https://fonts.gstatic.com https://res.cloudinary.com; form-action 'self';"
+    Content-Security-Policy   = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.quilljs.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.quilljs.com; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com https://www.google-analytics.com https://analytics.google.com https://fonts.googleapis.com https://fonts.gstatic.com https://res.cloudinary.com; form-action 'self';"
 
 # ─── Cache headers ──────────────────────────────────────────────
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
 [[headers]]
   for = "*.css"
   [headers.values]
