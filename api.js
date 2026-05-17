@@ -54,7 +54,7 @@
       sessionStorage.removeItem('cc_role');
       sessionStorage.removeItem('cc_email');
       if (window.location.pathname.includes('admin')) {
-        window.location.href = '/login.html';
+        window.location.href = '/login';
       }
       return {};
     }
@@ -81,7 +81,7 @@
         sessionStorage.removeItem('cc_role');
         sessionStorage.removeItem('cc_email');
         if (window.location.pathname.includes('admin')) {
-          window.location.href = '/login.html';
+          window.location.href = '/login';
         }
       }
       return r.json().then(function (data) {
@@ -134,7 +134,7 @@
         sessionStorage.removeItem('cc_jwt');
         sessionStorage.removeItem('cc_role');
         sessionStorage.removeItem('cc_email');
-        window.location.href = '/login.html';
+        window.location.href = '/login';
       },
 
       /** True if a session token is present. */

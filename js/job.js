@@ -17,12 +17,12 @@ function cleanPay(val) {
 
 // Global Exports
 window.openApplyPage = function() {
-    if (jobId) window.location.href = '/apply.html?id=' + jobId;
+    if (jobId) window.location.href = '/apply?id=' + jobId;
 };
 
 document.addEventListener('DOMContentLoaded', function() {
     if (!jobId) {
-        window.location.href = '/recruitment.html#live-jobs';
+        window.location.href = '/recruitment#live-jobs';
         return;
     }
 
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mabPayEl) mabPayEl.textContent = cleanPay(job.pay);
         
         var canonical = document.getElementById('canonical-url');
-        if (canonical) canonical.href = 'https://covenantcrest.co.uk/job.html?id=' + jobId;
+        if (canonical) canonical.href = 'https://covenantcrest.co.uk/job?id=' + jobId;
         var ogUrl = document.getElementById('og-url');
-        if (ogUrl) ogUrl.setAttribute('content', 'https://covenantcrest.co.uk/job.html?id=' + jobId);
+        if (ogUrl) ogUrl.setAttribute('content', 'https://covenantcrest.co.uk/job?id=' + jobId);
         var ogDesc = document.getElementById('og-desc');
         if (ogDesc) ogDesc.setAttribute('content', (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160));
 
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }).catch(function() {
         var loadingEl = document.getElementById('loading');
         if (loadingEl) {
-            loadingEl.innerHTML = '<p style="color:var(--danger);">Error loading job details. <a href="/recruitment.html#live-jobs" style="color:var(--gold);">Return to jobs list</a>.</p>';
+            loadingEl.innerHTML = '<p style="color:var(--danger);">Error loading job details. <a href="/recruitment#live-jobs" style="color:var(--gold);">Return to jobs list</a>.</p>';
         }
     });
     // ── Event Listeners ──────────────────────────

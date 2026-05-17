@@ -133,7 +133,7 @@ function renderJobs() {
     }
 
     var jobsHtml = '<div class="jobs-grid">' + filtered.map(function(j) {
-        return '<a href="/job.html?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
+        return '<a href="/job?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
             '<div class="jc-sector">' + esc(sectorLabel[j.sector] || j.sector) + '</div>' +
             '<div class="jc-title">' + esc(j.title) + '</div>' +
             '<div class="jc-meta">' +

@@ -1025,7 +1025,6 @@ function viewApplication(id) {
         (a.is_veteran === 'yes' ? '<div style="background:#eef8f3;border-radius:6px;padding:10px 14px;grid-column: span 2;border-left:3px solid var(--success);"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:3px;">Armed Forces Background</div><div style="font-size:13px;font-weight:600;color:var(--navy);">British Armed Forces Veteran</div></div>' : '') +
       '</div>' +
       (a.assistance ? '<div style="background:#fefefe;border:1px solid #ffccbc;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#ff5722;margin-bottom:3px;">Assistance Required</div><div style="font-size:12px;color:var(--navy);">' + esc(a.assistance) + '</div></div>' : '') +
-      '</div>' +
       '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
         '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
@@ -1541,7 +1540,7 @@ function saveUser() {
   var err   = document.getElementById('u-err');
   var btn   = document.getElementById('u-save-btn');
   err.classList.remove('show');
-  if (!email || !email.includes('@')) { err.textContent = 'Enter a valid email.'; err.classList.add('show'); return; }
+  if (!email || email.indexOf('@') === -1) { err.textContent = 'Enter a valid email.'; err.classList.add('show'); return; }
   if (pass.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.classList.add('show'); return; }
   if (pass !== pass2)  { err.textContent = 'Passwords do not match.'; err.classList.add('show'); return; }
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Creating…';
@@ -1736,8 +1735,6 @@ function exportCSV(type) {
 // ── AUTO-REFRESH every 60 seconds ────────────────────────────────────
 setInterval(function() {
   if (document.visibilityState === 'visible') {
-    loadContacts();
-    loadApplications();
     loadDashboard();
   }
 }, 60000);

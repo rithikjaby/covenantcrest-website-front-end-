@@ -73,7 +73,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
   .login-card{padding:28px 24px;}
 }
 </style>
-<script src="/js/login.js" defer></script>
+<script src="/js/login.js?v=20260517" defer></script>
 </head>
 <body>
 
@@ -108,7 +108,9 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
       <label for="loginPwd">Password</label>
       <div class="pw-wrap">
         <input type="password" id="loginPwd" name="password" placeholder="Enter your password" required autocomplete="current-password" minlength="8">
-        <button type="button" class="pw-toggle" aria-label="Toggle password visibility">👁</button>
+        <button type="button" class="pw-toggle" aria-label="Toggle password visibility">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
       </div>
     </div>
     <div style="display:none;" aria-hidden="true">

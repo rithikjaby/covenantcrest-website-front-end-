@@ -62,7 +62,7 @@ function doLogin(e) {
             sessionStorage.setItem('cc_jwt',   d.token);
             sessionStorage.setItem('cc_role',  d.role  || 'superadmin');
             sessionStorage.setItem('cc_email', d.email || '');
-            window.location.href = '/admin.html';
+            window.location.href = '/admin';
         } else {
             throw new Error(d.error || d.message || 'Invalid credentials');
         }
