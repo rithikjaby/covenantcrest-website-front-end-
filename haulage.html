@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haulage &amp; Road Freight — Covenant Crest Group Ltd | UK Logistics</title>
+  <title>Haulage &amp; Road Freight | Covenant Crest Group | UK Logistics</title>
   <meta name="description"
     content="Professional UK haulage and road freight. FTL, LTL, temperature-controlled transport and specialist logistics. Quote within 2 hours. Covenant Crest Group Ltd.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://covenantcrest.co.uk/haulage.html">
+  <link rel="canonical" href="https://covenantcrest.co.uk/haulage">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://covenantcrest.co.uk/haulage.html">
+  <meta property="og:url" content="https://covenantcrest.co.uk/haulage">
   <meta property="og:title" content="Haulage &amp; Road Freight — Covenant Crest Group Ltd">
   <meta property="og:description"
     content="Professional UK haulage and freight. FTL, LTL, temperature-controlled. Quote within 2 hours.">
@@ -25,8 +25,8 @@
   <meta name="twitter:description" content="Professional UK haulage and road freight. FTL, LTL, temperature-controlled transport. Quote within 2 hours. Covenant Crest Group Ltd.">
   <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
   <script src="/api.js" defer></script>
-  <script src="js/common.js" defer></script>
-  <script src="js/haulage.js" defer></script>
+  <script src="/js/common.js" defer></script>
+  <script src="/js/haulage.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -63,7 +63,7 @@
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
@@ -98,12 +98,12 @@
       font-size: clamp(20px, 3vw, 34px);
       color: #fff;
       letter-spacing: 0.04em;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 1;
     }
 
     .nav-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .nav-links {
@@ -131,7 +131,7 @@
 
     /* GROUP BUTTON & DROPDOWN */
     .nav-group-wrap{position:relative; display:inline-block;}
-    .btn-group{background:var(--gold); color:var(--navy); font-family:'Plus Jakarta Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
+    .btn-group{background:var(--gold); color:var(--navy); font-family:'Plus Jakarta Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
     .btn-group:hover{background:var(--gold2); transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,0.25);}
     .group-dd{position:absolute; top:100%; right:0; transform:translateY(12px); background:rgba(13,27,42,0.98); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 0; min-width:230px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 25px 50px rgba(0,0,0,0.5); backdrop-filter:blur(12px); z-index:1000;}
     .nav-group-wrap:hover .group-dd{opacity:1; visibility:visible; transform:translateY(0);}
@@ -351,12 +351,12 @@
       background: var(--gold);
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .18em;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      padding: 13px 30px;
-      border-radius: 2px;
+      padding: 14px 32px;
+      border-radius: 4px;
       border: none;
       cursor: pointer;
       transition: all .2s;
@@ -900,15 +900,16 @@
     }
 
     .ft-logo-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .ft-logo-sub {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: .3em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .4em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, .18);
+      color: var(--gold);
+      opacity: .9;
     }
 
     .ft-desc {
@@ -1120,6 +1121,14 @@
         gap: 20px;
       }
 
+      .ft-main > div:first-child {
+        grid-column: span 2;
+      }
+
+      .ft-logo-name {
+        font-size: 28px;
+      }
+
       .ft-bottom {
         padding: 14px 20px;
         flex-direction: column;
@@ -1228,7 +1237,7 @@
 <body>
 
   <nav id="mainNav">
-    <a href="/index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -1244,19 +1253,19 @@
       <div class="nav-name">Covenant Crest <span>Haulage</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html"       class="nl">Home</a>
-      <a href="/recruitment.html" class="nl">Browse Jobs</a>
-      <a href="/hire.html"        class="nl">Hire Staff</a>
-      <a href="/about.html"       class="nl">About Us</a>
+      <a href="/"       class="nl">Home</a>
+      <a href="/recruitment" class="nl">Browse Jobs</a>
+      <a href="/hire"        class="nl">Hire Staff</a>
+      <a href="/about"       class="nl">About Us</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
-        <a href="/haulage.html" class="gm-item">
+        <a href="/haulage" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
           <div class="gm-desc">UK logistics &amp; freight solutions.</div>
         </a>
-        <a href="/trade.html" class="gm-item">
+        <a href="/trade" class="gm-item">
           <div class="gm-name">Import &amp; Trade</div>
           <div class="gm-desc">Global food supply &amp; distribution.</div>
         </a>
@@ -1276,7 +1285,7 @@
         delivery on every consignment. No sub-contractors managing your cargo without your knowledge.</p>
       <div class="hero-btns">
         <a href="#quote" class="btn-gold">Get a Quote in 2 Hours</a>
-        <a href="/index.html" class="btn-ghost">&#8592; Back to Home</a>
+        <a href="/" class="btn-ghost">&#8592; Back to Home</a>
       </div>
     </div>
   </section>
@@ -1320,6 +1329,7 @@
       <h2 class="s-title rv">Every Load Type. <em>One Reliable Partner.</em></h2>
       <p class="s-lead rv">From a single pallet to a full artic — quoted in 2 hours, tracked in real time, delivered
         with a digital signature.</p>
+      <p class="s-lead rv" style="font-size:13px;color:var(--muted);margin-top:-16px;">Covenant Crest operates as a freight coordinator, sourcing and managing licensed, fully insured UK carriers on your behalf — so you get a single point of accountability without managing multiple hauliers yourself.</p>
       <div class="haul-2col">
         <div class="haul-card rv">
           <div class="haul-card-hdr">
@@ -1467,6 +1477,7 @@
                 class="qr-val total" id="er-total">&mdash;</span></div>
             <div class="qr-note">&#x26A0;&#xFE0F; Guide price only. VAT not included. Submit below for a confirmed
               written quote.</div>
+            <div id="er-disclaimer" style="display:none;font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6;">Rates based on current market averages as of May 2026. Fuel surcharge of 12% applied. Actual quotes may vary depending on access, load specifics and scheduling. Always confirm in writing before booking.</div>
             <button type="button" onclick="prefillAndGoToQuote()" style="width:100%;margin-top:14px;background:var(--gold);color:var(--navy);border:none;border-radius:4px;padding:13px 20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;">Get a Confirmed Written Quote &#8594;</button>
           </div>
           <button class="btn-calc">Calculate Guide Price</button>
@@ -1502,7 +1513,7 @@
           <input type="hidden" name="crm_lead_source" value="Website - Freight Quote Request">
           <input type="hidden" name="crm_module" value="Leads">
           <input type="hidden" name="crm_type" value="B2B_Haulage">
-          <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
+          <p style="display:none" aria-hidden="true"><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
           <div class="dk-g2">
             <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="name"
                 placeholder="John Smith" required></div>
@@ -1541,13 +1552,13 @@
             <label
               style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
               <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-              <span>I consent to my data being processed in accordance with the <a href="/privacy.html"
+              <span>I consent to my data being processed in accordance with the <a href="/privacy"
                   style="color:var(--gold);">Privacy Policy</a> for the purpose of this quote request.</span>
             </label>
           </div>
           <button type="submit" class="f-submit" aria-label="Request quote">Request Confirmed Quote &#8594;</button>
           <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:10px;">Your data is processed
-            under UK GDPR. See our <a href="/privacy.html" style="color:rgba(201,168,76,.55);">Privacy Policy</a>.
+            under UK GDPR. See our <a href="/privacy" style="color:rgba(201,168,76,.55);">Privacy Policy</a>.
             Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
         </form>
       </div>
@@ -1573,21 +1584,21 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
-        <a href="/trade.html" class="ft-link">Import & Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage & Freight</a>
+        <a href="/trade" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms & Conditions</a>
+        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
@@ -1595,6 +1606,7 @@
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -1613,7 +1625,7 @@
 
   <div id="cc-bar">
     <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies.
-      <a href="/privacy.html">Privacy Policy</a>.</p>
+      <a href="/privacy">Privacy Policy</a>.</p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>
       <button class="cc-ok">Accept All</button>

@@ -7,63 +7,63 @@
   <!-- Homepage -->
   <url>
     <loc>https://covenantcrest.co.uk/</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- About Us -->
   <url>
-    <loc>https://covenantcrest.co.uk/about.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://covenantcrest.co.uk/about</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Recruitment -->
   <url>
-    <loc>https://covenantcrest.co.uk/recruitment.html</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://covenantcrest.co.uk/recruitment</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Hire Staff -->
   <url>
-    <loc>https://covenantcrest.co.uk/hire.html</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://covenantcrest.co.uk/hire</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Haulage & Freight -->
   <url>
-    <loc>https://covenantcrest.co.uk/haulage.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://covenantcrest.co.uk/haulage</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Import & Trade -->
   <url>
-    <loc>https://covenantcrest.co.uk/trade.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://covenantcrest.co.uk/trade</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Terms & Conditions -->
   <url>
-    <loc>https://covenantcrest.co.uk/terms.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://covenantcrest.co.uk/terms</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://covenantcrest.co.uk/privacy.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://covenantcrest.co.uk/privacy</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

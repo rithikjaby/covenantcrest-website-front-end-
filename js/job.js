@@ -61,8 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
         var mabPayEl = document.getElementById('mab-pay');
         if (mabPayEl) mabPayEl.textContent = cleanPay(job.pay);
         
+        var canonical = document.getElementById('canonical-url');
+        if (canonical) canonical.href = 'https://covenantcrest.co.uk/job.html?id=' + jobId;
+        var ogUrl = document.getElementById('og-url');
+        if (ogUrl) ogUrl.setAttribute('content', 'https://covenantcrest.co.uk/job.html?id=' + jobId);
+        var ogDesc = document.getElementById('og-desc');
+        if (ogDesc) ogDesc.setAttribute('content', (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160));
+
         var descEl = document.getElementById('job-desc');
-        if (descEl) descEl.innerHTML = job.desc || '';
+        var safeDesc = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(job.desc || '') : (job.desc || '');
+        if (descEl) descEl.innerHTML = safeDesc;
 
         var sjhTitle = document.getElementById('sjh-title');
         if (sjhTitle) sjhTitle.textContent = job.title;
@@ -107,7 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (job.req) {
             var reqEl = document.getElementById('job-req');
-            if (reqEl) reqEl.innerHTML = job.req;
+            var safeReq = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(job.req) : job.req;
+            if (reqEl) reqEl.innerHTML = safeReq;
             var reqContainer = document.getElementById('job-req-container');
             if (reqContainer) reqContainer.style.display = 'block';
         }

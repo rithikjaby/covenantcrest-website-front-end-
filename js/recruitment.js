@@ -83,10 +83,12 @@ function renderSkeleton() {
 function esc(s) { return s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
 
 function renderJobs() {
-    var search = (document.getElementById('jf-search')?.value || '').toLowerCase();
+    var searchEl = document.getElementById('jf-search');
+    var search = (searchEl ? searchEl.value : '').toLowerCase();
     var sectorInput = document.getElementById('jf-sector');
     var sector = sectorInput ? (sectorInput.value || activeSector) : activeSector;
-    var type = document.getElementById('jf-type')?.value || '';
+    var typeEl = document.getElementById('jf-type');
+    var type = typeEl ? (typeEl.value || '') : '';
 
     // Update Headings based on sector
     var titleEl = document.getElementById('live-jobs-title');
@@ -168,7 +170,8 @@ function resetSector() {
     if (sInput) sInput.value = '';
     activeSector = '';
     document.querySelectorAll('.sbt').forEach(function(b){ b.classList.remove('act'); });
-    document.getElementById('sbt-all')?.classList.add('act');
+    var sbtAll = document.getElementById('sbt-all');
+    if (sbtAll) sbtAll.classList.add('act');
     renderJobs();
 }
 
@@ -193,7 +196,8 @@ function resetAllFilters() {
     if (tInput) tInput.value = '';
     if (srch) srch.value = '';
     document.querySelectorAll('.sbt').forEach(function(b){ b.classList.remove('act'); });
-    document.getElementById('sbt-all')?.classList.add('act');
+    var sbtAllReset = document.getElementById('sbt-all');
+    if (sbtAllReset) sbtAllReset.classList.add('act');
     renderJobs();
 }
 
@@ -217,12 +221,13 @@ function filterSector(sector, btn) {
 // ── CV FILE HANDLING ──────────────────────────
 var _cvBase64 = null;
 var _cvFileName = null;
+var _cvReadPromise = null;
 
 function handleCVSelect(input) {
     var file = input.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-        alert('File is too large. Max 5MB allowed.');
+        showFormError(document.getElementById('cv-upload-zone') || input, 'File is too large. Max 5MB allowed.');
         input.value = '';
         return;
     }
@@ -254,7 +259,7 @@ function handleCVSelect(input) {
             resolve(_cvBase64);
         };
         reader.onerror = function() {
-            alert('Failed to read file.');
+            showFormError(document.getElementById('cv-upload-zone') || input, 'Failed to read CV file.');
             reject();
         };
         reader.readAsDataURL(file);
@@ -328,13 +333,12 @@ function handleFormWithAPI(e, formName, bannerId) {
             if (res.error) throw new Error(res.error);
             var banner = document.getElementById(bannerId);
             if (banner) banner.classList.add('show');
-            alert('Application sent successfully! Our team will contact you soon.');
             form.reset();
             clearCV();
         })
         .catch(function(err) {
             console.error('API Error:', err);
-            alert('There was a problem sending your application: ' + (err.message || 'Unknown error'));
+            showFormError(btn, 'There was a problem sending your application: ' + (err.message || 'Please try again.'));
         })
         .finally(function() {
             btn.disabled = false;

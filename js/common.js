@@ -48,6 +48,19 @@ function setCookie(v) {
     }
 }
 
+// ── Inline Error Helper ─────────────────────────────────────
+function showFormError(anchorEl, msg) {
+    var parent = anchorEl && anchorEl.parentNode;
+    var existing = parent && parent.querySelector('.ccg-form-err');
+    if (existing) { existing.textContent = msg; return; }
+    var el = document.createElement('div');
+    el.className = 'ccg-form-err';
+    el.style.cssText = 'background:#E24B4A;color:#fff;font-size:12px;font-weight:600;padding:12px 16px;border-radius:4px;margin:12px 0;line-height:1.4;';
+    el.textContent = msg;
+    if (parent) { parent.insertBefore(el, anchorEl.nextSibling); } else { document.body.appendChild(el); }
+    setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 8000);
+}
+
 // ── API Form Submission ─────────────────────────────────────
 function handleForm(e, formName, bannerId) {
     e.preventDefault();
@@ -63,24 +76,36 @@ function handleForm(e, formName, bannerId) {
     
     var formData = new FormData(form);
     var body = {};
+    var multiKeys = {};
     formData.forEach(function(value, key) {
-        body[key] = value;
+        if (key in multiKeys) {
+            multiKeys[key].push(value);
+        } else if (key in body) {
+            multiKeys[key] = [body[key], value];
+            delete body[key];
+        } else {
+            body[key] = value;
+        }
     });
+    for (var mk in multiKeys) { body[mk] = multiKeys[mk].join(', '); }
 
-    // Build the message string dynamically from all form fields
-    // except standard ones we extract
+    var CRM_KEYS = ['crm_lead_source', 'crm_module', 'crm_type'];
+    var EXCLUDE_KEYS = ['name', 'contact_name', 'email', 'phone', 'bot-field', 'form-name', 'gdpr_consent'].concat(CRM_KEYS);
     var messageParts = [];
     for (var key in body) {
-        if (['name', 'email', 'phone', 'bot-field', 'form-name', 'gdpr_consent'].indexOf(key) === -1) {
+        if (EXCLUDE_KEYS.indexOf(key) === -1) {
             messageParts.push(key.toUpperCase() + ': ' + body[key]);
         }
     }
 
     var contactPayload = {
-        name: body.name || 'Unknown',
+        name: body.name || body.contact_name || 'Unknown',
         email: body.email || 'no-email@provided.com',
         phone: body.phone || '',
         type: formName || 'general',
+        crm_lead_source: body.crm_lead_source || '',
+        crm_module: body.crm_module || '',
+        crm_type: body.crm_type || '',
         message: messageParts.join('\n') || 'No additional details.'
     };
 
@@ -102,7 +127,7 @@ function handleForm(e, formName, bannerId) {
         })
         .catch(function(err) {
             console.error('API submit error:', err);
-            alert('Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
+            showFormError(btn || form, 'Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
         })
         .finally(function() {
             if (btn) {
@@ -123,7 +148,7 @@ function handleForm(e, formName, bannerId) {
             form.reset();
         })
         .catch(function() {
-            alert('Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
+            showFormError(btn || form, 'Problem submitting form. Please email info@covenantcrest.co.uk or call 07346 809846.');
         })
         .finally(function() {
             if (btn) {

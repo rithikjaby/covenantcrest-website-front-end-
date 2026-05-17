@@ -8,11 +8,11 @@
   <meta name="description"
     content="Hire vetted care, security, warehouse and construction staff in Telford, Shropshire &amp; across the UK. CQC-compliant. 2-hour response guarantee.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://covenantcrest.co.uk/hire.html">
+  <link rel="canonical" href="https://covenantcrest.co.uk/hire">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://covenantcrest.co.uk/hire.html">
+  <meta property="og:url" content="https://covenantcrest.co.uk/hire">
   <meta property="og:title" content="Hire Staff — Care, Security &amp; Warehouse Staff | Covenant Crest">
   <meta property="og:description"
     content="Hire vetted healthcare, security, warehouse and construction staff across the UK. Fast, reliable, and fully compliant recruitment solutions.">
@@ -24,8 +24,8 @@
   <meta name="twitter:title" content="Hire Care, Security &amp; Warehouse Staff | Covenant Crest">
   <meta name="twitter:description" content="Vetted care, security, warehouse and construction workers supplied across Telford, Shropshire &amp; UK. Request staff in 2 hours. CQC-compliant.">
   <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
-  <script src="api.js" defer></script>
-  <script src="js/common.js" defer></script>
+  <script src="/api.js" defer></script>
+  <script src="/js/common.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -62,7 +62,7 @@
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
@@ -101,7 +101,7 @@
     }
 
     .nav-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .nav-links {
@@ -124,29 +124,6 @@
     .nl:hover,
     .nl.active {
       color: var(--gold);
-    }
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--navy);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      padding: 9px 20px;
-      border-radius: 2px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background .2s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-cta:hover {
-      background: var(--gold2);
     }
 
     .nav-mob {
@@ -254,9 +231,6 @@
         display: block;
       }
 
-      .nav-cta {
-        display: none;
-      }
     }
 
     @media(max-width:480px) {
@@ -370,22 +344,26 @@
 
     /* PAGE HERO */
     .page-hero {
-      min-height: 68vh;
+      position: relative;
       background: var(--navy);
+      overflow: hidden;
       display: flex;
       align-items: center;
-      padding: 100px 48px 80px;
-      position: relative;
-      overflow: hidden;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 48px 80px;
+      min-height: 55vh;
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url(\'employer-bg.png\') center/cover no-repeat;
-      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black, transparent 80%);
       pointer-events: none;
-      mix-blend-mode: luminosity;
     }
 
     .hero-glow {
@@ -393,11 +371,17 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 800px;
-      height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, .05) 0%, transparent 60%);
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+      filter: blur(80px);
       pointer-events: none;
+      animation: pulse-glow 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulse-glow {
+      from { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+      to { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
     }
 
     .ph-c {
@@ -451,12 +435,12 @@
       background: var(--gold);
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .18em;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      padding: 13px 30px;
-      border-radius: 2px;
+      padding: 14px 32px;
+      border-radius: 4px;
       border: none;
       cursor: pointer;
       transition: all .2s;
@@ -1186,15 +1170,16 @@
     }
 
     .ft-logo-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .ft-logo-sub {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: .3em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .4em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, .18);
+      color: var(--gold);
+      opacity: .9;
     }
 
     .ft-desc {
@@ -1362,9 +1347,6 @@
         display: block;
       }
 
-      .nav-cta {
-        display: none;
-      }
 
       .page-hero {
         padding: 100px 24px 60px;
@@ -1409,6 +1391,14 @@
         grid-template-columns: 1fr 1fr;
         padding: 40px 20px 28px;
         gap: 20px;
+      }
+
+      .ft-main > div:first-child {
+        grid-column: span 2;
+      }
+
+      .ft-logo-name {
+        font-size: 28px;
       }
 
       .ft-bottom {
@@ -1641,7 +1631,7 @@
 <body>
 
   <nav id="mainNav">
-    <a href="/index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -1657,22 +1647,22 @@
       <div class="nav-name">Covenant <span>Crest</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html" class="nl">Home</a>
-      <a href="/recruitment.html" class="nl">Browse Jobs</a>
-      <a href="/hire.html" class="nl active">Hire Staff</a>
-      <a href="/about.html" class="nl">About Us</a>
-      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+      <a href="/" class="nl">Home</a>
+      <a href="/recruitment" class="nl">Browse Jobs</a>
+      <a href="/hire" class="nl active">Hire Staff</a>
+      <a href="/about" class="nl">About Us</a>
+      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span
           style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
-        <a href="/haulage.html" class="gm-item">
+        <a href="/haulage" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
           <div class="gm-desc">UK logistics &amp; freight solutions.</div>
         </a>
-        <a href="/trade.html" class="gm-item">
+        <a href="/trade" class="gm-item">
           <div class="gm-name">Import &amp; Trade</div>
           <div class="gm-desc">Global food supply &amp; distribution.</div>
         </a>
@@ -1696,54 +1686,6 @@
     </div>
   </section>
 
-  <style>
-    .page-hero {
-      position: relative;
-      background: #0D1B2A;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 24px 80px;
-      min-height: 55vh;
-    }
-    .page-hero .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(circle at center, black, transparent 80%);
-      pointer-events: none;
-    }
-    .page-hero .hero-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
-      filter: blur(80px);
-      pointer-events: none;
-      animation: pulse-glow 8s infinite alternate ease-in-out;
-    }
-    @keyframes pulse-glow {
-      from { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-      to { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
-    }
-    .ph-c { position: relative; z-index: 10; max-width: 800px; }
-    .ph-h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 6vw, 72px); color: #fff; margin-bottom: 16px; font-weight: 300; }
-    .ph-h1 em { font-style: italic; color: var(--gold); }
-    .ph-desc { font-size: 16px; color: rgba(255,255,255,.6); line-height: 1.8; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
-    .hero-btns { display: flex; gap: 15px; justify-content: center; }
-    .btn-gold { background: var(--gold); color: var(--navy); padding: 12px 28px; border-radius: 4px; font-weight: 700; text-decoration: none; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: all .3s; }
-    .btn-ghost { border: 1px solid rgba(255,255,255,.2); color: #fff; padding: 12px 28px; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: all .3s; }
-    .btn-gold:hover { background: #E8C96A; transform: translateY(-2px); }
-    .btn-ghost:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.4); }
-  </style>
 
   <!-- HIRE STAFF -->
   <section class="sec sec-dk" id="hire" style="padding-top:0;border-top:1px solid rgba(255,255,255,.06);">
@@ -1801,7 +1743,7 @@
         <div class="srv-card rv d2" style="border-top:3px solid var(--gold);">
           <div class="srv-icon" style="color:var(--gold);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
           <div class="srv-name">Warehouse &amp; Logistics</div>
-          <p class="srv-desc">GLAA licence application in progress. FLT licence verified for all forklift operatives. CSCS card checks. RIDDOR awareness. Site induction compliance management. PPE and manual handling records maintained.</p>
+          <p class="srv-desc">FLT licence verified for all forklift operatives. CSCS card checks. RIDDOR awareness. Site induction compliance management. PPE and manual handling records maintained. AWR compliant from day one.</p>
         </div>
         <div class="srv-card rv d3" style="border-top:3px solid #D35400;">
           <div class="srv-icon" style="color:#D35400;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg></div>
@@ -1860,14 +1802,14 @@
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
                 style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>24/7 emergency cover &mdash; call us at midnight before a 7am shift</div>
             <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);"><span
-                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>CQC, SIA and GLAA-compliant supply as standard across all sectors</div>
+                style="color:var(--gold);font-weight:700;flex-shrink:0;">&#x2714;</span>CQC and SIA-compliant supply as standard; warehouse workers FLT-verified and AWR compliant</div>
           </div>
           <div style="margin-top:20px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 18px;display:flex;gap:14px;align-items:flex-start;">
             <div style="width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);">
               <span style="font-size:14px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;">JK</span>
             </div>
             <div>
-              <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;">Jaby Kamidi, Director</div>
+              <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;">Jaby K., Director</div>
               <p style="font-size:13px;color:var(--muted);line-height:1.7;font-style:italic;margin:0;">&ldquo;When you request staff, I review the requirement personally. Every placement carries my name.&rdquo;</p>
             </div>
           </div>
@@ -1892,7 +1834,7 @@
             <input type="hidden" name="crm_lead_source" value="Website - Staff Request Form">
             <input type="hidden" name="crm_module" value="Leads">
             <input type="hidden" name="crm_type" value="B2B_Employer">
-            <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
+            <p style="display:none" aria-hidden="true"><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
             <div class="dk-g2">
               <div class="dk-fg"><label class="dk-label">Company Name *</label><input class="dk-input"
                   name="company_name" placeholder="Oakwood Care Home" required></div>
@@ -1915,6 +1857,7 @@
                   <option value="care">Care &amp; Healthcare</option>
                   <option value="security">Security</option>
                   <option value="warehouse">Warehouse &amp; Logistics</option>
+                  <option value="construction">Construction &amp; Trades</option>
                   <option value="multiple">Multiple sectors</option>
                 </select>
               </div>
@@ -1956,14 +1899,14 @@
               <label
                 style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
                 <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-                <span>I consent to my data being processed in accordance with the <a href="/privacy.html"
+                <span>I consent to my data being processed in accordance with the <a href="/privacy"
                     style="color:var(--gold);">Privacy Policy</a> for the purpose of this enquiry.</span>
               </label>
             </div>
             <button type="submit" class="f-submit" id="rsb-submit-btn" aria-label="Send employer enquiry">Send Employer
               Enquiry &#8594;</button>
             <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:10px;">Your data is
-              processed under UK GDPR. See our <a href="/privacy.html" style="color:rgba(201,168,76,.55);">Privacy
+              processed under UK GDPR. See our <a href="/privacy" style="color:rgba(201,168,76,.55);">Privacy
                 Policy</a>. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
           </form>
         </div>
@@ -1992,21 +1935,21 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
-        <a href="/trade.html" class="ft-link">Import & Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage & Freight</a>
+        <a href="/trade" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms & Conditions</a>
+        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
@@ -2014,6 +1957,7 @@
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -2032,7 +1976,7 @@
 
   <div id="cc-bar">
     <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies.
-      <a href="/privacy.html">Privacy Policy</a>.</p>
+      <a href="/privacy">Privacy Policy</a>.</p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>
       <button class="cc-ok">Accept All</button>

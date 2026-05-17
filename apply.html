@@ -6,8 +6,13 @@
 <title>Job Application Portal | Covenant Crest</title>
 <meta name="description" content="Official job application portal for Covenant Crest Group. Join our team of professionals.">
 <meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Apply for a Job | Covenant Crest Group">
+<meta property="og:description" content="Submit your application to Covenant Crest Group. Weekly pay, full compliance support, roles across care, security, warehouse and construction.">
+<meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
+<meta property="og:url" content="https://covenantcrest.co.uk/apply">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
+<script src="/api.js" defer></script>
 <script src="/js/common.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +27,7 @@ body{background:var(--cream);color:var(--navy);font-family:var(--font-body);font
 nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
 .nav-name{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,34px);color:#fff;letter-spacing:0.04em;font-weight:500;line-height:1;}
-.nav-name span{color:#D4AF37;}
+.nav-name span{color:#C9A84C;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
@@ -51,7 +56,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 .ft-main{padding:52px 48px 36px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;max-width:1200px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.05);}
 .ft-logo-name{font-family:'Playfair Display',serif;font-size:34px;color:#fff;font-weight:500;letter-spacing:0.04em;margin:12px 0 2px;}
-.ft-logo-name span{color:#D4AF37;}
+.ft-logo-name span{color:#C9A84C;}
 .ft-logo-sub{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.4em;text-transform:uppercase;margin-bottom:16px;opacity:0.9;}
 .ft-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.8;margin-top:12px;max-width:240px;}
 .ft-col-title{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
@@ -69,6 +74,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 .cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;cursor:pointer;}
 @media(max-width:860px){
   .ft-main{grid-template-columns:1fr 1fr;padding:40px 24px 28px;gap:28px;}
+  .ft-main > div:first-child{grid-column:span 2;}
+  .ft-logo-name{font-size:28px;}
   .ft-bottom{padding:14px 24px;flex-direction:column;text-align:center;}
 }
 @media(max-width:480px){.ft-main{grid-template-columns:1fr;}}
@@ -102,8 +109,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 .f-cv-sub{font-size:13px; color:var(--muted);}
 .f-cv-clear{display:none; color:var(--danger); font-size:13px; font-weight:700; text-transform:uppercase; margin-top:16px; border:none; background:none; cursor:pointer;}
 
-.f-submit{width:100%; background:var(--navy); color:#fff; font-family:var(--font-body); font-size:14px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:22px; border:none; border-radius:12px; cursor:pointer; transition:all .3s; margin-top:40px; box-shadow:0 10px 30px rgba(13,27,42,0.15);}
-.f-submit:hover{background:var(--gold); transform:translateY(-2px); box-shadow:0 15px 35px rgba(201,168,76,0.25);}
+.f-submit{width:100%; background:var(--gold); color:var(--navy); font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:16px 32px; border:none; border-radius:4px; cursor:pointer; transition:all .3s; margin-top:40px; box-shadow:0 10px 30px rgba(201,168,76,0.15);}
+.f-submit:hover{background:var(--gold2); transform:translateY(-2px); box-shadow:0 15px 35px rgba(201,168,76,0.25);}
 .f-submit:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
 
 .success-card{display:none; text-align:center; padding:60px 0;}
@@ -133,7 +140,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 </div>
 
 <nav id="mainNav">
-  <a href="/index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
       <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
@@ -148,21 +155,21 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     <div class="nav-name">Covenant <span>Crest</span></div>
   </a>
   <div class="nav-links" id="navLinks">
-    <a href="/index.html" class="nl">Home</a>
-    <a href="/recruitment.html" class="nl active">Browse Jobs</a>
-    <a href="/hire.html" class="nl">Hire Staff</a>
-    <a href="/about.html" class="nl">About Us</a>
-    <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-    <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+    <a href="/" class="nl">Home</a>
+    <a href="/recruitment" class="nl active">Browse Jobs</a>
+    <a href="/hire" class="nl">Hire Staff</a>
+    <a href="/about" class="nl">About Us</a>
+    <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+    <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
   </div>
   <div class="nav-group-wrap" id="groupToggle">
     <button class="btn-group">Our Divisions <span style="font-size:8px;opacity:0.6;margin-left:4px;">&#9662;</span></button>
     <div class="group-dd">
-      <a href="/haulage.html" class="gm-item">
+      <a href="/haulage" class="gm-item">
         <div class="gm-name">Haulage &amp; Freight</div>
         <div class="gm-desc">UK logistics &amp; freight solutions.</div>
       </a>
-      <a href="/trade.html" class="gm-item">
+      <a href="/trade" class="gm-item">
         <div class="gm-name">Import &amp; Trade</div>
         <div class="gm-desc">Global food supply &amp; distribution.</div>
       </a>
@@ -193,33 +200,33 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                 <div class="f-section-title"><span>1</span> Personal Details</div>
                 <div class="f-row">
                     <div class="f-group">
-                        <label class="f-label">First Name *</label>
+                        <label class="f-label" for="first_name">First Name *</label>
                         <input type="text" class="f-input" id="first_name" required placeholder="Jane">
                     </div>
                     <div class="f-group">
-                        <label class="f-label">Last Name *</label>
+                        <label class="f-label" for="last_name">Last Name *</label>
                         <input type="text" class="f-input" id="last_name" required placeholder="Doe">
                     </div>
                 </div>
 
                 <div class="f-row">
                     <div class="f-group">
-                        <label class="f-label">Email Address *</label>
+                        <label class="f-label" for="email">Email Address *</label>
                         <input type="email" class="f-input" id="email" required placeholder="jane.doe@example.com">
                     </div>
                     <div class="f-group">
-                        <label class="f-label">Phone Number *</label>
+                        <label class="f-label" for="phone">Phone Number *</label>
                         <input type="tel" class="f-input" id="phone" required placeholder="07700 900000">
                     </div>
                 </div>
 
                 <div class="f-row">
                     <div class="f-group">
-                        <label class="f-label">Postcode *</label>
+                        <label class="f-label" for="postcode">Postcode *</label>
                         <input type="text" class="f-input" id="postcode" required placeholder="e.g. TF3 4NT">
                     </div>
                     <div class="f-group">
-                        <label class="f-label">Availability *</label>
+                        <label class="f-label" for="availability">Availability *</label>
                         <select class="f-select" id="availability" required>
                             <option value="immediate">Immediately Available</option>
                             <option value="1week">1 Week Notice</option>
@@ -234,7 +241,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                 
                 <div class="f-row">
                     <div class="f-group">
-                        <label class="f-label">Right to Work in the UK *</label>
+                        <label class="f-label" for="rtw_status">Right to Work in the UK *</label>
                         <select class="f-select" id="rtw_status" required>
                             <option value="" disabled selected>Please select...</option>
                             <option value="british_irish">British or Irish Passport</option>
@@ -244,7 +251,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                         </select>
                     </div>
                     <div class="f-group">
-                        <label class="f-label">Years of Experience *</label>
+                        <label class="f-label" for="experience">Years of Experience *</label>
                         <select class="f-select" id="experience" required>
                             <option value="entry">Less than 1 year</option>
                             <option value="1-3">1 to 3 years</option>
@@ -255,7 +262,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                 </div>
 
                 <div class="f-group" id="visa-details-wrap" style="display:none;">
-                    <label class="f-label">Visa Details & Expiry *</label>
+                    <label class="f-label" for="visa_details">Visa Details & Expiry *</label>
                     <input type="text" class="f-input" id="visa_details" placeholder="e.g. Skilled Worker, Expires 2026">
                 </div>
 
@@ -278,12 +285,12 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                 <div class="f-section-title"><span>3</span> Supporting Information</div>
 
                 <div class="f-group">
-                    <label class="f-label">Additional Notes</label>
+                    <label class="f-label" for="notes">Additional Notes</label>
                     <textarea class="f-textarea" id="notes" placeholder="Tell us about your relevant experience or specific requirements..."></textarea>
                 </div>
 
                 <div class="f-group">
-                    <label class="f-label">Upload CV (Optional)</label>
+                    <label class="f-label" for="cv-input">Upload CV (Optional)</label>
                     <input type="file" id="cv-input" accept=".pdf,.doc,.docx" style="display:none;" onchange="handleFile(this)">
                     <div class="f-cv-zone" onclick="document.getElementById('cv-input').click()">
                         <span class="f-cv-icon">📄</span>
@@ -294,12 +301,13 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
                 </div>
 
                 <div class="f-group" style="margin-top:32px;">
-                    <label class="f-check-label" style="font-size:13px; color:var(--muted);">
-                        <input type="checkbox" required>
-                        I consent to Covenant Crest processing my data for recruitment purposes in accordance with the <a href="/privacy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a>.
+                    <input type="checkbox" id="gdpr_consent" name="gdpr_consent" required style="margin-right:8px;vertical-align:middle;">
+                    <label for="gdpr_consent" style="font-size:13px; color:var(--muted); cursor:pointer;">
+                        I consent to Covenant Crest processing my data for recruitment purposes in accordance with the <a href="/privacy" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">Privacy Policy</a>.
                     </label>
                 </div>
 
+                <div id="app-err" style="display:none;background:#E24B4A;color:#fff;font-size:12px;font-weight:600;padding:12px 16px;border-radius:4px;margin:16px 0;line-height:1.4;"></div>
                 <button type="submit" class="f-submit" id="submit-btn">Submit Application</button>
             </form>
         </div>
@@ -308,12 +316,10 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             <div class="success-icon">✓</div>
             <h2 class="success-title">Application Sent!</h2>
             <p class="success-desc">Thank you for your interest. A recruitment consultant will review your profile and get in touch within 24 hours.</p>
-            <a href="/recruitment.html" class="btn-home">Browse More Jobs</a>
+            <a href="/recruitment" class="btn-home">Browse More Jobs</a>
         </div>
     </div>
 </div>
-
-<script src="/api.js" defer></script>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
     var jobId = urlParams.get('id');
@@ -325,15 +331,15 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         if (!jobId) { window.location.href = '/recruitment.html'; return; }
         
         CCA.jobs.get(jobId).then(function(job) {
-            if (!job) { alert('Job not found'); window.location.href = '/recruitment.html'; return; }
+            if (!job) { window.location.href = '/recruitment.html'; return; }
             _jobData = job;
             document.getElementById('job-title').textContent = job.title;
             document.getElementById('job-location').textContent = job.location || 'United Kingdom';
             document.getElementById('job-id-display').textContent = job.id.substring(0,8).toUpperCase();
-            document.getElementById('job-sector').textContent = (job.sector || 'Recruitment').charAt(0).toUpperCase() + job.sector.slice(1);
+            var sec = job.sector || 'Recruitment';
+            document.getElementById('job-sector').textContent = sec.charAt(0).toUpperCase() + sec.slice(1);
             document.getElementById('loading').style.display = 'none';
         }).catch(function() {
-            alert('Error loading job details');
             window.location.href = '/recruitment.html';
         });
 
@@ -347,7 +353,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     function handleFile(input) {
         var file = input.files[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) { alert('File too large (Max 5MB)'); input.value = ''; return; }
+        if (file.size > 5 * 1024 * 1024) { showFormError(document.getElementById('cv-label') || input, 'File too large (Max 5MB)'); input.value = ''; return; }
         
         _cvName = file.name;
         var reader = new FileReader();
@@ -385,6 +391,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             last_name: document.getElementById('last_name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
+            postcode: document.getElementById('postcode').value,
             availability: document.getElementById('availability').value,
             rtw_status: document.getElementById('rtw_status').value,
             visa_details: document.getElementById('visa_details').value,
@@ -402,13 +409,19 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
-        .then(function() {
+        .then(function(response) {
+            if (!response.ok) {
+                return response.json().then(function(d) {
+                    throw new Error(d.error || 'Server error (' + response.status + ')');
+                });
+            }
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             window.scrollTo(0,0);
         })
-        .catch(function() {
-            alert('There was an issue submitting your application. Please try again or email us directly.');
+        .catch(function(err) {
+            var errEl = document.getElementById('app-err');
+            if (errEl) { errEl.textContent = 'There was an issue submitting your application: ' + (err.message || 'Please try again or email us directly.'); errEl.style.display = 'block'; }
             btn.disabled = false;
             btn.textContent = 'Submit Application';
         });
@@ -431,25 +444,26 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England &amp; Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage &amp; Freight</a>
-        <a href="/trade.html" class="ft-link">Import &amp; Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage &amp; Freight</a>
+        <a href="/trade" class="ft-link">Import &amp; Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms &amp; Conditions</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms &amp; Conditions</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
         <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer" class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           LinkedIn
@@ -463,7 +477,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   </footer>
 
   <div id="cc-bar">
-    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
+    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy">Privacy Policy</a>.</p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>
       <button class="cc-ok">Accept All</button>

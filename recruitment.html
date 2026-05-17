@@ -8,11 +8,11 @@
   <meta name="description"
     content="Browse live care, security, warehouse and construction jobs in Telford, Shropshire &amp; across the UK. Register as a candidate with Covenant Crest Group Ltd.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://covenantcrest.co.uk/recruitment.html">
+  <link rel="canonical" href="https://covenantcrest.co.uk/recruitment">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://covenantcrest.co.uk/recruitment.html">
+  <meta property="og:url" content="https://covenantcrest.co.uk/recruitment">
   <meta property="og:title" content="Recruitment — Care, Security &amp; Warehouse Jobs | Covenant Crest">
   <meta property="og:description"
     content="Browse live care, security and warehouse jobs. Register as a candidate or hire staff with Covenant Crest Group Ltd.">
@@ -24,9 +24,9 @@
   <meta name="twitter:title" content="Care, Security &amp; Warehouse Jobs | Covenant Crest">
   <meta name="twitter:description" content="Browse live care, security, warehouse and construction jobs in Telford, Shropshire &amp; across the UK. Register as a candidate today.">
   <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
-  <script src="api.js" defer></script>
-  <script src="js/common.js" defer></script>
-  <script src="js/recruitment.js" defer></script>
+  <script src="/api.js" defer></script>
+  <script src="/js/common.js" defer></script>
+  <script src="/js/recruitment.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -63,7 +63,7 @@
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
@@ -102,7 +102,7 @@
     }
 
     .nav-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .nav-links {
@@ -454,12 +454,12 @@
       background: var(--gold);
       color: var(--navy);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .18em;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      padding: 13px 30px;
-      border-radius: 2px;
+      padding: 14px 32px;
+      border-radius: 4px;
       border: none;
       cursor: pointer;
       transition: all .2s;
@@ -1413,15 +1413,16 @@
     }
 
     .ft-logo-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .ft-logo-sub {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: .3em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .4em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, .18);
+      color: var(--gold);
+      opacity: .9;
     }
 
     .ft-desc {
@@ -1667,6 +1668,14 @@
         gap: 20px;
       }
 
+      .ft-main > div:first-child {
+        grid-column: span 2;
+      }
+
+      .ft-logo-name {
+        font-size: 28px;
+      }
+
       .ft-bottom {
         padding: 14px 24px;
         flex-direction: column;
@@ -1744,7 +1753,7 @@
 <body>
 
   <nav id="mainNav">
-    <a href="/index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -1760,22 +1769,22 @@
       <div class="nav-name">Covenant <span>Crest</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html" class="nl">Home</a>
-      <a href="/recruitment.html" class="nl active">Browse Jobs</a>
-      <a href="/hire.html" class="nl">Hire Staff</a>
-      <a href="/about.html" class="nl">About Us</a>
-      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+      <a href="/" class="nl">Home</a>
+      <a href="/recruitment" class="nl active">Browse Jobs</a>
+      <a href="/hire" class="nl">Hire Staff</a>
+      <a href="/about" class="nl">About Us</a>
+      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span
           style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
-        <a href="/haulage.html" class="gm-item">
+        <a href="/haulage" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
           <div class="gm-desc">UK logistics &amp; freight solutions.</div>
         </a>
-        <a href="/trade.html" class="gm-item">
+        <a href="/trade" class="gm-item">
           <div class="gm-name">Import &amp; Trade</div>
           <div class="gm-desc">Global food supply &amp; distribution.</div>
         </a>
@@ -1792,7 +1801,7 @@
       <div class="s-tag">Covenant Crest Recruitment</div>
       <h1 class="ph-h1">Find Work That <em>Pays Weekly</em> and Respects Your Compliance.</h1>
       <p class="ph-desc">Care, security, warehouse and construction roles across Telford, Shropshire and the UK. Every role compliance-supported, every worker treated fairly from day one.</p>
-      <div class="ph-btns">
+      <div class="hero-btns">
         <a href="#live-jobs" class="btn-gold">Browse Live Jobs</a>
         <button class="btn-ghost" id="heroRegisterTrigger">Register Your Details</button>
       </div>
@@ -1954,14 +1963,14 @@
             </a>
           </div>
           <div class="ok-banner" id="ok-apply">&#x2705; Registration received! We&rsquo;ll be in touch within 24 hours.</div>
-          <form name="candidate-apply" method="POST" id="candidate-apply-form">
+          <form name="candidate-apply" method="POST" id="candidate-apply-form" data-netlify="true">
             <input type="hidden" name="form-name" value="candidate-apply">
             <input type="hidden" name="job_title" id="hidden-job-title" value="">
             <input type="hidden" name="job_id" id="hidden-job-id" value="">
             <input type="hidden" name="crm_lead_source" value="Website - Candidate Registration">
             <input type="hidden" name="crm_module" value="Contacts">
             <input type="hidden" name="crm_type" value="Candidate">
-            <p style="display:none"><label>Do not fill: <input name="bot-field"></label></p>
+            <p style="display:none" aria-hidden="true"><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
             <div class="dk-g2">
               <div class="dk-fg"><label class="dk-label">First Name *</label><input class="dk-input" name="first_name" placeholder="John" required></div>
               <div class="dk-fg"><label class="dk-label">Last Name *</label><input class="dk-input" name="last_name" placeholder="Smith" required></div>
@@ -2034,7 +2043,7 @@
             <div class="dk-fg">
               <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
                 <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-                <span>I consent to my data being processed for recruitment matching under UK GDPR. See our <a href="/privacy.html" style="color:var(--gold);">Privacy Policy</a>.</span>
+                <span>I consent to my data being processed for recruitment matching under UK GDPR. See our <a href="/privacy" style="color:var(--gold);">Privacy Policy</a>.</span>
               </label>
             </div>
             <button type="submit" class="f-submit" id="apply-submit-btn" aria-label="Submit registration">Join the Talent Pool &#8594;</button>
@@ -2086,21 +2095,21 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
-        <a href="/trade.html" class="ft-link">Import & Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage & Freight</a>
+        <a href="/trade" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms & Conditions</a>
+        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
@@ -2108,6 +2117,7 @@
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -2126,7 +2136,7 @@
 
   <div id="cc-bar">
     <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies.
-      <a href="/privacy.html">Privacy Policy</a>.
+      <a href="/privacy">Privacy Policy</a>.
     </p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>

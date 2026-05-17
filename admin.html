@@ -23,7 +23,7 @@ body{background:#F3F5F8;color:var(--navy);font-family:'Plus Jakarta Sans', sans-
 /* SIDEBAR */
 .asb-logo{padding:20px 22px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .asb-logo-text{font-family:'Playfair Display', serif;font-size:20px;color:#fff;line-height:1.2;letter-spacing:0.04em;font-weight:500;}
-.asb-logo-text span{color:#D4AF37;}
+.asb-logo-text span{color:#C9A84C;}
 .asb-badge{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:3px;}
 .asb-sec-label{padding:18px 0 5px 22px;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18);}
 .asb-item{display:flex;align-items:center;gap:10px;padding:10px 22px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);font-size:12px;font-weight:500;border-left:3px solid transparent;text-decoration:none;}
@@ -162,7 +162,7 @@ tbody tr:hover{background:#FAFAFA;}
 @keyframes fU{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 </style>
 </head>
-<body>
+<body style="display:none">
 
 <!-- API offline banner -->
 <div class="api-status" id="apiStatus">⚠ Cannot reach the API server. Showing cached data. Check your Render.com service is running.</div>
@@ -210,7 +210,7 @@ tbody tr:hover{background:#FAFAFA;}
       <div class="atb-title" id="topbar-title">Overview</div>
       <div class="atb-right">
         <span style="font-size:11px;color:var(--muted);" id="topbar-email"></span>
-        <a href="/" target="_blank" class="atb-site-link">View Site ↗</a>
+        <a href="/" target="_blank" rel="noopener noreferrer" class="atb-site-link">View Site ↗</a>
       </div>
     </div>
 
@@ -294,6 +294,7 @@ tbody tr:hover{background:#FAFAFA;}
             <div style="background:linear-gradient(135deg,rgba(29,158,117,.04),rgba(29,158,117,.08)); border:1px solid rgba(29,158,117,.15); border-radius:12px; padding:20px;">
               <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-hired">—</div>
               <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;">Placements</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;" id="tl-rate">—</div>
             </div>
             <div style="background:linear-gradient(135deg,rgba(61,90,168,.04),rgba(61,90,168,.08)); border:1px solid rgba(61,90,168,.15); border-radius:12px; padding:20px;">
               <div style="font-size:32px;font-weight:700;color:var(--navy); font-family:'Playfair Display',serif; margin-bottom:4px;" id="tl-shortlisted">—</div>
@@ -404,8 +405,8 @@ tbody tr:hover{background:#FAFAFA;}
           </div>
         </div>
         <div class="tbl-card">
-          <table><thead><tr><th style="width:30px;"><input type="checkbox" id="selectAllApps"></th><th>Name</th><th>Email</th><th>Phone</th><th>Sector</th><th>Job</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="apps-tbody"><tr class="empty-row"><td colspan="9">Loading…</td></tr></tbody></table>
+          <table><thead><tr><th style="width:30px;"><input type="checkbox" id="selectAllApps"></th><th>Name</th><th>Email</th><th>Phone</th><th>Sector</th><th>Job</th><th>Date</th><th>Days</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="apps-tbody"><tr class="empty-row"><td colspan="10">Loading…</td></tr></tbody></table>
         </div>
       </div>
 
@@ -419,14 +420,14 @@ tbody tr:hover{background:#FAFAFA;}
             <div class="af-group"><label class="af-label">Company Number</label><input class="af-input" value="16528951" readonly style="background:#FAFAFA;"></div>
           </div>
           <div class="ag2">
-            <div class="af-group"><label class="af-label">Director</label><input class="af-input" value="Jaby Kamidi" readonly style="background:#FAFAFA;"></div>
-            <div class="af-group"><label class="af-label">Address</label><input class="af-input" value="Telford, Shropshire" readonly style="background:#FAFAFA;"></div>
+            <div class="af-group"><label class="af-label">Director</label><input class="af-input" value="Jaby K." readonly style="background:#FAFAFA;"></div>
+            <div class="af-group"><label class="af-label">Address</label><input class="af-input" value="28 Princess Avenue, Telford, Shropshire" readonly style="background:#FAFAFA;"></div>
           </div>
         </div>
         <div class="adm-form-card" id="pwd-card">
           <div class="adm-form-title">Change Admin Password</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Change your staff portal login password directly here — no need to touch Render.</p>
-          <div id="pwd-success" style="display:none;padding:10px 14px;background:#edfaf3;border:1px solid #1D9E75;border-radius:5px;font-size:12px;color:#1D9E75;margin-bottom:14px;">✅ Password changed successfully! Use your new password next time you log in.</div>
+          <div id="pwd-success" style="display:none;padding:10px 14px;background:#edfaf3;border:1px solid #1D9E75;border-radius:5px;font-size:12px;color:#1D9E75;margin-bottom:14px;">Password changed successfully. Use your new password next time you log in.</div>
           <div id="pwd-error" style="display:none;padding:10px 14px;background:#fef2f2;border:1px solid var(--danger);border-radius:5px;font-size:12px;color:var(--danger);margin-bottom:14px;"></div>
           <div class="ag2">
             <div class="af-group">
@@ -449,15 +450,15 @@ tbody tr:hover{background:#FAFAFA;}
         </div>
         <div class="adm-form-card">
           <div class="adm-form-title">API &amp; Integrations Status</div>
-          <div id="integrations-status" style="font-size:12px;line-height:2;color:var(--charcoal);">
-            <div>🔌 API Backend: <span id="int-api" style="font-weight:600;">Checking…</span></div>
-            <div>📧 Email (Resend): <span id="int-email" style="font-weight:600;">—</span></div>
-            <div>☁️ Cloudinary: <span id="int-cloud" style="font-weight:600;">—</span></div>
+          <div id="integrations-status" style="font-size:12px;line-height:2.4;color:var(--charcoal);">
+            <div style="display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> API Backend: <span id="int-api" style="font-weight:600;">Checking…</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Zoho Mail: <span id="int-email" style="font-weight:600;">—</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> Cloudinary: <span id="int-cloud" style="font-weight:600;">—</span></div>
           </div>
           <button class="btn-sm pr" style="margin-top:12px;" id="refreshIntegrationsBtn">Refresh Status</button>
         </div>
         <div class="adm-form-card" style="border-color:#FFC0C0;" id="danger-zone">
-          <div class="adm-form-title" style="color:var(--danger);">⚠ Danger Zone</div>
+          <div class="adm-form-title" style="color:var(--danger);display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Danger Zone</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">These actions are permanent and cannot be undone.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button class="btn-sm dn" id="clearAllContactsBtn">Clear All Enquiries</button>
@@ -473,7 +474,7 @@ tbody tr:hover{background:#FAFAFA;}
           <button class="btn-primary" id="addUserBtn">+ Add Employee Account</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
-          <h4>🔒 Role Permissions</h4>
+          <h4 style="display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Role Permissions</h4>
           <p><strong>Super Admin</strong> (you): Full access — manage jobs, view enquiries &amp; applications, create/delete employee accounts.<br>
           <strong>Employee</strong>: Can manage job listings and view/read contacts and applications. Cannot create accounts, delete records, or access settings.</p>
         </div>
@@ -491,7 +492,7 @@ tbody tr:hover{background:#FAFAFA;}
           <button class="btn-sm pr" id="refreshSecurityLogsBtn">Refresh Logs</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
-          <h4>🛡️ Protection Overview</h4>
+          <h4 style="display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Protection Overview</h4>
           <p>The system automatically logs critical security events like failed login attempts and password changes. 
           Persistent brute-force attempts from a single IP are automatically throttled.</p>
         </div>
@@ -509,7 +510,7 @@ tbody tr:hover{background:#FAFAFA;}
           <button class="btn-primary" onclick="exportCSV('talent')">Export Talent List</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
-          <h4>🔍 Search Your Database</h4>
+          <h4 style="display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search Your Database</h4>
           <p>Search through all historical applicants to find candidates for new roles before you even post them. Use the filters below to narrow down by skill or sector.</p>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
@@ -532,7 +533,7 @@ tbody tr:hover{background:#FAFAFA;}
       <div class="tab-pane" id="tab-planner">
         <h2 style="font-family:'Playfair Display', serif;font-size:26px;margin-bottom:18px;">Interview Planner</h2>
         <div class="info-box" style="margin-bottom:18px;">
-          <h4>✅ Current Shortlist</h4>
+          <h4 style="display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Current Shortlist</h4>
           <p>These are the candidates currently marked as <strong>Shortlisted</strong>. These are your priority follow-ups and interviews.</p>
         </div>
         <div class="tbl-card">
@@ -548,7 +549,7 @@ tbody tr:hover{background:#FAFAFA;}
           <button class="btn-sm gd" onclick="loadApplications(renderCompliance)">Refresh</button>
         </div>
         <div class="info-box" style="margin-bottom:18px;">
-          <h4>🛡 Document Expiry Tracking — DBS · SIA · Right to Work</h4>
+          <h4 style="display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Document Expiry Tracking — DBS · SIA · Right to Work</h4>
           <p>Track compliance documents for all placed workers. Open a candidate record to enter or update DBS, SIA, and RTW details.
           <strong style="color:#E24B4A;">Red = Expired</strong> &middot; <strong style="color:#D35400;">Orange = expiring ≤30 days</strong> &middot; <strong style="color:#8A6020;">Amber = 31–90 days</strong> &middot; <strong style="color:#1D9E75;">Green = valid</strong></p>
         </div>
@@ -556,28 +557,28 @@ tbody tr:hover{background:#FAFAFA;}
           <div class="astat rd">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="comp-stat-expired">—</div>
-              <div style="width:40px;height:40px;border-radius:10px;background:rgba(226,75,74,.1);display:flex;align-items:center;justify-content:center;font-size:20px;">⛔</div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(226,75,74,.1);display:flex;align-items:center;justify-content:center;color:var(--danger);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
             </div>
             <div class="astat-lbl">Expired Documents</div>
           </div>
           <div class="astat or">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="comp-stat-critical">—</div>
-              <div style="width:40px;height:40px;border-radius:10px;background:rgba(245,166,35,.1);display:flex;align-items:center;justify-content:center;font-size:20px;">⚠️</div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(245,166,35,.1);display:flex;align-items:center;justify-content:center;color:var(--warn);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
             </div>
             <div class="astat-lbl">Expiring ≤30 Days</div>
           </div>
           <div class="astat" style="border-top-color:#8A6020;">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="comp-stat-warn">—</div>
-              <div style="width:40px;height:40px;border-radius:10px;background:rgba(138,96,32,.1);display:flex;align-items:center;justify-content:center;font-size:20px;">📅</div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(138,96,32,.1);display:flex;align-items:center;justify-content:center;color:#8A6020;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
             </div>
             <div class="astat-lbl">Expiring 31–90 Days</div>
           </div>
           <div class="astat gr">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div class="astat-num" id="comp-stat-ok">—</div>
-              <div style="width:40px;height:40px;border-radius:10px;background:rgba(29,158,117,.1);display:flex;align-items:center;justify-content:center;font-size:20px;">✅</div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(29,158,117,.1);display:flex;align-items:center;justify-content:center;color:var(--success);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             </div>
             <div class="astat-lbl">Fully Compliant</div>
           </div>
@@ -703,7 +704,12 @@ tbody tr:hover{background:#FAFAFA;}
     <div class="modal-title" id="cm-title">Enquiry</div>
     <div class="modal-sub" id="cm-sub"></div>
     <div id="cm-body" style="font-size:13px;color:var(--charcoal);line-height:1.8;"></div>
-    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;">
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+      <label class="af-label">Internal Admin Note</label>
+      <textarea id="cm-admin-note" class="af-textarea" placeholder="Private notes — not visible to client..." style="min-height:56px;margin-bottom:8px;font-size:12px;"></textarea>
+      <button class="btn-sm pr" id="cm-save-note-btn">Save Note</button>
+    </div>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn-sm sc" id="cm-read-btn">Mark Read</button>
       <button class="btn-sm pr" id="cm-reply-btn">Reply by Email</button>
       <button class="btn-sm dn" id="cm-del-btn">Delete</button>
@@ -735,6 +741,48 @@ tbody tr:hover{background:#FAFAFA;}
     </div>
     <div class="modal-err" id="u-err"></div>
     <button class="btn-primary" style="width:100%;margin-top:6px;" id="u-save-btn">Create Employee Account →</button>
+  </div>
+</div>
+
+<!-- REUSABLE CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:380px;">
+    <div style="text-align:center;padding:8px 0 16px;">
+      <div class="modal-title" style="font-size:18px;margin-bottom:10px;" id="confirm-modal-title">Confirm Action</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:22px;" id="confirm-modal-msg"></p>
+      <div style="display:flex;gap:10px;">
+        <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--charcoal);" id="confirm-cancel-btn">Cancel</button>
+        <button class="btn-primary" style="flex:1;background:var(--danger);" id="confirm-ok-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SESSION TIMEOUT WARNING MODAL -->
+<div class="modal-overlay" id="sessionModal">
+  <div class="modal" style="max-width:380px;text-align:center;">
+    <div style="width:48px;height:48px;border-radius:50%;background:rgba(245,166,35,.1);border:2px solid rgba(245,166,35,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--warn);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div class="modal-title" style="font-size:18px;margin-bottom:6px;">Session Expiring</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;">You've been inactive for 25 minutes. You'll be signed out automatically in 5 minutes to protect your account.</p>
+    <button class="btn-primary" style="width:100%;" id="session-stay-btn">Stay Signed In</button>
+  </div>
+</div>
+
+<!-- DANGER ZONE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="dangerModal">
+  <div class="modal" style="max-width:420px;">
+    <button class="modal-close" data-close="dangerModal">✕</button>
+    <div style="text-align:center;padding:8px 0 16px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:#FFF0F0;border:2px solid rgba(226,75,74,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--danger);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="modal-title" style="color:var(--danger);font-size:20px;" id="danger-modal-title">Confirm Deletion</div>
+      <div class="modal-sub" id="danger-modal-desc" style="margin-top:6px;margin-bottom:16px;"></div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Type <strong>DELETE</strong> below to confirm this irreversible action.</p>
+      <input class="af-input" id="danger-confirm-input" placeholder="Type DELETE here" style="margin-bottom:14px;text-align:center;letter-spacing:.12em;text-transform:uppercase;">
+      <div style="display:flex;gap:10px;">
+        <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--muted);" onclick="closeModal('dangerModal')">Cancel</button>
+        <button class="btn-primary" style="flex:1;background:var(--danger);" id="danger-confirm-btn">Delete Permanently</button>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -7,8 +7,11 @@
 <meta name="description" id="meta-desc" content="View job details and apply for a role with Covenant Crest.">
 <meta name="keywords" id="meta-keywords" content="recruitment, jobs, career">
 <meta name="robots" content="index, follow">
+<link rel="canonical" id="canonical-url" href="https://covenantcrest.co.uk/job.html">
 <meta property="og:site_name" content="Covenant Crest">
 <meta property="og:title" content="Job Details | Covenant Crest">
+<meta property="og:description" id="og-desc" content="View job details and apply for a role with Covenant Crest Group.">
+<meta property="og:url" id="og-url" content="https://covenantcrest.co.uk/job.html">
 <meta property="og:image" content="https://covenantcrest.co.uk/og-image.svg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -38,9 +41,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
   font-weight: 500;
   line-height: 1;
 }
-.nav-name span{color:#D4AF37;}
-.nav-links{display:flex;align-items:center;gap:32px;}
-.nl{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .3s;white-space:nowrap;}
+.nav-name span{color:#C9A84C;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
 .nav-cta{display:none;}
 .nav-group-wrap { position: relative; display: inline-block; }
@@ -65,7 +68,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
 .sjh-btn:hover{background:var(--gold2);transform:translateY(-1px);}
 
 /* PAGE HEADER */
-.page-header{background:linear-gradient(rgba(13,27,42,0.92), rgba(13,27,42,0.96)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80'); background-size:cover; background-position:center; background-attachment:fixed; padding:60px 48px 40px; position:relative;}
+.page-header{background:linear-gradient(rgba(13,27,42,0.97), rgba(13,27,42,0.99)), linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size:cover, 60px 60px, 60px 60px; padding:60px 48px 40px; position:relative;}
 .ph-inner{max-width:1100px;margin:0 auto;}
 .back-link{color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;transition:opacity .3s;}
 .back-link:hover{opacity:0.8;}
@@ -131,8 +134,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97
   padding: 12px 16px;
   border-radius: 10px;
 }
-
-/* REVEAL FORM WRAP */
 
 /* REVEAL FORM WRAP */
 .form-reveal-wrap {
@@ -217,7 +218,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   letter-spacing: 0.04em;
   margin: 12px 0 2px;
 }
-.ft-logo-name span{color:#D4AF37;}
+.ft-logo-name span{color:#C9A84C;}
 .ft-logo-sub { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 16px; opacity: 0.9; }
 .ft-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:16px;}
 .ft-col-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
@@ -242,6 +243,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   .f-checkbox-group{grid-template-columns:1fr;}
   .form-container{padding:32px 24px;}
   .ft-main{grid-template-columns:1fr 1fr; gap:32px; padding:48px 24px;}
+  .ft-main > div:first-child{grid-column:span 2;}
+  .ft-logo-name{font-size:28px;}
 }
 @media(max-width:480px){
   .ft-main{grid-template-columns:1fr;}
@@ -273,12 +276,13 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   window.openApplyPage = openApplyPage;
   window.toggleApplyForm = openApplyPage; // Alias for safety
 </script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
 <script src="/js/job.js" defer></script>
 </head>
 <body>
 
 <nav id="mainNav">
-    <a href="/index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -294,22 +298,22 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <div class="nav-name">Covenant <span>Crest</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html" class="nl">Home</a>
-      <a href="/recruitment.html" class="nl active">Browse Jobs</a>
-      <a href="/hire.html" class="nl">Hire Staff</a>
-      <a href="/about.html" class="nl">About Us</a>
-      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+      <a href="/" class="nl">Home</a>
+      <a href="/recruitment" class="nl active">Browse Jobs</a>
+      <a href="/hire" class="nl">Hire Staff</a>
+      <a href="/about" class="nl">About Us</a>
+      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span
           style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
-        <a href="/haulage.html" class="gm-item">
+        <a href="/haulage" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
           <div class="gm-desc">UK logistics &amp; freight solutions.</div>
         </a>
-        <a href="/trade.html" class="gm-item">
+        <a href="/trade" class="gm-item">
           <div class="gm-name">Import &amp; Trade</div>
           <div class="gm-desc">Global food supply &amp; distribution.</div>
         </a>
@@ -444,8 +448,8 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
         <div class="share-links">
           <div class="sl-title">Share Role:</div>
-          <a href="#" id="share-li" target="_blank" class="sl-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-          <a href="#" id="share-wa" target="_blank" class="sl-btn" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg></a>
+          <a href="#" id="share-li" target="_blank" rel="noopener noreferrer" class="sl-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" id="share-wa" target="_blank" rel="noopener noreferrer" class="sl-btn" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg></a>
           <button id="share-copy" class="sl-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg></button>
         </div>
       </aside>
@@ -471,21 +475,21 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
-        <a href="/trade.html" class="ft-link">Import & Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage & Freight</a>
+        <a href="/trade" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms & Conditions</a>
+        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
@@ -493,6 +497,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -520,7 +525,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 </script>
 <!-- Cookie consent bar -->
 <div id="cc-bar">
-  <p>We use cookies to improve your experience and analyse site traffic. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+  <p>We use cookies to improve your experience and analyse site traffic. See our <a href="/privacy">Privacy Policy</a>.</p>
   <div class="cc-btns">
     <button class="cc-no">Decline</button>
     <button class="cc-ok">Accept</button>

@@ -37,7 +37,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 
 .lc-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:28px;}
 .lc-name{font-family:'Playfair Display', serif;font-size:24px;color:#fff;letter-spacing:0.04em;font-weight:600;}
-.lc-name span{color:#D4AF37;}
+.lc-name span{color:#C9A84C;}
 .lc-title{font-family:'Playfair Display', serif;font-size:26px;font-weight:300;color:#fff;text-align:center;margin-bottom:4px;}
 .lc-sub{font-size:11px;color:rgba(255,255,255,.28);text-align:center;margin-bottom:30px;letter-spacing:.06em;}
 
@@ -94,7 +94,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 
   <!-- API offline warning -->
   <div class="offline-notice" id="offlineNotice">
-    ⚠ The API server appears to be offline. If this is the first login after a period of inactivity, <strong>Render.com's free tier takes ~1 minute to wake up</strong>. Please wait 60 seconds and try again.
+    ⚠ The system is starting up after a period of inactivity. Please wait 60 seconds and try again.
   </div>
 
   <div class="err-banner" id="errBanner" role="alert"></div>
@@ -107,7 +107,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
     <div class="fg">
       <label for="loginPwd">Password</label>
       <div class="pw-wrap">
-        <input type="password" id="loginPwd" name="password" placeholder="Enter your password" required autocomplete="current-password" minlength="6">
+        <input type="password" id="loginPwd" name="password" placeholder="Enter your password" required autocomplete="current-password" minlength="8">
         <button type="button" class="pw-toggle" aria-label="Toggle password visibility">👁</button>
       </div>
     </div>
@@ -143,7 +143,7 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
 
   <div id="ssoError" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(226,75,74,.1);border:1px solid rgba(226,75,74,.4);border-radius:5px;font-size:11px;color:rgba(226,75,74,.9);text-align:center;"></div>
 
-  <a href="/index.html" class="back-link" style="margin-top:18px;">&larr; Back to main site</a>
+  <a href="/" class="back-link" style="margin-top:18px;">&larr; Back to main site</a>
 </div>
 
 </body>

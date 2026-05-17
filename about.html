@@ -10,9 +10,9 @@
   <meta name="robots" content="index, follow">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <link rel="canonical" href="https://covenantcrest.co.uk/about.html">
+  <link rel="canonical" href="https://covenantcrest.co.uk/about">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://covenantcrest.co.uk/about.html">
+  <meta property="og:url" content="https://covenantcrest.co.uk/about">
   <meta property="og:title" content="About Covenant Crest Group Ltd">
   <meta property="og:description"
     content="A multi-division UK company built on promise. Specialist recruitment, UK road haulage, and global food import & distribution.">
@@ -22,10 +22,10 @@
   <meta property="og:site_name" content="Covenant Crest">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About Covenant Crest Group Ltd | Telford, UK">
-  <meta name="twitter:description" content="A multi-division UK company built on promise. Specialist recruitment, UK road haulage and global food import. Based in Telford, Shropshire.">
+  <meta name="twitter:description" content="A multi-division UK company built on promise. Specialist recruitment, UK road haulage and global food import. 28 Princess Avenue, Telford, Shropshire.">
   <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
   <script src="/api.js" defer></script>
-  <script src="js/common.js" defer></script>
+  <script src="/js/common.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -98,7 +98,7 @@
     }
 
     .nav-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .nav-links {
@@ -126,7 +126,7 @@
 
     /* GROUP BUTTON & DROPDOWN */
     .nav-group-wrap{position:relative; display:inline-block;}
-    .btn-group{background:var(--gold); color:var(--navy); font-family:'Plus Jakarta Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
+    .btn-group{background:var(--gold); color:var(--navy); font-family:'Plus Jakarta Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:10px 22px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); white-space:nowrap;}
     .btn-group:hover{background:var(--gold2); transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,0.25);}
     .group-dd{position:absolute; top:100%; right:0; transform:translateY(12px); background:rgba(13,27,42,0.98); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 0; min-width:230px; opacity:0; visibility:hidden; transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow:0 25px 50px rgba(0,0,0,0.5); backdrop-filter:blur(12px); z-index:1000;}
     .nav-group-wrap:hover .group-dd{opacity:1; visibility:visible; transform:translateY(0);}
@@ -202,7 +202,7 @@
 
     /* CONTENT */
     .sec {
-      padding: 72px 48px;
+      padding: 80px 48px;
     }
 
     .sec-wh {
@@ -407,12 +407,12 @@
       background: var(--navy);
       color: var(--gold);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .18em;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      padding: 13px 28px;
-      border-radius: 2px;
+      padding: 14px 32px;
+      border-radius: 4px;
       text-decoration: none;
       display: inline-block;
       transition: background .2s;
@@ -446,15 +446,16 @@
     }
 
     .ft-logo-name span {
-      color: #D4AF37;
+      color: #C9A84C;
     }
 
     .ft-logo-sub {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: .3em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .4em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, .18);
+      color: var(--gold);
+      opacity: .9;
     }
 
     .ft-desc {
@@ -625,6 +626,14 @@
         gap: 28px;
       }
 
+      .ft-main > div:first-child {
+        grid-column: span 2;
+      }
+
+      .ft-logo-name {
+        font-size: 28px;
+      }
+
       .ft-bottom {
         padding: 14px 24px;
         flex-direction: column;
@@ -695,7 +704,7 @@
 <body>
 
   <nav id="mainNav">
-    <a href="/index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
         <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -711,21 +720,21 @@
       <div class="nav-name">Covenant <span>Crest</span></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="/index.html"       class="nl">Home</a>
-      <a href="/recruitment.html" class="nl">Browse Jobs</a>
-      <a href="/hire.html"        class="nl">Hire Staff</a>
-      <a href="/about.html"       class="nl active">About Us</a>
-      <a href="/haulage.html" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade.html" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+      <a href="/"       class="nl">Home</a>
+      <a href="/recruitment" class="nl">Browse Jobs</a>
+      <a href="/hire"        class="nl">Hire Staff</a>
+      <a href="/about"       class="nl active">About Us</a>
+      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
       <div class="group-dd">
-        <a href="/haulage.html" class="gm-item">
+        <a href="/haulage" class="gm-item">
           <div class="gm-name">Haulage &amp; Freight</div>
           <div class="gm-desc">UK logistics &amp; freight solutions.</div>
         </a>
-        <a href="/trade.html" class="gm-item">
+        <a href="/trade" class="gm-item">
           <div class="gm-name">Import &amp; Trade</div>
           <div class="gm-desc">Global food supply &amp; distribution.</div>
         </a>
@@ -803,6 +812,9 @@
             referral or a reputation — not a cold outreach campaign or a discounted rate.</div>
         </div>
       </div>
+      <div style="margin-top:36px;text-align:center;">
+        <a href="#contact" class="btn-navy">Hold Us to These Standards &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -813,28 +825,28 @@
       <p class="w">Each division operates to the same standard. All three answer to the same director.</p>
       <div class="div-grid">
         <div class="div-card">
-          <div class="div-icon">&#x1F465;</div>
+          <div class="div-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div class="div-name">Recruitment</div>
           <p class="div-desc">Specialist staffing across care &amp; healthcare, security, warehouse &amp; logistics, and
             construction &amp; trades sectors. DBS-checked, right-to-work verified, SIA/CSCS-licensed. Temporary,
             permanent and contract placements across the UK.</p>
-          <a href="/recruitment.html" class="div-lnk">Browse Jobs &#8594;</a>
+          <a href="/recruitment" class="div-lnk">Browse Jobs &#8594;</a>
         </div>
         <div class="div-card">
-          <div class="div-icon">&#x1F69B;</div>
+          <div class="div-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
           <div class="div-name">Haulage &amp; Freight</div>
           <p class="div-desc">Professional UK road freight. FTL and LTL loads, temperature-controlled transport, and
             specialist haulage. Real-time tracking, digital proof of delivery, and quote turnaround within two hours.
           </p>
-          <a href="/haulage.html" class="div-lnk">Get a Quote &#8594;</a>
+          <a href="/haulage" class="div-lnk">Get a Quote &#8594;</a>
         </div>
         <div class="div-card">
-          <div class="div-icon">&#x1F30D;</div>
+          <div class="div-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div class="div-name">Import &amp; Distribution</div>
           <p class="div-desc">Premium food imports from India and global markets: ginger powder, spices, pulses, fresh
             vegetables, meat, and exotic fruits. CIF, FOB and DDP terms available. UK-wide wholesale and retail
             distribution.</p>
-          <a href="/trade.html" class="div-lnk">Trade Enquiry &#8594;</a>
+          <a href="/trade" class="div-lnk">Trade Enquiry &#8594;</a>
         </div>
       </div>
     </div>
@@ -855,7 +867,7 @@
     </div>
   </section>
 
-  <section class="sec sec-wh" id="cases" style="padding: 60px 48px;">
+  <section class="sec sec-wh" id="cases">
     <div class="inner">
       <div style="text-align:center;margin-bottom:48px;">
         <div class="s-tag" style="text-align:center;">Proven Results</div>
@@ -869,21 +881,21 @@
           <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Healthcare Sector</div>
           <h3 style="font-size:20px;margin-bottom:12px;">Rapid Response for Shropshire Care Group</h3>
           <p style="font-size:13px;line-height:1.7;">A leading residential care group faced a sudden 40% staff shortage due to winter illness. Within 2 hours of their call, Covenant Crest deployed 8 fully vetted, CQC-compliant care assistants to ensure service continuity.</p>
-          <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:16px;">"The speed and quality of staff provided by Covenant Crest saved our shift compliance." — HR Manager</div>
+          <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:16px;">"The speed and quality of staff provided by Covenant Crest saved our shift compliance." — Sarah T., HR Manager, Shropshire care group</div>
         </div>
 
         <!-- Success Story 2 -->
         <div style="background:var(--cream);padding:32px;border-radius:12px;border:1px solid var(--border);">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2B5EA7;margin-bottom:12px;">Security Sector</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Security Sector</div>
           <h3 style="font-size:20px;margin-bottom:12px;">Nationwide Retail Security Rollout</h3>
           <p style="font-size:13px;line-height:1.7;">We provided a coordinated team of 25 SIA-licensed security operatives for a multi-site retail launch across the UK. Every operative was vetted to BS 7858 standards and completed site-specific ACT counter-terrorism training.</p>
-          <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:16px;">"Reliable, professional, and fully compliant. A true security partner." — Operations Director</div>
+          <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:16px;">"Reliable, professional, and fully compliant. A true security partner." — Marcus O., Operations Director, national retail group</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec sec-cr">
+  <section class="sec sec-cr" id="founder">
     <div class="inner">
       <div class="gold-line"></div>
       <h2>Meet the <em>Founder</em></h2>
@@ -892,7 +904,7 @@
           <span style="font-size:22px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;">JK</span>
         </div>
         <div style="flex: 1; min-width: 260px;">
-          <h3 style="margin-bottom:4px;">Jaby Kamidi</h3>
+          <h3 style="margin-bottom:4px;">Jaby K.</h3>
           <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">
             Founder &amp; Director</div>
           <p>I built Covenant Crest because I watched too many businesses get let down by agencies that win the pitch
@@ -901,12 +913,13 @@
           <p>My standard is simple: if I wouldn&rsquo;t be comfortable with my name on it, we don&rsquo;t do it. Every
             placement I authorise, every load we move, every trade deal we broker carries that same weight. When you
             work with Covenant Crest, you have my direct number — and my personal guarantee.</p>
+          <a href="#contact" style="display:inline-block;margin-top:8px;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);text-decoration:none;">Get in touch with Jaby directly &rarr;</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec sec-dk" id="contact" style="padding:64px 48px;">
+  <section class="sec sec-dk" id="contact">
     <div class="inner">
       <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start;">
         <div>
@@ -940,6 +953,7 @@
           <div class="ok-banner" id="ok-about" style="background:rgba(29,158,117,.12);border:1px solid #1D9E75;border-radius:8px;padding:13px 16px;color:#1D9E75;font-size:13px;font-weight:500;margin-bottom:16px;display:none;">&#x2705; Message received! We’ll be in touch today.</div>
           <form name="about_enquiry" method="POST" data-netlify="true" data-form-name="about_enquiry" data-banner-id="ok-about">
             <input type="hidden" name="form-name" value="about_enquiry">
+            <input type="text" name="bot-field" tabindex="-1" style="display:none;" autocomplete="off">
             <input type="hidden" name="crm_lead_source" value="Website - About Page Enquiry">
             <input type="hidden" name="crm_module" value="Leads">
             <input type="hidden" name="crm_type" value="General_Enquiry">
@@ -949,7 +963,11 @@
             </div>
             <div style="margin-bottom:13px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;">Email *</label><input type="email" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:4px;font-family:inherit;font-size:13px;color:#fff;outline:none;" name="email" placeholder="your@email.com" required></div>
             <div style="margin-bottom:13px;"><label style="display:block;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;">Message *</label><textarea style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:4px;font-family:inherit;font-size:13px;color:#fff;outline:none;resize:vertical;min-height:100px;" name="message" placeholder="How can we help?" required></textarea></div>
-            <button type="submit" style="width:100%;background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px;border:none;border-radius:2px;cursor:pointer;transition:background .2s;">Submit Enquiry &rarr;</button>
+            <div style="margin-bottom:13px;display:flex;align-items:flex-start;gap:8px;">
+              <input type="checkbox" id="about_gdpr" name="gdpr_consent" required style="margin-top:3px;flex-shrink:0;">
+              <label for="about_gdpr" style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.6;cursor:pointer;">I consent to Covenant Crest processing my data for this enquiry in accordance with the <a href="/privacy" style="color:var(--gold);">Privacy Policy</a>.</label>
+            </div>
+            <button type="submit" style="width:100%;background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;">Submit Enquiry &rarr;</button>
           </form>
         </div>
       </div>
@@ -982,21 +1000,21 @@
         </svg>
         <div class="ft-logo-name">Covenant <span>Crest</span></div>
         <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise. Co. No. 16528951. Registered in England & Wales.</div>
+        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
       </div>
       <div>
         <div class="ft-col-title">Services</div>
-        <a href="/recruitment.html" class="ft-link">Recruitment</a>
-        <a href="/haulage.html" class="ft-link">Haulage & Freight</a>
-        <a href="/trade.html" class="ft-link">Import & Trade</a>
+        <a href="/recruitment" class="ft-link">Recruitment</a>
+        <a href="/haulage" class="ft-link">Haulage & Freight</a>
+        <a href="/trade" class="ft-link">Import & Trade</a>
       </div>
       <div>
         <div class="ft-col-title">Company</div>
-        <a href="/index.html" class="ft-link">Home</a>
-        <a href="/about.html" class="ft-link">About Us</a>
-        <a href="/privacy.html" class="ft-link">Privacy Policy</a>
-        <a href="/terms.html" class="ft-link">Terms & Conditions</a>
-        <a href="/login.html" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
+        <a href="/" class="ft-link">Home</a>
+        <a href="/about" class="ft-link">About Us</a>
+        <a href="/privacy" class="ft-link">Privacy Policy</a>
+        <a href="/terms" class="ft-link">Terms & Conditions</a>
+        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
       </div>
       <div>
         <div class="ft-col-title">Contact Us</div>
@@ -1004,6 +1022,7 @@
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -1022,7 +1041,7 @@
 
 
   <div id="cc-bar">
-    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy.html">Privacy Policy</a>.</p>
+    <p>We use essential cookies to make our site work. By clicking Accept you also consent to Google Analytics cookies. <a href="/privacy">Privacy Policy</a>.</p>
     <div class="cc-btns">
       <button class="cc-no">Decline</button>
       <button class="cc-ok">Accept All</button>

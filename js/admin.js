@@ -23,7 +23,7 @@ var API = '/api';
           sessionStorage.setItem('cc_jwt',   token);
           sessionStorage.setItem('cc_role',  payload.role  || 'superadmin');
           sessionStorage.setItem('cc_email', payload.email || '');
-          history.replaceState(null, '', '/admin.html');
+          history.replaceState(null, '', '/admin');
         }
       } catch(e) { console.warn('SSO token parse failed:', e); }
     }
@@ -51,8 +51,9 @@ var _filteredJobs = [];
 
 // Redirect to login if no token — use setTimeout to let functions define first
 if (!jwt) {
-  document.body.style.display = 'none';
-  setTimeout(function() { window.location.replace('/login.html'); }, 0);
+  setTimeout(function() { window.location.replace('/login'); }, 0);
+} else {
+  document.body.style.display = '';
 }
 
 // ── UI init ───────────────────────────────────────────────────────
@@ -223,11 +224,55 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   var clearAllContactsBtn = document.getElementById('clearAllContactsBtn');
   if (clearAllContactsBtn) {
-    clearAllContactsBtn.addEventListener('click', function() { apiClearAll('contacts'); });
+    clearAllContactsBtn.addEventListener('click', function() { openDangerConfirm('contacts'); });
   }
   var clearAllJobsBtn = document.getElementById('clearAllJobsBtn');
   if (clearAllJobsBtn) {
-    clearAllJobsBtn.addEventListener('click', function() { apiClearAll('jobs'); });
+    clearAllJobsBtn.addEventListener('click', function() { openDangerConfirm('jobs'); });
+  }
+  // Confirm modal
+  var confirmOkBtn = document.getElementById('confirm-ok-btn');
+  if (confirmOkBtn) {
+    confirmOkBtn.addEventListener('click', function() {
+      closeModal('confirmModal');
+      if (_confirmCallback) { _confirmCallback(); _confirmCallback = null; }
+    });
+  }
+  var confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+  if (confirmCancelBtn) {
+    confirmCancelBtn.addEventListener('click', function() {
+      closeModal('confirmModal');
+      _confirmCallback = null;
+    });
+  }
+
+  // Session timeout
+  var sessionStayBtn = document.getElementById('session-stay-btn');
+  if (sessionStayBtn) {
+    sessionStayBtn.addEventListener('click', function() {
+      closeModal('sessionModal');
+      resetIdleTimers();
+    });
+  }
+
+  // Escape key closes any open modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+    }
+  });
+
+  var dangerConfirmBtn = document.getElementById('danger-confirm-btn');
+  if (dangerConfirmBtn) {
+    dangerConfirmBtn.addEventListener('click', function() {
+      var inputEl = document.getElementById('danger-confirm-input');
+      if (!inputEl || inputEl.value.trim().toUpperCase() !== 'DELETE') {
+        inputEl.style.borderColor = 'var(--danger)';
+        inputEl.placeholder = 'Type DELETE exactly';
+        return;
+      }
+      if (_dangerResource) apiClearAll(_dangerResource);
+    });
   }
   var addUserBtn = document.getElementById('addUserBtn');
   if (addUserBtn) {
@@ -377,6 +422,12 @@ function apiFetch(path, options) {
 // ── Helpers ───────────────────────────────────────────────────────
 function esc(s) { if (!s) return ''; var r = String(s); r = r.replace(/&/g,'&amp;'); r = r.replace(/</g,'&lt;'); r = r.replace(/>/g,'&gt;'); r = r.split('"').join('&quot;'); return r; }
 function fmtDate(d) { try { return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); } catch(e) { return ''; } }
+
+function daysAgo(dateStr) {
+  if (!dateStr) return null;
+  var d = new Date(dateStr);
+  return isNaN(d.getTime()) ? null : Math.floor((Date.now() - d.getTime()) / 86400000);
+}
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
 // ── Toast ─────────────────────────────────────────────────────────
@@ -400,7 +451,6 @@ function openJobModal(job) {
   document.getElementById('j-type').value    = isEdit ? job.type     : 'full-time';
   document.getElementById('j-location').value= isEdit ? job.location : '';
   document.getElementById('j-status').value  = isEdit ? job.status   : 'active';
-  document.getElementById('j-location').value= isEdit ? job.location : '';
   document.getElementById('j-closing-date').value = (isEdit && job.closingDate) ? job.closingDate : '';
   document.getElementById('j-seo-keywords').value = (isEdit && job.seoKeywords) ? job.seoKeywords : '';
   document.getElementById('j-seo-desc').value = (isEdit && job.seoDesc) ? job.seoDesc : '';
@@ -576,17 +626,18 @@ function updateBulkJobsToolbar() {
 function bulkJobsAction(action) {
   var ids = Array.from(document.querySelectorAll('.job-cb:checked')).map(function(el) { return el.value; });
   if (!ids.length) return;
-  if (action === 'delete' && !confirm('Delete ' + ids.length + ' jobs?')) return;
-  
-  var promises = ids.map(function(id) {
-    if (action === 'delete') return apiFetch('/jobs/' + id, { method: 'DELETE' });
-    return apiFetch('/jobs/' + id, { method: 'PUT', body: JSON.stringify({ status: action }) });
-  });
-
-  Promise.all(promises).then(function() {
-    showToast('Updated ' + ids.length + ' jobs', 'ok');
-    loadJobs();
-  });
+  var doJobBulk = function() {
+    var promises = ids.map(function(id) {
+      if (action === 'delete') return apiFetch('/jobs/' + id, { method: 'DELETE' });
+      return apiFetch('/jobs/' + id, { method: 'PUT', body: JSON.stringify({ status: action }) });
+    });
+    Promise.all(promises).then(function() {
+      showToast('Updated ' + ids.length + ' jobs', 'ok');
+      loadJobs();
+    });
+  };
+  if (action === 'delete') { openConfirm('Permanently delete ' + ids.length + ' job listing' + (ids.length > 1 ? 's' : '') + '?', doJobBulk); return; }
+  doJobBulk();
 }
 
 
@@ -670,10 +721,11 @@ function toggleJob(id) {
 }
 
 function deleteJob(id) {
-  if (!confirm('Delete this job listing? This cannot be undone.')) return;
-  apiFetch('/jobs/' + id, { method: 'DELETE' }).then(function(data) {
-    if (data && data.success) { showToast('Job deleted', 'ok'); loadJobs(); }
-    else showToast('Delete failed', 'er');
+  openConfirm('Delete this job listing? This cannot be undone.', function() {
+    apiFetch('/jobs/' + id, { method: 'DELETE' }).then(function(data) {
+      if (data && data.success) { showToast('Job deleted', 'ok'); loadJobs(); }
+      else showToast('Delete failed', 'er');
+    });
   });
 }
 
@@ -777,6 +829,10 @@ function viewContact(id) {
     }
   }
   if (c.status === 'new') markContactRead(id);
+  var noteEl = document.getElementById('cm-admin-note');
+  if (noteEl) noteEl.value = c.adminNotes || '';
+  var saveNoteBtn = document.getElementById('cm-save-note-btn');
+  if (saveNoteBtn) saveNoteBtn.onclick = function() { saveContactNote(id); };
   document.getElementById('contactModal').classList.add('open');
 }
 
@@ -791,7 +847,7 @@ function loadSecurityLogs() {
     }
     tbody.innerHTML = data.map(function(l) {
       var time = new Date(l.timestamp).toLocaleString('en-GB');
-      var typeLabel = { failed_login: '⚠️ Failed Login', password_change: '🔑 Password Change' }[l.type] || l.type;
+      var typeLabel = { failed_login: 'Failed Login', password_change: 'Password Change' }[l.type] || l.type;
       var details = l.role ? ('Role: ' + l.role) : (l.exists === false ? 'Account does not exist' : 'Incorrect password');
       return '<tr>' +
         '<td class="td-muted">' + time + '</td>' +
@@ -812,10 +868,11 @@ function markContactRead(id) {
 
 function deleteContact(id) {
   if (!isSA) { showToast('Super Admin only', 'er'); return; }
-  if (!confirm('Delete this enquiry?')) return;
-  apiFetch('/contacts/' + id, { method: 'DELETE' }).then(function(data) {
-    if (data && data.success) { showToast('Enquiry deleted', 'ok'); loadContacts(); }
-    else showToast('Delete failed', 'er');
+  openConfirm('Delete this enquiry? This cannot be undone.', function() {
+    apiFetch('/contacts/' + id, { method: 'DELETE' }).then(function(data) {
+      if (data && data.success) { showToast('Enquiry deleted', 'ok'); loadContacts(); }
+      else showToast('Delete failed', 'er');
+    });
   });
 }
 
@@ -840,20 +897,41 @@ function loadApplications(cb) {
 function renderApplications() {
   var tbody = document.getElementById('apps-tbody');
   if (!tbody) return;
-  if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No applications yet.</td></tr>'; return; }
+  if (!_apps.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="10">No applications yet.</td></tr>'; return; }
+
+  // Build email frequency map for returning-applicant detection
+  var emailCount = {};
+  _apps.forEach(function(a) { if (a.email) emailCount[a.email] = (emailCount[a.email] || 0) + 1; });
+
   tbody.innerHTML = _apps.map(function(a) {
     var cvLink = '—';
     if (a.cvBase64 || a.cvUrl) {
-        cvLink = '<button class="btn-sm gd" style="border:none;cursor:pointer;" data-id="' + a.id + '" data-action="download-cv">CV</button>';
+      cvLink = '<button class="btn-sm gd" style="border:none;cursor:pointer;" data-id="' + a.id + '" data-action="download-cv">CV</button>';
     }
-    return '<tr style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
+    var days = daysAgo(a.date);
+    var isNew = a.status === 'new';
+    var rowStyle = '';
+    if (isNew && days !== null) {
+      if (days >= 7) rowStyle = ' style="background:#FFF8F8;"';
+      else if (days >= 3) rowStyle = ' style="background:#FFFDF5;"';
+    }
+    var daysText = days === null ? '—' : (days === 0 ? 'Today' : days + 'd');
+    var daysColor = (isNew && days >= 7) ? 'var(--danger)' : (isNew && days >= 3) ? 'var(--warn)' : 'var(--muted)';
+    var isReturning = emailCount[a.email] > 1;
+    var starsHtml = '';
+    if (a.rating) {
+      starsHtml = ' <span style="color:#C9A84C;font-size:9px;">' + '&#9733;'.repeat(a.rating) + '</span>';
+    }
+    return '<tr' + rowStyle + ' data-id="' + a.id + '" data-action="view-app" style="cursor:pointer' + (rowStyle ? '' : '') + '">' +
       '<td><input type="checkbox" class="app-cb" value="' + a.id + '"></td>' +
-      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + starsHtml +
+        (isReturning ? '<span class="pill p-haulage" style="font-size:8px;margin-left:4px;padding:2px 5px;">Returning</span>' : '') + '</td>' +
       '<td>' + esc(a.email) + '</td>' +
       '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
       '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
       '<td class="td-muted">' + esc(a.job_title || '—') + '</td>' +
       '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
+      '<td><span style="font-size:11px;font-weight:700;color:' + daysColor + ';">' + daysText + '</span></td>' +
       '<td><span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></td>' +
       '<td>' + cvLink + '</td></tr>';
   }).join('');
@@ -952,15 +1030,21 @@ function viewApplication(id) {
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Current Status</div>' +
         '<span class="pill ' + (appStatusPill[a.status] || 'p-new') + '" style="font-size:10px;">' + esc(a.status || 'new') + '</span>' +
       '</div>' +
+      '<div style="margin-bottom:14px;padding:10px 14px;background:#f8f9fa;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Candidate Rating</div>' +
+        '<div id="am-stars" style="display:flex;gap:2px;">' +
+          [1,2,3,4,5].map(function(n) { return '<button data-star="' + n + '" title="' + n + ' star' + (n>1?'s':'') + '" style="background:none;border:none;font-size:20px;cursor:pointer;color:' + (n <= (a.rating || 0) ? '#C9A84C' : '#ddd') + ';padding:0 1px;line-height:1;">&#9733;</button>'; }).join('') +
+        '</div>' +
+      '</div>' +
       '<div style="margin-bottom:14px;padding:10px 14px;background:#f0f8ff;border-left:4px solid #0077b5;border-radius:6px;display:flex;align-items:center;justify-content:space-between;">' +
         '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0077b5;">AI Match Score</div>' +
         '<span style="font-size:14px;font-weight:700;color:#0077b5;">' + (a.matchScore != null ? a.matchScore + '% Match' : 'N/A') + '</span>' +
       '</div>' +
       '<div style="margin-bottom:14px;padding:14px 16px;border-radius:6px;border:1px solid ' + (hasCV ? '#C9A84C' : '#e0e0e0') + ';background:' + (hasCV ? '#fffbf0' : '#f9f9f9') + ';display:flex;align-items:center;gap:12px;">' +
-        '<span style="font-size:22px;">' + (hasCV ? '&#x1F4C4;' : '&#x1F4C2;') + '</span>' +
+        '<span style="display:flex;align-items:center;color:' + (hasCV ? '#C9A84C' : '#aaa') + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>' +
         '<div style="flex:1;">' +
           '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (hasCV ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
-          (hasCV ? '<button id="am-download-cv" style="background:none;border:none;padding:0;font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:underline;cursor:pointer;">📥 View / Download CV &rarr;</button>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+          (hasCV ? '<button id="am-download-cv" style="background:none;border:none;padding:0;font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:underline;cursor:pointer;">Download CV &rarr;</button>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
         '</div>' +
       '</div>' +
     (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-bottom:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Candidate Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '') +
@@ -987,7 +1071,7 @@ function viewApplication(id) {
   document.getElementById('am-shortlist-btn').onclick = function() { updateAppStatus(window._curAppId,'shortlisted'); };
   document.getElementById('am-hired-btn').onclick = function() { updateAppStatus(window._curAppId,'hired'); };
   document.getElementById('am-reject-btn').onclick = function() { updateAppStatus(window._curAppId,'rejected'); };
-  document.getElementById('am-blacklist-btn').onclick = function() { if(confirm('Blacklist this candidate? They will be permanently marked.')) updateAppStatus(window._curAppId,'blacklisted'); };
+  document.getElementById('am-blacklist-btn').onclick = function() { openConfirm('Blacklist this candidate? They will be permanently marked.', function() { updateAppStatus(window._curAppId,'blacklisted'); }); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
   document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
@@ -1015,90 +1099,90 @@ function viewApplication(id) {
   if (amDownload) {
     amDownload.onclick = function() { downloadApplicationCV(a); };
   }
-  
+
+  // Star rating
+  var starsEl = document.getElementById('am-stars');
+  if (starsEl) {
+    starsEl.addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-star]');
+      if (!btn) return;
+      var rating = parseInt(btn.getAttribute('data-star'), 10);
+      saveRating(window._curAppId, rating);
+    });
+  }
+
   document.getElementById('appModal').classList.add('open');
 }
 
 function downloadApplicationCV(a) {
   var data = a.cvBase64 || a.cvUrl;
-  if (!data) return showToast('No CV data found', 'er');
-  
-  var candidateName = ((a.first_name || 'Candidate') + '_' + (a.last_name || 'CV')).replace(/\s+/g, '_');
-  var filename = a.cvFileName || (candidateName + '.pdf');
+  if (!data) return showToast('No CV on record for this candidate', 'er');
 
-  // 1. Direct URL Handling (Cloudinary)
-  if (data.indexOf('http') === 0) {
-    var downloadUrl = data;
+  var safeName = ((a.first_name || 'Candidate') + '_' + (a.last_name || 'CV')).replace(/\s+/g, '_');
+  var filename = a.cvFileName || (safeName + '.pdf');
+
+  function triggerDownload(blob, fname) {
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = fname;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+  }
+
+  // URL-based CV (Cloudinary or any direct link)
+  if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
+    var fetchUrl = data;
     if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('fl_attachment') === -1) {
-       downloadUrl = data.replace('/upload/', '/upload/fl_attachment:' + encodeURIComponent(filename.replace(/\.[^/.]+$/, "")) + '/');
+      var safeFl = safeName.replace(/[^a-zA-Z0-9_-]/g, '_');
+      fetchUrl = data.replace('/upload/', '/upload/fl_attachment:' + safeFl + '/');
     }
-    window.open(downloadUrl, '_blank');
+    showToast('Preparing CV download…', 'ok');
+    fetch(fetchUrl)
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.blob();
+      })
+      .then(function(blob) {
+        // Derive extension from blob mime type if filename has none
+        if (!filename.match(/\.(pdf|docx|doc)$/i)) {
+          if (blob.type === 'application/pdf') filename += '.pdf';
+          else if (blob.type.indexOf('word') !== -1) filename += '.docx';
+        }
+        triggerDownload(blob, filename);
+      })
+      .catch(function() {
+        // CORS fallback — open in new tab as last resort
+        window.open(fetchUrl, '_blank');
+      });
     return;
   }
 
-  // 2. Base64 Handling (Internal DB)
+  // Base64 CV (stored directly in DB)
   try {
-    var base64Content = data;
-    if (data.indexOf('base64,') !== -1) base64Content = data.split('base64,')[1];
-    
-    var byteCharacters = atob(base64Content);
-    var byteNumbers = new Array(byteCharacters.length);
-    for (var i = 0; i < byteCharacters.length; i++) byteNumbers[i] = byteCharacters.charCodeAt(i);
-    var byteArray = new Uint8Array(byteNumbers);
-    
-    // SMART DETECTION: Check "Magic Bytes" to determine real file type
+    var b64 = data.indexOf('base64,') !== -1 ? data.split('base64,')[1] : data;
+    var chars = atob(b64);
+    var bytes = new Uint8Array(chars.length);
+    for (var i = 0; i < chars.length; i++) bytes[i] = chars.charCodeAt(i);
+
     var mimeType = 'application/octet-stream';
-    var ext = '.pdf'; // Default to .pdf if we're not sure, as most CVs are PDFs
-    
-    // PDF magic bytes: %PDF- (25 50 44 46)
-    if (byteArray[0] === 0x25 && byteArray[1] === 0x50 && byteArray[2] === 0x44 && byteArray[3] === 0x46) {
-      mimeType = 'application/pdf';
-      ext = '.pdf';
-    } 
-    // Word (.docx) or Zip magic bytes: PK (50 4B)
-    else if (byteArray[0] === 0x50 && byteArray[1] === 0x4B) {
-      mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-      ext = '.docx';
-    }
-    // Word (.doc) old magic bytes
-    else if (byteArray[0] === 0xD0 && byteArray[1] === 0xCF) {
-      mimeType = 'application/msword';
-      ext = '.doc';
+    var ext = '.pdf';
+    if (bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46) {
+      mimeType = 'application/pdf'; ext = '.pdf';
+    } else if (bytes[0] === 0x50 && bytes[1] === 0x4B) {
+      mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'; ext = '.docx';
+    } else if (bytes[0] === 0xD0 && bytes[1] === 0xCF) {
+      mimeType = 'application/msword'; ext = '.doc';
     }
 
-    // FORCE PDF if no extension or unknown extension
-    if (!filename.toLowerCase().endsWith('.pdf') && !filename.toLowerCase().endsWith('.docx') && !filename.toLowerCase().endsWith('.doc')) {
-       filename += ext;
-    }
+    if (!filename.match(/\.(pdf|docx|doc)$/i)) filename += ext;
 
-    var blob = new Blob([byteArray], { type: mimeType });
-    var url = window.URL.createObjectURL(blob);
-    
-    // ACTION: If it's a PDF, OPEN in new tab. Otherwise, DOWNLOAD.
-    if (mimeType === 'application/pdf') {
-      var win = window.open(url, '_blank');
-      if(!win || win.closed || typeof win.closed=='undefined') {
-         // Pop-up blocked, fallback to download
-         var link = document.createElement('a');
-         link.href = url;
-         link.download = filename;
-         document.body.appendChild(link);
-         link.click();
-         document.body.removeChild(link);
-      }
-    } else {
-      var link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    
-    setTimeout(function() { window.URL.revokeObjectURL(url); }, 1000);
+    triggerDownload(new Blob([bytes], { type: mimeType }), filename);
   } catch(e) {
-    console.error('CV Processing Error:', e);
-    window.open(data, '_blank');
+    console.error('CV download error:', e);
+    showToast('Could not process CV file — please contact support', 'er');
   }
 }
 
@@ -1147,18 +1231,17 @@ function bulkAction(status) {
   var ids = [];
   for(var i=0; i<cbs.length; i++) { ids.push(cbs[i].value); }
   if (!ids.length) return;
-  if (!confirm('Mark ' + ids.length + ' candidates as ' + status + '?')) return;
-  
-  var promises = ids.map(function(id) {
-    return apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ status: status }) });
-  });
-  
-  Promise.all(promises).then(function() {
-    showToast('Updated ' + ids.length + ' candidates', 'ok');
-    document.getElementById('selectAllApps').checked = false;
-    loadApplications();
-  }).catch(function() {
-    showToast('Bulk update encountered an error', 'er');
+  openConfirm('Mark ' + ids.length + ' candidate' + (ids.length > 1 ? 's' : '') + ' as ' + status + '?', function() {
+    var promises = ids.map(function(id) {
+      return apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ status: status }) });
+    });
+    Promise.all(promises).then(function() {
+      showToast('Updated ' + ids.length + ' candidates', 'ok');
+      document.getElementById('selectAllApps').checked = false;
+      loadApplications();
+    }).catch(function() {
+      showToast('Bulk update encountered an error', 'er');
+    });
   });
 }
 
@@ -1167,17 +1250,28 @@ function bulkEmail() {
   var ids = [];
   for(var i=0; i<cbs.length; i++) { ids.push(cbs[i].value); }
   if (!ids.length) return;
-  
   var emails = [];
   for(var j=0; j<ids.length; j++) {
-    var a = null;
-    for(var k=0; k<_apps.length; k++) { if(_apps[k].id === ids[j]) { a = _apps[k]; break; } }
-    if (a && a.email) emails.push(a.email);
+    var found = null;
+    for(var k=0; k<_apps.length; k++) { if(_apps[k].id === ids[j]) { found = _apps[k]; break; } }
+    if (found && found.email) emails.push(found.email);
   }
-  
-  if (emails.length) {
-    window.location.href = 'mailto:?bcc=' + encodeURIComponent(emails.join(','));
+  if (!emails.length) return;
+  var text = emails.join(', ');
+  var label = emails.length + ' email address' + (emails.length > 1 ? 'es' : '') + ' copied to clipboard';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showToast(label, 'ok'); }).catch(function() { _fallbackCopy(text, label); });
+  } else {
+    _fallbackCopy(text, label);
   }
+}
+function _fallbackCopy(text, label) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.top = '-9999px';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); showToast(label, 'ok'); }
+  catch(e) { showToast('Could not copy automatically', 'er'); }
+  document.body.removeChild(ta);
 }
 
 function renderTalentPool() {
@@ -1463,10 +1557,11 @@ function saveUser() {
 
 function deleteUser(id) {
   if (!isSA) { showToast('Super Admin only', 'er'); return; }
-  if (!confirm('Delete this employee account? They will no longer be able to log in.')) return;
-  apiFetch('/users/' + id, { method: 'DELETE' }).then(function(data) {
-    if (data && data.success) { showToast('Account deleted', 'ok'); loadUsers(); }
-    else showToast('Delete failed', 'er');
+  openConfirm('Delete this employee account? They will no longer be able to log in.', function() {
+    apiFetch('/users/' + id, { method: 'DELETE' }).then(function(data) {
+      if (data && data.success) { showToast('Account deleted', 'ok'); loadUsers(); }
+      else showToast('Delete failed', 'er');
+    });
   });
 }
 
@@ -1506,6 +1601,10 @@ function updateStats() {
   if (tlShortEl) tlShortEl.textContent = tlShortlist;
   var upd = document.getElementById('timeline-updated');
   if (upd) upd.textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+  var totalApps  = _apps.length;
+  var totalHired = _apps.filter(function(a) { return a.status === 'hired'; }).length;
+  var rateEl = document.getElementById('tl-rate');
+  if (rateEl) rateEl.textContent = totalApps > 0 ? Math.round((totalHired / totalApps) * 100) + '% placement rate' : '—';
 
   // Compliance sidebar badge — expired + expiring ≤30 days among placed workers
   var compAlert = 0;
@@ -1534,12 +1633,13 @@ function loadDashboard() {
 
 // ── SEARCH & FILTER ─────────────────────────────────────────────────
 function filterContacts() {
-  var q = (document.getElementById('contacts-search')?.value || '').toLowerCase();
+  var qEl = document.getElementById('contacts-search');
+  var q = (qEl ? qEl.value : '').toLowerCase();
   var rows = document.querySelectorAll('#contacts-tbody tr:not(.empty-row)');
   var shown = 0;
   rows.forEach(function(row) {
     var text = row.textContent.toLowerCase();
-    var match = !q || text.includes(q);
+    var match = !q || text.indexOf(q) !== -1;
     row.style.display = match ? '' : 'none';
     if (match) shown++;
   });
@@ -1568,9 +1668,9 @@ function filterApps() {
   var shown  = 0;
   rows.forEach(function(row) {
     var text = row.textContent.toLowerCase();
-    var matchQ      = !q      || text.includes(q);
-    var matchStatus = !status || text.includes(status);
-    var matchSector = !sector || text.includes(sector);
+    var matchQ      = !q      || text.indexOf(q)      !== -1;
+    var matchStatus = !status || text.indexOf(status) !== -1;
+    var matchSector = !sector || text.indexOf(sector) !== -1;
     var show = matchQ && matchStatus && matchSector;
     row.style.display = show ? '' : 'none';
     if (show) shown++;
@@ -1697,35 +1797,78 @@ function checkIntegrations() {
   
   fetch(API + '/health').then(function(r) { return r.json(); }).then(function(d) {
     if (intApi) {
-      intApi.textContent = d.status === 'healthy' ? '✅ Connected' : '⚠ ' + d.status;
+      intApi.textContent = d.status === 'healthy' ? 'Connected' : 'Warning: ' + d.status;
       intApi.style.color = d.status === 'healthy' ? 'var(--success)' : 'var(--warn)';
     }
     if (intEmail) {
       if (d.zohoTokenExists) {
-         intEmail.textContent = '✅ Zoho Mail Connected';
+         intEmail.textContent = 'Zoho Mail Connected';
          intEmail.style.color = 'var(--success)';
       } else {
-         intEmail.innerHTML = '❌ <span style="color:var(--danger);">Zoho Mail Disconnected (Emails Failing)</span> <a href="/api/zoho/authorise" style="margin-left:8px;color:#C9A84C;text-decoration:underline;font-size:11px;">Click here to Authorise</a>';
+         intEmail.innerHTML = '<span style="color:var(--danger);">Zoho Mail Disconnected — Emails Failing</span> <a href="/api/zoho/authorise" style="margin-left:8px;color:#C9A84C;text-decoration:underline;font-size:11px;">Authorise now</a>';
       }
     }
     var intCloud = document.getElementById('int-cloud');
     if (intCloud) intCloud.textContent = '— (check Render env: CLOUDINARY_CLOUD_NAME)';
   }).catch(function() {
     if (intApi) {
-      intApi.textContent = '❌ Offline';
+      intApi.textContent = 'Offline';
       intApi.style.color = 'var(--danger)';
     }
     showApiOffline();
   });
 }
 
+// ── CONTACT NOTES ─────────────────────────────────────────────────
+function saveContactNote(id) {
+  var noteEl = document.getElementById('cm-admin-note');
+  if (!noteEl) return;
+  apiFetch('/contacts/' + id, { method: 'PUT', body: JSON.stringify({ adminNotes: noteEl.value.trim() }) }).then(function(data) {
+    if (data && !data.error) showToast('Note saved', 'ok');
+    else showToast('Failed to save note', 'er');
+  });
+}
+
+// ── STAR RATING ───────────────────────────────────────────────────
+function saveRating(id, rating) {
+  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ rating: rating }) }).then(function(d) {
+    if (d && !d.error) {
+      for (var i = 0; i < _apps.length; i++) { if (_apps[i].id === id) { _apps[i].rating = rating; break; } }
+      showToast('Rating saved', 'ok');
+      var stars = document.querySelectorAll('#am-stars button');
+      stars.forEach(function(s, idx) { s.style.color = idx < rating ? '#C9A84C' : '#ddd'; });
+    }
+  });
+}
+
+// ── CONFIRM MODAL ─────────────────────────────────────────────────
+var _confirmCallback = null;
+function openConfirm(msg, onConfirm) {
+  _confirmCallback = onConfirm;
+  var msgEl = document.getElementById('confirm-modal-msg');
+  if (msgEl) msgEl.textContent = msg;
+  document.getElementById('confirmModal').classList.add('open');
+}
+
 // ── DANGER ZONE ───────────────────────────────────────────────────
+var _dangerResource = null;
+
+function openDangerConfirm(resource) {
+  if (!isSA) { showToast('Super Admin only', 'er'); return; }
+  _dangerResource = resource;
+  var label = resource === 'contacts' ? 'all enquiries' : 'all job listings';
+  var titleEl = document.getElementById('danger-modal-title');
+  var descEl  = document.getElementById('danger-modal-desc');
+  var inputEl = document.getElementById('danger-confirm-input');
+  if (titleEl) titleEl.textContent = resource === 'contacts' ? 'Delete All Enquiries' : 'Delete All Jobs';
+  if (descEl)  descEl.textContent  = 'This will permanently delete ' + label + '. This action cannot be undone.';
+  if (inputEl) inputEl.value = '';
+  document.getElementById('dangerModal').classList.add('open');
+}
+
 function apiClearAll(resource) {
   if (!isSA) { showToast('Super Admin only', 'er'); return; }
-  var label = resource === 'contacts' ? 'ALL enquiries' : 'ALL job listings';
-  if (!confirm('This will permanently delete ' + label + '. Are you sure?')) return;
-  if (!confirm('Final confirmation: delete ' + label + '? This cannot be undone.')) return;
-  // Delete each item individually (no bulk-delete endpoint needed)
+  closeModal('dangerModal');
   var items = resource === 'contacts' ? _contacts : _jobs;
   var promises = items.map(function(item) {
     return apiFetch('/' + resource + '/' + item.id, { method: 'DELETE' });
@@ -1749,8 +1892,21 @@ function showApiOffline() {
 // ── LOGOUT ────────────────────────────────────────────────────────
 function logout() {
   ['cc_jwt','cc_role','cc_email','cc_session'].forEach(function(k) { sessionStorage.removeItem(k); });
-  window.location.href = '/login.html';
+  window.location.href = '/login';
 }
+
+// ── SESSION IDLE TIMEOUT ──────────────────────────────────────────
+var _idleWarnTimer = null, _idleLogoutTimer = null;
+function resetIdleTimers() {
+  clearTimeout(_idleWarnTimer);
+  clearTimeout(_idleLogoutTimer);
+  _idleWarnTimer  = setTimeout(function() { document.getElementById('sessionModal').classList.add('open'); }, 25 * 60 * 1000);
+  _idleLogoutTimer = setTimeout(function() { closeModal('sessionModal'); logout(); }, 30 * 60 * 1000);
+}
+['mousemove', 'keypress', 'click', 'touchstart'].forEach(function(evt) {
+  document.addEventListener(evt, resetIdleTimers, { passive: true });
+});
+resetIdleTimers();
 
 // Attach functions to window for inline onclick handlers
 window.openJobModal = openJobModal;
@@ -1776,6 +1932,12 @@ window.saveUser = saveUser;
 window.deleteUser = deleteUser;
 window.changeAdminPassword = changeAdminPassword;
 window.exportCSV = exportCSV;
+window.openDangerConfirm = openDangerConfirm;
+window.openConfirm = openConfirm;
+window.saveContactNote = saveContactNote;
+window.saveRating = saveRating;
+window._fallbackCopy = _fallbackCopy;
+window.resetIdleTimers = resetIdleTimers;
 window.filterContacts = filterContacts;
 window.filterApps = filterApps;
 window.renderTalentPool = renderTalentPool;

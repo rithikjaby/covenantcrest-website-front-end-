@@ -40,6 +40,9 @@ function calcEst() {
     if (totalRes) totalRes.textContent = '£' + total.toFixed(2);
     
     resultEl.style.display = 'block';
+
+    var disclaimer = document.getElementById('er-disclaimer');
+    if (disclaimer) disclaimer.style.display = 'block';
 }
 
 function prefillAndGoToQuote() {
