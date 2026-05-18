@@ -5,13 +5,6 @@
  * Shared logic for Nav, Cookies, Forms, and Reveal
  */
 
-// ── Service Worker Registration (PWA) ───────────────────────────
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').catch(function() {});
-    });
-}
-
 // ── Google Analytics 4 ──────────────────────────────────────────
 window.__GA_ID = window.__GA_ID || 'G-9GK6PRM1NC';
 window.__gaLoaded = false;
