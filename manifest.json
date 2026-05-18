@@ -1,0 +1,24 @@
+{
+  "name": "Covenant Crest Group Ltd",
+  "short_name": "Covenant Crest",
+  "description": "CQC-compliant recruitment agency supplying SIA verified security operatives, warehouse staff and construction trades across the UK.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1B2A",
+  "theme_color": "#0D1B2A",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
