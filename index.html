@@ -2380,6 +2380,21 @@
             '<div class="hp-job-apply">' + pay + ' &nbsp;&mdash;&nbsp; Apply Now &#8594;</div>' +
           '</a>';
         }).join('');
+
+        // Dynamically register newly injected scroll reveal elements (.rv)
+        if (typeof IntersectionObserver !== 'undefined') {
+          var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('vs');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+          grid.querySelectorAll('.rv').forEach(function(el) {
+            obs.observe(el);
+          });
+        }
       }).catch(function() { grid.innerHTML = ''; });
     });
 
