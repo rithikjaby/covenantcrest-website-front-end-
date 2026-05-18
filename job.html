@@ -267,14 +267,13 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 <script src="/api.js?v=20260517" defer></script>
 <script src="/js/common.js?v=20260517" defer></script>
 <script>
-  // Redirect to dedicated apply page
   function openApplyPage() {
-    if (jobId) {
-       window.location.href = '/apply.html?id=' + jobId;
+    if (typeof jobId !== 'undefined' && jobId) {
+      window.location.href = '/apply?id=' + jobId;
     }
   }
   window.openApplyPage = openApplyPage;
-  window.toggleApplyForm = openApplyPage; // Alias for safety
+  window.toggleApplyForm = openApplyPage;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
 <script src="/js/job.js?v=20260517" defer></script>

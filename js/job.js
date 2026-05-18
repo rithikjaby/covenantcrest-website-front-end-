@@ -127,12 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isExpired) {
                 var expEl = document.getElementById('job-expiry');
                 if (expEl) expEl.style.display = 'inline-block';
-                var applyBtn = document.getElementById('apply-btn');
-                if (applyBtn) {
-                    applyBtn.disabled = true;
-                    applyBtn.textContent = 'This application has closed';
-                    applyBtn.style.opacity = '0.5';
-                }
+                document.querySelectorAll('[id$="-apply-btn"], button.f-submit').forEach(function(btn) {
+                    btn.disabled = true;
+                    btn.textContent = 'This application has closed';
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                    btn.onclick = function(e) { e.preventDefault(); };
+                });
             }
         }
 
@@ -193,68 +194,18 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingEl.innerHTML = '<p style="color:var(--danger);">Error loading job details. <a href="/recruitment#live-jobs" style="color:var(--gold);">Return to jobs list</a>.</p>';
         }
     });
-    // ── Event Listeners ──────────────────────────
-    var applyBtn = document.getElementById('main-apply-btn');
-    if (applyBtn) {
-        applyBtn.onclick = function(e) {
-            e.preventDefault();
-            toggleApplyForm(true);
-        };
-    }
-
-    var sideApplyBtn = document.getElementById('side-apply-btn');
-    if (sideApplyBtn) {
-        sideApplyBtn.onclick = function(e) {
-            e.preventDefault();
-            toggleApplyForm(true);
-        };
-    }
-
-    var backBtn = document.querySelector('.if-back');
-    if (backBtn) backBtn.addEventListener('click', showJobDesc);
-
-    var cvZone = document.getElementById('if-cv-zone');
-    if (cvZone) cvZone.addEventListener('click', function() {
-        var input = document.getElementById('if-cv-input');
-        if (input) input.click();
-    });
-
-    var cvInput = document.getElementById('if-cv-input');
-    if (cvInput) cvInput.addEventListener('change', function() {
-        handleInlineCV(this);
-    });
-
-    var cvClear = document.getElementById('if-cv-clear');
-    if (cvClear) cvClear.addEventListener('click', function(e) {
-        clearInlineCV(e);
-    });
-
-    var applyForm = document.getElementById('inline-apply-form');
-    if (applyForm) applyForm.addEventListener('submit', function(e) {
-        submitInlineForm(e);
-    });
-
     // Sticky Header Scroll Logic
     var stickyHdr = document.getElementById('sticky-hdr');
     var trigger = document.getElementById('ph-trigger');
     if (stickyHdr && trigger) {
         window.addEventListener('scroll', function() {
             var rect = trigger.getBoundingClientRect();
-            // Show sticky bar when the main header has scrolled past the nav (68px)
-            if (rect.bottom < 68) {
+            if (rect.bottom < 72) {
                 stickyHdr.classList.add('show');
             } else {
                 stickyHdr.classList.remove('show');
             }
         });
-    }
-
-    var sjhApply = document.getElementById('sticky-apply-btn');
-    if (sjhApply) {
-        sjhApply.onclick = function(e) {
-            e.preventDefault();
-            toggleApplyForm(true);
-        };
     }
 
     // ── Share Logic ──────────────────────────────

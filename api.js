@@ -37,11 +37,17 @@
     return sessionStorage.getItem('cc_jwt') || '';
   }
 
+  function b64urlDecode(str) {
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) { str += '='; }
+    return atob(str);
+  }
+
   function isTokenExpired() {
     var token = getToken();
     if (!token) return true;
     try {
-      var payload = JSON.parse(atob(token.split('.')[1]));
+      var payload = JSON.parse(b64urlDecode(token.split('.')[1]));
       return Date.now() >= payload.exp * 1000;
     } catch (e) {
       return true;
@@ -232,7 +238,7 @@
 
       /** Auth — list all applications. */
       all: function () {
-        return unwrap(get('/applications', false));
+        return unwrap(get('/applications/all', false));
       },
 
       /** Auth — update application status. */

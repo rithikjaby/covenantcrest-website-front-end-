@@ -885,7 +885,7 @@ function clearContacts() {
 var _apps = [];
 
 function loadApplications(cb) {
-  apiFetch('/applications').then(function(data) {
+  apiFetch('/applications/all').then(function(data) {
     if (!data) return;
     _apps = Array.isArray(data) ? data : [];
     renderApplications();
@@ -1331,8 +1331,8 @@ function renderPlanner() {
 function daysUntil(dateStr) {
   if (!dateStr) return null;
   var today = new Date();
-  today.setHours(0, 0, 0, 0);
-  var exp = new Date(dateStr + 'T00:00:00');
+  today.setUTCHours(0, 0, 0, 0);
+  var exp = new Date(dateStr + 'T00:00:00Z');
   if (isNaN(exp.getTime())) return null;
   return Math.floor((exp - today) / (1000 * 60 * 60 * 24));
 }
@@ -1452,13 +1452,13 @@ function saveCompliance(id) {
   var mhExpiry  = (document.getElementById('cm-mh-expiry')  || { value: '' }).value;
   var compNotes = (document.getElementById('cm-compliance-notes') || { value: '' }).value;
 
-  // Auto-calculate compliance_status
-  var today = new Date(); today.setHours(0, 0, 0, 0);
+  // Auto-calculate compliance_status (all comparisons in UTC to avoid timezone offset)
+  var today = new Date(); today.setUTCHours(0, 0, 0, 0);
   var d30   = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
   var exps  = [dbsExpiry, siaExpiry, rtwExpiry, mhExpiry].filter(Boolean);
   var compStatus = exps.length ? 'compliant' : 'incomplete';
   for (var i = 0; i < exps.length; i++) {
-    var d = new Date(exps[i]);
+    var d = new Date(exps[i] + 'T00:00:00Z');
     if (d < today) { compStatus = 'expired'; break; }
     if (d <= d30 && compStatus === 'compliant') compStatus = 'expiring';
   }
@@ -1689,36 +1689,35 @@ function filterApps() {
 
 // ── CSV EXPORT ────────────────────────────────────────────────────────
 function exportCSV(type) {
-  var data, filename, headers;
+  var data, filename, headers, rows;
   if (type === 'contacts') {
     data     = _contacts || [];
     filename = 'covenant-crest-enquiries-' + new Date().toISOString().slice(0,10) + '.csv';
     headers  = ['Name','Email','Phone','Type','Message','Date','Status'];
-    var rows = data.map(function(c) {
+    rows     = data.map(function(c) {
       return [c.name,c.email,c.phone||'',c.type||'',
               (c.message||'').split('"').join("'").split('\n').join(' '),
               c.date ? new Date(c.date).toLocaleDateString('en-GB') : '',
               c.status||''].map(function(v){ return '"'+v+'"'; }).join(',');
     });
+  } else if (type === 'talent') {
+    data     = _apps || [];
+    filename = 'covenant-crest-talent-pool-' + new Date().toISOString().slice(0,10) + '.csv';
+    headers  = ['First Name','Last Name','Email','Phone','Sector','Status','Last Applied'];
+    rows     = data.map(function(a) {
+      return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',a.sector||'',a.status||'',
+              a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
+              .map(function(v){ return '"'+v+'"'; }).join(',');
+    });
   } else {
     data     = _apps || [];
     filename = 'covenant-crest-applications-' + new Date().toISOString().slice(0,10) + '.csv';
     headers  = ['First Name','Last Name','Email','Phone','Sector','Job Title','Availability','Notes','CV URL','Status','Date'];
-    var rows = data.map(function(a) {
+    rows     = data.map(function(a) {
       return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',
               a.sector||'',a.job_title||'',a.availability||'',
               (a.notes||'').split('"').join("'").split('\n').join(' '),
               a.cvUrl||'',a.status||'',
-              a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
-              .map(function(v){ return '"'+v+'"'; }).join(',');
-    });
-  }
-  if (type === 'talent') {
-    data     = _apps || [];
-    filename = 'covenant-crest-talent-pool-' + new Date().toISOString().slice(0,10) + '.csv';
-    headers  = ['First Name','Last Name','Email','Phone','Sector','Status','Last Applied'];
-    var rows = data.map(function(a) {
-      return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',a.sector||'',a.status||'',
               a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
               .map(function(v){ return '"'+v+'"'; }).join(',');
     });
