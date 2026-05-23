@@ -309,21 +309,16 @@
       },
     },
 
-    // ── Zoho Mail ───────────────────────────────────────────────────
-    zoho: {
-      /** Super Admin — get Zoho connection status. */
-      status: function () {
-        return unwrap(get('/zoho/status', false));
+    // ── Diagnostics & SSO (Super Admin) ────────────────────────────
+    diagnostics: {
+      /** Super Admin — trigger a live Resend test email. */
+      testResend: function () {
+        return unwrap(post('/diagnostics/test-resend', {}, false));
       },
 
-      /** Super Admin — open Zoho OAuth authorisation page. */
-      authorise: function () {
-        window.location.href = BASE + '/zoho/authorise';
-      },
-
-      /** Super Admin — send test email. */
-      test: function () {
-        return unwrap(post('/zoho/test', {}, false));
+      /** Super Admin — verify and test HubSpot sync with a mock contact. */
+      testHubSpot: function () {
+        return unwrap(post('/diagnostics/test-hubspot', {}, false));
       },
     },
 

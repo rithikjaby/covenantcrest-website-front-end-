@@ -1786,31 +1786,47 @@ function changeAdminPassword() {
 
 // ── INTEGRATIONS STATUS ───────────────────────────────────────────
 function checkIntegrations() {
-  var intApi = document.getElementById('int-api');
-  var intEmail = document.getElementById('int-email');
-  if (intApi) intApi.textContent = 'Checking…';
-  if (intEmail) intEmail.textContent = 'Checking…';
+  var intApi     = document.getElementById('int-api');
+  var intDb      = document.getElementById('int-db');
+  var intHubspot = document.getElementById('int-hubspot');
+  var intResend  = document.getElementById('int-resend');
+  var intSso     = document.getElementById('int-sso');
+
+  if (intApi)     intApi.textContent     = 'Checking…';
+  if (intDb)      intDb.textContent      = 'Checking…';
+  if (intHubspot) intHubspot.textContent = 'Checking…';
+  if (intResend)  intResend.textContent  = 'Checking…';
+  if (intSso)     intSso.textContent     = 'Checking…';
   
   fetch(API + '/health').then(function(r) { return r.json(); }).then(function(d) {
     if (intApi) {
       intApi.textContent = d.status === 'healthy' ? 'Connected' : 'Warning: ' + d.status;
       intApi.style.color = d.status === 'healthy' ? 'var(--success)' : 'var(--warn)';
     }
-    if (intEmail) {
-      if (d.zohoTokenExists) {
-         intEmail.textContent = 'Zoho Mail Connected';
-         intEmail.style.color = 'var(--success)';
-      } else {
-         intEmail.innerHTML = '<span style="color:var(--danger);">Zoho Mail Disconnected — Emails Failing</span> <a href="/api/zoho/authorise" style="margin-left:8px;color:#C9A84C;text-decoration:underline;font-size:11px;">Authorise now</a>';
-      }
+    if (intDb) {
+      intDb.textContent = d.databaseConnected ? 'Connected' : 'Disconnected';
+      intDb.style.color = d.databaseConnected ? 'var(--success)' : 'var(--danger)';
     }
-    var intCloud = document.getElementById('int-cloud');
-    if (intCloud) intCloud.textContent = '— (check Render env: CLOUDINARY_CLOUD_NAME)';
+    if (intHubspot) {
+      intHubspot.textContent = d.hubspotConfigured ? 'Active (Syncing)' : 'Not Configured (CRM Sync Inactive)';
+      intHubspot.style.color = d.hubspotConfigured ? 'var(--success)' : 'var(--danger)';
+    }
+    if (intResend) {
+      intResend.textContent = d.resendConfigured ? 'Active (Delivery Active)' : 'Not Configured (Emails Blocked)';
+      intResend.style.color = d.resendConfigured ? 'var(--success)' : 'var(--danger)';
+    }
+    if (intSso) {
+      intSso.textContent = d.microsoftSSOConfigured ? 'Enabled (Azure SSO)' : 'Not Configured (Pwd Login Only)';
+      intSso.style.color = d.microsoftSSOConfigured ? 'var(--success)' : 'var(--warn)';
+    }
   }).catch(function() {
-    if (intApi) {
-      intApi.textContent = 'Offline';
-      intApi.style.color = 'var(--danger)';
-    }
+    var errorText = 'API Offline';
+    var errorColor = 'var(--danger)';
+    if (intApi) { intApi.textContent = 'Offline'; intApi.style.color = errorColor; }
+    if (intDb) { intDb.textContent = errorText; intDb.style.color = errorColor; }
+    if (intHubspot) { intHubspot.textContent = errorText; intHubspot.style.color = errorColor; }
+    if (intResend) { intResend.textContent = errorText; intResend.style.color = errorColor; }
+    if (intSso) { intSso.textContent = errorText; intSso.style.color = errorColor; }
     showApiOffline();
   });
 }

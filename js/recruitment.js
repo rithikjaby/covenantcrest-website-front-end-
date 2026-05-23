@@ -293,6 +293,115 @@ function clearCV(e) {
     if (progress) progress.style.display = 'none';
 }
 
+// ── DYNAMIC COMPLIANCE FIELDS ────────────────
+function adjustComplianceFields(sector) {
+    var wrap = document.getElementById('dynamic-certs-wrap');
+    var grid = document.getElementById('dynamic-certs-grid');
+    var inputsWrap = document.getElementById('dynamic-compliance-inputs-wrap');
+    if (!grid || !inputsWrap || !wrap) return;
+    
+    var checkboxes = '';
+    var extraFields = '';
+    
+    var normalizedSector = (sector || 'general').toLowerCase();
+    
+    if (normalizedSector.indexOf('care') !== -1 || normalizedSector.indexOf('health') !== -1) {
+        wrap.style.display = 'block';
+        checkboxes = 
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Enhanced DBS" checked style="accent-color:var(--gold);"> <span>Enhanced DBS</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="NMC Pin Vetted" style="accent-color:var(--gold);"> <span>NMC Pin Vetted</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Care Certificate" style="accent-color:var(--gold);"> <span>Care Certificate</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Moving & Handling" style="accent-color:var(--gold);"> <span>Moving & Handling</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Safe Meds Cert" style="accent-color:var(--gold);"> <span>Safe Meds Cert</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Right to Work" checked style="accent-color:var(--gold);"> <span>Right to Work in UK</span></label>';
+            
+        extraFields = 
+            '<div class="dk-g2">' +
+            '  <div class="dk-fg">' +
+            '    <label class="dk-label">DBS Certificate Number *</label>' +
+            '    <input type="text" class="dk-input" id="compliance_dbs_number" placeholder="e.g. 001234567890" required>' +
+            '  </div>' +
+            '  <div class="dk-fg">' +
+            '    <label class="dk-label">NMC Pin (if applicable)</label>' +
+            '    <input type="text" class="dk-input" id="compliance_nmc_pin" placeholder="e.g. 74A1234E">' +
+            '  </div>' +
+            '</div>';
+    } else if (normalizedSector.indexOf('security') !== -1) {
+        wrap.style.display = 'block';
+        checkboxes = 
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="SIA Door Supervisor" checked style="accent-color:var(--gold);"> <span>SIA Door Supervisor</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="SIA CCTV Licence" style="accent-color:var(--gold);"> <span>SIA CCTV Licence</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="BS 7858 Vetted" style="accent-color:var(--gold);"> <span>BS 7858 Vetted</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="First Aid at Work" style="accent-color:var(--gold);"> <span>First Aid at Work</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Right to Work" checked style="accent-color:var(--gold);"> <span>Right to Work in UK</span></label>';
+            
+        extraFields = 
+            '<div class="dk-g2">' +
+            '  <div class="dk-fg">' +
+            '    <label class="dk-label">SIA Badge Number *</label>' +
+            '    <input type="text" class="dk-input" id="compliance_sia_number" placeholder="e.g. 1023456789012345" required>' +
+            '  </div>' +
+            '  <div class="dk-fg">' +
+            '    <label class="dk-label">SIA Badge Expiry *</label>' +
+            '    <input type="text" class="dk-input" id="compliance_sia_expiry" placeholder="e.g. MM/YYYY" required>' +
+            '  </div>' +
+            '</div>';
+    } else if (normalizedSector.indexOf('hospitality') !== -1 || normalizedSector.indexOf('event') !== -1) {
+        wrap.style.display = 'block';
+        checkboxes = 
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Food Hygiene Level 2" checked style="accent-color:var(--gold);"> <span>Food Hygiene Lvl 2</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="FOH Trained" style="accent-color:var(--gold);"> <span>FOH Trained</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Chef Vetted" style="accent-color:var(--gold);"> <span>Chef Certification</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Right to Work" checked style="accent-color:var(--gold);"> <span>Right to Work in UK</span></label>';
+            
+        extraFields = 
+            '<div class="dk-fg">' +
+            '  <label class="dk-label">Food Hygiene Issuer / Date</label>' +
+            '  <input type="text" class="dk-input" id="compliance_hygiene_cert" placeholder="e.g. City & Guilds, 2025">' +
+            '</div>';
+    } else if (normalizedSector.indexOf('warehouse') !== -1 || normalizedSector.indexOf('logistics') !== -1 || normalizedSector.indexOf('haulage') !== -1) {
+        wrap.style.display = 'block';
+        checkboxes = 
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="HGV Class 1" style="accent-color:var(--gold);"> <span>HGV Class 1</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="HGV Class 2" style="accent-color:var(--gold);"> <span>HGV Class 2</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="CPC Vetted" style="accent-color:var(--gold);"> <span>CPC Driver Card</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Forklift Certificate" style="accent-color:var(--gold);"> <span>FLT Certificate</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Right to Work" checked style="accent-color:var(--gold);"> <span>Right to Work in UK</span></label>';
+            
+        extraFields = 
+            '<div class="dk-fg">' +
+            '  <label class="dk-label">HGV Licence or FLT Badge Number</label>' +
+            '  <input type="text" class="dk-input" id="compliance_hgv_number" placeholder="e.g. HGV1234567">' +
+            '</div>';
+    } else if (normalizedSector.indexOf('construction') !== -1 || normalizedSector.indexOf('trade') !== -1) {
+        wrap.style.display = 'block';
+        checkboxes = 
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="CSCS Card Vetted" checked style="accent-color:var(--gold);"> <span>CSCS Card Vetted</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="PPE Compliant" style="accent-color:var(--gold);"> <span>PPE Compliant</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Trade Certs" style="accent-color:var(--gold);"> <span>Trade Certificates</span></label>' +
+            '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);cursor:pointer;margin-bottom:8px;"><input type="checkbox" name="certs" value="Right to Work" checked style="accent-color:var(--gold);"> <span>Right to Work in UK</span></label>';
+            
+        extraFields = 
+            '<div class="dk-fg">' +
+            '  <label class="dk-label">CSCS Registration Number *</label>' +
+            '  <input type="text" class="dk-input" id="compliance_cscs_number" placeholder="e.g. 09876543" required>' +
+            '</div>';
+    } else {
+        wrap.style.display = 'none';
+        checkboxes = '';
+        extraFields = '';
+    }
+    
+    grid.innerHTML = checkboxes;
+    if (extraFields) {
+        inputsWrap.innerHTML = extraFields;
+        inputsWrap.style.display = 'block';
+    } else {
+        inputsWrap.innerHTML = '';
+        inputsWrap.style.display = 'none';
+    }
+}
+
 // ── FORM SUBMISSION — Netlify + API backend ──
 function handleFormWithAPI(e, formName, bannerId) {
     e.preventDefault();
@@ -315,6 +424,36 @@ function handleFormWithAPI(e, formName, bannerId) {
                 }
             }
         });
+
+        // Collect dynamic certifications & extra fields
+        var certs = [];
+        form.querySelectorAll('input[name="certs"]:checked').forEach(function(el) { certs.push(el.value); });
+        
+        var extraDetails = "";
+        var dbsNum = document.getElementById('compliance_dbs_number');
+        var nmcPin = document.getElementById('compliance_nmc_pin');
+        var siaNum = document.getElementById('compliance_sia_number');
+        var siaExp = document.getElementById('compliance_sia_expiry');
+        var hygiene = document.getElementById('compliance_hygiene_cert');
+        var hgvNum = document.getElementById('compliance_hgv_number');
+        var cscsNum = document.getElementById('compliance_cscs_number');
+        
+        if (dbsNum && dbsNum.value) extraDetails += "\nDBS Number: " + dbsNum.value;
+        if (nmcPin && nmcPin.value) extraDetails += "\nNMC Pin: " + nmcPin.value;
+        if (siaNum && siaNum.value) extraDetails += "\nSIA Number: " + siaNum.value;
+        if (siaExp && siaExp.value) extraDetails += "\nSIA Expiry: " + siaExp.value;
+        if (hygiene && hygiene.value) extraDetails += "\nFood Hygiene Details: " + hygiene.value;
+        if (hgvNum && hgvNum.value) extraDetails += "\nHGV/FLT Licence Details: " + hgvNum.value;
+        if (cscsNum && cscsNum.value) extraDetails += "\nCSCS Number: " + cscsNum.value;
+
+        // Build composite notes field
+        var complianceText = "";
+        if (certs.length > 0) complianceText += "Certs: " + certs.join(', ') + "\n";
+        if (extraDetails) complianceText += extraDetails.trim() + "\n";
+
+        if (complianceText) {
+            payload.notes = complianceText + "\n" + (payload.notes || "");
+        }
         
         payload.cvBase64 = _cvBase64;
         payload.cvFileName = _cvFileName || (payload.first_name + '_' + payload.last_name + '_CV.pdf');
@@ -322,6 +461,7 @@ function handleFormWithAPI(e, formName, bannerId) {
         // Ensure sector/job info is present
         var urlParams = new URLSearchParams(window.location.search);
         if (!payload.job_id) payload.job_id = urlParams.get('id') || urlParams.get('job_id');
+        if (!payload.job_title) payload.job_title = "Talent Pool Registration - " + (payload.sector || "General");
 
         fetch('/api/applications', {
             method: 'POST',
@@ -335,6 +475,13 @@ function handleFormWithAPI(e, formName, bannerId) {
             if (banner) banner.classList.add('show');
             form.reset();
             clearCV();
+            // Reset compliance fields
+            var wrap = document.getElementById('dynamic-certs-wrap');
+            var grid = document.getElementById('dynamic-certs-grid');
+            var inputsWrap = document.getElementById('dynamic-compliance-inputs-wrap');
+            if (wrap) wrap.style.display = 'none';
+            if (grid) grid.innerHTML = '';
+            if (inputsWrap) { inputsWrap.innerHTML = ''; inputsWrap.style.display = 'none'; }
         })
         .catch(function(err) {
             console.error('API Error:', err);
@@ -375,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hiddenId) hiddenId.value = jobId;
     }
     if (jobSector) {
-        var sectorEl = document.querySelector('select[name="sector"]');
+        var sectorEl = document.getElementById('candidate-sector');
         if (sectorEl) {
             sectorEl.value = jobSector;
             sectorEl.dispatchEvent(new Event('change'));
@@ -484,6 +631,13 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleReg(true);
         });
     }
+    // Candidate Sector selector change listener
+    var candidateSector = document.getElementById('candidate-sector');
+    if (candidateSector) {
+        candidateSector.addEventListener('change', function() {
+            adjustComplianceFields(this.value);
+        });
+    }
 });
 
 function applyForJob() {
@@ -500,3 +654,4 @@ window.handleFormWithAPI = handleFormWithAPI;
 window.renderJobs = renderJobs;
 window.applyForJob = applyForJob;
 window.toggleReg = toggleReg;
+window.adjustComplianceFields = adjustComplianceFields;

@@ -927,6 +927,266 @@
       gap: 12px;
     }
 
+    /* Multi-Step Wizard Styles */
+    .wizard-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .wizard-progress::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255,255,255,0.06);
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+    .wizard-progress-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      z-index: 2;
+      transform: translateY(-50%);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px rgba(201,168,76,0.5);
+      width: 25%;
+    }
+    .wizard-step-node {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .wizard-step-node.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--navy2);
+      box-shadow: 0 0 10px rgba(201,168,76,0.3);
+    }
+    .wizard-step-node.completed {
+      border-color: var(--gold);
+      color: var(--navy);
+      background: var(--gold);
+    }
+    .wizard-step-node-label {
+      position: absolute;
+      bottom: -18px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.25);
+      font-weight: 500;
+    }
+    .wizard-step-node.active .wizard-step-node-label {
+      color: var(--gold);
+    }
+    .wizard-step-node.completed .wizard-step-node-label {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .wizard-options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .wizard-card-option {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wizard-card-option::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 100% 100%, rgba(201,168,76,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .wizard-card-option:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.05);
+    }
+    .wizard-card-option:hover::after {
+      opacity: 1;
+    }
+    .wizard-card-option.selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      box-shadow: 0 0 15px rgba(201,168,76,0.15);
+    }
+    .option-radio-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .option-radio-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--navy);
+      transform: scale(0);
+      transition: transform 0.2s ease;
+    }
+    .wizard-card-option.selected .option-radio-dot {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .wizard-card-option.selected .option-radio-dot::after {
+      transform: scale(1);
+    }
+    .option-content {
+      flex: 1;
+    }
+    .option-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .option-desc {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+
+    .wizard-step-container {
+      display: none;
+      animation: wizardSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+    .wizard-step-container.active {
+      display: block;
+    }
+    @keyframes wizardSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wizard-nav-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      gap: 12px;
+    }
+    .wizard-btn-prev {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .wizard-btn-prev:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .wizard-btn-next {
+      background: var(--gold);
+      border: none;
+      color: var(--navy);
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .wizard-btn-next:hover {
+      background: var(--gold2);
+      box-shadow: 0 4px 15px rgba(201,168,76,0.25);
+    }
+    .wizard-btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+    }
+    .compliance-tag {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      user-select: none;
+    }
+    .compliance-tag:hover {
+      border-color: rgba(201,168,76,0.35);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+    }
+    .compliance-tag.checked {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      color: #fff;
+    }
+    .compliance-tag input {
+      accent-color: var(--gold);
+    }
+
+
     .f-submit {
       width: 100%;
       background: var(--gold);
@@ -1155,20 +1415,20 @@
     }
 
     .ft-main {
-      padding: 52px 48px 36px;
+      padding: 60px 48px 40px;
       display: grid;
-      grid-template-columns: 2.2fr 1fr 1fr 1fr;
-      gap: 44px;
+      grid-template-columns: 2.4fr 1fr 1fr 1fr;
+      gap: 48px;
       border-bottom: 1px solid rgba(255, 255, 255, .05);
     }
 
     .ft-logo-name {
       font-family: 'Playfair Display', serif;
-      font-size: 34px;
+      font-size: 38px;
       color: #fff;
       font-weight: 600;
       letter-spacing: 0.04em;
-      margin: 12px 0 2px;
+      margin: 14px 0 2px;
     }
 
     .ft-logo-name span {
@@ -1798,85 +2058,141 @@
             <strong style="color:rgba(255,255,255,.45);">not</strong> a candidate application form.</div>
           <div class="ok-banner" id="ok-req-b2b">&#x2705; Request received! A consultant will contact you within 2
             hours.</div>
-          <form name="recruitment-request-staff" method="POST" data-netlify="true" data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b">
+          <form name="recruitment-request-staff" method="POST" data-netlify="true" data-form-name="recruitment-request-staff" data-banner-id="ok-req-b2b" id="staffingWizardForm">
             <input type="hidden" name="form-name" value="recruitment-request-staff">
             <input type="hidden" name="crm_lead_source" value="Website - Staff Request Form">
             <input type="hidden" name="crm_module" value="Leads">
             <input type="hidden" name="crm_type" value="B2B_Employer">
             <p style="display:none" aria-hidden="true"><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
-            <div class="dk-g2">
-              <div class="dk-fg"><label class="dk-label">Company Name *</label><input class="dk-input"
-                  name="company_name" placeholder="Oakwood Care Home" required></div>
-              <div class="dk-fg"><label class="dk-label">Your Job Title *</label><input class="dk-input"
-                  name="job_title" placeholder="Operations Manager" required></div>
+
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+              <div class="wizard-progress-bar" id="wizardBar" style="width: 25%;"></div>
+              <div class="wizard-step-node active" data-step="1">1<span class="wizard-step-node-label">Model</span></div>
+              <div class="wizard-step-node" data-step="2">2<span class="wizard-step-node-label">Sector</span></div>
+              <div class="wizard-step-node" data-step="3">3<span class="wizard-step-node-label">Vetting</span></div>
+              <div class="wizard-step-node" data-step="4">4<span class="wizard-step-node-label">Details</span></div>
             </div>
-            <div class="dk-g2">
-              <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="contact_name"
-                  placeholder="Jane Smith" required></div>
-              <div class="dk-fg"><label class="dk-label">Phone *</label><input class="dk-input" type="tel" name="phone"
-                  placeholder="07700 000000" required></div>
+
+            <!-- Step 1: Hire Type (Staffing Model) -->
+            <div class="wizard-step-container active" id="wizardStep1" style="margin-top:20px;">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Step 1: Choose Staffing Model</div>
+              <div class="wizard-options-grid">
+                <div class="wizard-card-option selected" data-value="temporary" onclick="selectModel(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Temporary Shift Cover</div>
+                    <div class="option-desc">Sudden absences, peak demand periods, short-notice shift cover. 1-hour consultant response guarantee.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="permanent" onclick="selectModel(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Permanent Recruitment & Executive Search</div>
+                    <div class="option-desc">Direct placement hires, high-margin executive search, long-term talent acquisition with fee protection.</div>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="service_model" id="inputServiceModel" value="temporary">
             </div>
-            <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email" name="email"
-                placeholder="jane@company.co.uk" required></div>
-            <div class="dk-g2">
+
+            <!-- Step 2: Specialist Division (Sector) -->
+            <div class="wizard-step-container" id="wizardStep2" style="margin-top:20px;">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Step 2: Select Specialist Division</div>
+              <div class="wizard-options-grid" style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
+                <div class="wizard-card-option" data-value="care" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Healthcare & Care Staffing</div>
+                    <div class="option-desc">Vetted Care Assistants, Support Workers & Nurses for care providers.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="security" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Security & Guarding Services</div>
+                    <div class="option-desc">SIA-licensed guards, door supervisors, event stewards & keyholders.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="hospitality" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Hospitality & Event Staffing [NEW]</div>
+                    <div class="option-desc">Chefs, front-of-house staff, bartenders, and elite event stewards.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="warehouse" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Warehouse & Logistics Staffing</div>
+                    <div class="option-desc">HGV drivers, FLT operators, pickers & distribution personnel.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="construction" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">Construction & Trades</div>
+                    <div class="option-desc">CSCS-carded general laborers, tradespeople & site management.</div>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="sector" id="inputSector" value="">
+            </div>
+
+            <!-- Step 3: Dynamic Sector Vetting & Requirements -->
+            <div class="wizard-step-container" id="wizardStep3" style="margin-top:20px;">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Step 3: Sector Compliance & Requirements</div>
+              
+              <div id="dynamicVettingArea">
+                <!-- Javascript will inject dynamic checkboxes here based on selection -->
+              </div>
+
               <div class="dk-fg">
-                <label class="dk-label">Sector *</label>
-                <select class="dk-select" name="sector" required>
-                  <option value="" disabled selected>Choose sector&hellip;</option>
-                  <option value="care">Care &amp; Healthcare</option>
-                  <option value="security">Security</option>
-                  <option value="warehouse">Warehouse &amp; Logistics</option>
-                  <option value="construction">Construction &amp; Trades</option>
-                  <option value="multiple">Multiple sectors</option>
-                </select>
-              </div>
-              <div class="dk-fg"><label class="dk-label">Workers Needed</label><input class="dk-input" type="number"
-                  name="workers_needed" placeholder="e.g. 3" min="1"></div>
-            </div>
-            <div class="dk-g2">
-              <div class="dk-fg"><label class="dk-label">Start Date</label><input class="dk-input" type="date"
-                  name="start_date"></div>
-              <div class="dk-fg"><label class="dk-label">Site Postcode</label><input class="dk-input" name="postcode"
-                  placeholder="e.g. TF1 1AB"></div>
-            </div>
-            <div class="dk-fg">
-              <label class="dk-label">Compliance Requirements</label>
-              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_dbs" style="accent-color:var(--gold);"> Enhanced DBS</label>
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_sia" style="accent-color:var(--gold);"> SIA Licence</label>
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_nmc" style="accent-color:var(--gold);"> NMC Pin</label>
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_flt" style="accent-color:var(--gold);"> FLT Licence</label>
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_rtw" style="accent-color:var(--gold);"> Right to Work</label>
-                <label
-                  style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;"><input
-                    type="checkbox" name="req_cscs" style="accent-color:var(--gold);"> CSCS Card</label>
+                <label class="dk-label" id="requirementSpecificLabel">Additional Shift Details</label>
+                <textarea class="dk-textarea" name="shift_patterns" id="shiftPatternsTextarea" placeholder="Enter preferred shifts (Days, Nights, 24/7 Cover)..." style="min-height:70px;"></textarea>
               </div>
             </div>
-            <div class="dk-fg"><label class="dk-label">Additional Notes</label><textarea class="dk-textarea"
-                name="notes" placeholder="Shift patterns, contract duration, specific roles&hellip;"></textarea></div>
-            <div class="dk-fg">
-              <label
-                style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:12px;">
-                <input type="checkbox" name="gdpr_consent" required style="accent-color:var(--gold);margin-top:2px;">
-                <span>I consent to my data being processed in accordance with the <a href="/privacy"
-                    style="color:var(--gold);">Privacy Policy</a> for the purpose of this enquiry.</span>
-              </label>
+
+            <!-- Step 4: Company & Site Details -->
+            <div class="wizard-step-container" id="wizardStep4" style="margin-top:20px;">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Step 4: Contact & Site Details</div>
+              
+              <div class="dk-g2">
+                <div class="dk-fg"><label class="dk-label">Company Name *</label><input class="dk-input" name="company_name" id="wizardCompanyName" placeholder="Oakwood Care Home"></div>
+                <div class="dk-fg"><label class="dk-label">Your Job Title *</label><input class="dk-input" name="job_title" id="wizardJobTitle" placeholder="Operations Manager"></div>
+              </div>
+              <div class="dk-g2">
+                <div class="dk-fg"><label class="dk-label">Your Name *</label><input class="dk-input" name="contact_name" id="wizardContactName" placeholder="Jane Smith"></div>
+                <div class="dk-fg"><label class="dk-label">Phone *</label><input class="dk-input" type="tel" name="phone" id="wizardPhone" placeholder="07700 000000"></div>
+              </div>
+              
+              <div class="dk-fg"><label class="dk-label">Email *</label><input class="dk-input" type="email" name="email" id="wizardEmail" placeholder="jane@company.co.uk"></div>
+              
+              <div class="dk-g2">
+                <div class="dk-fg"><label class="dk-label">Workers Needed</label><input class="dk-input" type="number" name="workers_needed" placeholder="e.g. 3" min="1"></div>
+                <div class="dk-fg"><label class="dk-label">Start Date</label><input class="dk-input" type="date" name="start_date"></div>
+              </div>
+              
+              <div class="dk-fg"><label class="dk-label">Site Postcode</label><input class="dk-input" name="postcode" placeholder="e.g. TF1 1AB"></div>
+              
+              <div class="dk-fg"><label class="dk-label">Additional Instructions</label><textarea class="dk-textarea" name="notes" placeholder="Any specific requirements or instructions..." style="min-height:55px;"></textarea></div>
+
+              <div class="dk-fg">
+                <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:8px;">
+                  <input type="checkbox" name="gdpr_consent" id="wizardGdprConsent" required style="accent-color:var(--gold);margin-top:2px;">
+                  <span>I consent to my data being processed in accordance with the <a href="/privacy" style="color:var(--gold);">Privacy Policy</a> for the purpose of this enquiry.</span>
+                </label>
+              </div>
             </div>
-            <button type="submit" class="f-submit" id="rsb-submit-btn" aria-label="Send employer enquiry">Send Employer
-              Enquiry &#8594;</button>
-            <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:10px;">Your data is
-              processed under UK GDPR. See our <a href="/privacy" style="color:rgba(201,168,76,.55);">Privacy
-                Policy</a>. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
+
+            <!-- Navigation Buttons -->
+            <div class="wizard-nav-btns">
+              <button type="button" class="wizard-btn-prev" id="wizardPrevBtn" onclick="navigateWizard(-1)" style="display:none;">&larr; Back</button>
+              <button type="button" class="wizard-btn-next" id="wizardNextBtn" onclick="navigateWizard(1)">Next &rarr;</button>
+              <button type="submit" class="f-submit" id="wizardSubmitBtn" style="display:none; margin-top:0; flex:1; height:44px; padding:0; line-height:44px; text-align:center;">Request Staff Cover &#8594;</button>
+            </div>
+            
+            <p style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin-top:14px;">Your data is processed under UK GDPR. See our <a href="/privacy" style="color:rgba(201,168,76,.55);">Privacy Policy</a>. Covenant Crest Group Ltd &mdash; ICO Reg: ZC100629.</p>
           </form>
         </div>
       </div>
@@ -1889,7 +2205,7 @@
     <footer>
     <div class="ft-main">
       <div>
-        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="52" height="52" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C"
             stroke-width="1.5" />
           <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
@@ -1926,7 +2242,8 @@
         <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
-        <span class="ft-link" style="cursor:default;">28 Princess Avenue, Telford, Shropshire</span>
+        <a href="mailto:trade@covenantcrest.co.uk" class="ft-link">trade@covenantcrest.co.uk</a>
+        <span class="ft-link" style="cursor:default;margin-top:8px;">28 Princess Avenue, Telford, Shropshire</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
@@ -1967,6 +2284,265 @@
     </svg>
   </a>
 
+  <script>
+    var currentStep = 1;
+
+    function selectModel(el) {
+      document.querySelectorAll('#wizardStep1 .wizard-card-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+      });
+      el.classList.add('selected');
+      document.getElementById('inputServiceModel').value = el.getAttribute('data-value');
+      
+      // Auto-navigate to step 2 with micro-delay for beautiful animation response
+      setTimeout(function() {
+        navigateWizard(1);
+      }, 350);
+    }
+
+    function selectSector(el) {
+      document.querySelectorAll('#wizardStep2 .wizard-card-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+      });
+      el.classList.add('selected');
+      var sector = el.getAttribute('data-value');
+      document.getElementById('inputSector').value = sector;
+      
+      regenerateDynamicVetting(sector);
+      
+      // Auto-navigate to step 3
+      setTimeout(function() {
+        navigateWizard(1);
+      }, 350);
+    }
+
+    function regenerateDynamicVetting(sector) {
+      var container = document.getElementById('dynamicVettingArea');
+      var label = document.getElementById('requirementSpecificLabel');
+      var textarea = document.getElementById('shiftPatternsTextarea');
+      
+      var html = '';
+      if (sector === 'care') {
+        label.textContent = 'Shift Patterns & CQC Requirements';
+        textarea.placeholder = 'e.g. Days, Waking Nights, 24/7 Care Cover, CQC compliance specifics...';
+        html = '<label class="dk-label">Dynamic Healthcare Vetting Checklists</label>' +
+               '<div class="compliance-grid">' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_dbs" value="on" style="pointer-events:none;"> Enhanced DBS' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_nmc" value="on" style="pointer-events:none;"> NMC Pin Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_care_cert" value="on" style="pointer-events:none;"> Care Certificate' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_pmva" value="on" style="pointer-events:none;"> PMVA Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_meds" value="on" style="pointer-events:none;"> Safe Meds Cert' +
+               '  </div>' +
+               '</div>';
+      } else if (sector === 'security') {
+        label.textContent = 'Vetting & Security Assignment Details';
+        textarea.placeholder = 'e.g. Door supervisors, retail patrol guards, event staffing numbers, static guarding details...';
+        html = '<label class="dk-label">Dynamic Security Vetting Checklists</label>' +
+               '<div class="compliance-grid">' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_sia" value="on" style="pointer-events:none;"> SIA Door Supervisor' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_sia_cctv" value="on" style="pointer-events:none;"> SIA CCTV Licenced' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_bs7858" value="on" style="pointer-events:none;"> BS 7858 Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_first_aid" value="on" style="pointer-events:none;"> First Aid Vetted' +
+               '  </div>' +
+               '</div>';
+      } else if (sector === 'hospitality') {
+        label.textContent = 'Dress Code, Shift Times & Event Requirements';
+        textarea.placeholder = 'e.g. Elite black-tie uniform code, specific chefs levels (Sous, Head Chef), dynamic shift cover details...';
+        html = '<label class="dk-label">Hospitality & Food Hygiene Checklists</label>' +
+               '<div class="compliance-grid">' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_food_hygiene" value="on" style="pointer-events:none;"> Food Hygiene Lvl 2' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_foh" value="on" style="pointer-events:none;"> FOH Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_chef_cert" value="on" style="pointer-events:none;"> Chef Vetted' +
+               '  </div>' +
+               '</div>';
+      } else if (sector === 'warehouse') {
+        label.textContent = 'Shift Schedules, Vehicle Classes & Depot Rules';
+        textarea.placeholder = 'e.g. HGV Class 1 distribution runs, night warehouse shifts, multi-drop requirements...';
+        html = '<label class="dk-label">Warehouse & Logistics Checklists</label>' +
+               '<div class="compliance-grid">' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_hgv_class1" value="on" style="pointer-events:none;"> HGV Class 1' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_hgv_class2" value="on" style="pointer-events:none;"> HGV Class 2' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_cpc" value="on" style="pointer-events:none;"> CPC Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_flt" value="on" style="pointer-events:none;"> FLT Certificate' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '  </div>' +
+               '</div>';
+      } else if (sector === 'construction') {
+        label.textContent = 'Site Safety, PPE & Trade Specifics';
+        textarea.placeholder = 'e.g. CSCS bricklayers, general site cleanup labor, safety orientation requirements...';
+        html = '<label class="dk-label">Construction Vetting Checklists</label>' +
+               '<div class="compliance-grid">' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_cscs" value="on" style="pointer-events:none;"> CSCS Card Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_ppe" value="on" style="pointer-events:none;"> PPE Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_smsts" value="on" style="pointer-events:none;"> SMSTS/SSSTS Vetted' +
+               '  </div>' +
+               '</div>';
+      }
+      
+      container.innerHTML = html;
+    }
+
+    function toggleComplianceTag(tagEl) {
+      tagEl.classList.toggle('checked');
+      var cb = tagEl.querySelector('input[type="checkbox"]');
+      if (cb) {
+        cb.checked = !cb.checked;
+      }
+    }
+
+    function navigateWizard(direction) {
+      if (direction === 1) {
+        // Validation rules before moving to next step
+        if (currentStep === 1) {
+          // Model selection: already selected (has default value)
+        } else if (currentStep === 2) {
+          var sector = document.getElementById('inputSector').value;
+          if (!sector) {
+            alert('Please select a division sector to continue.');
+            return;
+          }
+        } else if (currentStep === 3) {
+          // step 3 validation (none needed, notes are optional)
+        }
+      }
+
+      var newStep = currentStep + direction;
+      if (newStep < 1 || newStep > 4) return;
+
+      // Update active container
+      document.getElementById('wizardStep' + currentStep).classList.remove('active');
+      document.getElementById('wizardStep' + newStep).classList.add('active');
+
+      // Update Node classes
+      document.querySelectorAll('.wizard-step-node').forEach(function(node) {
+        var stepNum = parseInt(node.getAttribute('data-step'));
+        node.classList.remove('active', 'completed');
+        if (stepNum === newStep) {
+          node.classList.add('active');
+        } else if (stepNum < newStep) {
+          node.classList.add('completed');
+        }
+      });
+
+      // Update progress bar width
+      var bar = document.getElementById('wizardBar');
+      if (newStep === 1) bar.style.width = '25%';
+      else if (newStep === 2) bar.style.width = '50%';
+      else if (newStep === 3) bar.style.width = '75%';
+      else if (newStep === 4) bar.style.width = '100%';
+
+      // Handle button visibilities
+      var prevBtn = document.getElementById('wizardPrevBtn');
+      var nextBtn = document.getElementById('wizardNextBtn');
+      var submitBtn = document.getElementById('wizardSubmitBtn');
+
+      if (newStep === 1) {
+        prevBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'block';
+      }
+
+      if (newStep === 4) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+        
+        // Dynamically adjust submit label based on hire model
+        var serviceModel = document.getElementById('inputServiceModel').value;
+        if (serviceModel === 'permanent') {
+          submitBtn.textContent = 'Request Executive Direct Placement →';
+        } else {
+          submitBtn.textContent = 'Guarantee Shift Cover →';
+        }
+      } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+      }
+
+      currentStep = newStep;
+    }
+
+    // Capture Netlify form reset event or submission response
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('staffingWizardForm');
+      if (form) {
+        form.addEventListener('reset', function() {
+          setTimeout(function() {
+            currentStep = 1;
+            document.querySelectorAll('.wizard-step-container').forEach(function(c) {
+              c.classList.remove('active');
+            });
+            document.getElementById('wizardStep1').classList.add('active');
+            
+            document.querySelectorAll('.wizard-step-node').forEach(function(n) {
+              n.classList.remove('active', 'completed');
+              if (n.getAttribute('data-step') == '1') {
+                n.classList.add('active');
+              }
+            });
+            document.getElementById('wizardBar').style.width = '25%';
+            document.getElementById('wizardPrevBtn').style.display = 'none';
+            document.getElementById('wizardNextBtn').style.display = 'block';
+            document.getElementById('wizardSubmitBtn').style.display = 'none';
+            
+            document.querySelectorAll('.wizard-card-option').forEach(function(opt) {
+              opt.classList.remove('selected');
+            });
+            document.querySelector('#wizardStep1 .wizard-card-option[data-value="temporary"]').classList.add('selected');
+            document.getElementById('inputServiceModel').value = 'temporary';
+            document.getElementById('inputSector').value = '';
+          }, 50);
+        });
+      }
+    });
+  </script>
 </body>
+
 
 </html>
