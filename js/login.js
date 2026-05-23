@@ -90,6 +90,27 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pwToggle) {
         pwToggle.addEventListener('click', togglePw);
     }
+
+    // Check for SSO error in URL parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var errParam = urlParams.get('error');
+    if (errParam) {
+        var ssoErrDiv = document.getElementById('ssoError');
+        if (ssoErrDiv) {
+            var errMsg = 'An unexpected error occurred during Microsoft SSO login.';
+            if (errParam === 'microsoft_cancelled') {
+                errMsg = 'Microsoft Sign-in was cancelled.';
+            } else if (errParam === 'microsoft_unauthorised') {
+                errMsg = 'Unauthorised login attempt. Your Microsoft email does not match the SUPER_ADMIN_EMAIL set on Render.';
+            } else if (errParam === 'microsoft_token_failed') {
+                errMsg = 'Failed to retrieve access token from Microsoft.';
+            } else if (errParam === 'microsoft_error') {
+                errMsg = 'OAuth callback processing failed. Please check your credentials and try again.';
+            }
+            ssoErrDiv.textContent = '❌ ' + errMsg;
+            ssoErrDiv.style.display = 'block';
+        }
+    }
 });
 
 window.togglePw = togglePw;

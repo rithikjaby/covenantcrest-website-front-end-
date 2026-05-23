@@ -19,7 +19,19 @@ var API = '/api';
       try {
         var parts = token.split('.');
         if (parts.length === 3) {
-          var payload = JSON.parse(atob(parts[1]));
+          // Robust Base64URL-safe decoding implementation
+          var base64Url = parts[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var pad = base64.length % 4;
+          if (pad) {
+            if (pad === 2) { base64 += '=='; }
+            else if (pad === 3) { base64 += '='; }
+          }
+          var jsonStr = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          var payload = JSON.parse(jsonStr);
+
           sessionStorage.setItem('cc_jwt',   token);
           sessionStorage.setItem('cc_role',  payload.role  || 'superadmin');
           sessionStorage.setItem('cc_email', payload.email || '');
@@ -29,6 +41,7 @@ var API = '/api';
     }
   }
 })();
+
 
 // ── Auth ─────────────────────────────────────────────────────────
 var jwt       = sessionStorage.getItem('cc_jwt')  || '';
