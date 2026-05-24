@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -761,11 +761,49 @@ tbody tr:hover{background:#FAFAFA;}
 <!-- VIEW APPLICATION MODAL -->
 <div class="modal-overlay" id="appModal">
   <div class="modal">
-    <button class="modal-close" data-close="appModal">âœ•</button>
+    <button class="modal-close" data-close="appModal">✖</button>
     <div class="modal-title" id="am-title">Application</div>
     <div class="modal-sub" id="am-sub"></div>
     <div id="am-body" style="font-size:13px;color:var(--charcoal);line-height:1.8;"></div>
     <div id="am-footer-container"></div>
+  </div>
+</div>
+
+<!-- M365 TEAMS INTERVIEW MODAL -->
+<div class="modal-overlay" id="interviewModal">
+  <div class="modal" style="max-width:460px;">
+    <button class="modal-close" data-close="interviewModal">✖</button>
+    <div class="modal-title">Schedule Teams Interview</div>
+    <div class="modal-sub">Create Microsoft Teams meeting & invite candidate automatically via M365.</div>
+    <div id="im-err" class="modal-err"></div>
+    <form id="interviewForm">
+      <div class="af-group">
+        <label class="af-label">Candidate Name</label>
+        <input class="af-input" id="im-cand-name" readonly style="background:#f8f9fa;">
+      </div>
+      <div class="af-group">
+        <label class="af-label">Candidate Email</label>
+        <input class="af-input" id="im-cand-email" readonly style="background:#f8f9fa;">
+      </div>
+      <div class="af-group">
+        <label class="af-label">Job Title</label>
+        <input class="af-input" id="im-job-title" readonly style="background:#f8f9fa;">
+      </div>
+      <div class="af-group">
+        <label class="af-label">Date & Time *</label>
+        <input class="af-input" type="datetime-local" id="im-datetime" required>
+      </div>
+      <div class="af-group">
+        <label class="af-label">Duration</label>
+        <select class="af-select" id="im-duration">
+          <option value="15">15 Minutes</option>
+          <option value="30" selected>30 Minutes</option>
+          <option value="45">45 Minutes</option>
+          <option value="60">1 Hour</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;margin-top:14px;" id="im-submit-btn">Schedule Meeting & Send Invite</button>
+    </form>
   </div>
 </div>
 

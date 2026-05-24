@@ -291,6 +291,81 @@ window.addEventListener('DOMContentLoaded', function() {
   if (addUserBtn) {
     addUserBtn.addEventListener('click', openUserModal);
   }
+
+  var interviewForm = document.getElementById('interviewForm');
+  if (interviewForm) {
+    interviewForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var errEl = document.getElementById('im-err');
+      var submitBtn = document.getElementById('im-submit-btn');
+      
+      var name = document.getElementById('im-cand-name').value;
+      var email = document.getElementById('im-cand-email').value;
+      var job = document.getElementById('im-job-title').value;
+      var dt = document.getElementById('im-datetime').value;
+      var dur = document.getElementById('im-duration').value;
+
+      if (!dt) {
+        if (errEl) errEl.textContent = 'Please select a date and time.';
+        return;
+      }
+
+      if (errEl) errEl.textContent = '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Scheduling Interview...';
+      }
+
+      apiFetch('/interviews/schedule-teams', {
+        method: 'POST',
+        body: JSON.stringify({
+          candidateName: name,
+          candidateEmail: email,
+          jobTitle: job,
+          dateTime: dt,
+          durationMinutes: dur
+        })
+      }).then(function(res) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Schedule Meeting & Send Invite';
+        }
+        if (res && res.error) {
+          if (errEl) errEl.textContent = res.error;
+          showToast('Failed to schedule Teams meeting', 'er');
+        } else if (res && res.success) {
+          closeModal('interviewModal');
+          var modeMsg = res.mode === 'sandbox' 
+            ? 'Scheduled successfully (Sandbox Mode fallback). Email sent!' 
+            : 'Scheduled successfully via Microsoft 365 Outlook Calendar & Teams!';
+          
+          openConfirm(
+            '<div style="text-align:center;">' +
+              '<div style="color:var(--success);font-size:36px;margin-bottom:12px;">✓</div>' +
+              '<h3 style="color:var(--navy);margin-bottom:8px;">Teams Interview Booked</h3>' +
+              '<p style="font-size:13px;color:var(--charcoal);margin-bottom:16px;">' + modeMsg + '</p>' +
+              '<div style="background:#f8f9fa;border:1px solid #E8E4DC;border-radius:6px;padding:12px;margin-bottom:14px;word-break:break-all;">' +
+                '<span style="font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;">Teams Meeting URL</span><br>' +
+                '<a href="' + res.joinUrl + '" target="_blank" style="color:#0078D4;font-size:12px;font-weight:600;text-decoration:underline;">' + res.joinUrl + '</a>' +
+              '</div>' +
+              '<p style="font-size:11px;color:var(--muted);line-height:1.4;">A calendar invite has been booked and a confirmation email with the join button has been sent to the candidate.</p>' +
+            '</div>', 
+            null, 
+            'Close'
+          );
+        } else {
+          if (errEl) errEl.textContent = 'An unexpected response was received from the server.';
+        }
+      }).catch(function(err) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Schedule Meeting & Send Invite';
+        }
+        if (errEl) errEl.textContent = err.message || 'Network error scheduling meeting';
+        showToast('Error connecting to scheduling service', 'er');
+      });
+    });
+  }
   var refreshSecurityLogsBtn = document.getElementById('refreshSecurityLogsBtn');
   if (refreshSecurityLogsBtn) {
     refreshSecurityLogsBtn.addEventListener('click', loadSecurityLogs);
@@ -1075,6 +1150,7 @@ function viewApplication(id) {
       '<button class="btn-sm dn" id="am-reject-btn">Reject</button>' +
       '<button class="btn-sm dn" id="am-blacklist-btn" style="background:#000;color:#fff;">Blacklist</button>' +
       '<button class="btn-sm pr" id="am-reply-btn" style="background:#0D1B2A;color:#fff;">Reply by Email</button>' +
+      '<button class="btn-sm pr" id="am-teams-btn" style="background:#0078D4;color:#fff;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:-1px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule Teams Interview</button>' +
       '<button class="btn-sm pr" id="am-pitch-btn" style="background:var(--gold);color:var(--navy);">Generate Client Pitch PDF</button>' +
       '<div style="flex:1;"></div>' +
       '<button class="btn-primary" style="padding:7px 14px;font-size:9px;" id="am-save-notes-btn">Save Notes</button>' +
@@ -1087,6 +1163,36 @@ function viewApplication(id) {
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
   document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
+
+  document.getElementById('am-teams-btn').onclick = function() {
+    closeModal('appModal');
+    document.getElementById('im-cand-name').value = (a.first_name || '') + ' ' + (a.last_name || '');
+    document.getElementById('im-cand-email').value = a.email || '';
+    document.getElementById('im-job-title').value = a.job_title || 'General Placement';
+    
+    var errEl = document.getElementById('im-err');
+    if (errEl) errEl.textContent = '';
+    var subBtn = document.getElementById('im-submit-btn');
+    if (subBtn) {
+      subBtn.disabled = false;
+      subBtn.textContent = 'Schedule Meeting & Send Invite';
+    }
+    
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(10, 0, 0, 0);
+    var year = tomorrow.getFullYear();
+    var month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    var day = String(tomorrow.getDate()).padStart(2, '0');
+    var hours = String(tomorrow.getHours()).padStart(2, '0');
+    var minutes = String(tomorrow.getMinutes()).padStart(2, '0');
+    var dtInput = document.getElementById('im-datetime');
+    if (dtInput) {
+      dtInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    document.getElementById('interviewModal').classList.add('open');
+  };
 
   document.getElementById('am-pitch-btn').onclick = function() {
     var pitchHTML = "<html><head><title>Candidate Pitch - Covenant Crest Group</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;} .header{text-align:center;border-bottom:2px solid #C9A84C;padding-bottom:20px;margin-bottom:20px;} .c-name{font-size:24px;color:#0D1B2A;} .c-details{margin-bottom:20px;} .c-notes{background:#f9f9f9;padding:20px;border-left:4px solid #C9A84C;}</style></head><body>" +
@@ -1868,10 +1974,28 @@ function saveRating(id, rating) {
 
 // ── CONFIRM MODAL ─────────────────────────────────────────────────
 var _confirmCallback = null;
-function openConfirm(msg, onConfirm) {
+function openConfirm(msg, onConfirm, okText, cancelText) {
   _confirmCallback = onConfirm;
   var msgEl = document.getElementById('confirm-modal-msg');
-  if (msgEl) msgEl.textContent = msg;
+  if (msgEl) msgEl.innerHTML = msg;
+  
+  var titleEl = document.getElementById('confirm-modal-title');
+  if (titleEl) {
+    titleEl.textContent = onConfirm ? 'Confirm Action' : 'Notification';
+  }
+
+  var okBtn = document.getElementById('confirm-ok-btn');
+  if (okBtn) {
+    okBtn.textContent = okText || 'Confirm';
+    okBtn.style.display = onConfirm ? 'inline-block' : 'none';
+  }
+  
+  var cancelBtn = document.getElementById('confirm-cancel-btn');
+  if (cancelBtn) {
+    cancelBtn.textContent = cancelText || (onConfirm ? 'Cancel' : 'Close');
+    cancelBtn.style.width = onConfirm ? 'auto' : '100%';
+  }
+  
   document.getElementById('confirmModal').classList.add('open');
 }
 
