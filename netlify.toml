@@ -52,6 +52,19 @@
 # These can be used directly as n8n filter/routing conditions.
 # ─────────────────────────────────────────────────────────────────
 
+# ─── Force WWW redirect ────────────────────────────────────────
+[[redirects]]
+  from   = "http://covenantcrest.co.uk/*"
+  to     = "https://www.covenantcrest.co.uk/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://covenantcrest.co.uk/*"
+  to     = "https://www.covenantcrest.co.uk/:splat"
+  status = 301
+  force  = true
+
 # ─── API Proxy → Render.com backend ────────────────────────────
 # IMPORTANT: Replace YOUR_RENDER_URL with your actual Render URL
 # Example: https://covenant-crest-api.onrender.com
