@@ -69,7 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (ogDesc) ogDesc.setAttribute('content', (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160));
 
         var descEl = document.getElementById('job-desc');
-        var safeDesc = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(job.desc || '') : (job.desc || '');
+        var rawDesc = job.desc || '';
+        if (rawDesc.indexOf('&lt;') !== -1 || rawDesc.indexOf('&gt;') !== -1) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = rawDesc;
+            rawDesc = txt.value;
+        }
+        var safeDesc = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(rawDesc) : rawDesc;
         if (descEl) descEl.innerHTML = safeDesc;
 
         var sjhTitle = document.getElementById('sjh-title');
@@ -115,7 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (job.req) {
             var reqEl = document.getElementById('job-req');
-            var safeReq = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(job.req) : job.req;
+            var rawReq = job.req || '';
+            if (rawReq.indexOf('&lt;') !== -1 || rawReq.indexOf('&gt;') !== -1) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = rawReq;
+                rawReq = txt.value;
+            }
+            var safeReq = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(rawReq) : rawReq;
             if (reqEl) reqEl.innerHTML = safeReq;
             var reqContainer = document.getElementById('job-req-container');
             if (reqContainer) reqContainer.style.display = 'block';

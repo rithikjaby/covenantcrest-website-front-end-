@@ -81,6 +81,7 @@ function renderSkeleton() {
 }
 
 function esc(s) { return s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
+function stripHTML(s) { return s ? String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim() : ''; }
 
 function renderJobs() {
     var searchEl = document.getElementById('jf-search');
@@ -141,7 +142,7 @@ function renderJobs() {
             (j.type ? '<span class="jc-tag">🕒 ' + esc(j.type.replace('-',' ')) + '</span>' : '') +
             '</div>' +
             '<div class="jc-pay">' + esc(j.pay) + '</div>' +
-            '<p class="jc-desc">' + esc((j.desc || '').substring(0, 110)) + '&hellip;</p>' +
+            '<p class="jc-desc">' + esc(stripHTML(j.desc || '').substring(0, 120)) + '&hellip;</p>' +
             '<div class="jc-btn" style="margin-top:auto;">View &amp; Apply</div>' +
             '</a>';
     }).join('') + '</div>';

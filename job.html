@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -20,313 +20,307 @@
 <meta name="twitter:image" content="https://covenantcrest.co.uk/og-image.svg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0D1B2A">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0D1B2A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;--font-head:'Playfair Display',serif;--font-body:'Plus Jakarta Sans',sans-serif;}
+:root{
+  --navy:#0D1B2A;
+  --navy2:#162236;
+  --navy3:#1E2F45;
+  --gold:#C9A84C;
+  --gold2:#E8C96A;
+  --gold3:rgba(201,168,76,.12);
+  --cream:#FAF7F0;
+  --cream2:#F5F1E8;
+  --white:#fff;
+  --border:#E8E4DC;
+  --border2:#D4CFC6;
+  --muted:#7A8694;
+  --charcoal:#2C3340;
+  --success:#1D9E75;
+  --danger:#E24B4A;
+  --font-head:'Cormorant Garamond',serif;
+  --font-body:'DM Sans',sans-serif;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--cream);color:var(--navy);font-family:var(--font-body);font-size:15px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body{
+  background:var(--cream);
+  color:var(--navy);
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,27,42,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
+/* â”€â”€ NAV â”€â”€ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:rgba(13,27,42,.97);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(201,168,76,.12);
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
-.nav-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 3vw, 34px);
-  color: #fff;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-  line-height: 1;
-}
-.nav-name span{color:#C9A84C;}
+.nav-name{font-family:var(--font-head);font-size:clamp(20px,3vw,32px);color:#fff;letter-spacing:0.04em;font-weight:400;line-height:1;}
+.nav-name span{color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:28px;}
-.nl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
+.nl{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap;}
 .nl:hover,.nl.active{color:var(--gold);}
-.nav-cta{display:none;}
-.nav-group-wrap { position: relative; display: inline-block; }
-.group-dd {
-  position: absolute; top: 100%; right: 0; transform: translateY(12px);
-  background: rgba(13, 27, 42, 0.98); border: 1px solid rgba(201, 168, 76, 0.2);
-  border-radius: 8px; padding: 10px 0; min-width: 230px; opacity: 0; visibility: hidden;
-  transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-  backdrop-filter: blur(12px); z-index: 1000;
+.nav-group-wrap{position:relative;display:inline-block;}
+.btn-group{
+  background:var(--gold);color:var(--navy);
+  font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  padding:10px 22px;border-radius:3px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:all .3s;white-space:nowrap;
 }
-.nav-group-wrap:hover .group-dd { opacity: 1; visibility: visible; transform: translateY(0); }
-.gm-item { display: block; padding: 12px 20px; text-decoration: none; transition: all .2s; border-left: 3px solid transparent; }
-.gm-item:hover { background: rgba(201, 168, 76, 0.08); border-left-color: var(--gold); }
-.gm-name { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2px; }
-.gm-desc { font-size: 10px; color: rgba(255, 255, 255, 0.4); font-weight: 400; }
+.btn-group:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 8px 20px rgba(201,168,76,.25);}
+.group-dd{
+  position:absolute;top:100%;right:0;transform:translateY(12px);
+  background:rgba(13,27,42,.98);border:1px solid rgba(201,168,76,.2);
+  border-radius:8px;padding:10px 0;min-width:230px;
+  opacity:0;visibility:hidden;transition:all .3s cubic-bezier(0.165,.84,.44,1);
+  box-shadow:0 25px 50px rgba(0,0,0,.5);backdrop-filter:blur(12px);z-index:1000;
+}
+.nav-group-wrap:hover .group-dd{opacity:1;visibility:visible;transform:translateY(0);}
+.gm-item{display:block;padding:12px 20px;text-decoration:none;transition:all .2s;border-left:3px solid transparent;}
+.gm-item:hover{background:rgba(201,168,76,.08);border-left-color:var(--gold);}
+.gm-name{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+.gm-desc{font-size:10px;color:rgba(255,255,255,.4);font-weight:400;}
+.nav-mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
 
-/* STICKY JOB HEADER */
-.sticky-job-hdr{position:fixed;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:400;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.04);transform:translateY(-100%);transition:transform .4s cubic-bezier(0.165, 0.84, 0.44, 1);pointer-events:none;opacity:0;}
+/* â”€â”€ STICKY JOB HEADER â”€â”€ */
+.sticky-job-hdr{
+  position:fixed;top:72px;left:0;right:0;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  z-index:400;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+  border-bottom:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.04);
+  transform:translateY(-100%);transition:transform .4s cubic-bezier(0.165,.84,.44,1);
+  pointer-events:none;opacity:0;
+}
 .sticky-job-hdr.show{transform:translateY(0);pointer-events:auto;opacity:1;}
-.sjh-title{font-family:var(--font-head);font-size:20px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:24px;}
-.sjh-btn{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:12px 24px;border-radius:4px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;}
+.sjh-title{font-family:var(--font-head);font-size:22px;font-weight:500;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:24px;}
+.sjh-btn{
+  background:var(--gold);color:var(--navy);
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:12px 28px;border-radius:3px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;
+}
 .sjh-btn:hover{background:var(--gold2);transform:translateY(-1px);}
 
-/* PAGE HEADER */
-.page-header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
-  border-bottom: 3px solid var(--gold);
-  padding: 80px 48px 60px;
-  position: relative;
-  overflow: hidden;
+/* â”€â”€ HERO HEADER â”€â”€ */
+.job-hero{
+  background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 60%,#12203A 100%);
+  padding:120px 48px 80px;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid rgba(201,168,76,.15);
 }
-.page-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
+.job-hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 70% 40%, rgba(201,168,76,.06) 0%, transparent 50%),
+    linear-gradient(rgba(201,168,76,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.02) 1px,transparent 1px);
+  background-size:100% 100%, 60px 60px, 60px 60px;
 }
-.page-header::after {
-  content: "";
-  position: absolute;
-  top: 30%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
-  pointer-events: none;
-  border-radius: 50%;
+.job-hero::after{
+  content:"";position:absolute;bottom:-2px;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent);
 }
-.ph-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
-.back-link{color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;transition:opacity .3s;}
-.back-link:hover{opacity:0.8;}
-.ph-tag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.ph-tag::before{content:""; width:30px; height:1px; background:var(--gold);}
-.ph-title{font-family:var(--font-head);font-size:clamp(32px,5vw,56px);font-weight:500;color:#fff;line-height:1.1;margin-bottom:24px;max-width:900px;}
-.ph-meta{display:flex;flex-wrap:wrap;gap:16px;}
-.ph-meta-item{background:rgba(255,255,255,0.05); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1); color:#fff; padding:12px 20px; border-radius:8px; font-size:14px; font-weight:500; display:flex; align-items:center; gap:10px;}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+.hero-back{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(201,168,76,.7);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;margin-bottom:32px;transition:color .2s;
+}
+.hero-back:hover{color:var(--gold);}
+.hero-back svg{flex-shrink:0;}
+.hero-sector{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.hero-sector::before{content:"";width:24px;height:1px;background:var(--gold);}
+.hero-title{
+  font-family:var(--font-head);font-size:clamp(36px,5.5vw,64px);
+  font-weight:300;color:#fff;line-height:1.08;margin-bottom:32px;
+  letter-spacing:-0.01em;max-width:800px;
+  animation:jdFadeUp .8s .1s both;
+}
+.hero-pills{display:flex;flex-wrap:wrap;gap:12px;animation:jdFadeUp .8s .25s both;}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.85);padding:12px 20px;border-radius:8px;
+  font-size:13px;font-weight:500;backdrop-filter:blur(8px);
+}
+.hero-pill svg{color:var(--gold);flex-shrink:0;}
+.hero-pill.pay-pill{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:var(--gold2);font-weight:700;}
+.hero-pill.closed-pill{background:rgba(226,75,74,.12);border-color:rgba(226,75,74,.3);color:#F87171;display:none;}
 
-/* MAIN CONTENT */
-.main-section{padding:80px 48px; background:var(--cream);}
-.job-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:64px;}
+@keyframes jdFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-.jd-req-body{font-size:15px;color:var(--charcoal);line-height:1.8;}
-.jd-body ul, .jd-body ol, .jd-req-body ul, .jd-req-body ol { 
-  margin: 20px 0 24px 0; 
-  padding-left: 0; 
-  list-style: none !important; 
-  list-style-type: none !important; 
-}
-.jd-body li, .jd-req-body li { 
-  margin-bottom: 12px; 
-  position: relative; 
-  padding-left: 24px !important; 
-  line-height: 1.7; 
-  list-style-type: none !important; 
-}
-.jd-body li::before, .jd-req-body li::before { 
-  content: "•"; 
-  position: absolute; 
-  left: 6px; 
-  top: -1px; 
-  color: var(--gold); 
-  font-weight: bold; 
-  font-size: 20px; 
-}
-.jd-body p { margin-bottom: 16px; }
+/* â”€â”€ MAIN LAYOUT â”€â”€ */
+.job-main{padding:80px 48px;background:var(--cream);}
+.job-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start;}
 
-/* JD UPGRADES */
-.jd-card {
-  background: #fff;
-  padding: 48px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.02);
-  margin-bottom: 40px;
+/* â”€â”€ CONTENT CARDS â”€â”€ */
+.jd-card{
+  background:#fff;padding:48px;border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:0 8px 40px rgba(13,27,42,.03);
+  margin-bottom:32px;
 }
-.jd-block-h {
-  font-family: var(--font-head);
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.jd-card:last-child{margin-bottom:0;}
+.jd-card-title{
+  font-family:var(--font-head);font-size:28px;font-weight:400;color:var(--navy);
+  margin-bottom:28px;display:flex;align-items:center;gap:14px;
+  padding-bottom:20px;border-bottom:1px solid var(--border);
 }
-.jd-block-h svg {
-  color: var(--gold);
-}
-.jd-block-h::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--border), transparent);
-}
+.jd-card-title svg{color:var(--gold);flex-shrink:0;}
 
-.benefit-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
+/* â”€â”€ BODY TEXT FROM RICH EDITOR â”€â”€ */
+.jd-body,.jd-req-body{font-size:15px;color:var(--charcoal);line-height:1.85;}
+.jd-body p,.jd-req-body p{margin-bottom:16px;}
+.jd-body ul,.jd-body ol,.jd-req-body ul,.jd-req-body ol{
+  margin:20px 0 24px;padding-left:0;list-style:none;
 }
-.ben-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--charcoal);
-  background: var(--cream);
-  padding: 12px 16px;
-  border-radius: 10px;
+.jd-body li,.jd-req-body li{
+  position:relative;padding-left:24px;margin-bottom:12px;line-height:1.7;list-style:none;
 }
-
-/* REVEAL FORM WRAP */
-.form-reveal-wrap {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: max-height 0.8s cubic-bezier(0, 1, 0, 1), opacity 0.4s ease;
+.jd-body li::before,.jd-req-body li::before{
+  content:"";position:absolute;left:6px;top:11px;
+  width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;
 }
-.form-reveal-wrap.open {
-  max-height: 4000px;
-  opacity: 1;
-  visibility: visible;
-  transition: max-height 1.2s ease-in-out, opacity 0.5s ease;
-  margin-top: 40px;
+.jd-body strong,.jd-req-body strong{color:var(--navy);font-weight:600;}
+
+/* â”€â”€ BENEFITS GRID â”€â”€ */
+.benefit-strip{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin-top:28px;padding-top:28px;border-top:1px solid var(--border);
 }
-
-/* SIDEBAR */
-.sidebar{position:sticky; top:150px;}
-.sb-card {
-  background: #fff;
-  padding: 36px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 30px rgba(13, 27, 42, 0.03);
-  margin-bottom: 24px;
-  position: relative;
-  overflow: hidden;
+.ben-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--cream);border:1px solid var(--border);border-radius:10px;
+  padding:12px 16px;font-size:13px;font-weight:500;color:var(--charcoal);
 }
-.sb-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--gold), var(--navy));
+.ben-check{width:20px;height:20px;background:rgba(29,158,117,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* â”€â”€ APPLY CTA â”€â”€ */
+.apply-cta{
+  background:var(--navy);border-radius:16px;padding:48px;
+  text-align:center;position:relative;overflow:hidden;
+  border:1px solid rgba(201,168,76,.15);
+  box-shadow:0 20px 60px rgba(13,27,42,.15);
 }
-.sb-title{font-size:12px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--navy); margin-bottom:24px; padding-bottom:12px; border-bottom:1px solid var(--border);}
-.sb-item{display:flex; align-items:flex-start; gap:16px; margin-bottom:24px;}
-.sb-item:last-child{margin-bottom:0;}
-.sb-icon{width:40px; height:40px; border-radius:50%; background:rgba(201,168,76,0.1); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;}
-.sb-text strong{display:block; color:var(--navy); font-size:15px; margin-bottom:4px;}
-.sb-text{font-size:13px; color:var(--muted); line-height:1.5;}
-
-.sb-contact{background:var(--navy); color:#fff; padding:32px; border-radius:16px;}
-.sb-contact-title{font-family:var(--font-head); font-size:22px; margin-bottom:16px; color:var(--gold);}
-.sb-contact-desc{font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:24px;}
-.sb-contact-info{font-size:15px; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
-
-/* INLINE FORM - EXTENDED */
-.form-container{background:var(--navy); border-radius:24px; padding:48px; box-shadow:0 25px 50px rgba(13,27,42,0.25); margin-top:20px; scroll-margin-top: 100px; border:1px solid rgba(201,168,76,0.15); position:relative;}
-.form-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--gold), var(--navy));
-  border-radius: 24px 24px 0 0;
+.apply-cta::before{
+  content:"";position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);
 }
-.form-header{text-align:center; margin-bottom:40px;}
-.form-title{font-family:var(--font-head); font-size:36px; color:#fff; margin-bottom:12px;}
-.form-desc{color:rgba(255,255,255,0.6); font-size:15px;}
- 
-.f-row{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;}
-.f-group{margin-bottom:24px;}
-.f-label{display:block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;}
-.f-input, .f-select, .f-textarea{width:100%; padding:14px 16px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.15); border-radius:10px; font-family:var(--font-body); font-size:15px; color:#fff; transition:all .3s;}
-.f-input:focus, .f-select:focus, .f-textarea:focus{border-color:var(--gold); background:rgba(255,255,255,0.07); outline:none; box-shadow: 0 0 0 4px rgba(201,168,76,0.25);}
-.f-input::placeholder, .f-textarea::placeholder{color:rgba(255,255,255,0.35);}
-.f-select{color:#fff; appearance:none; background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23C9A84C%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat:no-repeat; background-position:right 16px top 50%; background-size:10px auto;}
-.f-select option{background:var(--navy); color:#fff;}
-.f-textarea{min-height:120px; resize:vertical;}
-
-.f-checkbox-group{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-.f-check-label{display:flex; align-items:center; gap:10px; font-size:14px; color:#fff; cursor:pointer;}
-.f-check-label input[type="checkbox"], .f-check-label input[type="radio"] {accent-color:var(--gold); width:18px; height:18px;}
-
-.f-cv-zone{border:2px dashed rgba(201,168,76,0.4); border-radius:12px; padding:32px; text-align:center; cursor:pointer; background:rgba(255,255,255,0.02); transition:all .3s; margin-bottom:24px;}
-.f-cv-zone:hover{border-color:var(--gold); background:rgba(201,168,76,0.05);}
-.f-cv-icon{font-size:32px; margin-bottom:12px; display:block;}
-.f-cv-text{font-size:15px; color:#fff; margin-bottom:4px;}
-.f-cv-sub{font-size:12px; color:rgba(255,255,255,0.4);}
-.f-cv-clear{display:none; color:var(--danger); font-size:14px; font-weight:600; text-transform:uppercase; margin-top:12px; border:none; background:none; cursor:pointer;}
-
-.f-submit{width:100%; background:var(--gold); color:var(--navy); font-family:var(--font-body); font-size:13px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:20px; border:none; border-radius:8px; cursor:pointer; transition:all .3s; margin-top:24px; box-shadow:0 10px 20px rgba(0,0,0,0.2);}
-.f-submit:hover{background:var(--gold2); transform:translateY(-2px);}
-.f-submit:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
-
-.f-ok{display:none; background:rgba(29,158,117,.15); border:1px solid var(--success); border-radius:8px; padding:20px; color:#4ade80; text-align:center; margin-bottom:32px; font-size:16px; font-weight:500;}
-.f-ok.show{display:block;}
-
-/* SHARE LINKS */
-.share-links{display:flex; align-items:center; gap:12px; margin-top:32px; padding-top:32px; border-top:1px solid var(--border);}
-.sl-title{font-size:13px; font-weight:700; color:var(--navy); margin-right:8px; text-transform:uppercase; letter-spacing:0.1em;}
-.sl-btn{width:40px; height:40px; border-radius:50%; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--navy); transition:all .3s; box-shadow:0 4px 10px rgba(0,0,0,0.02);}
-.sl-btn:hover{background:var(--gold); border-color:var(--gold); color:#fff; transform:translateY(-3px); box-shadow:0 8px 15px rgba(201,168,76,0.3);}
-.sl-btn svg{width:16px; height:16px; fill:currentColor;}
-
-/* FOOTER */
-footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
-.ft-main{padding: 60px 48px 40px;display:grid;grid-template-columns: 2.4fr 1fr 1fr 1fr;gap: 48px;max-width:1200px;margin:0 auto;}
-.ft-logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 38px;
-  color: #fff;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  margin: 14px 0 2px;
+.apply-cta h3{font-family:var(--font-head);font-size:30px;font-weight:300;color:#fff;margin-bottom:10px;}
+.apply-cta p{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:28px;line-height:1.6;}
+.btn-apply-main{
+  display:inline-block;background:var(--gold);color:var(--navy);
+  font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:18px 40px;border-radius:4px;border:none;cursor:pointer;
+  transition:all .3s;text-decoration:none;
+  box-shadow:0 8px 24px rgba(201,168,76,.3);
 }
-.ft-logo-name span{color:#C9A84C;}
-.ft-logo-sub { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 16px; opacity: 0.9; }
-.ft-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:16px;}
-.ft-col-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
-.ft-link{display:block;font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:12px;transition:color .3s;}
-.ft-link:hover{color:var(--gold);}
-.ft-bottom{padding:24px 48px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;font-size:12px;color:rgba(255,255,255,0.4);}
+.btn-apply-main:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 14px 32px rgba(201,168,76,.4);}
+.btn-apply-main:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-wa-apply{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:#25D366;color:#fff;padding:14px 20px;border-radius:6px;
+  text-decoration:none;font-size:13px;font-weight:600;margin-top:10px;
+  transition:background .2s;
+}
+.btn-wa-apply:hover{background:#1da851;}
+.apply-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:10px;}
 
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .job-layout{grid-template-columns:1fr;}
-  .sidebar{position:static; display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-  .sb-card, .sb-contact{margin-bottom:0;}
+/* â”€â”€ SIDEBAR â”€â”€ */
+.sidebar{position:sticky;top:148px;}
+.sb-card{
+  background:#fff;padding:32px;border-radius:16px;border:1px solid var(--border);
+  box-shadow:0 8px 32px rgba(13,27,42,.03);margin-bottom:20px;position:relative;overflow:hidden;
 }
-@media(max-width:768px){
-  nav{padding:0 24px;}
-  .nav-links{display:none;}
-  .nav-mob{display:block;}
-  .page-header{padding:60px 24px 40px;}
-  .main-section{padding:40px 24px;}
-  .sidebar{grid-template-columns:1fr;}
-  .f-row{grid-template-columns:1fr;}
-  .f-checkbox-group{grid-template-columns:1fr;}
-  .form-container{padding:32px 24px;}
-  .ft-main{grid-template-columns:1fr 1fr; gap:32px; padding:48px 24px;}
-  .ft-main > div:first-child{grid-column:span 2;}
-  .ft-logo-name{font-size:28px;}
+.sb-card::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--navy2));
 }
-@media(max-width:480px){
-  .ft-main{grid-template-columns:1fr;}
+.sb-head{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.sb-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;}
+.sb-row:last-of-type{margin-bottom:0;}
+.sb-icon{
+  width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.08);
+  color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-#loading{text-align:center;padding:120px 20px;}
-.spinner{width:48px;height:48px;border:4px solid rgba(201,168,76,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-/* COOKIE BANNER */
+.sb-text strong{display:block;color:var(--navy);font-size:14px;margin-bottom:3px;font-weight:600;}
+.sb-text span{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* CONTACT DARK CARD */
+.sb-contact{background:var(--navy);color:#fff;padding:32px;border-radius:16px;margin-bottom:20px;}
+.sb-contact-h{font-family:var(--font-head);font-size:24px;font-weight:400;color:var(--gold);margin-bottom:10px;}
+.sb-contact-p{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px;line-height:1.6;}
+.sb-contact-item{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;}
+.sb-contact-item svg{color:var(--gold);flex-shrink:0;}
+
+/* APPLY BUTTON SIDEBAR */
+.btn-sb-apply{
+  width:100%;background:var(--gold);color:var(--navy);
+  font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:16px;border-radius:4px;border:none;cursor:pointer;
+  transition:all .3s;margin-top:20px;display:block;text-align:center;text-decoration:none;
+}
+.btn-sb-apply:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 8px 20px rgba(201,168,76,.3);}
+.btn-sb-apply:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* â”€â”€ SHARE LINKS â”€â”€ */
+.share-card{background:#fff;padding:24px 28px;border-radius:16px;border:1px solid var(--border);margin-bottom:20px;}
+.share-head{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.share-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.sl-btn{
+  width:36px;height:36px;border-radius:50%;background:var(--cream);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;color:var(--navy);
+  transition:all .25s;cursor:pointer;text-decoration:none;position:relative;
+}
+.sl-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff;transform:translateY(-2px);box-shadow:0 6px 16px rgba(201,168,76,.3);}
+.sl-btn svg{width:15px;height:15px;fill:currentColor;pointer-events:none;}
+.copy-msg{
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(4px);
+  background:var(--navy);color:#fff;font-size:10px;font-weight:600;
+  white-space:nowrap;padding:4px 10px;border-radius:4px;
+  opacity:0;pointer-events:none;transition:all .2s;
+}
+.copy-msg.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* â”€â”€ BOTTOM SHARE PILLS (referenced by job.js) â”€â”€ */
+.share-pills-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);}
+.share-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;
+  text-decoration:none;border:1px solid var(--border);color:var(--muted);
+  background:#fff;transition:all .2s;
+}
+.share-pill:hover{border-color:var(--gold);color:var(--gold);}
+.share-pill svg{width:12px;height:12px;fill:currentColor;}
+
+/* â”€â”€ LOADING â”€â”€ */
+#loading{text-align:center;padding:140px 20px;}
+.ld-spin{
+  width:48px;height:48px;border:3px solid rgba(201,168,76,.15);
+  border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ld-text{font-family:var(--font-head);font-size:20px;color:var(--muted);font-weight:300;}
+
+/* â”€â”€ COOKIE â”€â”€ */
 #cc-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(201,168,76,.15);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9000;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s;}
 #cc-bar.show{transform:translateY(0);}
 #cc-bar p{font-size:12px;color:rgba(255,255,255,.55);flex:1;min-width:180px;}
@@ -334,280 +328,357 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 .cc-btns{display:flex;gap:10px;flex-shrink:0;}
 .cc-ok{background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.05em;cursor:pointer;}
 .cc-no{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:2px;font-size:12px;cursor:pointer;}
-/* WHATSAPP BUTTON */
+
+/* â”€â”€ WHATSAPP â”€â”€ */
 #wa-btn{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:8999;transition:transform .3s;}
 #wa-btn:hover{transform:scale(1.1)!important;}
+
+/* â”€â”€ FOOTER â”€â”€ */
+footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
+.ft-main{padding:60px 48px 40px;display:grid;grid-template-columns:2.4fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto;}
+.ft-logo-name{font-family:var(--font-head);font-size:36px;color:#fff;font-weight:400;letter-spacing:0.04em;margin:12px 0 2px;}
+.ft-logo-name span{color:var(--gold);}
+.ft-logo-sub{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.4em;text-transform:uppercase;margin-bottom:14px;opacity:.9;}
+.ft-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-top:14px;}
+.ft-col-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.ft-link{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:10px;transition:color .3s;}
+.ft-link:hover{color:var(--gold);}
+.ft-bottom{padding:20px 48px;border-top:1px solid rgba(255,255,255,.05);text-align:center;font-size:11px;color:rgba(255,255,255,.35);}
+
+/* â”€â”€ RESPONSIVE â”€â”€ */
+@media(max-width:1024px){
+  .job-grid{grid-template-columns:1fr;}
+  .sidebar{position:static;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .sb-card,.sb-contact,.share-card{margin-bottom:0;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .nav-mob{display:block;}
+  .job-hero{padding:100px 24px 60px;}
+  .job-main{padding:40px 20px;}
+  .jd-card{padding:28px 24px;}
+  .apply-cta{padding:32px 24px;}
+  .sidebar{grid-template-columns:1fr;}
+  .benefit-strip{grid-template-columns:1fr;}
+  .ft-main{grid-template-columns:1fr 1fr;gap:28px;padding:40px 24px;}
+  .ft-main>div:first-child{grid-column:span 2;}
+  .ft-logo-name{font-size:26px;}
+  .sticky-job-hdr{padding:0 20px;}
+  .sjh-title{font-size:16px;}
+}
+@media(max-width:480px){
+  .hero-pills{gap:8px;}
+  .hero-pill{font-size:12px;padding:10px 14px;}
+  .ft-main{grid-template-columns:1fr;}
+  .ft-main>div:first-child{grid-column:auto;}
+}
 </style>
-<script src="/api.js?v=20260517" defer></script>
-<script src="/js/common.js?v=20260517" defer></script>
+<script src="/api.js?v=20260524" defer></script>
+<script src="/js/common.js?v=20260524" defer></script>
 <script>
-  function openApplyPage() {
-    if (typeof jobId !== 'undefined' && jobId) {
-      window.location.href = '/apply?id=' + jobId;
-    }
-  }
-  window.openApplyPage = openApplyPage;
-  window.toggleApplyForm = openApplyPage;
+  /* Expose openApplyPage early so inline onclick works before job.js loads */
+  function openApplyPage(){if(typeof jobId!=='undefined'&&jobId){window.location.href='/apply?id='+jobId;}}
+  window.openApplyPage=openApplyPage;
+  window.toggleApplyForm=openApplyPage;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
-<script src="/js/job.js?v=20260517" defer></script>
+<script src="/js/job.js?v=20260524" defer></script>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="mainNav">
-    <a href="/" class="nav-logo">
-      <svg width="42" height="42" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
-        <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
-          stroke-width="0.75" stroke-dasharray="2 2" />
-        <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-        <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-        <circle cx="40" cy="24" r="2" fill="#C9A84C" />
-        <circle cx="40" cy="58" r="2" fill="#C9A84C" />
-        <circle cx="24" cy="40" r="2" fill="#C9A84C" />
-        <circle cx="56" cy="40" r="2" fill="#C9A84C" />
-        <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
-      </svg>
-      <div class="nav-name">Covenant <span>Crest</span></div>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="/" class="nl">Home</a>
-      <a href="/recruitment" class="nl active">Browse Jobs</a>
-      <a href="/hire" class="nl">Hire Staff</a>
-      <a href="/about" class="nl">About Us</a>
-      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
-      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
+  <a href="/" class="nav-logo">
+      <svg width="48" height="48" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+      <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
+      <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+      <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+      <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+      <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+      <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+    </svg>
+    <div class="nav-name">Covenant <span>Crest</span></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="/" class="nl">Home</a>
+    <a href="/recruitment" class="nl active">Browse Jobs</a>
+    <a href="/hire" class="nl">Hire Staff</a>
+    <a href="/about" class="nl">About Us</a>
+  </div>
+  <div class="nav-group-wrap">
+    <button class="btn-group">Our Divisions <span style="font-size:8px;opacity:.6;margin-left:4px;">&#9662;</span></button>
+    <div class="group-dd">
+      <a href="/haulage" class="gm-item"><div class="gm-name">Haulage &amp; Freight</div><div class="gm-desc">UK logistics &amp; freight solutions.</div></a>
+      <a href="/trade" class="gm-item"><div class="gm-name">Import &amp; Trade</div><div class="gm-desc">Global food supply &amp; distribution.</div></a>
     </div>
-    <div class="nav-group-wrap" id="groupToggle">
-      <button class="btn-group">Our Divisions <span
-          style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>
-      <div class="group-dd">
-        <a href="/haulage" class="gm-item">
-          <div class="gm-name">Haulage &amp; Freight</div>
-          <div class="gm-desc">UK logistics &amp; freight solutions.</div>
-        </a>
-        <a href="/trade" class="gm-item">
-          <div class="gm-name">Import &amp; Trade</div>
-          <div class="gm-desc">Global food supply &amp; distribution.</div>
-        </a>
-      </div>
-    </div>
-    <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
-  </nav>
+  </div>
+  <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
+</nav>
 
-<div id="loading">
-  <div class="spinner"></div>
-  <p style="color:var(--navy);font-weight:500;font-size:16px;">Loading job details...</p>
+<!-- STICKY HEADER (populated by job.js: sjh-title, sticky-apply-btn) -->
+<div class="sticky-job-hdr" id="sticky-hdr">
+  <div class="sjh-title" id="sjh-title"></div>
+  <button class="sjh-btn" id="sticky-apply-btn" onclick="openApplyPage()">Apply Now</button>
 </div>
 
-<div id="job-content" style="display:none;">
-  <div class="sticky-job-hdr" id="sticky-hdr">
-    <div class="sjh-title" id="sjh-title">Job Title</div>
-    <button class="sjh-btn" id="sticky-apply-btn" onclick="toggleApplyForm(true)">Apply Now</button>
-  </div>
+<!-- LOADING STATE -->
+<div id="loading" style="padding-top:140px;">
+  <div class="ld-spin"></div>
+  <div class="ld-text">Loading job details&hellip;</div>
+</div>
 
-  <section class="page-header" id="ph-trigger">
-    <div class="ph-inner">
-      <a href="/recruitment#live-jobs" class="back-link">&#8592; Back to All Jobs</a>
-      <div class="ph-tag" id="job-sector">Sector</div>
-      <h1 class="ph-title" id="job-title">Job Title</h1>
-      <div class="ph-meta">
-        <div class="ph-meta-item" id="job-location">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<!-- JOB CONTENT (hidden until job.js populates it) -->
+<div id="job-content" style="display:none;">
+
+  <!-- HERO -->
+  <section class="job-hero" id="ph-trigger">
+    <div class="hero-inner">
+      <a href="/recruitment#live-jobs" class="hero-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        All Jobs
+      </a>
+      <div class="hero-sector" id="job-sector">Sector</div>
+      <h1 class="hero-title" id="job-title">Job Title</h1>
+      <div class="hero-pills">
+        <div class="hero-pill" id="job-location">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <span>UK</span>
         </div>
-        <div class="ph-meta-item" id="job-type">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <div class="hero-pill" id="job-type">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           <span>Full-time</span>
         </div>
-        <div class="ph-meta-item" id="job-pay">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7c0-5.333-8-5.333-8 0v14M6 13h7M7 21h10"/></svg>
-          <span>£---</span>
+        <div class="hero-pill pay-pill" id="job-pay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 7c0-5.333-8-5.333-8 0v14M6 13h7M7 21h10"/></svg>
+          <span>&pound;---</span>
         </div>
-        <div class="ph-meta-item" id="job-expiry" style="background:var(--danger); border-color:var(--danger); display:none;">
-          Closed
+        <div class="hero-pill closed-pill" id="job-expiry">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          Applications Closed
         </div>
       </div>
     </div>
   </section>
 
-  <section class="main-section">
-    <div class="job-layout">
-      <!-- Main Content -->
+  <!-- MAIN BODY -->
+  <section class="job-main">
+    <div class="job-grid">
+
+      <!-- LEFT: Content -->
       <div>
+        <!-- Description Card -->
         <div class="jd-card">
-          <h2 class="jd-block-h">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-            About The Role
+          <h2 class="jd-card-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            About the Role
           </h2>
           <div class="jd-body" id="job-desc"></div>
-          
-          <div class="benefit-grid">
-            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Competitive Pay</div>
-            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Immediate Start</div>
-            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Weekly Payment</div>
-            <div class="ben-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="color:var(--success);"><polyline points="20 6 9 17 4 12"/></svg> Full Support</div>
+          <!-- Benefits -->
+          <div class="benefit-strip">
+            <div class="ben-item">
+              <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Competitive Weekly Pay
+            </div>
+            <div class="ben-item">
+              <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Immediate Start Available
+            </div>
+            <div class="ben-item">
+              <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Payment Every Friday
+            </div>
+            <div class="ben-item">
+              <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Dedicated Support Team
+            </div>
           </div>
         </div>
-        
-        <div class="jd-card" id="job-req-container" style="display:none; border-top: 4px solid var(--gold);">
-          <h3 class="jd-block-h">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+
+        <!-- Requirements Card (shown only if job has requirements) -->
+        <div class="jd-card" id="job-req-container" style="display:none;border-top:3px solid var(--gold);">
+          <h3 class="jd-card-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             Requirements &amp; Compliance
           </h3>
           <div class="jd-req-body" id="job-req"></div>
         </div>
 
-        <!-- Apply trigger area -->
-        <div id="reveal-trigger-area" style="text-align:center; padding:60px 0; border-top:1px solid var(--border); margin-top:40px;">
-          <h3 style="font-family:var(--font-head); font-size:28px; margin-bottom:16px;">Ready to take the next step?</h3>
-          <p style="color:var(--muted); margin-bottom:32px;">Click below to open our secure application portal and start your journey with us.</p>
-          <button class="f-submit" onclick="openApplyPage()" style="max-width:300px; margin-top:0;">Start Application &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <div class="sb-card">
-          <div class="sb-title">The Covenant Crest Promise</div>
-          <div class="sb-item">
-            <div class="sb-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
-            </div>
-            <div class="sb-text">
-              <strong>Weekly Pay — Every Friday</strong>
-              No delays, no chasing. Your wages processed and landed on time, guaranteed.
-            </div>
-          </div>
-          <div class="sb-item">
-            <div class="sb-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </div>
-            <div class="sb-text">
-              <strong>We Handle Your Compliance</strong>
-              DBS, right-to-work, and referencing managed by us — so you turn up ready to work.
-            </div>
-          </div>
-          <div class="sb-item">
-            <div class="sb-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
-            </div>
-            <div class="sb-text">
-              <strong>First Shift in 24–48 Hours</strong>
-              Register today. We match, verify, and confirm your placement — fast.
-            </div>
-          </div>
-          <button class="f-submit" id="side-apply-btn" onclick="openApplyPage()" style="margin-top:24px; padding:16px;">Apply Now &rarr;</button>
-          <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20apply%20for%20a%20role." id="wa-apply-btn" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:14px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;margin-top:10px;transition:background .2s;" onmouseover="this.style.background='#1da851'" onmouseout="this.style.background='#25D366'">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+        <!-- Apply CTA -->
+        <div class="apply-cta">
+          <h3>Ready to take the next step?</h3>
+          <p>Submit your application securely online &mdash; we typically respond within 24 hours.</p>
+          <button class="btn-apply-main" id="main-apply-btn" onclick="openApplyPage()">Start Application &rarr;</button>
+          <a href="#" id="wa-apply-btn" target="_blank" rel="noopener" class="btn-wa-apply">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
             Apply via WhatsApp
           </a>
-          <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.4;">Prefer a quick message? We reply in minutes.</p>
+          <a href="#" id="wa-apply-direct" target="_blank" rel="noopener" style="display:none;"></a>
+          <p class="apply-note">Role name pre-filled: <span id="if-role-name"></span></p>
+
+          <!-- Bottom Share Pills (populated by job.js) -->
+          <div class="share-pills-row">
+            <a href="#" id="jds-fb" target="_blank" rel="noopener" class="share-pill" title="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a href="#" id="jds-wa" target="_blank" rel="noopener" class="share-pill" title="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+              WhatsApp
+            </a>
+            <a href="#" id="jds-li" target="_blank" rel="noopener" class="share-pill" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+            <a href="#" id="jds-x" target="_blank" rel="noopener" class="share-pill" title="X / Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Twitter / X
+            </a>
+            <a href="#" id="jds-mail" class="share-pill" title="Email">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+          </div>
+        </div>
+      </div><!-- /left -->
+
+      <!-- RIGHT: Sidebar -->
+      <aside class="sidebar">
+        <!-- Apply Card -->
+        <div class="sb-card">
+          <div class="sb-head">The Covenant Crest Promise</div>
+          <div class="sb-row">
+            <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
+            <div class="sb-text"><strong>Weekly Pay &mdash; Every Friday</strong><span>No delays, no chasing. Guaranteed on time.</span></div>
+          </div>
+          <div class="sb-row">
+            <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="sb-text"><strong>We Handle Your Compliance</strong><span>DBS, right-to-work &amp; referencing managed by us.</span></div>
+          </div>
+          <div class="sb-row">
+            <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="sb-text"><strong>First Shift in 24&ndash;48 Hours</strong><span>We match, verify, and confirm placements fast.</span></div>
+          </div>
+          <button class="btn-sb-apply" id="side-apply-btn" onclick="openApplyPage()">Apply Now &rarr;</button>
+          <a href="#" id="wa-apply-btn-sb" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:12px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:600;margin-top:8px;transition:background .2s;" onmouseover="this.style.background='#1da851'" onmouseout="this.style.background='#25D366'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+            Apply via WhatsApp
+          </a>
+          <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:6px;">We reply in minutes.</p>
         </div>
 
+        <!-- Contact Card -->
         <div class="sb-contact">
-          <div class="sb-contact-title">Speak to a Real Person</div>
-          <div class="sb-contact-desc">Questions about this role? Call or email us directly — no automated queues, no ticketing system.</div>
-          <div class="sb-contact-info">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            07346 809846
+          <div class="sb-contact-h">Speak to a Real Person</div>
+          <div class="sb-contact-p">Questions? Call or email directly &mdash; no queues, no bots.</div>
+          <div class="sb-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 3.27l3 .09a2 2 0 0 1 2 1.72c.13 1.01.36 2 .7 2.96a2 2 0 0 1-.45 2.11L7 11.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.96.34 1.95.57 2.96.7a2 2 0 0 1 1.72 2.04v.08z"/></svg>
+            <a href="tel:07346809846" style="color:inherit;text-decoration:none;">07346 809846</a>
           </div>
-          <div class="sb-contact-info" style="font-size:13px; font-weight:400; color:rgba(255,255,255,0.8);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            recruitment@covenantcrest.co.uk
-          </div>
+          <div class="sb-contact-item" style="font-weight:400;font-size:13px;color:rgba(255,255,255,.75);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:recruitment@covenantcrest.co.uk" style="color:inherit;text-decoration:none;">recruitment@covenantcrest.co.uk</a>
           </div>
         </div>
 
-        <div class="share-links">
-          <div class="sl-title">Share Role:</div>
-          <a href="#" id="share-li" target="_blank" rel="noopener noreferrer" class="sl-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-          <a href="#" id="share-wa" target="_blank" rel="noopener noreferrer" class="sl-btn" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg></a>
-          <button id="share-copy" class="sl-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg></button>
+        <!-- Share Card (IDs: share-wa, share-li, share-mail, share-copy, copy-msg) -->
+        <div class="share-card">
+          <div class="share-head">Share this role</div>
+          <div class="share-row">
+            <a href="#" id="share-wa" target="_blank" rel="noopener" class="sl-btn" title="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+            </a>
+            <a href="#" id="share-li" target="_blank" rel="noopener" class="sl-btn" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" id="share-mail" class="sl-btn" title="Email">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <button id="share-copy" class="sl-btn" title="Copy link" style="border:1px solid var(--border);cursor:pointer;background:var(--cream);">
+              <svg viewBox="0 0 24 24"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-9c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-9v-14h9v14z"/></svg>
+              <!-- "Copied!" tooltip &mdash; referenced by job.js -->
+              <span class="copy-msg" id="copy-msg">Copied!</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile apply pay display (referenced by job.js as mab-pay) -->
+        <div style="display:none;" id="mab-pay-wrap">
+          <span id="mab-pay"></span>
         </div>
       </aside>
+
     </div>
   </section>
-</div>
+</div><!-- /job-content -->
 
-    <footer>
-    <div class="ft-main">
-      <div>
-        <svg width="52" height="52" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C"
-            stroke-width="1.5" />
-          <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C"
-            stroke-width="0.75" stroke-dasharray="2 2" />
-          <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-          <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
-          <circle cx="40" cy="24" r="2" fill="#C9A84C" />
-          <circle cx="40" cy="58" r="2" fill="#C9A84C" />
-          <circle cx="24" cy="40" r="2" fill="#C9A84C" />
-          <circle cx="56" cy="40" r="2" fill="#C9A84C" />
-          <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
-        </svg>
-        <div class="ft-logo-name">Covenant <span>Crest</span></div>
-        <div class="ft-logo-sub">Group Ltd</div>
-        <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
-      </div>
-      <div>
-        <div class="ft-col-title">Services</div>
-        <a href="/recruitment" class="ft-link">Recruitment</a>
-        <a href="/haulage" class="ft-link">Haulage & Freight</a>
-        <a href="/trade" class="ft-link">Import & Trade</a>
-      </div>
-      <div>
-        <div class="ft-col-title">Company</div>
-        <a href="/" class="ft-link">Home</a>
-        <a href="/about" class="ft-link">About Us</a>
-        <a href="/privacy" class="ft-link">Privacy Policy</a>
-        <a href="/terms" class="ft-link">Terms & Conditions</a>
-        <a href="/login" class="ft-link" style="opacity:.45;font-size:10px;">Staff Login</a>
-      </div>
-      <div>
-        <div class="ft-col-title">Contact Us</div>
-        <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
-        <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
-        <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
-        <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
-        <a href="mailto:trade@covenantcrest.co.uk" class="ft-link">trade@covenantcrest.co.uk</a>
-        <span class="ft-link" style="cursor:default;margin-top:8px;">28 Princess Avenue, Telford, Shropshire</span>
-        <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
-          class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-          LinkedIn
-        </a>
-      </div>
+<!-- FOOTER -->
+<footer>
+  <div class="ft-main">
+    <div>
+        <svg width="56" height="56" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+      <path d="M40 4 L72 18 L72 44 C72 60 57 72 40 76 C23 72 8 60 8 44 L8 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" />
+      <path d="M40 12 L64 23 L64 44 C64 57 53 67 40 70 C27 67 16 57 16 44 L16 23 Z" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-dasharray="2 2" />
+      <line x1="40" y1="24" x2="40" y2="58" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      <circle cx="40" cy="24" r="2" fill="#C9A84C" />
+      <circle cx="40" cy="58" r="2" fill="#C9A84C" />
+      <circle cx="24" cy="40" r="2" fill="#C9A84C" />
+      <circle cx="56" cy="40" r="2" fill="#C9A84C" />
+      <rect x="37" y="37" width="6" height="6" fill="#C9A84C" transform="rotate(45 40 40)" />
+    </svg>
+      <div class="ft-logo-name">Covenant <span>Crest</span></div>
+      <div class="ft-logo-sub">Group Ltd</div>
+      <div class="ft-desc">A multi-division UK group built on promise.<br>Co. No. 16528951.<br>(Registered in England &amp; Wales.)</div>
     </div>
-    <div class="ft-bottom">
-      <span class="ft-copy">&copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951.</span>
-      <span class="ft-copy">Registered in England & Wales &middot; Built on Promise.</span>
+    <div>
+      <div class="ft-col-title">Services</div>
+      <a href="/recruitment" class="ft-link">Recruitment</a>
+      <a href="/haulage" class="ft-link">Haulage &amp; Freight</a>
+      <a href="/trade" class="ft-link">Import &amp; Trade</a>
     </div>
-  </footer>
+    <div>
+      <div class="ft-col-title">Company</div>
+      <a href="/" class="ft-link">Home</a>
+      <a href="/about" class="ft-link">About Us</a>
+      <a href="/privacy" class="ft-link">Privacy Policy</a>
+      <a href="/terms" class="ft-link">Terms &amp; Conditions</a>
+      <a href="/login" class="ft-link" style="opacity:.4;font-size:10px;">Staff Login</a>
+    </div>
+    <div>
+      <div class="ft-col-title">Contact Us</div>
+      <a href="tel:07346809846" class="ft-link" style="color:#fff;">07346 809846</a>
+      <a href="mailto:info@covenantcrest.co.uk" class="ft-link">info@covenantcrest.co.uk</a>
+      <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
+      <span class="ft-link" style="cursor:default;margin-top:8px;">28 Princess Avenue, Telford, Shropshire</span>
+      <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer" class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    &copy; 2026 Covenant Crest Group Ltd. All rights reserved. Company No. 16528951. Registered in England &amp; Wales &middot; Built on Promise.
+  </div>
+</footer>
 
-<script>
-  // Simple copy to clipboard script for the share button
-  document.getElementById('share-copy')?.addEventListener('click', function() {
-    navigator.clipboard.writeText(window.location.href);
-    var originalText = this.innerHTML;
-    this.innerHTML = '<span style="font-size:12px;font-weight:700;">COPIED!</span>';
-    setTimeout(() => { this.innerHTML = originalText; }, 2000);
-  });
-</script>
 <!-- Cookie consent bar -->
 <div id="cc-bar">
-  <p>We use cookies to improve your experience and analyse site traffic. See our <a href="/privacy">Privacy Policy</a>.</p>
+  <p>We use cookies to improve your experience. See our <a href="/privacy">Privacy Policy</a>.</p>
   <div class="cc-btns">
     <button class="cc-no">Decline</button>
     <button class="cc-ok">Accept</button>
   </div>
 </div>
+
 <!-- WhatsApp button -->
 <a id="wa-btn" href="https://wa.me/447346809846" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535-.182-.01-.39-.01-.598-.01-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.593 5.421l-.979 3.573 3.875-.995zm11.333-6.816c-.312-.156-1.848-.912-2.134-1.017-.286-.105-.494-.156-.701.156-.207.312-.804 1.017-.986 1.224-.182.207-.364.234-.676.078-.312-.156-1.316-.485-2.506-1.546-.925-.824-1.549-1.842-1.73-2.154-.182-.312-.019-.481.137-.635.141-.139.312-.364.468-.547.156-.182.208-.312.312-.521.104-.208.052-.391-.026-.547-.078-.156-.701-1.693-.961-2.317-.253-.607-.512-.525-.701-.535l-.598-.01c-.208 0-.547.078-.832.391-.286.312-1.091 1.067-1.091 2.604 0 1.537 1.117 3.021 1.273 3.229.156.208 2.197 3.355 5.323 4.706.744.321 1.323.512 1.774.656.748.237 1.43.203 1.97.123.6-.089 1.848-.756 2.108-1.485.26-.729.26-1.354.182-1.485-.077-.13-.285-.208-.597-.364z"/></svg>
 </a>
+
 </body>
 </html>
+
