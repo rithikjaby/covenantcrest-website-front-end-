@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mabPayEl) mabPayEl.textContent = cleanPay(job.pay);
         
         var canonical = document.getElementById('canonical-url');
-        if (canonical) canonical.href = 'https://covenantcrest.co.uk/job?id=' + jobId;
+        if (canonical) canonical.href = 'https://www.covenantcrest.co.uk/job?id=' + jobId;
         var ogUrl = document.getElementById('og-url');
-        if (ogUrl) ogUrl.setAttribute('content', 'https://covenantcrest.co.uk/job?id=' + jobId);
+        if (ogUrl) ogUrl.setAttribute('content', 'https://www.covenantcrest.co.uk/job?id=' + jobId);
         var ogDesc = document.getElementById('og-desc');
         if (ogDesc) ogDesc.setAttribute('content', (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160));
 
@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
             "hiringOrganization": {
                 "@type": "Organization",
                 "name": "Covenant Crest Group Ltd",
-                "sameAs": "https://covenantcrest.co.uk",
-                "logo": "https://covenantcrest.co.uk/favicon.svg"
+                "sameAs": "https://www.covenantcrest.co.uk",
+                "logo": "https://www.covenantcrest.co.uk/favicon.svg"
             },
             "jobLocation": {
                 "@type": "Place",
