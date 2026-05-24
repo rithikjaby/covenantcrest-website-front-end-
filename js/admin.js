@@ -1162,7 +1162,20 @@ function viewApplication(id) {
   document.getElementById('am-blacklist-btn').onclick = function() { openConfirm('Blacklist this candidate? They will be permanently marked.', function() { updateAppStatus(window._curAppId,'blacklisted'); }); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
-  document.getElementById('am-reply-btn').onclick = function() { window.location.href = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk'; };
+  document.getElementById('am-reply-btn').onclick = function() { 
+    var mailtoUrl = 'mailto:' + a.email + '?subject=' + encodeURIComponent(jobSubject) + '&body=Dear ' + encodeURIComponent((a.first_name || '') + ' ' + (a.last_name || '')) + ',%0D%0A%0D%0AThank you for applying' + (a.job_title ? ' for the ' + a.job_title + ' position' : '') + ' with Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Recruitment%0D%0A07346 809846%0D%0Arecruitment@covenantcrest.co.uk';
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(a.email).then(function() {
+        showToast('Copied email: ' + a.email + ' (opening email app...)', 'ok');
+      }).catch(function() {
+        showToast('Opening email app...', 'ok');
+      });
+    } else {
+      showToast('Opening email app...', 'ok');
+    }
+    window.location.href = mailtoUrl; 
+  };
 
   document.getElementById('am-teams-btn').onclick = function() {
     closeModal('appModal');
