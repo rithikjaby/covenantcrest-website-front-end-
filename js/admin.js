@@ -1,53 +1,19 @@
 'use strict';
 
 // ================================================================
-// COVENANT CREST ADMIN DASHBOARD v2.0
+// COVENANT CREST ADMIN DASHBOARD v2.1
 // ----------------------------------------------------------------
-// All data now comes from the real API backend (server.js v2).
-// The API is proxied via netlify.toml: /api/* → Render.com
-// Auth: JWT stored in sessionStorage as cc_jwt (set by login.html)
+// Auth: httpOnly session cookie (cc_session) set by server.
+// Token never touches the browser — JS cannot read it.
+// SSO: one-time ?code= exchange replaces the old #sso= fragment.
 // ================================================================
 
 var API = '/api';
 
-// ── SSO Token pickup — must run BEFORE auth check ────────────────
-(function pickupSSOToken() {
-  var hash = window.location.hash || '';
-  if (hash.indexOf('sso=') !== -1) {
-    var token = hash.replace('#sso=', '').split('&')[0];
-    if (token && token.length > 20) {
-      try {
-        var parts = token.split('.');
-        if (parts.length === 3) {
-          // Robust Base64URL-safe decoding implementation
-          var base64Url = parts[1];
-          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          var pad = base64.length % 4;
-          if (pad) {
-            if (pad === 2) { base64 += '=='; }
-            else if (pad === 3) { base64 += '='; }
-          }
-          var jsonStr = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          }).join(''));
-          var payload = JSON.parse(jsonStr);
-
-          sessionStorage.setItem('cc_jwt',   token);
-          sessionStorage.setItem('cc_role',  payload.role  || 'superadmin');
-          sessionStorage.setItem('cc_email', payload.email || '');
-          history.replaceState(null, '', '/admin');
-        }
-      } catch(e) { console.warn('SSO token parse failed:', e); }
-    }
-  }
-})();
-
-
-// ── Auth ─────────────────────────────────────────────────────────
-var jwt       = sessionStorage.getItem('cc_jwt')  || '';
-var authRole  = sessionStorage.getItem('cc_role') || 'employee';
-var authEmail = sessionStorage.getItem('cc_email')|| 'Staff';
-var isSA      = (authRole === 'superadmin');
+// ── Auth state — populated after /api/auth/me succeeds ───────────
+var authRole  = '';
+var authEmail = '';
+var isSA      = false;
 
 // Quill instances
 var qDesc, qReq;
@@ -61,21 +27,65 @@ var toolbarOptions = [
 var _jobsPage = 1, _jobsPerPage = 10;
 var _filteredJobs = [];
 
-
-// Redirect to login if no token — use setTimeout to let functions define first
-if (!jwt) {
-  setTimeout(function() { window.location.replace('/login'); }, 0);
-} else {
-  document.body.style.display = '';
-}
-
-// ── UI init ───────────────────────────────────────────────────────
+// ── Session bootstrap — runs on every page load ───────────────────
 window.addEventListener('DOMContentLoaded', function() {
+
+  function initSession(d) {
+    authRole  = d.role  || 'employee';
+    authEmail = d.email || '';
+    isSA      = (authRole === 'superadmin');
+    document.body.style.display = '';
+    bootUI();
+  }
+
+  // Check for SSO one-time code (Microsoft OAuth redirect lands here)
+  var urlParams = new URLSearchParams(window.location.search);
+  var ssoCode   = urlParams.get('code');
+
+  if (ssoCode) {
+    // Exchange the one-time code for a session cookie
+    fetch(API + '/auth/exchange-sso-code', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: ssoCode })
+    })
+    .then(function(r) {
+      if (!r.ok) throw new Error('SSO exchange failed (' + r.status + ')');
+      return r.json();
+    })
+    .then(function(d) {
+      if (d.error) throw new Error(d.error);
+      history.replaceState(null, '', '/admin'); // remove ?code= from URL
+      initSession(d);
+    })
+    .catch(function(e) {
+      console.warn('SSO exchange error:', e.message);
+      window.location.replace('/login?error=microsoft_error');
+    });
+  } else {
+    // Normal load — verify existing session cookie
+    fetch(API + '/auth/me', { credentials: 'include' })
+    .then(function(r) {
+      if (r.status === 401) throw new Error('Unauthorised');
+      return r.json();
+    })
+    .then(function(d) {
+      if (d.error) throw new Error(d.error);
+      initSession(d);
+    })
+    .catch(function() {
+      window.location.replace('/login');
+    });
+  }
+
+  // ── Full UI boot — only runs after auth confirmed ─────────────
+  function bootUI() {
   var sbUserEmail = document.getElementById('sbUserEmail');
   var topbarEmail = document.getElementById('topbar-email');
   var sbRoleBadge = document.getElementById('sbRoleBadge');
-  
-  if (sbUserEmail) sbUserEmail.textContent  = authEmail;
+
+  if (sbUserEmail) sbUserEmail.textContent = authEmail;
   if (topbarEmail) topbarEmail.textContent = authEmail;
   if (sbRoleBadge) {
     sbRoleBadge.textContent  = isSA ? 'Super Admin' : 'Employee';
@@ -86,9 +96,8 @@ window.addEventListener('DOMContentLoaded', function() {
   // Initialize Quill
   if (typeof Quill !== 'undefined') {
     qDesc = new Quill('#j-desc-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
-    qReq  = new Quill('#j-req-editor', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+    qReq  = new Quill('#j-req-editor',  { theme: 'snow', modules: { toolbar: toolbarOptions } });
   } else {
-    // FALLBACK: If Quill is blocked or fails, show standard textareas
     var dEd = document.getElementById('j-desc-editor');
     var rEd = document.getElementById('j-req-editor');
     var dFb = document.getElementById('j-desc-fallback');
@@ -101,10 +110,9 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   if (isSA) {
-
     document.querySelectorAll('.sa-only').forEach(function(el) { el.style.display = 'flex'; });
   }
-  
+
   loadDashboard();
 
   // Sidebar Tabs
@@ -275,6 +283,26 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Mobile sidebar toggle
+  var mobMenuBtn = document.getElementById('mobMenuBtn');
+  var sbOverlay  = document.getElementById('sbOverlay');
+  var admSb      = document.querySelector('.adm-sb');
+  function openSidebar() {
+    if (admSb) admSb.classList.add('open');
+    if (sbOverlay) sbOverlay.classList.add('open');
+  }
+  function closeSidebar() {
+    if (admSb) admSb.classList.remove('open');
+    if (sbOverlay) sbOverlay.classList.remove('open');
+  }
+  if (mobMenuBtn) mobMenuBtn.addEventListener('click', openSidebar);
+  if (sbOverlay)  sbOverlay.addEventListener('click', closeSidebar);
+  // Close sidebar when a tab is selected on mobile
+  document.querySelectorAll('.asb-item[data-tab]').forEach(function(item) {
+    item.addEventListener('click', closeSidebar);
+  });
+
+
   var dangerConfirmBtn = document.getElementById('danger-confirm-btn');
   if (dangerConfirmBtn) {
     dangerConfirmBtn.addEventListener('click', function() {
@@ -328,40 +356,39 @@ window.addEventListener('DOMContentLoaded', function() {
       }).then(function(res) {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Schedule Meeting & Send Invite';
+          submitBtn.textContent = 'Schedule Teams Meeting & Send Invite';
         }
         if (res && res.error) {
-          if (errEl) errEl.textContent = res.error;
+          if (errEl) { errEl.textContent = res.error; errEl.classList.add('show'); }
           showToast('Failed to schedule Teams meeting', 'er');
         } else if (res && res.success) {
           closeModal('interviewModal');
-          var modeMsg = res.mode === 'sandbox' 
-            ? 'Scheduled successfully (Sandbox Mode fallback). Email sent!' 
-            : 'Scheduled successfully via Microsoft 365 Outlook Calendar & Teams!';
-          
+          var modeMsg = res.mode === 'sandbox'
+            ? 'Scheduled in sandbox mode. Invite email sent to candidate.'
+            : 'Scheduled successfully via Microsoft 365 Teams! Invite email sent.';
           openConfirm(
             '<div style="text-align:center;">' +
-              '<div style="color:var(--success);font-size:36px;margin-bottom:12px;">✓</div>' +
+              '<div style="color:var(--success);font-size:36px;margin-bottom:12px;">&#10003;</div>' +
               '<h3 style="color:var(--navy);margin-bottom:8px;">Teams Interview Booked</h3>' +
               '<p style="font-size:13px;color:var(--charcoal);margin-bottom:16px;">' + modeMsg + '</p>' +
               '<div style="background:#f8f9fa;border:1px solid #E8E4DC;border-radius:6px;padding:12px;margin-bottom:14px;word-break:break-all;">' +
-                '<span style="font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;">Teams Meeting URL</span><br>' +
-                '<a href="' + res.joinUrl + '" target="_blank" style="color:#0078D4;font-size:12px;font-weight:600;text-decoration:underline;">' + res.joinUrl + '</a>' +
+                '<span style="font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;">Teams Meeting Link</span><br>' +
+                '<a href="' + res.joinUrl + '" target="_blank" rel="noopener" style="color:#0078D4;font-size:12px;font-weight:600;text-decoration:underline;">' + res.joinUrl + '</a>' +
               '</div>' +
-              '<p style="font-size:11px;color:var(--muted);line-height:1.4;">A calendar invite has been booked and a confirmation email with the join button has been sent to the candidate.</p>' +
-            '</div>', 
-            null, 
+              '<p style="font-size:11px;color:var(--muted);line-height:1.4;">An invite email with the join link has been sent to the candidate automatically.</p>' +
+            '</div>',
+            null,
             'Close'
           );
         } else {
-          if (errEl) errEl.textContent = 'An unexpected response was received from the server.';
+          if (errEl) { errEl.textContent = 'An unexpected response was received from the server.'; errEl.classList.add('show'); }
         }
       }).catch(function(err) {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Schedule Meeting & Send Invite';
+          submitBtn.textContent = 'Schedule Teams Meeting & Send Invite';
         }
-        if (errEl) errEl.textContent = err.message || 'Network error scheduling meeting';
+        if (errEl) { errEl.textContent = err.message || 'Network error scheduling meeting'; errEl.classList.add('show'); }
         showToast('Error connecting to scheduling service', 'er');
       });
     });
@@ -409,14 +436,17 @@ window.addEventListener('DOMContentLoaded', function() {
       if (!action) return;
 
       // Handle stopPropagation-like logic for specific elements
-      if (target.matches('.app-cb') || action === 'cv-link' || action === 'download-cv') {
+      if (target.matches('.app-cb') || action === 'cv-link' || action === 'download-cv' || action === 'preview-cv') {
         if (target.matches('.app-cb')) updateBulkToolbar();
-        if (action === 'download-cv') {
+        if (action === 'download-cv' || action === 'preview-cv') {
           var a = null;
           for(var i=0; i<_apps.length; i++) { if(_apps[i].id === rowId) { a = _apps[i]; break; } }
-          if (a) downloadApplicationCV(a);
+          if (a) {
+            if (action === 'download-cv') downloadApplicationCV(a);
+            else previewApplicationCV(a);
+          }
         }
-        return; 
+        return;
       }
       
       // Prevent row click if button clicked
@@ -491,12 +521,16 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-});
+  } // end bootUI
+}); // end DOMContentLoaded
 
 // ── API helper ────────────────────────────────────────────────────
+// Uses httpOnly session cookie — credentials: 'include' sends it automatically.
+// The JWT never touches JavaScript; only the server can read the cookie.
 function apiFetch(path, options) {
   options = options || {};
-  var headers = { 'Authorization': 'Bearer ' + jwt, 'Content-Type': 'application/json' };
+  options.credentials = 'include';
+  var headers = { 'Content-Type': 'application/json' };
   if (options.headers) {
     for (var key in options.headers) { headers[key] = options.headers[key]; }
   }
@@ -994,7 +1028,7 @@ function renderApplications() {
   tbody.innerHTML = _apps.map(function(a) {
     var cvLink = '—';
     if (a.cvBase64 || a.cvUrl) {
-      cvLink = '<button class="btn-sm gd" style="border:none;cursor:pointer;" data-id="' + a.id + '" data-action="download-cv">CV</button>';
+      cvLink = '<div style="display:flex;gap:4px;"><button class="btn-sm gd" data-id="' + a.id + '" data-action="preview-cv" title="Preview CV">&#128065;</button><button class="btn-sm pr" data-id="' + a.id + '" data-action="download-cv" title="Download CV">&#8595;</button></div>';
     }
     var days = daysAgo(a.date);
     var isNew = a.status === 'new';
@@ -1131,7 +1165,7 @@ function viewApplication(id) {
         '<span style="display:flex;align-items:center;color:' + (hasCV ? '#C9A84C' : '#aaa') + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>' +
         '<div style="flex:1;">' +
           '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:' + (hasCV ? '#C9A84C' : '#aaa') + ';margin-bottom:3px;">CV / Resume</div>' +
-          (hasCV ? '<button id="am-download-cv" style="background:none;border:none;padding:0;font-size:13px;color:#0D1B2A;font-weight:600;text-decoration:underline;cursor:pointer;">Download CV &rarr;</button>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
+          (hasCV ? '<div style="display:flex;gap:10px;align-items:center;margin-top:2px;"><button id="am-preview-cv" class="btn-sm gd" style="font-size:10px;">&#128065; Preview</button><button id="am-download-cv" class="btn-sm pr" style="font-size:10px;">&#8595; Download</button></div>' : '<span style="font-size:12px;color:#aaa;">No CV uploaded by candidate</span>') +
         '</div>' +
       '</div>' +
     (a.notes ? '<div style="background:var(--cream);border-radius:6px;padding:14px;margin-bottom:14px;"><p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Candidate Notes</p><p style="font-size:12px;line-height:1.75;white-space:pre-wrap;">' + esc(a.notes) + '</p></div>' : '') +
@@ -1174,7 +1208,7 @@ function viewApplication(id) {
     } else {
       showToast('Opening email app...', 'ok');
     }
-    window.location.href = mailtoUrl; 
+    window.open(mailtoUrl); 
   };
 
   document.getElementById('am-teams-btn').onclick = function() {
@@ -1229,6 +1263,10 @@ function viewApplication(id) {
   var amDownload = document.getElementById('am-download-cv');
   if (amDownload) {
     amDownload.onclick = function() { downloadApplicationCV(a); };
+  }
+  var amPreview = document.getElementById('am-preview-cv');
+  if (amPreview) {
+    amPreview.onclick = function() { previewApplicationCV(a); };
   }
 
   // Star rating
@@ -1315,6 +1353,75 @@ function downloadApplicationCV(a) {
     console.error('CV download error:', e);
     showToast('Could not process CV file — please contact support', 'er');
   }
+}
+
+function previewApplicationCV(a) {
+  var data = a.cvBase64 || a.cvUrl;
+  if (!data) return showToast('No CV on record for this candidate', 'er');
+
+  var titleEl    = document.getElementById('cv-preview-title');
+  var iframe     = document.getElementById('cv-preview-iframe');
+  var fallback   = document.getElementById('cv-preview-fallback');
+  var dlBtn      = document.getElementById('cv-preview-download-btn');
+  var dlFallback = document.getElementById('cv-fallback-download-btn');
+
+  var name = ((a.first_name || 'Candidate') + ' ' + (a.last_name || '')).trim();
+  if (titleEl) titleEl.textContent = name + ' — CV';
+
+  if (dlBtn)      dlBtn.onclick      = function() { downloadApplicationCV(a); };
+  if (dlFallback) dlFallback.onclick = function() { downloadApplicationCV(a); };
+
+  iframe.style.display   = '';
+  fallback.style.display = 'none';
+
+  // URL-based CV
+  if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
+    var filename = a.cvFileName || '';
+    var isDocx = filename.match(/\.docx?$/i);
+    if (isDocx) {
+      iframe.style.display   = 'none';
+      fallback.style.display = 'block';
+    } else {
+      // PDFs from Cloudinary: remove fl_attachment transform so browser renders inline
+      var viewUrl = data.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
+      iframe.src = viewUrl;
+    }
+    document.getElementById('cvPreviewModal').classList.add('open');
+    return;
+  }
+
+  // Base64 CV
+  try {
+    var b64 = data.indexOf('base64,') !== -1 ? data.split('base64,')[1] : data;
+    var chars = atob(b64);
+    var bytes = new Uint8Array(chars.length);
+    for (var i = 0; i < chars.length; i++) bytes[i] = chars.charCodeAt(i);
+
+    var isPdf  = bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46;
+    var isDocx2 = bytes[0] === 0x50 && bytes[1] === 0x4B;
+
+    if (isPdf) {
+      var blob    = new Blob([bytes], { type: 'application/pdf' });
+      var blobUrl = URL.createObjectURL(blob);
+      iframe.src  = blobUrl;
+      // Revoke after 5 min
+      setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 300000);
+    } else if (isDocx2) {
+      iframe.style.display   = 'none';
+      fallback.style.display = 'block';
+    } else {
+      // Unknown type — try anyway
+      var blob2    = new Blob([bytes]);
+      var blobUrl2 = URL.createObjectURL(blob2);
+      iframe.src   = blobUrl2;
+      setTimeout(function() { URL.revokeObjectURL(blobUrl2); }, 300000);
+    }
+  } catch(e) {
+    showToast('Could not load CV preview', 'er');
+    return;
+  }
+
+  document.getElementById('cvPreviewModal').classList.add('open');
 }
 
 function updateAppStatus(id, status) {
@@ -1431,7 +1538,7 @@ function renderTalentPool() {
       '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
       '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
       '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
-      '<td>' + (hasCV ? '<button class="btn-sm gd" data-id="' + a.id + '" data-action="download-cv">CV</button>' : '<span class="td-muted">—</span>') + '</td>' +
+      '<td>' + (hasCV ? '<div style="display:flex;gap:4px;"><button class="btn-sm gd" data-id="' + a.id + '" data-action="preview-cv">&#128065;</button><button class="btn-sm pr" data-id="' + a.id + '" data-action="download-cv">&#8595;</button></div>' : '<span class="td-muted">—</span>') + '</td>' +
       '<td><button class="btn-sm pr" data-id="' + a.id + '" data-action="view-app">Details</button></td>' +
       '</tr>';
   }).join('');
@@ -1789,34 +1896,69 @@ function filterContacts() {
 }
 
 function filterApps() {
-  var qInput = document.getElementById('apps-search');
-  var sInput = document.getElementById('apps-status-filter');
+  var qInput  = document.getElementById('apps-search');
+  var sInput  = document.getElementById('apps-status-filter');
   var scInput = document.getElementById('apps-sector-filter');
-  var q      = (qInput ? qInput.value : '').toLowerCase();
-  var status = (sInput ? sInput.value : '').toLowerCase();
+  var q      = (qInput  ? qInput.value  : '').toLowerCase().trim();
+  var status = (sInput  ? sInput.value  : '').toLowerCase();
   var sector = (scInput ? scInput.value : '').toLowerCase();
-  var rows   = document.querySelectorAll('#apps-tbody tr:not(.empty-row)');
-  var shown  = 0;
-  rows.forEach(function(row) {
-    var text = row.textContent.toLowerCase();
-    var matchQ      = !q      || text.indexOf(q)      !== -1;
-    var matchStatus = !status || text.indexOf(status) !== -1;
-    var matchSector = !sector || text.indexOf(sector) !== -1;
-    var show = matchQ && matchStatus && matchSector;
-    row.style.display = show ? '' : 'none';
-    if (show) shown++;
+
+  var filtered = _apps.filter(function(a) {
+    var name  = ((a.first_name || '') + ' ' + (a.last_name || '')).toLowerCase();
+    var email = (a.email || '').toLowerCase();
+    var job   = (a.job_title || '').toLowerCase();
+    var matchQ      = !q      || name.indexOf(q) !== -1 || email.indexOf(q) !== -1 || job.indexOf(q) !== -1;
+    var matchStatus = !status || (a.status || 'new') === status;
+    var matchSector = !sector || (a.sector || '') === sector;
+    return matchQ && matchStatus && matchSector;
   });
-  var empty = document.querySelector('#apps-tbody .no-results-row');
-  if (shown === 0 && (q || status || sector)) {
-    if (!empty) {
-      var tr = document.createElement('tr');
-      tr.className = 'empty-row no-results-row';
-      tr.innerHTML = '<td colspan="8" style="text-align:center;color:var(--muted);padding:24px;">No matching applications found</td>';
-      document.getElementById('apps-tbody').appendChild(tr);
-    }
-  } else if (empty) {
-    empty.remove();
+
+  var tbody = document.getElementById('apps-tbody');
+  if (!tbody) return;
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10" style="text-align:center;color:var(--muted);padding:24px;">No matching applications found</td></tr>';
+    updateBulkToolbar();
+    return;
   }
+
+  // Build email frequency map for returning-applicant detection
+  var emailCount = {};
+  _apps.forEach(function(a) { if (a.email) emailCount[a.email] = (emailCount[a.email] || 0) + 1; });
+
+  tbody.innerHTML = filtered.map(function(a) {
+    var cvLink = '—';
+    if (a.cvBase64 || a.cvUrl) {
+      cvLink = '<div style="display:flex;gap:4px;"><button class="btn-sm gd" data-id="' + a.id + '" data-action="preview-cv" title="Preview CV">&#128065;</button><button class="btn-sm pr" data-id="' + a.id + '" data-action="download-cv" title="Download CV">&#8595;</button></div>';
+    }
+    var days = daysAgo(a.date);
+    var isNew = a.status === 'new';
+    var rowStyle = '';
+    if (isNew && days !== null) {
+      if (days >= 7) rowStyle = ' style="background:#FFF8F8;"';
+      else if (days >= 3) rowStyle = ' style="background:#FFFDF5;"';
+    }
+    var daysText  = days === null ? '—' : (days === 0 ? 'Today' : days + 'd');
+    var daysColor = (isNew && days >= 7) ? 'var(--danger)' : (isNew && days >= 3) ? 'var(--warn)' : 'var(--muted)';
+    var isReturning = emailCount[a.email] > 1;
+    var starsHtml = '';
+    if (a.rating) {
+      starsHtml = ' <span style="color:#C9A84C;font-size:9px;">' + '&#9733;'.repeat(a.rating) + '</span>';
+    }
+    return '<tr' + rowStyle + ' data-id="' + a.id + '" data-action="view-app" style="cursor:pointer">' +
+      '<td><input type="checkbox" class="app-cb" value="' + a.id + '"></td>' +
+      '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + starsHtml +
+        (isReturning ? '<span class="pill p-haulage" style="font-size:8px;margin-left:4px;padding:2px 5px;">Returning</span>' : '') + '</td>' +
+      '<td>' + esc(a.email) + '</td>' +
+      '<td class="td-muted">' + esc(a.phone || '—') + '</td>' +
+      '<td><span class="pill ' + (sectorPill[a.sector] || 'p-read') + '">' + esc(sectorLabel[a.sector] || a.sector || '—') + '</span></td>' +
+      '<td class="td-muted">' + esc(a.job_title || '—') + '</td>' +
+      '<td class="td-muted">' + fmtDate(a.date) + '</td>' +
+      '<td><span style="font-size:11px;font-weight:700;color:' + daysColor + ';">' + daysText + '</span></td>' +
+      '<td><span class="pill ' + (appStatusPill[a.status] || 'p-new') + '">' + esc(a.status || 'new') + '</span></td>' +
+      '<td>' + cvLink + '</td></tr>';
+  }).join('');
+  updateBulkToolbar();
 }
 
 // ── CSV EXPORT ────────────────────────────────────────────────────────
@@ -2053,8 +2195,10 @@ function showApiOffline() {
 
 // ── LOGOUT ────────────────────────────────────────────────────────
 function logout() {
-  ['cc_jwt','cc_role','cc_email','cc_session'].forEach(function(k) { sessionStorage.removeItem(k); });
-  window.location.href = '/login';
+  // Tell server to clear the httpOnly cookie — JS cannot do this directly
+  fetch(API + '/auth/logout', { method: 'POST', credentials: 'include' })
+    .catch(function() {}) // ignore network errors on logout
+    .finally(function() { window.location.replace('/login'); });
 }
 
 // ── SESSION IDLE TIMEOUT ──────────────────────────────────────────

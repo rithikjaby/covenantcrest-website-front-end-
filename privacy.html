@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -129,8 +129,11 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 #wa-btn{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:8999;transition:transform .3s;}
 #wa-btn:hover{transform:scale(1.1)!important;}
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f6934ecc-1a89-4b5e-a85e-cbdd28206fb1"></script>
 </head>
 <body>
+<noscript><div style="padding:14px 20px;background:#C9A84C;color:#0D1B2A;text-align:center;font-family:sans-serif;font-size:14px;font-weight:600">JavaScript is required to use this website. Please enable it in your browser settings.</div></noscript>
+<a href="#main-content" style="position:absolute;left:-9999px;top:8px;z-index:10000;padding:8px 16px;background:#C9A84C;color:#0D1B2A;font-weight:700;border-radius:4px;text-decoration:none;font-family:sans-serif;font-size:14px" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to main content</a>
 
 <nav id="mainNav">
   <a href="/" class="nav-logo">
@@ -171,7 +174,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   <button class="nav-mob" id="navToggle" aria-label="Open menu">&#9776;</button>
 </nav>
 
-<div class="content">
+<div class="content" id="main-content">
   <div class="priv-header">
     <div class="priv-tag">Legal &amp; Compliance</div>
     <h1 class="priv-h1">Privacy <em>Policy</em></h1>
@@ -265,11 +268,16 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
   <h2>6. How We Share Your Data</h2>
   <p>We do not sell, rent, or trade your personal data to third parties. We may share your data only with:</p>
   <ul>
-    <li><strong>Netlify, Inc.</strong> &mdash; our website hosting and form-processing provider. Form submission data is processed via Netlify&rsquo;s servers. Netlify is based in the United States (see Section 8 on international transfers).</li>
-    <li><strong>Our staff and authorised personnel</strong> &mdash; who need access to respond to your enquiry.</li>
+    <li><strong>Netlify, Inc.</strong> &mdash; website hosting and form-processing provider. Form submission data is processed via Netlify&rsquo;s servers (United States &mdash; see Section 8).</li>
+    <li><strong>Render, Inc.</strong> &mdash; backend API server hosting provider. Enquiry and application data passes through Render&rsquo;s infrastructure when submitted via our website (United States).</li>
+    <li><strong>MongoDB Atlas (MongoDB, Inc.)</strong> &mdash; cloud database provider where enquiries, job applications, and candidate records are stored (EU region).</li>
+    <li><strong>Cloudinary, Inc.</strong> &mdash; cloud storage provider used to store uploaded CVs and candidate documents (United States). Files are stored securely and accessible only to authorised Covenant Crest personnel.</li>
+    <li><strong>HubSpot, Inc.</strong> &mdash; CRM platform used to manage client and candidate contact records for follow-up and relationship management (United States).</li>
+    <li><strong>Resend, Inc.</strong> &mdash; transactional email provider used to send application confirmations and enquiry acknowledgements (United States).</li>
+    <li><strong>Our staff and authorised personnel</strong> &mdash; who need access to respond to your enquiry or process your application.</li>
     <li><strong>Legal and regulatory authorities</strong> &mdash; where we are required by law to disclose information.</li>
   </ul>
-  <p>Any third parties we use as data processors are bound by appropriate data processing agreements.</p>
+  <p>All third-party data processors are bound by appropriate data processing agreements and are required to process personal data only on our documented instructions.</p>
 
   <h2>7. How Long We Keep Your Data</h2>
   <table class="rights-table">
@@ -304,7 +312,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <tr><td>Right to withdraw consent</td><td>Withdraw any consent you have given at any time, without affecting the lawfulness of prior processing.</td></tr>
     </tbody>
   </table>
-  <p>To exercise any of these rights, please email <a href="mailto:info@covenantcrest.co.uk">info@covenantcrest.co.uk</a> with the subject line <em>&ldquo;Data Rights Request&rdquo;</em>. We will respond within <strong>one calendar month</strong>, and free of charge for most requests.</p>
+  <p>To exercise any of these rights, please email <a href="mailto:dsar@covenantcrest.co.uk">dsar@covenantcrest.co.uk</a> with the subject line <em>&ldquo;Data Subject Access Request&rdquo;</em>. We will respond within <strong>one calendar month</strong>, and free of charge for most requests. You may also write to us at: Covenant Crest Group Ltd, 28 Princess Avenue, Telford, Shropshire, TF1 2LL.</p>
 
   <h2>10. Security</h2>
   <p>We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction. Our website is served over HTTPS (TLS encryption). Form data is processed via Netlify&rsquo;s secure, SOC 2-certified platform. Admin access to collected data is protected by password authentication.</p>
@@ -326,10 +334,11 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
     <div class="contact-box-title">Privacy Contact</div>
     <p>For any privacy-related queries, data rights requests, or to report a concern, please get in touch:</p>
     <p style="margin-top:10px;"><strong style="color:#fff;">Covenant Crest Group Ltd</strong><br>
-    28 Princess Avenue, Telford, Shropshire<br>
+    28 Princess Avenue, Telford, Shropshire, TF1 2LL<br>
     Data Controller: Jaby K. (Director)<br>
-    Email: <a href="mailto:info@covenantcrest.co.uk">info@covenantcrest.co.uk</a><br>
-    Subject line: <em>&ldquo;Data Privacy Enquiry&rdquo;</em><br>
+    General enquiries: <a href="mailto:info@covenantcrest.co.uk">info@covenantcrest.co.uk</a><br>
+    Data rights requests (DSAR): <a href="mailto:dsar@covenantcrest.co.uk">dsar@covenantcrest.co.uk</a><br>
+    Subject line: <em>&ldquo;Data Subject Access Request&rdquo;</em><br>
     ICO Registration: ZC100629</p>
   </div>
 </div>
@@ -373,7 +382,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
         <a href="mailto:recruitment@covenantcrest.co.uk" class="ft-link">recruitment@covenantcrest.co.uk</a>
         <a href="mailto:haulage@covenantcrest.co.uk" class="ft-link">haulage@covenantcrest.co.uk</a>
         <a href="mailto:trade@covenantcrest.co.uk" class="ft-link">trade@covenantcrest.co.uk</a>
-        <span class="ft-link" style="cursor:default;margin-top:8px;">28 Princess Avenue, Telford, Shropshire</span>
+        <span class="ft-link" style="cursor:default;margin-top:8px;">28 Princess Avenue, Telford, Shropshire, TF1 2LL</span>
         <a href="https://www.linkedin.com/company/covenant-crest-group/" target="_blank" rel="noopener noreferrer"
           class="ft-link" style="display:flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">

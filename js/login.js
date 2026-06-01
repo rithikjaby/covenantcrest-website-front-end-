@@ -53,15 +53,14 @@ function doLogin(e) {
 
     fetch('/api/auth/login', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: pwd })
     })
     .then(function(r) { return r.json(); })
     .then(function(d) {
-        if (d.token) {
-            sessionStorage.setItem('cc_jwt',   d.token);
-            sessionStorage.setItem('cc_role',  d.role  || 'superadmin');
-            sessionStorage.setItem('cc_email', d.email || '');
+        // Server now sets an httpOnly cookie — no token in response body
+        if (d.role) {
             window.location.href = '/admin';
         } else {
             throw new Error(d.error || d.message || 'Invalid credentials');
