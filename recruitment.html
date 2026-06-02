@@ -29,6 +29,34 @@
   <script src="/api.js?v=20260524" defer></script>
   <script src="/js/common.js?v=20260524" defer></script>
   <script src="/js/recruitment.js?v=20260524" defer></script>
+  <!-- EmploymentAgency + Organization JSON-LD for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EmploymentAgency",
+        "@id": "https://www.covenantcrest.co.uk/recruitment#agency",
+        "name": "Covenant Crest Group Ltd",
+        "url": "https://www.covenantcrest.co.uk/recruitment",
+        "description": "Compliance-focused recruitment agency supplying vetted care, security, warehouse and construction staff across the UK.",
+        "telephone": "+447346809846",
+        "email": "recruitment@covenantcrest.co.uk",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "28 Princess Avenue",
+          "addressLocality": "Telford",
+          "addressRegion": "Shropshire",
+          "postalCode": "TF1 2LL",
+          "addressCountry": "GB"
+        },
+        "areaServed": "GB",
+        "knowsAbout": ["Healthcare Recruitment", "Security Recruitment", "Warehouse Recruitment", "Construction Recruitment"],
+        "sameAs": ["https://www.linkedin.com/company/covenant-crest-group/"]
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -2097,6 +2125,88 @@
       <button class="m-apply-btn">Apply for This Role &#8594;</button>
     </div>
   </div>
+
+  <!-- JOB ALERT SIGNUP SECTION -->
+  <section style="background:var(--navy);padding:60px 48px;">
+    <div style="max-width:640px;margin:0 auto;text-align:center;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Never Miss a Role</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:300;color:#fff;line-height:1.15;margin-bottom:12px;">Get <em style="font-style:italic;color:var(--gold);">Job Alerts</em> Straight to Your Inbox</h2>
+      <p style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.8;margin-bottom:32px;">We'll email you the moment a new job matching your sector is posted. No spam &mdash; just relevant opportunities.</p>
+
+      <div id="ja-success" style="display:none;background:rgba(29,158,117,.12);border:1px solid #1D9E75;border-radius:8px;padding:18px 24px;margin-bottom:20px;color:#1D9E75;font-size:14px;font-weight:500;">
+        &#x2705; You're on the list! Check your email for confirmation.
+      </div>
+      <div id="ja-error" style="display:none;background:rgba(226,75,74,.1);border:1px solid #E24B4A;border-radius:8px;padding:14px 20px;margin-bottom:20px;color:#E24B4A;font-size:13px;"></div>
+
+      <form id="ja-form" style="display:flex;flex-direction:column;gap:14px;" onsubmit="submitJobAlert(event)">
+        <input id="ja-email" type="email" placeholder="Your email address" required
+          style="width:100%;padding:14px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.2);border-radius:4px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;"
+          onfocus="this.style.borderColor='rgba(201,168,76,.6)'" onblur="this.style.borderColor='rgba(201,168,76,.2)'">
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+          <label id="ja-all" style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" id="ja-all-cb" style="accent-color:var(--gold);" onchange="jaToggleAll(this)"> All Sectors
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" class="ja-sector" value="care" style="accent-color:var(--gold);"> &#x1F3E5; Healthcare
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" class="ja-sector" value="security" style="accent-color:var(--gold);"> &#x1F6E1; Security
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" class="ja-sector" value="warehouse" style="accent-color:var(--gold);"> &#x1F4E6; Warehouse
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" class="ja-sector" value="construction" style="accent-color:var(--gold);"> &#x1F477; Construction
+          </label>
+        </div>
+
+        <button type="submit" id="ja-btn"
+          style="width:100%;max-width:320px;margin:0 auto;background:var(--gold);color:var(--navy);border:none;border-radius:4px;padding:14px 28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:background .2s;">
+          Set Job Alert &#x2192;
+        </button>
+        <p style="font-size:10px;color:rgba(255,255,255,.2);margin:0;">We'll only email you about new jobs. Unsubscribe in one click at any time.</p>
+      </form>
+    </div>
+  </section>
+  <script>
+  function jaToggleAll(cb) {
+    document.querySelectorAll('.ja-sector').forEach(function(s){ s.checked = cb.checked; });
+  }
+  function submitJobAlert(e) {
+    e.preventDefault();
+    var email = document.getElementById('ja-email').value.trim();
+    var allCb = document.getElementById('ja-all-cb');
+    var sectors = allCb && allCb.checked ? [] :
+      Array.from(document.querySelectorAll('.ja-sector:checked')).map(function(s){ return s.value; });
+    var btn = document.getElementById('ja-btn');
+    var errEl = document.getElementById('ja-error');
+    var okEl  = document.getElementById('ja-success');
+    btn.textContent = 'Setting alert...';
+    btn.disabled = true;
+    errEl.style.display = 'none';
+    fetch('/api/job-alerts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, sectors: sectors })
+    }).then(function(r){ return r.json(); }).then(function(data) {
+      if (data.success) {
+        document.getElementById('ja-form').style.display = 'none';
+        okEl.style.display = 'block';
+      } else {
+        errEl.textContent = data.error || 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.textContent = 'Set Job Alert \u2192';
+        btn.disabled = false;
+      }
+    }).catch(function() {
+      errEl.textContent = 'Connection error. Please try again.';
+      errEl.style.display = 'block';
+      btn.textContent = 'Set Job Alert \u2192';
+      btn.disabled = false;
+    });
+  }
+  </script>
 
   <!-- FOOTER -->
     <footer>

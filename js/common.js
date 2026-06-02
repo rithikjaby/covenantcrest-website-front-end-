@@ -90,7 +90,7 @@ function handleForm(e, formName, bannerId) {
     for (var mk in multiKeys) { body[mk] = multiKeys[mk].join(', '); }
 
     var CRM_KEYS = ['crm_lead_source', 'crm_module', 'crm_type'];
-    var EXCLUDE_KEYS = ['name', 'contact_name', 'email', 'phone', 'bot-field', 'form-name', 'gdpr_consent'].concat(CRM_KEYS);
+    var EXCLUDE_KEYS = ['name', 'contact_name', 'email', 'phone', 'company', 'bot-field', 'form-name', 'gdpr_consent'].concat(CRM_KEYS);
     var messageParts = [];
     for (var key in body) {
         if (EXCLUDE_KEYS.indexOf(key) === -1) {
@@ -98,10 +98,23 @@ function handleForm(e, formName, bannerId) {
         }
     }
 
+    // Resolve Bug 5: Quick Enquiry Form combined "contact" field mapping
+    var emailVal = body.email || 'no-email@provided.com';
+    var phoneVal = body.phone || '';
+    if (body.contact) {
+        var contactVal = String(body.contact).trim();
+        if (contactVal.indexOf('@') !== -1) {
+            emailVal = contactVal;
+        } else {
+            phoneVal = contactVal;
+        }
+    }
+
     var contactPayload = {
         name: body.name || body.contact_name || 'Unknown',
-        email: body.email || 'no-email@provided.com',
-        phone: body.phone || '',
+        email: emailVal,
+        phone: phoneVal,
+        company: body.company || '', // Resolve Bug 7: Support B2B company field in API
         type: formName || 'general',
         crm_lead_source: body.crm_lead_source || '',
         crm_module: body.crm_module || '',
@@ -241,6 +254,19 @@ document.addEventListener('DOMContentLoaded', function() {
             handleForm(e, name, banner);
         });
     });
+
+    // 5. PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+                console.log('Service Worker registered successfully with scope:', reg.scope);
+            })
+            .catch(function(err) {
+                console.error('Service Worker registration failed:', err);
+            });
+        });
+    }
 });
 
 // Attach to window for inline onclick handlers

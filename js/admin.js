@@ -555,6 +555,10 @@ function uid() { return Date.now().toString(36) + Math.random().toString(36).sli
 // ── Toast ─────────────────────────────────────────────────────────
 function showToast(msg, type) {
   var t = document.getElementById('toast');
+  if (!t) {
+    console.warn('Toast container not found: ', msg);
+    return;
+  }
   t.textContent = msg;
   t.className = 'toast show ' + (type || '');
   clearTimeout(t._tid);
@@ -610,7 +614,10 @@ function openUserModal() {
   document.getElementById('userModal').classList.add('open');
 }
 
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModal(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove('open');
+}
 
 // ── Tab switching ─────────────────────────────────────────────────
 var tabTitles = { dashboard:'Overview', jobs:'Job Listings', contacts:'Contact Enquiries', applications:'Candidate Applications', talent:'Talent Pool', planner:'Interview Planner', compliance:'Compliance Dashboard', settings:'Settings', users:'User Management', security:'Security Audit Logs' };
@@ -780,27 +787,46 @@ function renderDashJobs() {
 }
 
 function saveJob() {
-  var id    = document.getElementById('j-id').value;
-  var title = document.getElementById('j-title').value.trim();
-  var pay   = document.getElementById('j-pay').value.trim();
-  var err   = document.getElementById('j-err');
-  var btn   = document.getElementById('j-save-btn');
+  var idEl = document.getElementById('j-id');
+  var titleEl = document.getElementById('j-title');
+  var payEl = document.getElementById('j-pay');
+  var err = document.getElementById('j-err');
+  var btn = document.getElementById('j-save-btn');
+  
+  if (!idEl || !titleEl || !payEl || !err || !btn) {
+    showToast('Failed to save job: DOM elements are missing.', 'er');
+    return;
+  }
+
+  var id    = idEl.value;
+  var title = titleEl.value.trim();
+  var pay   = payEl.value.trim();
   err.classList.remove('show');
   if (!title) { err.textContent = 'Job title is required.'; err.classList.add('show'); return; }
   if (!pay)   { err.textContent = 'Pay / salary is required.'; err.classList.add('show'); return; }
 
+  var sectorEl = document.getElementById('j-sector');
+  var typeEl = document.getElementById('j-type');
+  var locEl = document.getElementById('j-location');
+  var statusEl = document.getElementById('j-status');
+  var closingEl = document.getElementById('j-closing-date');
+  var seoKeywordsEl = document.getElementById('j-seo-keywords');
+  var seoDescEl = document.getElementById('j-seo-desc');
+  var dFb = document.getElementById('j-desc-fallback');
+  var rFb = document.getElementById('j-req-fallback');
+
   var payload = {
     title    : title,
     pay      : pay,
-    sector   : document.getElementById('j-sector').value,
-    type     : document.getElementById('j-type').value,
-    location : document.getElementById('j-location').value.trim(),
-    status   : document.getElementById('j-status').value,
-    closingDate : document.getElementById('j-closing-date').value,
-    seoKeywords : document.getElementById('j-seo-keywords').value.trim(),
-    seoDesc     : document.getElementById('j-seo-desc').value.trim(),
-    desc        : qDesc ? qDesc.root.innerHTML : (document.getElementById('j-desc-fallback') ? document.getElementById('j-desc-fallback').value : ''),
-    req         : qReq ? qReq.root.innerHTML : (document.getElementById('j-req-fallback') ? document.getElementById('j-req-fallback').value : '')
+    sector   : sectorEl ? sectorEl.value : 'care',
+    type     : typeEl ? typeEl.value : 'full-time',
+    location : locEl ? locEl.value.trim() : '',
+    status   : statusEl ? statusEl.value : 'active',
+    closingDate : closingEl ? closingEl.value : '',
+    seoKeywords : seoKeywordsEl ? seoKeywordsEl.value.trim() : '',
+    seoDesc     : seoDescEl ? seoDescEl.value.trim() : '',
+    desc        : qDesc ? qDesc.root.innerHTML : (dFb ? dFb.value : ''),
+    req         : qReq ? qReq.root.innerHTML : (rFb ? rFb.value : '')
   };
 
 
@@ -939,7 +965,10 @@ function viewContact(id) {
   }
   var replyBtn = document.getElementById('cm-reply-btn');
   if (replyBtn) {
-    replyBtn.onclick = function() { window.location.href = 'mailto:' + c.email + '?subject=Re: Your enquiry to Covenant Crest Group&body=Dear ' + encodeURIComponent(c.name || '') + ',%0D%0A%0D%0AThank you for contacting Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846'; };
+    replyBtn.onclick = function() {
+      var mailtoUrl = 'mailto:' + c.email + '?subject=Re: Your enquiry to Covenant Crest Group&body=Dear ' + encodeURIComponent(c.name || '') + ',%0D%0A%0D%0AThank you for contacting Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846';
+      window.open(mailtoUrl);
+    };
   }
   var delBtn = document.getElementById('cm-del-btn');
   if (delBtn) {

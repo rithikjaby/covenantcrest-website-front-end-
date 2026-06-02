@@ -29,6 +29,46 @@
   <script src="/api.js?v=20260524" defer></script>
   <script src="/js/common.js?v=20260524" defer></script>
   <script src="/js/haulage.js?v=20260524" defer></script>
+  <!-- Service + LocalBusiness JSON-LD for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "MovingCompany"],
+        "@id": "https://www.covenantcrest.co.uk/haulage#business",
+        "name": "Covenant Crest Group Ltd — Haulage & Freight",
+        "url": "https://www.covenantcrest.co.uk/haulage",
+        "description": "Professional UK road haulage and freight logistics. Full truck load, part load, temperature-controlled transport and specialist express services.",
+        "telephone": "+447346809846",
+        "email": "haulage@covenantcrest.co.uk",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "28 Princess Avenue",
+          "addressLocality": "Telford",
+          "addressRegion": "Shropshire",
+          "postalCode": "TF1 2LL",
+          "addressCountry": "GB"
+        },
+        "areaServed": "GB",
+        "priceRange": "££",
+        "openingHours": "Mo-Su 00:00-23:59"
+      },
+      {
+        "@type": "Service",
+        "name": "UK Road Haulage & Freight",
+        "provider": { "@id": "https://www.covenantcrest.co.uk/#organization" },
+        "serviceType": "Road Haulage",
+        "areaServed": "GB",
+        "description": "Full truck load (FTL), part load (LTL), temperature-controlled and specialist express haulage across the United Kingdom.",
+        "offers": {
+          "@type": "Offer",
+          "description": "Written freight quote within 2 business hours"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -1258,6 +1298,8 @@
       <a href="/recruitment" class="nl">Browse Jobs</a>
       <a href="/hire"        class="nl">Hire Staff</a>
       <a href="/about"       class="nl">About Us</a>
+      <a href="/haulage" class="nl mob-only active" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>

@@ -28,6 +28,44 @@
   <meta name="twitter:image" content="https://www.covenantcrest.co.uk/og-image.svg">
   <script src="/api.js?v=20260524" defer></script>
   <script src="/js/common.js?v=20260524" defer></script>
+  <!-- Service JSON-LD for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.covenantcrest.co.uk/trade#org",
+        "name": "Covenant Crest Group Ltd — Import & Trade",
+        "url": "https://www.covenantcrest.co.uk/trade",
+        "description": "Premium food import and distribution from India and global markets. Supplying UK wholesalers and retailers with ginger powder, spices, pulses and fresh produce.",
+        "telephone": "+447346809846",
+        "email": "trade@covenantcrest.co.uk",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "28 Princess Avenue",
+          "addressLocality": "Telford",
+          "addressRegion": "Shropshire",
+          "postalCode": "TF1 2LL",
+          "addressCountry": "GB"
+        },
+        "areaServed": "GB"
+      },
+      {
+        "@type": "Service",
+        "name": "Food Import & Distribution",
+        "provider": { "@id": "https://www.covenantcrest.co.uk/#organization" },
+        "serviceType": "Food Import",
+        "areaServed": "GB",
+        "description": "Premium quality ginger powder, spices, pulses and fresh produce sourced from FSSAI-certified Indian suppliers and delivered CIF to UK wholesalers and retailers.",
+        "offers": {
+          "@type": "Offer",
+          "description": "Flexible MOQ from 1 pallet. CIF pricing with UK import duty handled."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -1184,6 +1222,8 @@
       <a href="/recruitment" class="nl">Browse Jobs</a>
       <a href="/hire"        class="nl">Hire Staff</a>
       <a href="/about"       class="nl">About Us</a>
+      <a href="/haulage" class="nl mob-only" style="display:none;">Haulage &amp; Freight</a>
+      <a href="/trade" class="nl mob-only active" style="display:none;">Import &amp; Trade</a>
     </div>
     <div class="nav-group-wrap" id="groupToggle">
       <button class="btn-group">Our Divisions <span style="font-size:8px; opacity:0.6; margin-left:4px;">&#9662;</span></button>

@@ -455,6 +455,11 @@ function handleFormWithAPI(e, formName, bannerId) {
         if (complianceText) {
             payload.notes = complianceText + "\n" + (payload.notes || "");
         }
+
+        // Map structured vetting inputs to first-class fields (Bug 11 frontend alignment)
+        if (dbsNum && dbsNum.value) payload.dbs_cert_number = dbsNum.value.trim();
+        if (siaNum && siaNum.value) payload.sia_licence_number = siaNum.value.trim();
+        if (siaExp && siaExp.value) payload.sia_expiry_date = siaExp.value.trim();
         
         payload.cvBase64 = _cvBase64;
         payload.cvFileName = _cvFileName || (payload.first_name + '_' + payload.last_name + '_CV.pdf');
