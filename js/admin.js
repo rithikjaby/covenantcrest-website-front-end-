@@ -967,7 +967,7 @@ function viewContact(id) {
   if (replyBtn) {
     replyBtn.onclick = function() {
       var mailtoUrl = 'mailto:' + c.email + '?subject=Re: Your enquiry to Covenant Crest Group&body=Dear ' + encodeURIComponent(c.name || '') + ',%0D%0A%0D%0AThank you for contacting Covenant Crest Group.%0D%0A%0D%0AKind regards,%0D%0ACovenant Crest Group Ltd%0D%0A07346 809846';
-      window.open(mailtoUrl);
+      window.location.href = mailtoUrl;
     };
   }
   var delBtn = document.getElementById('cm-del-btn');
@@ -1237,7 +1237,7 @@ function viewApplication(id) {
     } else {
       showToast('Opening email app...', 'ok');
     }
-    window.open(mailtoUrl); 
+    window.location.href = mailtoUrl; 
   };
 
   document.getElementById('am-teams-btn').onclick = function() {
