@@ -1425,8 +1425,8 @@ function previewApplicationCV(a) {
   // URL-based CV
   if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
     var viewUrl = data.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
-    // Use Google Docs Viewer to render both PDFs and Word Docs inline, bypassing X-Frame-Options
-    iframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(viewUrl) + '&embedded=true';
+    // Use Microsoft Office Online Viewer to render PDFs and Word Docs inline, matching Microsoft ecosystem
+    iframe.src = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(viewUrl);
     iframe.style.display   = '';
     fallback.style.display = 'none';
     document.getElementById('cvPreviewModal').classList.add('open');
