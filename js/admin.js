@@ -1374,8 +1374,21 @@ function downloadApplicationCV(a) {
       var safeFl = safeName.replace(/[^a-zA-Z0-9_-]/g, '_');
       fetchUrl = fetchUrl.replace('/upload/', '/upload/fl_attachment:' + safeFl + '/');
     }
-    // Open direct link in a new tab which triggers native browser download of the uncorrupted file
-    window.open(fetchUrl, '_blank');
+
+    showToast('Preparing CV download...', 'ok');
+    fetch(fetchUrl)
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.blob();
+      })
+      .then(function(blob) {
+        triggerDownload(blob, filename);
+      })
+      .catch(function(e) {
+        console.error('CV download fetch failed, falling back to new window:', e);
+        // Fallback: Open direct link in a new tab which triggers native browser download
+        window.open(fetchUrl, '_blank');
+      });
     return;
   }
 
