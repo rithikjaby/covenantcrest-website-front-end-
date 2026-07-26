@@ -1349,31 +1349,16 @@ function downloadApplicationCV(a) {
     setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
   }
 
-  // URL-based CV (Cloudinary or any direct link)
+  // URL-based CV (Cloudinary or direct link)
   if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
     var fetchUrl = data;
-    if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('fl_attachment') === -1) {
+    // Only apply fl_attachment for image uploads to force download. Raw resources (like PDFs/Docs) already download directly.
+    if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('/image/upload/') !== -1 && data.indexOf('fl_attachment') === -1) {
       var safeFl = safeName.replace(/[^a-zA-Z0-9_-]/g, '_');
       fetchUrl = data.replace('/upload/', '/upload/fl_attachment:' + safeFl + '/');
     }
-    showToast('Preparing CV download…', 'ok');
-    fetch(fetchUrl)
-      .then(function(r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.blob();
-      })
-      .then(function(blob) {
-        // Derive extension from blob mime type if filename has none
-        if (!filename.match(/\.(pdf|docx|doc)$/i)) {
-          if (blob.type === 'application/pdf') filename += '.pdf';
-          else if (blob.type.indexOf('word') !== -1) filename += '.docx';
-        }
-        triggerDownload(blob, filename);
-      })
-      .catch(function() {
-        // CORS fallback — open in new tab as last resort
-        window.open(fetchUrl, '_blank');
-      });
+    // Open in a new tab which triggers native browser download of the uncorrupted file
+    window.open(fetchUrl, '_blank');
     return;
   }
 
