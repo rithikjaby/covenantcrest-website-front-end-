@@ -1424,9 +1424,12 @@ function previewApplicationCV(a) {
 
   // URL-based CV
   if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
-    // PDFs from Cloudinary: remove fl_attachment transform so browser renders inline in new tab
     var viewUrl = data.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
-    window.open(viewUrl, '_blank');
+    // Use Google Docs Viewer to render both PDFs and Word Docs inline, bypassing X-Frame-Options
+    iframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(viewUrl) + '&embedded=true';
+    iframe.style.display   = '';
+    fallback.style.display = 'none';
+    document.getElementById('cvPreviewModal').classList.add('open');
     return;
   }
 
