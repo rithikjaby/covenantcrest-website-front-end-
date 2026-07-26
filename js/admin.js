@@ -1424,17 +1424,9 @@ function previewApplicationCV(a) {
 
   // URL-based CV
   if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
-    var filename = a.cvFileName || '';
-    var isDocx = filename.match(/\.docx?$/i);
-    if (isDocx) {
-      iframe.style.display   = 'none';
-      fallback.style.display = 'block';
-    } else {
-      // PDFs from Cloudinary: remove fl_attachment transform so browser renders inline
-      var viewUrl = data.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
-      iframe.src = viewUrl;
-    }
-    document.getElementById('cvPreviewModal').classList.add('open');
+    // PDFs from Cloudinary: remove fl_attachment transform so browser renders inline in new tab
+    var viewUrl = data.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
+    window.open(viewUrl, '_blank');
     return;
   }
 
