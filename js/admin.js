@@ -1336,7 +1336,22 @@ function downloadApplicationCV(a) {
   if (!data) return showToast('No CV on record for this candidate', 'er');
 
   var safeName = ((a.first_name || 'Candidate') + '_' + (a.last_name || 'CV')).replace(/\s+/g, '_');
-  var filename = a.cvFileName || (safeName + '.pdf');
+  
+  // Dynamically detect file extension from URL or original filename to prevent opening corrupt files
+  var ext = 'pdf'; // default fallback
+  var dataUrl = (data || '').toLowerCase();
+  var origName = (a.cvFileName || '').toLowerCase();
+  if (dataUrl.indexOf('.docx') !== -1 || origName.indexOf('.docx') !== -1) {
+    ext = 'docx';
+  } else if (dataUrl.indexOf('.doc') !== -1 || origName.indexOf('.doc') !== -1) {
+    ext = 'doc';
+  } else if (dataUrl.indexOf('.png') !== -1 || origName.indexOf('.png') !== -1) {
+    ext = 'png';
+  } else if (dataUrl.indexOf('.jpg') !== -1 || dataUrl.indexOf('.jpeg') !== -1 || origName.indexOf('.jpg') !== -1 || origName.indexOf('.jpeg') !== -1) {
+    ext = 'jpg';
+  }
+  
+  var filename = a.cvFileName || (safeName + '.' + ext);
 
   function triggerDownload(blob, fname) {
     var url = URL.createObjectURL(blob);
@@ -1346,18 +1361,20 @@ function downloadApplicationCV(a) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+    URL.revokeObjectURL(url);
   }
 
   // URL-based CV (Cloudinary or direct link)
   if (data.indexOf('http') === 0 || data.indexOf('//') === 0) {
     var fetchUrl = data;
-    // Only apply fl_attachment for image uploads to force download. Raw resources (like PDFs/Docs) already download directly.
-    if (data.indexOf('cloudinary.com') !== -1 && data.indexOf('/image/upload/') !== -1 && data.indexOf('fl_attachment') === -1) {
+    // Always strip fl_attachment from raw files (like PDFs/Docs) because Cloudinary raw resources don't support it (causes 400 error)
+    if (fetchUrl.indexOf('/raw/upload/') !== -1) {
+      fetchUrl = fetchUrl.replace(/\/upload\/fl_attachment[^/]*\//, '/upload/');
+    } else if (fetchUrl.indexOf('cloudinary.com') !== -1 && fetchUrl.indexOf('/image/upload/') !== -1 && fetchUrl.indexOf('fl_attachment') === -1) {
       var safeFl = safeName.replace(/[^a-zA-Z0-9_-]/g, '_');
-      fetchUrl = data.replace('/upload/', '/upload/fl_attachment:' + safeFl + '/');
+      fetchUrl = fetchUrl.replace('/upload/', '/upload/fl_attachment:' + safeFl + '/');
     }
-    // Open in a new tab which triggers native browser download of the uncorrupted file
+    // Open direct link in a new tab which triggers native browser download of the uncorrupted file
     window.open(fetchUrl, '_blank');
     return;
   }
@@ -1369,19 +1386,22 @@ function downloadApplicationCV(a) {
     var bytes = new Uint8Array(chars.length);
     for (var i = 0; i < chars.length; i++) bytes[i] = chars.charCodeAt(i);
 
-    var mimeType = 'application/octet-stream';
-    var ext = '.pdf';
-    if (bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46) {
-      mimeType = 'application/pdf'; ext = '.pdf';
-    } else if (bytes[0] === 0x50 && bytes[1] === 0x4B) {
-      mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'; ext = '.docx';
-    } else if (bytes[0] === 0xD0 && bytes[1] === 0xCF) {
-      mimeType = 'application/msword'; ext = '.doc';
+    var isPdf  = bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46;
+    var isDocx2 = bytes[0] === 0x50 && bytes[1] === 0x4B;
+
+    var mime = 'application/octet-stream';
+    if (isPdf) {
+      mime = 'application/pdf';
+    } else if (isDocx2) {
+      mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      // Correct extension if it was hardcoded as PDF
+      if (filename.endsWith('.pdf')) {
+        filename = filename.slice(0, -4) + '.docx';
+      }
     }
 
-    if (!filename.match(/\.(pdf|docx|doc)$/i)) filename += ext;
-
-    triggerDownload(new Blob([bytes], { type: mimeType }), filename);
+    var blob = new Blob([bytes], { type: mime });
+    triggerDownload(blob, filename);
   } catch(e) {
     console.error('CV download error:', e);
     showToast('Could not process CV file — please contact support', 'er');
