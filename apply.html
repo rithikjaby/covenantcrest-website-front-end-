@@ -273,7 +273,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
 
                 <div class="f-group">
                     <label class="f-label">Certifications / Licences</label>
-                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px;">
+                    <div id="certs-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px;">
                         <label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>
                         <label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>
                         <label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>
@@ -343,6 +343,33 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
             document.getElementById('job-id-display').textContent = job.id.substring(0,8).toUpperCase();
             var sec = job.sector || 'Recruitment';
             document.getElementById('job-sector').textContent = sec.charAt(0).toUpperCase() + sec.slice(1);
+
+            // Dynamically render relevant certifications based on job sector
+            var certsGrid = document.getElementById('certs-grid');
+            if (certsGrid) {
+                var sector = (job.sector || '').toLowerCase();
+                var html = '';
+                if (sector === 'care') {
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Care Certificate"> Care Certificate</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>';
+                } else if (sector === 'security') {
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="SIA"> SIA Licence</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>';
+                } else if (sector === 'warehouse' || sector === 'logistics' || sector === 'haulage') {
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Forklift"> Forklift Licence</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>';
+                } else if (sector === 'construction') {
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="CSCS"> CSCS Card</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>';
+                } else {
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="DBS"> Enhanced DBS</label>';
+                    html += '<label class="f-check-label"><input type="checkbox" name="certs" value="Driving Licence"> Driving Licence</label>';
+                }
+                certsGrid.innerHTML = html;
+            }
+
             document.getElementById('loading').style.display = 'none';
         }).catch(function() {
             window.location.href = '/recruitment.html';

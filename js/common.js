@@ -114,7 +114,7 @@ function handleForm(e, formName, bannerId) {
         name: body.name || body.contact_name || 'Unknown',
         email: emailVal,
         phone: phoneVal,
-        company: body.company || '', // Resolve Bug 7: Support B2B company field in API
+        company: body.company || body.company_name || '', // Resolve Bug 7: Support B2B company field in API
         type: formName || 'general',
         crm_lead_source: body.crm_lead_source || '',
         crm_module: body.crm_module || '',

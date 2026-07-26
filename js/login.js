@@ -23,6 +23,8 @@ function doLogin(e) {
     var email = document.getElementById('loginEmail').value.trim();
     var pwd = document.getElementById('loginPwd').value;
     var hp = document.getElementById('loginHoneypot').value;
+    var otpEl = document.getElementById('loginOtp');
+    var otp = otpEl ? otpEl.value.trim() : '';
 
     if (hp) return; // bot
     if (!email || !pwd) {
@@ -51,15 +53,33 @@ function doLogin(e) {
     if (label) label.style.opacity = '0';
     if (spin) spin.style.display = 'inline-block';
 
+    var payload = { email: email, password: pwd };
+    if (otp) payload.otp = otp;
+
     fetch('/api/auth/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, password: pwd })
+        body: JSON.stringify(payload)
     })
     .then(function(r) { return r.json(); })
     .then(function(d) {
-        // Server now sets an httpOnly cookie — no token in response body
+        if (d.twoFactorRequired) {
+            var otpGrp = document.getElementById('otpGroup');
+            if (otpGrp) otpGrp.style.display = 'block';
+            if (otpEl) {
+                otpEl.focus();
+                otpEl.setAttribute('required', 'required');
+            }
+            if (err) {
+                err.textContent = '2-Factor Authenticator code required.';
+                err.style.display = 'block';
+            }
+            if (btn) btn.disabled = false;
+            if (label) label.style.opacity = '1';
+            if (spin) spin.style.display = 'none';
+            return;
+        }
         if (d.role) {
             window.location.href = '/admin';
         } else {

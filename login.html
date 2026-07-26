@@ -122,6 +122,10 @@ body::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-5
         </button>
       </div>
     </div>
+    <div class="fg" id="otpGroup" style="display:none;">
+      <label for="loginOtp">Authenticator 2FA Code</label>
+      <input type="text" id="loginOtp" name="otp" placeholder="Enter 6-digit code" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+    </div>
     <div style="display:none;" aria-hidden="true">
       <input type="text" name="honeypot" id="loginHoneypot" tabindex="-1" autocomplete="off">
     </div>

@@ -458,6 +458,10 @@ function handleFormWithAPI(e, formName, bannerId) {
 
         // Map structured vetting inputs to first-class fields (Bug 11 frontend alignment)
         if (dbsNum && dbsNum.value) payload.dbs_cert_number = dbsNum.value.trim();
+        if (nmcPin && nmcPin.value) payload.nmc_pin = nmcPin.value.trim();
+        if (cscsNum && cscsNum.value) payload.cscs_number = cscsNum.value.trim();
+        if (hygiene && hygiene.value) payload.food_hygiene_level = hygiene.value.trim();
+        if (hgvNum && hgvNum.value) payload.hgv_license = hgvNum.value.trim();
         if (siaNum && siaNum.value) payload.sia_licence_number = siaNum.value.trim();
         if (siaExp && siaExp.value) payload.sia_expiry_date = siaExp.value.trim();
         

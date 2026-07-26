@@ -1160,6 +1160,20 @@ function viewApplication(id) {
         '<input type="date" class="af-input" id="cm-mh-expiry" value="' + esc(a.manual_handling_cert || '') + '">' +
       '</div>' +
     '</div>' +
+    // Sector Vetting Certifications
+    '<div style="background:#f8f9fa;border-radius:6px;padding:12px;margin-bottom:8px;">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:8px;">Sector Vetting Certifications</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+        '<div><label class="af-label">NMC Pin (Care)</label>' +
+          '<input class="af-input" id="cm-nmc-pin" value="' + esc(a.nmc_pin || '') + '" placeholder="NMC PIN"></div>' +
+        '<div><label class="af-label">CSCS Number (Construction)</label>' +
+          '<input class="af-input" id="cm-cscs-number" value="' + esc(a.cscs_number || '') + '" placeholder="CSCS Card No"></div>' +
+        '<div><label class="af-label">Food Hygiene Level (Hospitality)</label>' +
+          '<input class="af-input" id="cm-food-hygiene" value="' + esc(a.food_hygiene_level || '') + '" placeholder="Hygiene Level"></div>' +
+        '<div><label class="af-label">HGV/FLT Licence (Logistics)</label>' +
+          '<input class="af-input" id="cm-hgv-license" value="' + esc(a.hgv_license || '') + '" placeholder="Licence Details"></div>' +
+      '</div>' +
+    '</div>' +
     // Compliance Notes
     '<div style="margin-bottom:12px;"><label class="af-label">Compliance Notes</label>' +
       '<textarea id="cm-compliance-notes" class="af-textarea" placeholder="Internal compliance notes...">' + esc(a.compliance_notes || '') + '</textarea></div>' +
@@ -1172,6 +1186,11 @@ function viewApplication(id) {
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Job Applied For</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.job_title || '—') + '</div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Availability</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(availDisplay) + '</div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Right to Work</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.rtw_status ? (a.rtw_status === 'british_irish' ? 'UK/Irish Passport' : (a.rtw_status === 'visa' ? 'Visa' : a.rtw_status)) : 'Not Specified') + '</div></div>' +
+        (a.postcode ? '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Postcode / Area</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.postcode) + '</div></div>' : '') +
+        (a.nmc_pin ? '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">NMC Pin</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.nmc_pin) + '</div></div>' : '') +
+        (a.cscs_number ? '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">CSCS Number</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.cscs_number) + '</div></div>' : '') +
+        (a.food_hygiene_level ? '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Food Hygiene Level</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.food_hygiene_level) + '</div></div>' : '') +
+        (a.hgv_license ? '<div style="background:#f8f9fa;border-radius:6px;padding:10px 14px;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">HGV/FLT Licence</div><div style="font-size:13px;font-weight:600;color:var(--navy);">' + esc(a.hgv_license) + '</div></div>' : '') +
         (a.visa_details ? '<div style="background:#fff4e5;border-radius:6px;padding:10px 14px;grid-column: span 2;"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d35400;margin-bottom:3px;">Visa Specifics</div><div style="font-size:13px;font-weight:600;color:#d35400;">' + esc(a.visa_details) + '</div></div>' : '') +
         (a.is_veteran === 'yes' ? '<div style="background:#eef8f3;border-radius:6px;padding:10px 14px;grid-column: span 2;border-left:3px solid var(--success);"><div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:3px;">Armed Forces Background</div><div style="font-size:13px;font-weight:600;color:var(--navy);">British Armed Forces Veteran</div></div>' : '') +
       '</div>' +
@@ -1719,6 +1738,11 @@ function saveCompliance(id) {
   var rtwVerif  = !!(rtwEl && rtwEl.checked);
   var mhExpiry  = (document.getElementById('cm-mh-expiry')  || { value: '' }).value;
   var compNotes = (document.getElementById('cm-compliance-notes') || { value: '' }).value;
+  
+  var nmcPin    = (document.getElementById('cm-nmc-pin')    || { value: '' }).value;
+  var cscsNum   = (document.getElementById('cm-cscs-number') || { value: '' }).value;
+  var hygiene   = (document.getElementById('cm-food-hygiene')|| { value: '' }).value;
+  var hgvLic    = (document.getElementById('cm-hgv-license') || { value: '' }).value;
 
   // Auto-calculate compliance_status (all comparisons in UTC to avoid timezone offset)
   var today = new Date(); today.setUTCHours(0, 0, 0, 0);
@@ -1743,6 +1767,10 @@ function saveCompliance(id) {
     manual_handling_cert: mhExpiry,
     compliance_notes:     compNotes,
     compliance_status:    compStatus,
+    nmc_pin:              nmcPin,
+    cscs_number:          cscsNum,
+    food_hygiene_level:   hygiene,
+    hgv_license:          hgvLic,
   };
 
   apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify(payload) }).then(function(data) {
@@ -1761,6 +1789,10 @@ function saveCompliance(id) {
           _apps[j].manual_handling_cert = mhExpiry;
           _apps[j].compliance_notes     = compNotes;
           _apps[j].compliance_status    = compStatus;
+          _apps[j].nmc_pin              = nmcPin;
+          _apps[j].cscs_number          = cscsNum;
+          _apps[j].food_hygiene_level    = hygiene;
+          _apps[j].hgv_license          = hgvLic;
           break;
         }
       }
