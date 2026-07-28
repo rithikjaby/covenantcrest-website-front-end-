@@ -1804,6 +1804,20 @@
     .path-icon { width: 56px; height: 56px; border-radius: 12px; background: rgba(13,27,42,.06); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
     .path-h3 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; color: var(--navy); line-height: 1.2; margin: 0; }
     .path-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin: 0; flex: 1; }
+    
+    .path-header {
+      display: none;
+    }
+    .path-desktop-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .path-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
     .path-btns { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
 
     /* LIVE JOBS TEASER */
@@ -1817,12 +1831,129 @@
     @media(max-width:860px) {
       .path-split { grid-template-columns: 1fr; }
       .hp-jobs-grid { grid-template-columns: 1fr; }
+      
+      .path-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        width: 100%;
+        user-select: none;
+      }
+      .path-desktop-header {
+        display: none !important;
+      }
+      .path-body {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.35s ease-out, opacity 0.3s ease-out, margin-top 0.3s ease;
+        margin-top: 0;
+      }
+      .path-card.open .path-body {
+        max-height: 400px;
+        opacity: 1;
+        margin-top: 20px;
+      }
     }
     @media(max-width:600px) {
       .path-card { padding: 28px 20px; }
       .hp-jobs-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 12px; padding-bottom: 8px; }
       .hp-jobs-grid::-webkit-scrollbar { display: none; }
       .hp-job-card, .hp-job-skel { flex: 0 0 75vw; max-width: 280px; scroll-snap-align: start; }
+    }
+
+    /* Carousel General Arrows & Dots (hidden on desktop) */
+    .job-carousel-arrow, .creds-carousel-arrow, .standards-carousel-arrow {
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(13, 27, 42, 0.85);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+    .job-carousel-arrow:hover, .creds-carousel-arrow:hover, .standards-carousel-arrow:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .job-carousel-arrow.prev, .creds-carousel-arrow.prev, .standards-carousel-arrow.prev { left: -10px; }
+    .job-carousel-arrow.next, .creds-carousel-arrow.next, .standards-carousel-arrow.next { right: -10px; }
+
+    .job-carousel-dots, .creds-carousel-dots, .standards-carousel-dots {
+      display: none;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .job-dot, .creds-dot, .standards-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(13, 27, 42, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .creds-dot {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    
+    .job-dot.active, .creds-dot.active, .standards-dot.active {
+      background: #C5A059 !important; /* Gold active color */
+      transform: scale(1.2);
+    }
+
+    @media(max-width: 600px) {
+      .job-carousel-arrow, .creds-carousel-arrow, .standards-carousel-arrow {
+        display: flex;
+      }
+      .job-carousel-dots, .creds-carousel-dots, .standards-carousel-dots {
+        display: flex;
+      }
+      
+      .creds-flex {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        gap: 12px !important;
+        padding-bottom: 8px;
+      }
+      .creds-flex::-webkit-scrollbar { display: none; }
+      .creds-flex .badge-card {
+        flex: 0 0 75vw;
+        max-width: 280px;
+        scroll-snap-align: start;
+        margin: 0;
+      }
+
+      .standards-flex {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        gap: 12px !important;
+        padding-bottom: 8px;
+      }
+      .standards-flex::-webkit-scrollbar { display: none; }
+      .standards-flex > div {
+        flex: 0 0 75vw;
+        max-width: 280px;
+        scroll-snap-align: start;
+        margin: 0;
+      }
     }
   </style>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="f6934ecc-1a89-4b5e-a85e-cbdd28206fb1"></script>
@@ -1878,21 +2009,24 @@
     <div class="hero-c">
       <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Specialist Recruitment &amp; <em>Elite Staffing.</em></h1>
       <p class="hero-desc" style="font-size: 20px; font-style: italic; color: var(--gold); margin-top: 8px; margin-bottom: 24px; font-family: var(--font-head);">Built on Promise.</p>
-      <p class="hero-h2" style="font-size: clamp(12px, 1.5vw, 16px); letter-spacing: 0.05em; color: var(--gold); display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 16px; margin: 0 auto; max-width: 960px;">
+      <p class="hero-h2" style="font-size: clamp(11px, 1.3vw, 15px); letter-spacing: 0.05em; color: var(--gold); display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; gap: 6px 12px; margin: 0 auto; max-width: 100%;">
         <span style="white-space: nowrap;">Healthcare</span>
-        <span class="mob-hide">&middot;</span>
+        <span class="sect-dot">&middot;</span>
         <span style="white-space: nowrap;">Security &amp; Facilities</span>
-        <span class="mob-hide">&middot;</span>
+        <span class="sect-dot">&middot;</span>
         <span style="white-space: nowrap;">Warehouse &amp; Logistics</span>
-        <span class="mob-hide">&middot;</span>
+        <span class="sect-dot">&middot;</span>
         <span style="white-space: nowrap;">Construction &amp; Engineering</span>
-        <span class="mob-hide">&middot;</span>
+        <span class="sect-dot">&middot;</span>
         <span style="white-space: nowrap;">IT &amp; Business</span>
       </p>
       <style>
+        @media(max-width: 900px) {
+          .hero-h2 { flex-wrap: wrap !important; }
+        }
         @media(max-width: 600px) {
           .hero-h2 { flex-direction: column; align-items: center; gap: 6px !important; }
-          .mob-hide { display: none !important; }
+          .sect-dot { display: none !important; }
         }
       </style>
       <p class="hero-desc">Every candidate is fully vetted, reference-checked, and compliance-verified before introduction. From healthcare and security to logistics, engineering, and IT—we protect your operational standards as fiercely as we fill your shifts.</p>
@@ -1936,27 +2070,62 @@
         <h2 class="s-title">Two Paths. <em>One Trusted Agency.</em></h2>
       </div>
       <div class="path-split rv">
-        <div class="path-card">
-          <div class="path-icon">&#x1F4BC;</div>
-          <h3 class="path-h3">Looking for Work?</h3>
-          <p class="path-desc">Weekly pay. Full compliance support from day one. We register you once and keep you working &mdash; in care, security, warehouse or construction across the UK.</p>
-          <div class="path-btns">
-            <a href="/recruitment" class="btn-gold" style="text-align:center;">Browse Live Jobs &#8594;</a>
-            <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20register%20for%20available%20roles." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px 24px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Register via WhatsApp
-            </a>
+        <!-- CARD: LOOKING FOR WORK -->
+        <div class="path-card" id="pathCardWork">
+          <!-- Accordion Header (Mobile Only) -->
+          <div class="path-header" onclick="togglePath('work')">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">&#x1F4BC;</span>
+              <h3 class="path-h3" style="margin:0; font-size:18px;">LOOKING FOR WORK?</h3>
+            </div>
+            <span class="path-toggle-icon" style="font-size:22px; font-weight:bold; color:var(--gold); line-height:1;">+</span>
+          </div>
+
+          <!-- Desktop Header -->
+          <div class="path-desktop-header">
+            <div class="path-icon">&#x1F4BC;</div>
+            <h3 class="path-h3">Looking for Work?</h3>
+          </div>
+
+          <!-- Body Content -->
+          <div class="path-body">
+            <p class="path-desc">Weekly pay. Full compliance support from day one. We register you once and keep you working &mdash; in care, security, warehouse or construction across the UK.</p>
+            <div class="path-btns">
+              <a href="/recruitment" class="btn-gold" style="text-align:center;">Browse Live Jobs &#8594;</a>
+              <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20register%20for%20available%20roles." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px 24px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Register via WhatsApp
+              </a>
+            </div>
           </div>
         </div>
-        <div class="path-card path-card-dk">
-          <div class="path-icon" style="background:rgba(201,168,76,.12);font-size:26px;">&#x1F3E2;</div>
-          <h3 class="path-h3" style="color:#fff;">Need Staff?</h3>
-          <p class="path-desc" style="color:rgba(255,255,255,.55);">Staff confirmed on site in 24 hours. Every candidate compliance-checked before placement. 2-hour response target &mdash; or we escalate personally.</p>
-          <div class="path-btns">
-            <a href="/hire" class="btn-gold" style="text-align:center;">Request Staff in 2 Hours &#8594;</a>
-            <a href="tel:+447346809846" style="display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(255,255,255,.65);padding:13px 24px;border:1px solid rgba(255,255,255,.15);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
-              &#x260E; Call 07346&nbsp;809846
-            </a>
+
+        <!-- CARD: NEED STAFF -->
+        <div class="path-card path-card-dk" id="pathCardStaff">
+          <!-- Accordion Header (Mobile Only) -->
+          <div class="path-header" onclick="togglePath('staff')">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">&#x1F3E2;</span>
+              <h3 class="path-h3" style="color:#fff; margin:0; font-size:18px;">NEED STAFF?</h3>
+            </div>
+            <span class="path-toggle-icon" style="font-size:22px; font-weight:bold; color:var(--gold); line-height:1;">+</span>
+          </div>
+
+          <!-- Desktop Header -->
+          <div class="path-desktop-header">
+            <div class="path-icon" style="background:rgba(201,168,76,.12);font-size:26px;">&#x1F3E2;</div>
+            <h3 class="path-h3" style="color:#fff;">Need Staff?</h3>
+          </div>
+
+          <!-- Body Content -->
+          <div class="path-body">
+            <p class="path-desc" style="color:rgba(255,255,255,.55);">Staff confirmed on site in 24 hours. Every candidate compliance-checked before placement. 2-hour response target &mdash; or we escalate personally.</p>
+            <div class="path-btns">
+              <a href="/hire" class="btn-gold" style="text-align:center;">Request Staff in 2 Hours &#8594;</a>
+              <a href="tel:+447346809846" style="display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(255,255,255,.65);padding:13px 24px;border:1px solid rgba(255,255,255,.15);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
+                &#x260E; Call 07346&nbsp;809846
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -2016,11 +2185,16 @@
         </div>
         <a href="/recruitment#live-jobs" class="btn-gold" style="white-space:nowrap;flex-shrink:0;">View All Jobs &#8594;</a>
       </div>
-      <div id="hp-jobs-grid" class="hp-jobs-grid">
-        <div class="hp-job-skel"></div>
-        <div class="hp-job-skel"></div>
-        <div class="hp-job-skel"></div>
+      <div style="position: relative; max-width: 100%; margin: 0 auto;">
+        <button id="job-carousel-prev" class="job-carousel-arrow prev" onclick="scrollJobs(-1)" aria-label="Previous Job">&#10094;</button>
+        <div id="hp-jobs-grid" class="hp-jobs-grid">
+          <div class="hp-job-skel"></div>
+          <div class="hp-job-skel"></div>
+          <div class="hp-job-skel"></div>
+        </div>
+        <button id="job-carousel-next" class="job-carousel-arrow next" onclick="scrollJobs(1)" aria-label="Next Job">&#10095;</button>
       </div>
+      <div id="job-carousel-dots" class="job-carousel-dots"></div>
       <div style="text-align:center;margin-top:28px;">
         <a href="https://wa.me/447346809846?text=Hi%20Covenant%20Crest%2C%20I%27d%20like%20to%20register%20and%20hear%20about%20new%20job%20opportunities." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(37,211,102,.25);">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -2038,7 +2212,9 @@
         <h2 class="s-title w" style="text-align:center;">The Credentials That <em>Matter to Your Auditors</em></h2>
         <p class="s-lead" style="margin:0 auto;text-align:center;color:rgba(255,255,255,.45);">Every regulatory body and standard your compliance officers will ask about &mdash; documented, verified and available on request.</p>
       </div>
-      <div class="creds-flex" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <div style="position: relative; max-width: 100%; margin: 0 auto;">
+        <button id="creds-carousel-prev" class="creds-carousel-arrow prev" onclick="scrollCreds(-1)" aria-label="Previous Badge">&#10094;</button>
+        <div class="creds-flex" id="creds-carousel-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
         <div class="badge-card rv">
           <div class="bc-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="bc-title">SIA Licence Verification</div>
@@ -2086,7 +2262,20 @@
           <p class="bc-sub">Registered Employment Agency &amp; Employment Business under the Employment Agencies Act
             1973.</p>
         </div>
+        <div class="badge-card rv d4">
+          <div class="bc-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div class="bc-title">HSE &amp; Tech Accreditations</div>
+          <p class="bc-sub">Auditing of CSCS and CPCS registers, paired with validation of professional engineering degrees (CEng, IET) to ensure total compliance.</p>
+        </div>
+        <div class="badge-card rv d1">
+          <div class="bc-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="bc-title">InfoSec Screening</div>
+          <p class="bc-sub">Enhanced background checks for IT and office staff who handle confidential corporate servers, systems, or GDPR-governed records.</p>
+        </div>
       </div>
+      <button id="creds-carousel-next" class="creds-carousel-arrow next" onclick="scrollCreds(1)" aria-label="Next Badge">&#10095;</button>
+    </div>
+    <div id="creds-carousel-dots" class="creds-carousel-dots"></div>
     </div>
   </section>
 
@@ -2119,8 +2308,9 @@
           <div class="wcu-l">Hidden Fees, Ever</div>
         </div>
       </div>
-      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;"
-        class="rv">
+      <div style="position: relative; max-width: 100%; margin: 0 auto; margin-top: 28px;">
+        <button id="standards-carousel-prev" class="standards-carousel-arrow prev" onclick="scrollStandards(-1)" aria-label="Previous Standard">&#10094;</button>
+        <div id="standards-carousel-grid" class="standards-flex rv" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;">
         <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid #1D9E75;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1D9E75;margin-bottom:4px;">
@@ -2152,6 +2342,9 @@
           <div style="font-size:12px;color:var(--muted);line-height:1.7;">IT certifications verified. Professional office references audited. Qualifications checked.</div>
         </div>
       </div>
+      <button id="standards-carousel-next" class="standards-carousel-arrow next" onclick="scrollStandards(1)" aria-label="Next Standard">&#10095;</button>
+    </div>
+    <div id="standards-carousel-dots" class="standards-carousel-dots"></div>
     </div>
   </section>
 
@@ -2390,13 +2583,120 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closePackModal();
     });
+    function scrollJobs(direction) {
+      var grid = document.getElementById('hp-jobs-grid');
+      if (!grid) return;
+      var card = grid.querySelector('.hp-job-card');
+      var cardWidth = card ? card.offsetWidth : 280;
+      grid.scrollBy({ left: (cardWidth + 12) * direction, behavior: 'smooth' });
+    }
+    function jumpToJob(index) {
+      var grid = document.getElementById('hp-jobs-grid');
+      if (!grid) return;
+      var cards = grid.querySelectorAll('.hp-job-card');
+      if (cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+    function setupJobCarouselListeners(jobCount) {
+      var grid = document.getElementById('hp-jobs-grid');
+      if (!grid) return;
+      grid.addEventListener('scroll', function() {
+        var card = grid.querySelector('.hp-job-card');
+        var cardWidth = card ? card.offsetWidth : 280;
+        var activeIndex = Math.round(grid.scrollLeft / (cardWidth + 12));
+        if (activeIndex < 0) activeIndex = 0;
+        if (activeIndex >= jobCount) activeIndex = jobCount - 1;
+        var dots = document.querySelectorAll('.job-dot');
+        dots.forEach(function(dot, idx) {
+          if (idx === activeIndex) dot.classList.add('active'); else dot.classList.remove('active');
+        });
+      });
+    }
+
+    function scrollCreds(direction) {
+      var grid = document.getElementById('creds-carousel-grid');
+      if (!grid) return;
+      var card = grid.querySelector('.badge-card');
+      var width = card ? card.offsetWidth : 280;
+      grid.scrollBy({ left: (width + 12) * direction, behavior: 'smooth' });
+    }
+    function jumpToCred(index) {
+      var cards = document.querySelectorAll('#creds-carousel-grid .badge-card');
+      if (cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+    function setupCredsCarousel() {
+      var grid = document.getElementById('creds-carousel-grid');
+      var dotsContainer = document.getElementById('creds-carousel-dots');
+      if (!grid || !dotsContainer) return;
+      var count = grid.querySelectorAll('.badge-card').length;
+      var html = '';
+      for (var i = 0; i < count; i++) {
+        html += '<span class="creds-dot' + (i === 0 ? ' active' : '') + '" onclick="jumpToCred(' + i + ')"></span>';
+      }
+      dotsContainer.innerHTML = html;
+      grid.addEventListener('scroll', function() {
+        var card = grid.querySelector('.badge-card');
+        var width = card ? card.offsetWidth : 280;
+        var active = Math.round(grid.scrollLeft / (width + 12));
+        var dots = dotsContainer.querySelectorAll('.creds-dot');
+        dots.forEach(function(d, idx) { if (idx === active) d.classList.add('active'); else d.classList.remove('active'); });
+      });
+    }
+
+    function scrollStandards(direction) {
+      var grid = document.getElementById('standards-carousel-grid');
+      if (!grid) return;
+      var card = grid.querySelector('div');
+      var width = card ? card.offsetWidth : 280;
+      grid.scrollBy({ left: (width + 12) * direction, behavior: 'smooth' });
+    }
+    function jumpToStandard(index) {
+      var cards = document.querySelectorAll('#standards-carousel-grid > div');
+      if (cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+    function setupStandardsCarousel() {
+      var grid = document.getElementById('standards-carousel-grid');
+      var dotsContainer = document.getElementById('standards-carousel-dots');
+      if (!grid || !dotsContainer) return;
+      var count = grid.querySelectorAll('#standards-carousel-grid > div').length;
+      var html = '';
+      for (var i = 0; i < count; i++) {
+        html += '<span class="standards-dot' + (i === 0 ? ' active' : '') + '" onclick="jumpToStandard(' + i + ')"></span>';
+      }
+      dotsContainer.innerHTML = html;
+      grid.addEventListener('scroll', function() {
+        var card = grid.querySelector('div');
+        var width = card ? card.offsetWidth : 280;
+        var active = Math.round(grid.scrollLeft / (width + 12));
+        var dots = dotsContainer.querySelectorAll('.standards-dot');
+        dots.forEach(function(d, idx) { if (idx === active) d.classList.add('active'); else d.classList.remove('active'); });
+      });
+    }
+
     // Load 3 featured jobs on homepage
     document.addEventListener('DOMContentLoaded', function() {
+      setupCredsCarousel();
+      setupStandardsCarousel();
       var grid = document.getElementById('hp-jobs-grid');
       if (!grid || typeof CCA === 'undefined') return;
       var sLabel = { care: 'Care & Healthcare', security: 'Security & Facilities', warehouse: 'Warehouse & Logistics', construction: 'Construction & Engineering', technical: 'IT & Business' };
       CCA.jobs.list({ limit: 3 }).then(function(jobs) {
-        if (!jobs || !jobs.length) { grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0;">Check back soon &mdash; roles are posted weekly.</p>'; return; }
+        if (!jobs || !jobs.length) { 
+          grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0;">Check back soon &mdash; roles are posted weekly.</p>'; 
+          document.getElementById('job-carousel-prev').style.display = 'none';
+          document.getElementById('job-carousel-next').style.display = 'none';
+          document.getElementById('job-carousel-dots').style.display = 'none';
+          return; 
+        }
+        
+        // Generate job dots dynamically
+        var dotsContainer = document.getElementById('job-carousel-dots');
+        if (dotsContainer) {
+          dotsContainer.innerHTML = jobs.slice(0, 3).map(function(_, index) {
+            return '<span class="job-dot' + (index === 0 ? ' active' : '') + '" onclick="jumpToJob(' + index + ')"></span>';
+          }).join('');
+        }
+        setupJobCarouselListeners(jobs.slice(0, 3).length);
+
         grid.innerHTML = jobs.slice(0, 3).map(function(j) {
           var pay = j.pay ? String(j.pay).replace(/\$/g, '&pound;') : 'Competitive';
           var type = j.type ? j.type.charAt(0).toUpperCase() + j.type.slice(1).replace('-', ' ') : 'Full-time';
@@ -2425,6 +2725,27 @@
         }
       }).catch(function() { grid.innerHTML = ''; });
     });
+
+    function togglePath(type) {
+      if (window.innerWidth > 860) return;
+      var cardId = type === 'work' ? 'pathCardWork' : 'pathCardStaff';
+      var card = document.getElementById(cardId);
+      if (!card) return;
+
+      var isOpen = card.classList.toggle('open');
+      var toggleIcon = card.querySelector('.path-toggle-icon');
+      if (toggleIcon) {
+        toggleIcon.textContent = isOpen ? '−' : '+';
+      }
+
+      var otherId = type === 'work' ? 'pathCardStaff' : 'pathCardWork';
+      var otherCard = document.getElementById(otherId);
+      if (otherCard && otherCard.classList.contains('open')) {
+        otherCard.classList.remove('open');
+        var otherIcon = otherCard.querySelector('.path-toggle-icon');
+        if (otherIcon) otherIcon.textContent = '+';
+      }
+    }
 
     document.getElementById('pack-form').addEventListener('submit', function(e) {
       e.preventDefault();
