@@ -926,8 +926,8 @@
     /* SERVICE CARDS */
     .srv-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
     }
 
     .srv-card {
@@ -937,15 +937,11 @@
       padding: 28px;
       transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       position: relative;
-      grid-column: span 2;
     }
 
-    @media(min-width: 900px) {
-      .srv-card:nth-child(4) {
-        grid-column: 2 / span 2;
-      }
-      .srv-card:nth-child(5) {
-        grid-column: 4 / span 2;
+    @media(max-width: 1200px) {
+      .srv-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -1659,9 +1655,6 @@
       .srv-grid {
         grid-template-columns: 1fr;
       }
-      .srv-card {
-        grid-column: span 1 !important;
-      }
 
       .rs-grid {
         grid-template-columns: 1fr !important;
@@ -1885,7 +1878,23 @@
     <div class="hero-c">
       <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Specialist Recruitment &amp; <em>Elite Staffing.</em></h1>
       <p class="hero-desc" style="font-size: 20px; font-style: italic; color: var(--gold); margin-top: 8px; margin-bottom: 24px; font-family: var(--font-head);">Built on Promise.</p>
-      <p class="hero-h2" style="font-size: clamp(13px, 1.8vw, 18px); letter-spacing: 0.05em; color: var(--gold);">Healthcare &nbsp;&middot;&nbsp; Security &amp; Facilities &nbsp;&middot;&nbsp; Warehouse &nbsp;&middot;&nbsp; Construction &amp; Engineering &nbsp;&middot;&nbsp; IT &amp; Business</p>
+      <p class="hero-h2" style="font-size: clamp(12px, 1.5vw, 16px); letter-spacing: 0.05em; color: var(--gold); display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 16px; margin: 0 auto; max-width: 960px;">
+        <span style="white-space: nowrap;">Healthcare</span>
+        <span class="mob-hide">&middot;</span>
+        <span style="white-space: nowrap;">Security &amp; Facilities</span>
+        <span class="mob-hide">&middot;</span>
+        <span style="white-space: nowrap;">Warehouse &amp; Logistics</span>
+        <span class="mob-hide">&middot;</span>
+        <span style="white-space: nowrap;">Construction &amp; Engineering</span>
+        <span class="mob-hide">&middot;</span>
+        <span style="white-space: nowrap;">IT &amp; Business</span>
+      </p>
+      <style>
+        @media(max-width: 600px) {
+          .hero-h2 { flex-direction: column; align-items: center; gap: 6px !important; }
+          .mob-hide { display: none !important; }
+        }
+      </style>
       <p class="hero-desc">Every candidate is fully vetted, reference-checked, and compliance-verified before introduction. From healthcare and security to logistics, engineering, and IT—we protect your operational standards as fiercely as we fill your shifts.</p>
       <div class="hero-btns" style="margin-bottom:0;">
         <a href="/hire" class="btn-gold" id="hero-cta-request">Get Staff in 2 Hours</a>
