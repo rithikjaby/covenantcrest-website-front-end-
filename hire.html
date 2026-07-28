@@ -2102,36 +2102,36 @@
                 <div class="wizard-card-option" data-value="care" onclick="selectSector(this)">
                   <div class="option-radio-dot"></div>
                   <div class="option-content">
-                    <div class="option-title">Healthcare & Care Staffing</div>
-                    <div class="option-desc">Vetted Care Assistants, Support Workers & Nurses for care providers.</div>
+                    <div class="option-title">Care &amp; Healthcare</div>
+                    <div class="option-desc">Vetted Care Assistants, Support Workers &amp; Nurses for care providers.</div>
                   </div>
                 </div>
                 <div class="wizard-card-option" data-value="security" onclick="selectSector(this)">
                   <div class="option-radio-dot"></div>
                   <div class="option-content">
-                    <div class="option-title">Security & Guarding Services</div>
-                    <div class="option-desc">SIA-licensed guards, door supervisors, event stewards & keyholders.</div>
-                  </div>
-                </div>
-                <div class="wizard-card-option" data-value="hospitality" onclick="selectSector(this)">
-                  <div class="option-radio-dot"></div>
-                  <div class="option-content">
-                    <div class="option-title">Hospitality & Event Staffing [NEW]</div>
-                    <div class="option-desc">Chefs, front-of-house staff, bartenders, and elite event stewards.</div>
+                    <div class="option-title">Security &amp; Facilities Management</div>
+                    <div class="option-desc">SIA guards, door supervisors, stewards &amp; commercial cleaning teams.</div>
                   </div>
                 </div>
                 <div class="wizard-card-option" data-value="warehouse" onclick="selectSector(this)">
                   <div class="option-radio-dot"></div>
                   <div class="option-content">
-                    <div class="option-title">Warehouse & Logistics Staffing</div>
-                    <div class="option-desc">HGV drivers, FLT operators, pickers & distribution personnel.</div>
+                    <div class="option-title">Warehouse &amp; Logistics</div>
+                    <div class="option-desc">HGV drivers, FLT operators, pickers, packers &amp; dispatch teams.</div>
                   </div>
                 </div>
                 <div class="wizard-card-option" data-value="construction" onclick="selectSector(this)">
                   <div class="option-radio-dot"></div>
                   <div class="option-content">
-                    <div class="option-title">Construction & Trades</div>
-                    <div class="option-desc">CSCS-carded general laborers, tradespeople & site management.</div>
+                    <div class="option-title">Construction &amp; Engineering</div>
+                    <div class="option-desc">CSCS builders, site managers, mechanical &amp; electrical engineers.</div>
+                  </div>
+                </div>
+                <div class="wizard-card-option" data-value="technical" onclick="selectSector(this)">
+                  <div class="option-radio-dot"></div>
+                  <div class="option-content">
+                    <div class="option-title">IT &amp; Business Staffing</div>
+                    <div class="option-desc">IT helpdesk support, corporate administrators, receptionists &amp; office staff.</div>
                   </div>
                 </div>
               </div>
@@ -2344,42 +2344,24 @@
                '  </div>' +
                '</div>';
       } else if (sector === 'security') {
-        label.textContent = 'Vetting & Security Assignment Details';
-        textarea.placeholder = 'e.g. Door supervisors, retail patrol guards, event staffing numbers, static guarding details...';
-        html = '<label class="dk-label">Dynamic Security Vetting Checklists</label>' +
+        label.textContent = 'Vetting, Security & Cleaning Details';
+        textarea.placeholder = 'e.g. Door supervisors, patrol guards, event stewards, commercial office cleaning schedules...';
+        html = '<label class="dk-label">Security &amp; Facilities Vetting Checklists</label>' +
                '<div class="compliance-grid">' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_sia" value="on" style="pointer-events:none;"> SIA Door Supervisor' +
-               '  </div>' +
-               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_sia_cctv" value="on" style="pointer-events:none;"> SIA CCTV Licenced' +
+               '    <input type="checkbox" name="req_sia" value="on" style="pointer-events:none;"> SIA Licence' +
                '  </div>' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
                '    <input type="checkbox" name="req_bs7858" value="on" style="pointer-events:none;"> BS 7858 Vetted' +
                '  </div>' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
+               '    <input type="checkbox" name="req_coshh" value="on" style="pointer-events:none;"> COSHH Trained' +
                '  </div>' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_first_aid" value="on" style="pointer-events:none;"> First Aid Vetted' +
-               '  </div>' +
-               '</div>';
-      } else if (sector === 'hospitality') {
-        label.textContent = 'Dress Code, Shift Times & Event Requirements';
-        textarea.placeholder = 'e.g. Elite black-tie uniform code, specific chefs levels (Sous, Head Chef), dynamic shift cover details...';
-        html = '<label class="dk-label">Hospitality & Food Hygiene Checklists</label>' +
-               '<div class="compliance-grid">' +
-               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_food_hygiene" value="on" style="pointer-events:none;"> Food Hygiene Lvl 2' +
+               '    <input type="checkbox" name="req_dbs" value="on" style="pointer-events:none;"> Enhanced DBS' +
                '  </div>' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
                '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
-               '  </div>' +
-               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_foh" value="on" style="pointer-events:none;"> FOH Vetted' +
-               '  </div>' +
-               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_chef_cert" value="on" style="pointer-events:none;"> Chef Vetted' +
                '  </div>' +
                '</div>';
       } else if (sector === 'warehouse') {
@@ -2404,12 +2386,15 @@
                '  </div>' +
                '</div>';
       } else if (sector === 'construction') {
-        label.textContent = 'Site Safety, PPE & Trade Specifics';
-        textarea.placeholder = 'e.g. CSCS bricklayers, general site cleanup labor, safety orientation requirements...';
-        html = '<label class="dk-label">Construction Vetting Checklists</label>' +
+        label.textContent = 'Site Safety, PPE & Trades/Engineering Specifics';
+        textarea.placeholder = 'e.g. CSCS bricklayers, mechanical & electrical engineers, site orientation requirements...';
+        html = '<label class="dk-label">Construction &amp; Engineering Checklists</label>' +
                '<div class="compliance-grid">' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
                '    <input type="checkbox" name="req_cscs" value="on" style="pointer-events:none;"> CSCS Card Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_engineering" value="on" style="pointer-events:none;"> Engineering Degree/Cert' +
                '  </div>' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
                '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
@@ -2417,8 +2402,23 @@
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
                '    <input type="checkbox" name="req_ppe" value="on" style="pointer-events:none;"> PPE Vetted' +
                '  </div>' +
+               '</div>';
+      } else if (sector === 'technical') {
+        label.textContent = 'Project Scope, IT systems & Technical Skills';
+        textarea.placeholder = 'e.g. IT helpdesk requirements, programming languages, office administration software skills...';
+        html = '<label class="dk-label">IT &amp; Business Vetting Checklists</label>' +
+               '<div class="compliance-grid">' +
                '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
-               '    <input type="checkbox" name="req_smsts" value="on" style="pointer-events:none;"> SMSTS/SSSTS Vetted' +
+               '    <input type="checkbox" name="req_it_cert" value="on" style="pointer-events:none;"> IT Certification' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_degree" value="on" style="pointer-events:none;"> Degree Verified' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_references" value="on" style="pointer-events:none;"> References Vetted' +
+               '  </div>' +
+               '  <div class="compliance-tag" onclick="toggleComplianceTag(this)">' +
+               '    <input type="checkbox" name="req_rtw" value="on" style="pointer-events:none;"> Right to Work' +
                '  </div>' +
                '</div>';
       }
@@ -2495,7 +2495,7 @@
         if (serviceModel === 'permanent') {
           submitBtn.textContent = 'Request Executive Direct Placement â†’';
         } else {
-          submitBtn.textContent = ‘Request Shift Cover â†’’;
+          submitBtn.textContent = 'Request Shift Cover â†’';
         }
       } else {
         nextBtn.style.display = 'block';

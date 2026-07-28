@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Covenant Crest Group | UK Care, Security &amp; Logistics Recruitment</title>
+  <title>Covenant Crest Group | Care, Security, Logistics, Engineering &amp; IT Recruitment</title>
   <meta name="description"
-    content="Compliance-focused recruitment agency supplying SIA verified security operatives, vetted care staff, warehouse workers and construction trades across the UK. Company No. 16528951.">
+    content="Compliance-focused UK recruitment supplying fully vetted care staff, SIA security, warehouse logistics, construction &amp; engineering, and IT &amp; business professionals. Company No. 16528951.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="/">
   <!-- Favicon -->
@@ -20,9 +20,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.covenantcrest.co.uk/">
   <meta property="og:title"
-    content="Covenant Crest Group Ltd | Care, Security, Warehouse &amp; Construction Recruitment | UK">
+    content="Covenant Crest Group Ltd | Healthcare, Security, Logistics, Engineering &amp; IT Recruitment | UK">
   <meta property="og:description"
-    content="Compliance-focused recruitment agency. Vetted care, security, warehouse and construction staff supplied across the UK. Request staff in 2 hours.">
+    content="Compliance-focused UK recruitment. Vetted healthcare, security &amp; FM, warehouse logistics, construction &amp; engineering, and IT &amp; business professionals. Request staff in 2 hours.">
   <meta property="og:image" content="https://www.covenantcrest.co.uk/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -926,8 +926,8 @@
     /* SERVICE CARDS */
     .srv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 24px;
     }
 
     .srv-card {
@@ -937,6 +937,16 @@
       padding: 28px;
       transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       position: relative;
+      grid-column: span 2;
+    }
+
+    @media(min-width: 900px) {
+      .srv-card:nth-child(4) {
+        grid-column: 2 / span 2;
+      }
+      .srv-card:nth-child(5) {
+        grid-column: 4 / span 2;
+      }
     }
 
     .srv-card:hover {
@@ -1649,6 +1659,9 @@
       .srv-grid {
         grid-template-columns: 1fr;
       }
+      .srv-card {
+        grid-column: span 1 !important;
+      }
 
       .rs-grid {
         grid-template-columns: 1fr !important;
@@ -1870,9 +1883,10 @@
     <div class="hero-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-c">
-      <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Specialist Recruitment. <em>Zero Compliance Compromise.</em></h1>
-      <p class="hero-h2" style="font-size: clamp(14px, 2vw, 20px); letter-spacing: 0.05em; color: var(--gold);">Care &amp; Healthcare &nbsp;&middot;&nbsp; Security &nbsp;&middot;&nbsp; Warehouse &amp; Logistics &nbsp;&middot;&nbsp; Construction &amp; Trades</p>
-      <p class="hero-desc">Every candidate CQC, SIA and RTW verified before we make a single introduction. We protect your reputation as fiercely as we fill your shifts &mdash; with a 2-hour employer response guarantee.</p>
+      <h1 class="hero-h1" style="font-size: clamp(40px, 6vw, 76px);">Specialist Recruitment &amp; <em>Elite Staffing.</em></h1>
+      <p class="hero-desc" style="font-size: 20px; font-style: italic; color: var(--gold); margin-top: 8px; margin-bottom: 24px; font-family: var(--font-head);">Built on Promise.</p>
+      <p class="hero-h2" style="font-size: clamp(13px, 1.8vw, 18px); letter-spacing: 0.05em; color: var(--gold);">Healthcare &nbsp;&middot;&nbsp; Security &amp; Facilities &nbsp;&middot;&nbsp; Warehouse &nbsp;&middot;&nbsp; Construction &amp; Engineering &nbsp;&middot;&nbsp; IT &amp; Business</p>
+      <p class="hero-desc">Every candidate is fully vetted, reference-checked, and compliance-verified before introduction. From healthcare and security to logistics, engineering, and IT—we protect your operational standards as fiercely as we fill your shifts.</p>
       <div class="hero-btns" style="margin-bottom:0;">
         <a href="/hire" class="btn-gold" id="hero-cta-request">Get Staff in 2 Hours</a>
         <a href="/recruitment" class="btn-ghost" id="hero-cta-jobs">Search Live Jobs</a>
@@ -1945,37 +1959,39 @@
     <div class="inner">
       <div style="text-align:center;margin-bottom:52px;">
         <div class="s-tag">Sector Expertise</div>
-        <h2 class="s-title" style="text-align:center;">Four Sectors. <em>One Standard of Excellence.</em></h2>
+        <h2 class="s-title" style="text-align:center;">Five Divisions. <em>One Standard of Excellence.</em></h2>
         <p class="s-lead" style="margin:0 auto;text-align:center;">Every candidate right-to-work verified, sector-certified and compliance-ready on day one. Temporary, permanent and contract placements across the UK.</p>
       </div>
       <div class="srv-grid">
         <div class="srv-card rv" style="border-top:3px solid #1D9E75;">
           <div class="srv-icon" style="color:#1D9E75;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
           <div class="srv-name">Care &amp; Healthcare</div>
-          <p class="srv-desc">CQC Regulation 19 compliant vetting. Enhanced DBS on all candidates. NMC Pin verification
-            for nursing staff. Skills for Care aligned training. Safeguarding Level 2 minimum. Residential and
-            domiciliary supply.</p>
+          <p class="srv-desc">CQC Regulation 19 compliant vetting. Enhanced DBS on all candidates. NMC Pin verification for nursing staff. Skills for Care aligned training. Residential and domiciliary supply.</p>
           <a href="/recruitment" class="srv-lnk">View Healthcare Roles &#8594;</a>
         </div>
         <div class="srv-card rv d1" style="border-top:3px solid #2B5EA7;">
           <div class="srv-icon" style="color:#2B5EA7;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="srv-name">Security</div>
-          <p class="srv-desc">All operatives SIA licence-verified with expiry monitoring. Vetted to BS&nbsp;7858:2019.
-            Counter-terrorism awareness (ACT) trained staff available. Proactive licence renewal alerts to clients.</p>
+          <div class="srv-name">Security &amp; Facilities</div>
+          <p class="srv-desc">All operatives SIA licence-verified with expiry monitoring. Vetted to BS&nbsp;7858:2019. COSHH training and cleaning certifications audited. Dedicated management support.</p>
           <a href="/recruitment" class="srv-lnk">View Security Roles &#8594;</a>
         </div>
         <div class="srv-card rv d2" style="border-top:3px solid var(--gold);">
           <div class="srv-icon" style="color:var(--gold);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
           <div class="srv-name">Warehouse &amp; Logistics</div>
-          <p class="srv-desc">FLT licence verified for all forklift operatives. CSCS card checks. RIDDOR awareness. Site induction compliance management. PPE and manual handling records maintained. AWR compliant from day one.</p>
+          <p class="srv-desc">FLT licence verified for all forklift operatives. CSCS card checks. RIDDOR awareness. Site induction compliance management. PPE and manual handling records maintained.</p>
           <a href="/recruitment" class="srv-lnk">View Warehouse Roles &#8594;</a>
         </div>
         <div class="srv-card rv d3" style="border-top:3px solid #D35400;">
           <div class="srv-icon" style="color:#D35400;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg></div>
-          <div class="srv-name">Construction &amp; Trades</div>
-          <p class="srv-desc">CSCS-certified labourers, machine operators (CPCS/NPORS), and skilled trades for
-            residential, commercial, and infrastructure sites. Right-to-work and qualifications verified.</p>
+          <div class="srv-name">Construction &amp; Engineering</div>
+          <p class="srv-desc">CSCS-certified trade workers, CPCS/NPORS machine operators, site managers, and mechanical/electrical (M&amp;E) engineers. Vetted credentials and engineering qualifications.</p>
           <a href="/recruitment" class="srv-lnk">View Construction Roles &#8594;</a>
+        </div>
+        <div class="srv-card rv d4" style="border-top:3px solid #8E44AD;">
+          <div class="srv-icon" style="color:#8E44AD;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="srv-name">IT &amp; Business</div>
+          <p class="srv-desc">Professional office administrators, receptionists, IT support desk operators, technical engineers, and business staff. Full reference checking and qualification verification.</p>
+          <a href="/recruitment" class="srv-lnk">View Office &amp; IT Roles &#8594;</a>
         </div>
       </div>
     </div>
@@ -2094,34 +2110,37 @@
           <div class="wcu-l">Hidden Fees, Ever</div>
         </div>
       </div>
-      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;"
+      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;"
         class="rv">
         <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid #1D9E75;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1D9E75;margin-bottom:4px;">
             Care &amp; Healthcare</div>
-          <div style="font-size:12px;color:var(--muted);line-height:1.7;">CQC Reg. 19 compliant. Enhanced DBS on every
-            candidate. NMC Pin verified for nursing staff.</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">CQC Reg. 19 compliant. Enhanced DBS on every candidate. NMC Pin verified for nursing staff.</div>
         </div>
         <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid #2B5EA7;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2B5EA7;margin-bottom:4px;">
-            Security</div>
-          <div style="font-size:12px;color:var(--muted);line-height:1.7;">All operatives SIA licence-verified. Vetted to
-            BS&nbsp;7858:2019. Licence expiry monitoring included.</div>
+            Security &amp; Facilities</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">SIA licences verified. Vetted to BS&nbsp;7858:2019 standards. COSHH and cleaning certificates audited.</div>
         </div>
         <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid var(--gold);">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">
             Warehouse &amp; Logistics</div>
-          <div style="font-size:12px;color:var(--muted);line-height:1.7;">FLT licence verified. CSCS cards checked. AWR compliant from day one. PPE records maintained.</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">FLT licence verified. RTW checks completed. AWR compliant from day one. PPE records maintained.</div>
         </div>
         <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid #D35400;">
           <div
             style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#D35400;margin-bottom:4px;">
-            Construction &amp; Trades</div>
-          <div style="font-size:12px;color:var(--muted);line-height:1.7;">CSCS cards verified. CPCS/NPORS tickets
-            checked. Right-to-work and site safety confirmed.</div>
+            Construction &amp; Eng.</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">CSCS cards checked. CPCS/NPORS tickets verified. M&amp;E and engineering credentials audited.</div>
+        </div>
+        <div style="background:var(--cream);border-radius:8px;padding:16px 18px;border-left:3px solid #8E44AD;">
+          <div
+            style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8E44AD;margin-bottom:4px;">
+            IT &amp; Business</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">IT certifications verified. Professional office references audited. Qualifications checked.</div>
         </div>
       </div>
     </div>
@@ -2366,7 +2385,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       var grid = document.getElementById('hp-jobs-grid');
       if (!grid || typeof CCA === 'undefined') return;
-      var sLabel = { care: 'Healthcare & Care', security: 'Security', warehouse: 'Warehouse & Logistics', construction: 'Construction & Trades' };
+      var sLabel = { care: 'Care & Healthcare', security: 'Security & Facilities', warehouse: 'Warehouse & Logistics', construction: 'Construction & Engineering', technical: 'IT & Business' };
       CCA.jobs.list({ limit: 3 }).then(function(jobs) {
         if (!jobs || !jobs.length) { grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0;">Check back soon &mdash; roles are posted weekly.</p>'; return; }
         grid.innerHTML = jobs.slice(0, 3).map(function(j) {

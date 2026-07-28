@@ -51,7 +51,7 @@
           "addressCountry": "GB"
         },
         "areaServed": "GB",
-        "knowsAbout": ["Healthcare Recruitment", "Security Recruitment", "Warehouse Recruitment", "Construction Recruitment"],
+        "knowsAbout": ["Healthcare Recruitment", "Security & Facilities Recruitment", "Warehouse & Logistics Recruitment", "Construction & Engineering Recruitment", "IT & Business Recruitment"],
         "sameAs": ["https://www.linkedin.com/company/covenant-crest-group/"]
       }
     ]
@@ -779,7 +779,7 @@
 
     .expertise-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 24px;
       text-align: center;
     }
@@ -791,6 +791,16 @@
       padding: 28px 20px;
       box-shadow: 0 4px 16px rgba(13,27,42,0.05);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      grid-column: span 2;
+    }
+
+    @media(min-width: 900px) {
+      .expertise-grid > div:nth-child(4) {
+        grid-column: 2 / span 2;
+      }
+      .expertise-grid > div:nth-child(5) {
+        grid-column: 4 / span 2;
+      }
     }
 
     .expertise-grid > div:hover {
@@ -801,6 +811,12 @@
     @media(max-width:900px) {
       .expertise-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .expertise-grid > div {
+        grid-column: span 1 !important;
+      }
+      .expertise-grid > div:nth-child(5) {
+        grid-column: span 2 !important;
       }
     }
 
@@ -1837,7 +1853,7 @@
     <div class="ph-c">
       <div class="s-tag">Covenant Crest Recruitment</div>
       <h1 class="ph-h1">Find Work That <em>Pays Weekly</em> and Respects Your Compliance.</h1>
-      <p class="ph-desc">Care, security, warehouse and construction roles across Telford, Shropshire and the UK. Every role compliance-supported, every worker treated fairly from day one.</p>
+      <p class="ph-desc">Healthcare, security, logistics, engineering and IT roles across Telford, Shropshire and the UK. Every role compliance-supported, every worker treated fairly from day one.</p>
       <div class="hero-btns">
         <a href="#live-jobs" class="btn-gold">Browse Live Jobs</a>
         <button class="btn-ghost" id="heroRegisterTrigger">Register Your Details</button>
@@ -1848,10 +1864,11 @@
   <!-- SECTOR TABS -->
   <div class="sector-bar">
     <button class="sbt act" id="sbt-all" data-sector="">All Sectors</button>
-    <button class="sbt" id="sbt-care" data-sector="care"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Healthcare</button>
-    <button class="sbt" id="sbt-security" data-sector="security"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Security</button>
-    <button class="sbt" id="sbt-warehouse" data-sector="warehouse"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Warehouse</button>
-    <button class="sbt" id="sbt-construction" data-sector="construction"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle;"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg> Construction</button>
+    <button class="sbt" id="sbt-care" data-sector="care">&#129658; Healthcare</button>
+    <button class="sbt" id="sbt-security" data-sector="security">&#128737; Security &amp; Facilities</button>
+    <button class="sbt" id="sbt-warehouse" data-sector="warehouse">&#128230; Warehouse</button>
+    <button class="sbt" id="sbt-construction" data-sector="construction">&#127959; Construction &amp; Eng.</button>
+    <button class="sbt" id="sbt-technical" data-sector="technical">&#128187; IT &amp; Business</button>
   </div>
 
   <!-- LIVE JOBS (Priority View) -->
@@ -1866,10 +1883,11 @@
         <input class="jf-search" id="jf-search" type="text" placeholder="&#128269;  Search jobs&hellip;">
         <select class="jf-sel" id="jf-sector">
           <option value="">All Sectors</option>
-          <option value="care">Healthcare</option>
-          <option value="security">Security</option>
-          <option value="warehouse">Warehouse</option>
-          <option value="construction">Construction</option>
+          <option value="care">Care &amp; Healthcare</option>
+          <option value="security">Security &amp; Facilities Management</option>
+          <option value="warehouse">Warehouse &amp; Logistics</option>
+          <option value="construction">Construction &amp; Engineering</option>
+          <option value="technical">IT &amp; Business</option>
         </select>
         <select class="jf-sel" id="jf-type">
           <option value="">All Types</option>
@@ -1889,36 +1907,38 @@
     <div class="inner">
       <div style="text-align:center; margin-bottom:48px;">
         <div class="s-tag rv">Our Expertise</div>
-        <h2 class="s-title rv">Four Sectors. <em>One Trusted Partner.</em></h2>
+        <h2 class="s-title rv">Five Divisions. <em>One Trusted Partner.</em></h2>
       </div>
       <div class="expertise-grid">
         <div class="rv">
           <div style="color:#1D9E75; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
           <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Healthcare</div>
-          <p style="font-size:12px; color:var(--muted); line-height:1.7;">DBS-checked professionals for care homes, NHS,
-            and private sectors.</p>
+          <p style="font-size:12px; color:var(--muted); line-height:1.7;">DBS-checked professionals for care homes, NHS, and private care providers.</p>
         </div>
         <div class="rv d1">
           <div style="color:#2B5EA7; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
-            Security</div>
-          <p style="font-size:12px; color:var(--muted); line-height:1.7;">SIA-licensed personnel for corporate, retail,
-            and event protection.</p>
+            Security &amp; Facilities</div>
+          <p style="font-size:12px; color:var(--muted); line-height:1.7;">SIA-licensed personnel, stewards, event hosts, and commercial cleaning staff.</p>
         </div>
         <div class="rv d2">
           <div style="color:var(--gold); margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
           <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
             Logistics</div>
-          <p style="font-size:12px; color:var(--muted); line-height:1.7;">Warehouse operatives, pickers, and FLT drivers
-            for supply chain excellence.</p>
+          <p style="font-size:12px; color:var(--muted); line-height:1.7;">HGV drivers, FLT operatives, pickers, and depot/supply chain teams.</p>
         </div>
         <div class="rv d3">
-          <div style="color:#D35400; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+          <div style="color:#D35400; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9z"/><line x1="12" y1="2" x2="12" y2="11"/></svg></div>
           <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
-            Construction</div>
-          <p style="font-size:12px; color:var(--muted); line-height:1.7;">CSCS-carded labourers and tradesmen for all
-            project scales.</p>
+            Construction &amp; Eng.</div>
+          <p style="font-size:12px; color:var(--muted); line-height:1.7;">CSCS laborers, CPCS machine operators, M&amp;E contractors, and engineers.</p>
+        </div>
+        <div class="rv d4">
+          <div style="color:#8E44AD; margin-bottom:14px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--navy); margin-bottom:8px;">
+            IT &amp; Business</div>
+          <p style="font-size:12px; color:var(--muted); line-height:1.7;">IT helpdesk tech support, software support, administrators, and office staff.</p>
         </div>
       </div>
     </div>
@@ -1966,7 +1986,7 @@
           <div style="text-align:center;margin-bottom:48px;">
             <div class="s-tag" style="color:var(--gold);">Join Our Talent Pool</div>
             <h2 class="s-title w" style="text-align:center;">Join Our <em>Active Talent Pool</em></h2>
-            <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:580px;margin:0 auto;line-height:1.85;">Register once. We match you to current and upcoming roles across healthcare, security, warehouse and construction. Free. No commitment. A consultant will call within 24 hours.</p>
+            <p style="color:rgba(255,255,255,.45);font-size:14px;max-width:580px;margin:0 auto;line-height:1.85;">Register once. We match you to current and upcoming roles across healthcare, security, logistics, engineering, and IT. Free. No commitment. A consultant will call within 24 hours.</p>
           </div>
       <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start;" id="apply-wrap">
         <div>
@@ -2020,10 +2040,11 @@
               <label class="dk-label">Sector *</label>
               <select class="dk-select" name="sector" id="candidate-sector" required>
                 <option value="" disabled selected>Choose your sector&hellip;</option>
-                <option value="care">Healthcare &amp; Care</option>
-                <option value="security">Security</option>
+                <option value="care">Care &amp; Healthcare</option>
+                <option value="security">Security &amp; Facilities Management</option>
                 <option value="warehouse">Warehouse &amp; Logistics</option>
-                <option value="construction">Construction &amp; Trades</option>
+                <option value="construction">Construction &amp; Engineering</option>
+                <option value="technical">IT &amp; Business</option>
                 <option value="multiple">Multiple sectors</option>
               </select>
             </div>
@@ -2151,13 +2172,16 @@
             <input type="checkbox" class="ja-sector" value="care" style="accent-color:var(--gold);"> &#x1F3E5; Healthcare
           </label>
           <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
-            <input type="checkbox" class="ja-sector" value="security" style="accent-color:var(--gold);"> &#x1F6E1; Security
+            <input type="checkbox" class="ja-sector" value="security" style="accent-color:var(--gold);"> &#x1F6E1; Security &amp; Facilities
           </label>
           <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
             <input type="checkbox" class="ja-sector" value="warehouse" style="accent-color:var(--gold);"> &#x1F4E6; Warehouse
           </label>
           <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
-            <input type="checkbox" class="ja-sector" value="construction" style="accent-color:var(--gold);"> &#x1F477; Construction
+            <input type="checkbox" class="ja-sector" value="construction" style="accent-color:var(--gold);"> &#x1F477; Construction &amp; Eng.
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;padding:8px 16px;border:1px solid rgba(201,168,76,.25);border-radius:20px;transition:all .2s;user-select:none;">
+            <input type="checkbox" class="ja-sector" value="technical" style="accent-color:var(--gold);"> &#x1F4BB; IT &amp; Business
           </label>
         </div>
 

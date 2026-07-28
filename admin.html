@@ -149,6 +149,8 @@ tbody tr:hover{background:#FAFAFA;}
 .p-shortlisted{background:#EEF2FF;color:#3D5AA8;}
 .p-rejected{background:#FFF0F0;color:var(--danger);}
 .p-hired{background:#E8F8F0;color:var(--success);}
+.p-docs_requested{background:#FFF5E6;color:#D35400;border:1px solid rgba(211,84,0,.15);}
+.p-technical{background:#F5E6FF;color:#8E44AD;border:1px solid rgba(142,68,173,.15);}
 
 @media(max-width:1100px){.astat-row{grid-template-columns:1fr 1fr;}.ag2,.ag3{grid-template-columns:1fr;}}
 
@@ -400,10 +402,11 @@ tbody tr:hover{background:#FAFAFA;}
           <input id="jobs-search" type="text" placeholder="Search title or location&hellip;" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
           <select id="jobs-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
-            <option value="care">Care</option>
-            <option value="security">Security</option>
-            <option value="warehouse">Warehouse</option>
-            <option value="construction">Construction</option>
+            <option value="care">Care & Healthcare</option>
+            <option value="security">Security & Facilities</option>
+            <option value="warehouse">Warehouse & Logistics</option>
+            <option value="construction">Construction & Engineering</option>
+            <option value="technical">IT & Business</option>
           </select>
           <select id="jobs-status-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Statuses</option>
@@ -459,13 +462,15 @@ tbody tr:hover{background:#FAFAFA;}
             <option value="shortlisted">Shortlisted</option>
             <option value="hired">Hired</option>
             <option value="rejected">Rejected</option>
+            <option value="docs_requested">Docs Requested</option>
           </select>
           <select id="apps-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
-            <option value="care">Care</option>
-            <option value="security">Security</option>
-            <option value="warehouse">Warehouse</option>
-            <option value="construction">Construction</option>
+            <option value="care">Care & Healthcare</option>
+            <option value="security">Security & Facilities</option>
+            <option value="warehouse">Warehouse & Logistics</option>
+            <option value="construction">Construction & Engineering</option>
+            <option value="technical">IT & Business</option>
           </select>
         </div>
         <div id="bulk-toolbar" style="display:none; background:#E8F8F0; border:1px solid var(--success); border-radius:6px; padding:10px 14px; margin-bottom:12px; align-items:center; justify-content:space-between;">
@@ -592,10 +597,11 @@ tbody tr:hover{background:#FAFAFA;}
           <input id="talent-search" type="text" placeholder="Search skills, names, or locations&hellip;" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
           <select id="talent-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
-            <option value="care">Care</option>
-            <option value="security">Security</option>
-            <option value="warehouse">Warehouse</option>
-            <option value="construction">Construction</option>
+            <option value="care">Care & Healthcare</option>
+            <option value="security">Security & Facilities</option>
+            <option value="warehouse">Warehouse & Logistics</option>
+            <option value="construction">Construction & Engineering</option>
+            <option value="technical">IT & Business</option>
           </select>
         </div>
         <div class="tbl-card">
@@ -662,10 +668,11 @@ tbody tr:hover{background:#FAFAFA;}
           <input id="comp-search" type="text" placeholder="Search candidate name&hellip;" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
           <select id="comp-sector-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Sectors</option>
-            <option value="care">Care</option>
-            <option value="security">Security</option>
-            <option value="warehouse">Warehouse</option>
-            <option value="construction">Construction</option>
+            <option value="care">Care & Healthcare</option>
+            <option value="security">Security & Facilities</option>
+            <option value="warehouse">Warehouse & Logistics</option>
+            <option value="construction">Construction & Engineering</option>
+            <option value="technical">IT & Business</option>
           </select>
           <select id="comp-urgency-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;background:#fff;">
             <option value="">All Statuses</option>
@@ -708,9 +715,10 @@ tbody tr:hover{background:#FAFAFA;}
         <label class="af-label">Sector</label>
         <select class="af-select" id="j-sector">
           <option value="care">Care &amp; Healthcare</option>
-          <option value="security">Security</option>
+          <option value="security">Security &amp; Facilities Management</option>
           <option value="warehouse">Warehouse &amp; Logistics</option>
-          <option value="construction">Construction &amp; Trades</option>
+          <option value="construction">Construction &amp; Engineering</option>
+          <option value="technical">IT &amp; Business</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -928,6 +936,76 @@ tbody tr:hover{background:#FAFAFA;}
     </div>
   </div>
 </div>
+
+<!-- REJECTION REASON MODAL -->
+<div class="modal-overlay" id="rejectReasonModal">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" data-close="rejectReasonModal">✕</button>
+    <div class="modal-title">Reject Application</div>
+    <div class="modal-sub" id="reject-modal-candidate-name">Select reason for rejection</div>
+    
+    <div class="af-group" style="margin-top:16px;">
+      <label class="af-label">Rejection Preset</label>
+      <select id="reject-preset-select" class="af-input" style="background:#fff;cursor:pointer;outline:none;">
+        <option value="default">General / High Volume of Applicants</option>
+        <option value="rtw">Right to Work Issues</option>
+        <option value="quals">Missing Compliance Qualifications/Licenses</option>
+        <option value="custom">Custom Reason...</option>
+      </select>
+    </div>
+    
+    <div class="af-group" style="margin-top:16px;">
+      <label class="af-label">Email Explanation Paragraph</label>
+      <textarea id="reject-reason-text" class="af-input" style="height:120px;padding:10px;line-height:1.6;font-family:inherit;font-size:13px;resize:vertical;" placeholder="Enter the reason candidate will receive in their rejection email..."></textarea>
+    </div>
+    
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--charcoal);" onclick="closeModal('rejectReasonModal')">Cancel</button>
+      <button class="btn-primary" style="flex:1;background:var(--danger);" id="submitRejectReasonBtn">Send Rejection Email</button>
+    </div>
+  </div>
+</div>
+
+<!-- REQUEST DOCUMENTS MODAL -->
+<div class="modal-overlay" id="requestDocsModal">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" data-close="requestDocsModal">✕</button>
+    <div class="modal-title">Request Documents</div>
+    <div class="modal-sub" id="docs-modal-candidate-name">Select missing compliance details</div>
+    
+    <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:10px;" id="docs-checkboxes-container">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="CV / Resume" class="docs-chk"> CV / Resume
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="Right to Work Documents (Passport / Visa Share Code)" class="docs-chk"> Right to Work
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="Valid SIA License" class="docs-chk"> SIA License
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="CSCS Card" class="docs-chk"> CSCS Card
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="HGV Licence / CPC Qualifications" class="docs-chk"> HGV / CPC
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+        <input type="checkbox" value="DBS Certificate Copy" class="docs-chk"> DBS Certificate
+      </label>
+    </div>
+    
+    <div class="af-group" style="margin-top:18px;">
+      <label class="af-label">Custom Instruction / Message</label>
+      <textarea id="docs-custom-text" class="af-input" style="height:100px;padding:10px;line-height:1.6;font-family:inherit;font-size:13px;resize:vertical;" placeholder="Enter any extra details or personal instructions to candidate..."></textarea>
+    </div>
+    
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--charcoal);" onclick="closeModal('requestDocsModal')">Cancel</button>
+      <button class="btn-primary" style="flex:1;background:var(--navy);color:var(--gold);" id="submitRequestDocsBtn">Send Request Email</button>
+    </div>
+  </div>
+</div>
+
 
 <div class="toast" id="toast"></div>
 

@@ -521,6 +521,58 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  // Preset change listener for rejection reasons
+  var rejectPresetEl = document.getElementById('reject-preset-select');
+  if (rejectPresetEl) {
+    rejectPresetEl.addEventListener('change', function() {
+      var val = this.value;
+      var rejectPresets = {
+        default: "We received a large number of applications from highly qualified candidates. After careful review of your CV and background details, we regret to inform you that we will not be moving forward with your application for this position.",
+        rtw: "Unfortunately, we are unable to proceed with your application because your documentation does not meet the mandatory UK Right to Work requirements for this position.",
+        quals: "Unfortunately, we are unable to proceed because your profile does not hold the mandatory compliance qualifications or sector-specific licenses (such as a valid SIA license or relevant HGV qualifications) required for this role.",
+        custom: ""
+      };
+      document.getElementById('reject-reason-text').value = rejectPresets[val] || '';
+    });
+  }
+
+  // Send rejection email submission
+  var submitRejectBtn = document.getElementById('submitRejectReasonBtn');
+  if (submitRejectBtn) {
+    submitRejectBtn.addEventListener('click', function() {
+      var reason = document.getElementById('reject-reason-text').value.trim();
+      updateAppStatus(window._curAppId, 'rejected', { rejectionReason: reason });
+    });
+  }
+
+  // Send missing documents request submission
+  var submitDocsBtn = document.getElementById('submitRequestDocsBtn');
+  if (submitDocsBtn) {
+    submitDocsBtn.addEventListener('click', function() {
+      var checked = [];
+      document.querySelectorAll('.docs-chk:checked').forEach(function(c) {
+        checked.push(c.value);
+      });
+      var customNote = document.getElementById('docs-custom-text').value.trim();
+      if (customNote) {
+        checked.push(customNote);
+      }
+      if (checked.length === 0) {
+        showToast('Please select at least one document or enter a custom message', 'er');
+        return;
+      }
+      var compiledText = checked.map(function(item) { return '• ' + item; }).join('\n');
+      updateAppStatus(window._curAppId, 'docs_requested', { requestedDocs: compiledText });
+    });
+  }
+  
+  // Connect data-close handlers for the new modals
+  document.querySelectorAll('[data-close]').forEach(function(btn) {
+    var modalId = btn.getAttribute('data-close');
+    btn.addEventListener('click', function() {
+      closeModal(modalId);
+    });
+  });
   } // end bootUI
 }); // end DOMContentLoaded
 
@@ -646,11 +698,11 @@ function loadTab(id) {
 }
 
 // ── LABEL MAPS ────────────────────────────────────────────────────
-var sectorLabel   = { care:'Care & Healthcare', security:'Security', warehouse:'Warehouse', construction:'Construction', other:'Other' };
+var sectorLabel   = { care:'Care & Healthcare', security:'Security & Facilities', warehouse:'Warehouse & Logistics', construction:'Construction & Engineering', technical:'IT & Business', other:'Other' };
 var typeLabel     = { 'full-time':'Full Time', 'part-time':'Part Time', temporary:'Temporary', permanent:'Permanent' };
-var sectorPill    = { care:'p-recruitment', security:'p-haulage', warehouse:'p-trade', construction:'p-construction', other:'p-read' };
+var sectorPill    = { care:'p-recruitment', security:'p-haulage', warehouse:'p-trade', construction:'p-construction', technical:'p-technical', other:'p-read' };
 var enquiryPill   = { general:'p-general', contact:'p-general', recruitment:'p-recruitment', haulage:'p-haulage', 'haulage-quote':'p-haulage', trade:'p-trade', 'trade-enquiry':'p-trade' };
-var appStatusPill = { new:'p-new', shortlisted:'p-shortlisted', hired:'p-active', rejected:'p-rejected', read:'p-read' };
+var appStatusPill = { new:'p-new', shortlisted:'p-shortlisted', hired:'p-active', rejected:'p-rejected', read:'p-read', docs_requested:'p-docs_requested' };
 
 // ── JOBS ──────────────────────────────────────────────────────────
 var _jobs = [];
@@ -1229,6 +1281,7 @@ function viewApplication(id) {
     '<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;">' +
       '<button class="btn-sm sc" id="am-shortlist-btn">Shortlist</button>' +
       '<button class="btn-sm pr" id="am-hired-btn">Mark Hired</button>' +
+      '<button class="btn-sm or" id="am-reqdocs-btn" style="background:#E67E22;color:#fff;">Request Docs</button>' +
       '<button class="btn-sm dn" id="am-reject-btn">Reject</button>' +
       '<button class="btn-sm dn" id="am-blacklist-btn" style="background:#000;color:#fff;">Blacklist</button>' +
       '<button class="btn-sm pr" id="am-reply-btn" style="background:#0D1B2A;color:#fff;">Reply by Email</button>' +
@@ -1238,9 +1291,34 @@ function viewApplication(id) {
       '<button class="btn-primary" style="padding:7px 14px;font-size:9px;" id="am-save-notes-btn">Save Notes</button>' +
     '</div>';
 
+  var rejectPresets = {
+    default: "We received a large number of applications from highly qualified candidates. After careful review of your CV and background details, we regret to inform you that we will not be moving forward with your application for this position.",
+    rtw: "Unfortunately, we are unable to proceed with your application because your documentation does not meet the mandatory UK Right to Work requirements for this position.",
+    quals: "Unfortunately, we are unable to proceed because your profile does not hold the mandatory compliance qualifications or sector-specific licenses (such as a valid SIA license or relevant HGV qualifications) required for this role.",
+    custom: ""
+  };
+
   document.getElementById('am-shortlist-btn').onclick = function() { updateAppStatus(window._curAppId,'shortlisted'); };
   document.getElementById('am-hired-btn').onclick = function() { updateAppStatus(window._curAppId,'hired'); };
-  document.getElementById('am-reject-btn').onclick = function() { updateAppStatus(window._curAppId,'rejected'); };
+  
+  document.getElementById('am-reject-btn').onclick = function() { 
+    var name = (a.first_name || '') + ' ' + (a.last_name || '');
+    document.getElementById('reject-modal-candidate-name').textContent = 'Rejection reason for ' + name;
+    document.getElementById('reject-preset-select').value = 'default';
+    document.getElementById('reject-reason-text').value = rejectPresets.default;
+    closeModal('appModal');
+    document.getElementById('rejectReasonModal').classList.add('open');
+  };
+  
+  document.getElementById('am-reqdocs-btn').onclick = function() {
+    var name = (a.first_name || '') + ' ' + (a.last_name || '');
+    document.getElementById('docs-modal-candidate-name').textContent = 'Select missing items for ' + name;
+    document.querySelectorAll('.docs-chk').forEach(function(c) { c.checked = false; });
+    document.getElementById('docs-custom-text').value = '';
+    closeModal('appModal');
+    document.getElementById('requestDocsModal').classList.add('open');
+  };
+
   document.getElementById('am-blacklist-btn').onclick = function() { openConfirm('Blacklist this candidate? They will be permanently marked.', function() { updateAppStatus(window._curAppId,'blacklisted'); }); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
@@ -1485,12 +1563,15 @@ function previewApplicationCV(a) {
   document.getElementById('cvPreviewModal').classList.add('open');
 }
 
-function updateAppStatus(id, status) {
+function updateAppStatus(id, status, extraData) {
   if (!id) return;
-  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify({ status: status }) }).then(function(data) {
+  var bodyData = Object.assign({ status: status }, extraData || {});
+  apiFetch('/applications/' + id, { method: 'PUT', body: JSON.stringify(bodyData) }).then(function(data) {
     if (data && !data.error) {
-      showToast('Application ' + status, 'ok');
+      showToast('Application status updated: ' + status, 'ok');
       closeModal('appModal');
+      closeModal('rejectReasonModal');
+      closeModal('requestDocsModal');
       loadApplications();
     } else showToast('Update failed', 'er');
   });
