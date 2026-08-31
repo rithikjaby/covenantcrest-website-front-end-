@@ -5,85 +5,31 @@
  */
 
 var JOBS = [];  // populated from /api/jobs on load
-var sectorLabel = { care: 'Healthcare', security: 'Security', warehouse: 'Warehouse', construction: 'Construction' };
+var sectorLabel = { care: 'Healthcare', security: 'Security', warehouse: 'Warehouse', construction: 'Construction', technical: 'IT & Business' };
 var activeSector = '';
+var currentPage = 1;
+var itemsPerPage = 9;
+var viewMode = 'grid'; // 'grid' or 'list'
 
-// ── Registration Toggle Logic ───────────────────────────────
-function toggleReg(shouldOpen) {
-    var regBtn = document.getElementById('toggleRegistration');
-    var regWrap = document.getElementById('regFormWrap');
-    if (!regBtn || !regWrap) return;
-    
-    var isOpen = regWrap.classList.contains('open');
-    if (shouldOpen === true && isOpen) return; // already open
-    
-    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
-    
-    if (nextOpen) {
-        regWrap.classList.add('open');
-    } else {
-        regWrap.classList.remove('open');
-    }
-    
-    regBtn.setAttribute('aria-expanded', nextOpen);
-    regBtn.innerHTML = nextOpen ? 'Close Registration ✕' : 'Register Your Details &rarr;';
-    
-    if (nextOpen) {
-        setTimeout(function() {
-            regWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-    }
+function setViewMode(mode) {
+    viewMode = mode;
+    var gBtn = document.getElementById('view-grid-btn');
+    var lBtn = document.getElementById('view-list-btn');
+    if (gBtn) gBtn.classList.toggle('act', mode === 'grid');
+    if (lBtn) lBtn.classList.toggle('act', mode === 'list');
+    renderJobs(true);
 }
 
-function loadJobsFromAPI() {
-    renderSkeleton();
-    if (window.CCA && window.CCA.jobs) {
-        window.CCA.jobs.list()
-            .then(function(data) {
-                if (Array.isArray(data)) {
-                    JOBS = data;
-                }
-                renderJobs();
-            })
-            .catch(function() {
-                JOBS = [];
-                renderJobs();
-            });
-    } else {
-        // Fallback to direct fetch if CCA not loaded
-        fetch('/api/jobs')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (Array.isArray(data)) JOBS = data;
-                renderJobs();
-            })
-            .catch(function() {
-                JOBS = [];
-                renderJobs();
-            });
-    }
+function changePage(page) {
+    currentPage = page;
+    renderJobs(true);
+    var liveSec = document.getElementById('live-jobs');
+    if (liveSec) liveSec.scrollIntoView({ behavior: 'smooth' });
 }
 
-function renderSkeleton() {
-    var container = document.getElementById('jobs-container');
-    if (!container) return;
-    var cards = '';
-    for (var i = 0; i < 6; i++) {
-        cards += '<div class="skel-card" style="padding:28px; border-radius:16px;">' +
-            '<div class="skel-i sk-t1" style="width:40%; height:10px; margin-bottom:12px;"></div>' +
-            '<div class="skel-i sk-t2" style="width:80%; height:28px; margin-bottom:16px;"></div>' +
-            '<div class="skel-i sk-t3" style="width:100%; height:80px; margin-bottom:20px;"></div>' +
-            '<div class="skel-i sk-t4" style="width:30%; height:14px;"></div>' +
-            '</div>';
-    }
-    container.innerHTML = '<div class="jobs-grid">' + cards + '</div>';
-    container.classList.add('vs'); // Ensure skeleton is visible immediately
-}
+function renderJobs(keepPage) {
+    if (!keepPage) currentPage = 1;
 
-function esc(s) { return s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
-function stripHTML(s) { return s ? String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim() : ''; }
-
-function renderJobs() {
     var searchEl = document.getElementById('jf-search');
     var search = (searchEl ? searchEl.value : '').toLowerCase();
     var sectorInput = document.getElementById('jf-sector');
@@ -126,26 +72,59 @@ function renderJobs() {
     });
 
     var container = document.getElementById('jobs-container');
+    var paginationContainer = document.getElementById('jobs-pagination');
     if (!container) return;
 
     if (!filtered.length) {
         container.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--muted);"><p style="font-size:13px;">No matching jobs found in this category. <br><br> <button onclick="resetAllFilters()" class="jc-btn" style="color:var(--gold); font-size:12px;">View All Available Jobs &#8594;</button></p></div>';
+        if (paginationContainer) paginationContainer.innerHTML = '';
         return;
     }
 
-    var jobsHtml = '<div class="jobs-grid">' + filtered.map(function(j) {
-        return '<a href="/job?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
-            '<div class="jc-sector">' + esc(sectorLabel[j.sector] || j.sector) + '</div>' +
-            '<div class="jc-title">' + esc(j.title) + '</div>' +
-            '<div class="jc-meta">' +
-            (j.location ? '<span class="jc-tag">📍 ' + esc(j.location) + '</span>' : '') +
-            (j.type ? '<span class="jc-tag">🕒 ' + esc(j.type.replace('-',' ')) + '</span>' : '') +
-            '</div>' +
-            '<div class="jc-pay">' + esc(j.pay) + '</div>' +
-            '<p class="jc-desc">' + esc(stripHTML(j.desc || '').substring(0, 120)) + '&hellip;</p>' +
-            '<div class="jc-btn" style="margin-top:auto;">View &amp; Apply</div>' +
-            '</a>';
-    }).join('') + '</div>';
+    // Pagination calculations
+    var totalPages = Math.ceil(filtered.length / itemsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    var startIndex = (currentPage - 1) * itemsPerPage;
+    var paginatedJobs = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+    // Render Jobs based on viewMode
+    var jobsHtml = '';
+    if (viewMode === 'list') {
+        jobsHtml = '<div class="jobs-list-wrap">' + paginatedJobs.map(function(j) {
+            var wpText = j.workplace ? (j.workplace.charAt(0).toUpperCase() + j.workplace.slice(1)) : '';
+            return '<a href="/job?id=' + encodeURIComponent(j.id) + '" class="job-list-row">' +
+                '<div class="jlr-main">' +
+                '<span class="jlr-sector">' + esc(sectorLabel[j.sector] || j.sector) + '</span>' +
+                '<h4 class="jlr-title">' + esc(j.title) + '</h4>' +
+                '<div class="jlr-details">' +
+                (j.location ? '<span>📍 ' + esc(j.location) + '</span>' : '') +
+                (j.type ? '<span>🕒 ' + esc(j.type.replace('-',' ')) + '</span>' : '') +
+                (wpText ? '<span>🏢 ' + esc(wpText) + '</span>' : '') +
+                '</div>' +
+                '</div>' +
+                '<div class="jlr-right">' +
+                '<div class="jlr-pay">' + esc(j.pay) + '</div>' +
+                '<span class="jlr-btn">View Role &rarr;</span>' +
+                '</div>' +
+                '</a>';
+        }).join('') + '</div>';
+    } else {
+        jobsHtml = '<div class="jobs-grid">' + paginatedJobs.map(function(j) {
+            return '<a href="/job?id=' + encodeURIComponent(j.id) + '" class="job-card">' +
+                '<div class="jc-sector">' + esc(sectorLabel[j.sector] || j.sector) + '</div>' +
+                '<div class="jc-title">' + esc(j.title) + '</div>' +
+                '<div class="jc-meta">' +
+                (j.location ? '<span class="jc-tag">📍 ' + esc(j.location) + '</span>' : '') +
+                (j.type ? '<span class="jc-tag">🕒 ' + esc(j.type.replace('-',' ')) + '</span>' : '') +
+                '</div>' +
+                '<div class="jc-pay">' + esc(j.pay) + '</div>' +
+                '<p class="jc-desc">' + esc(stripHTML(j.desc || '').substring(0, 120)) + '&hellip;</p>' +
+                '<div class="jc-btn" style="margin-top:auto;">View &amp; Apply</div>' +
+                '</a>';
+        }).join('') + '</div>';
+    }
 
     // Suggestion for other sectors if filtering
     if (sector && filtered.length > 0) {
@@ -159,6 +138,24 @@ function renderJobs() {
     }
 
     container.innerHTML = jobsHtml;
+
+    // Render Pagination Controls
+    if (paginationContainer) {
+        if (totalPages <= 1) {
+            paginationContainer.innerHTML = '';
+        } else {
+            var pagHtml = '<div class="jobs-pagination">';
+            pagHtml += '<button class="page-btn" ' + (currentPage === 1 ? 'disabled' : '') + ' onclick="changePage(' + (currentPage - 1) + ')">&larr; Prev</button>';
+            
+            for (var p = 1; p <= totalPages; p++) {
+                pagHtml += '<button class="page-btn ' + (p === currentPage ? 'act' : '') + '" onclick="changePage(' + p + ')">' + p + '</button>';
+            }
+            
+            pagHtml += '<button class="page-btn" ' + (currentPage === totalPages ? 'disabled' : '') + ' onclick="changePage(' + (currentPage + 1) + ')">Next &rarr;</button>';
+            pagHtml += '</div>';
+            paginationContainer.innerHTML = pagHtml;
+        }
+    }
 
     // Force reveal now that jobs are rendered
     setTimeout(function() {
@@ -662,6 +659,9 @@ window.handleCVSelect = handleCVSelect;
 window.clearCV = clearCV;
 window.handleFormWithAPI = handleFormWithAPI;
 window.renderJobs = renderJobs;
+window.setViewMode = setViewMode;
+window.changePage = changePage;
 window.applyForJob = applyForJob;
 window.toggleReg = toggleReg;
 window.adjustComplianceFields = adjustComplianceFields;
+

@@ -1098,10 +1098,103 @@
       border: none;
       color: var(--gold);
       cursor: pointer;
-      font-weight: 700;
-      padding: 0;
       font-size: 12px;
       line-height: 1;
+      padding: 0;
+      font-weight: 700;
+    }
+
+    /* VIEW MODE SWITCHER & COMPACT LIST MODE */
+    .view-mode-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .view-toggle-btns {
+      display: inline-flex;
+      background: #f1ebd9;
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+    }
+    .vmb-btn {
+      border: none;
+      background: transparent;
+      color: var(--charcoal);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vmb-btn.act {
+      background: var(--navy);
+      color: var(--gold);
+      box-shadow: 0 2px 8px rgba(13, 27, 42, 0.15);
+    }
+    
+    /* COMPACT LIST ROW STYLE */
+    .job-list-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 24px;
+      margin-bottom: 12px;
+      text-decoration: none;
+      transition: all .25s ease;
+      gap: 16px;
+    }
+    .job-list-row:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px rgba(13, 27, 42, 0.08);
+      transform: translateY(-2px);
+    }
+    .jlr-main { flex: 1; min-width: 0; }
+    .jlr-sector { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 3px; }
+    .jlr-title { font-size: 16px; font-weight: 700; color: var(--navy); margin: 0 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .jlr-details { font-size: 12px; color: var(--muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .jlr-right { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+    .jlr-pay { font-size: 13px; font-weight: 700; color: var(--navy); background: rgba(201, 168, 76, 0.14); padding: 6px 14px; border-radius: 8px; white-space: nowrap; }
+    .jlr-btn { font-size: 12px; font-weight: 700; color: var(--gold); background: var(--navy); padding: 8px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: all .2s; }
+    .job-list-row:hover .jlr-btn { background: var(--gold); color: var(--navy); }
+
+    /* PAGINATION CONTROLS */
+    .jobs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .page-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .page-btn.act { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--border); color: var(--muted); }
+    
+    @media (max-width: 768px) {
+      .job-list-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .jlr-right { width: 100%; justify-content: space-between; margin-top: 4px; }
     }
 
     .filter-chip button:hover {
@@ -1887,8 +1980,22 @@
           <option value="permanent">Permanent</option>
         </select>
       </div>
-      <div id="active-filters" class="rv" style="margin-bottom:18px; display:flex; gap:8px; flex-wrap:wrap;"></div>
+      <div class="view-mode-bar rv">
+        <div id="active-filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+        <div class="view-toggle-btns">
+          <button class="vmb-btn act" id="view-grid-btn" onclick="setViewMode('grid')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Grid
+          </button>
+          <button class="vmb-btn" id="view-list-btn" onclick="setViewMode('list')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            List
+          </button>
+        </div>
+      </div>
       <div id="jobs-container" class="rv"></div>
+      <div id="jobs-pagination" class="rv"></div>
+
     </div>
   </section>
 
