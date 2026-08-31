@@ -43,8 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (metaKeywords && job.seoKeywords) metaKeywords.setAttribute('content', job.seoKeywords);
 
         
+        // Detect Corporate / Professional Role (via isCorporate flag, technical sector, OR title keywords)
+        var corpTitleRegex = /(engineer|developer|software|gitops|devops|full stack|frontend|backend|it |architect|analyst|consultant|director|lead|manager)/i;
+        var isCorporateRole = (job.isCorporate === true || job.isCorporate === 'true' || job.isCorporate === 1 || job.isCorporate === '1') || 
+                              (job.sector === 'technical') || 
+                              corpTitleRegex.test(job.title || '');
+
         var sectorEl = document.getElementById('job-sector');
-        if (sectorEl) sectorEl.textContent = sectorLabel[job.sector] || job.sector;
+        if (sectorEl) {
+            sectorEl.textContent = isCorporateRole ? 'IT & BUSINESS' : (sectorLabel[job.sector] || job.sector).toUpperCase();
+        }
         
         var titleEl = document.getElementById('job-title');
         if (titleEl) titleEl.textContent = job.title;
@@ -56,10 +64,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeEl) typeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
 
         // Workplace Policy Pill
+        var workplaceVal = job.workplace || '';
+        if (!workplaceVal && /hybrid/i.test(job.title + ' ' + (job.desc || ''))) workplaceVal = 'hybrid';
+        if (!workplaceVal && /remote/i.test(job.title + ' ' + (job.desc || ''))) workplaceVal = 'remote';
+        if (!workplaceVal) workplaceVal = 'onsite';
+
         var workplaceEl = document.getElementById('job-workplace');
         var workplaceLabels = { onsite: '🏢 On-site', hybrid: '🏠 Hybrid', remote: '🌐 Remote' };
-        if (workplaceEl && job.workplace) {
-            var wpLabel = workplaceLabels[job.workplace] || (job.workplace.charAt(0).toUpperCase() + job.workplace.slice(1));
+        if (workplaceEl) {
+            var wpLabel = workplaceLabels[workplaceVal] || (workplaceVal.charAt(0).toUpperCase() + workplaceVal.slice(1));
             var wpLabelEl = document.getElementById('job-workplace-label');
             if (wpLabelEl) wpLabelEl.textContent = wpLabel;
             workplaceEl.style.display = 'inline-flex';
@@ -67,18 +80,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Populate Crucial Info Sidebar Card (Matching Mockup)
         var sbWpEl = document.getElementById('sb-info-workplace');
-        if (sbWpEl) sbWpEl.textContent = job.workplace ? (job.workplace.charAt(0).toUpperCase() + job.workplace.slice(1)) : 'On-site';
+        if (sbWpEl) sbWpEl.textContent = workplaceVal.charAt(0).toUpperCase() + workplaceVal.slice(1);
         
         var sbTypeEl = document.getElementById('sb-info-type');
         if (sbTypeEl) sbTypeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
         
         var sbSecEl = document.getElementById('sb-info-sector');
-        if (sbSecEl) sbSecEl.textContent = sectorLabel[job.sector] || job.sector;
+        if (sbSecEl) sbSecEl.textContent = isCorporateRole ? 'IT & Business' : (sectorLabel[job.sector] || job.sector);
         
         var sbClosingEl = document.getElementById('sb-info-closing');
         if (sbClosingEl) sbClosingEl.textContent = job.closingDate ? new Date(job.closingDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Open / Ongoing';
 
-        
         var payEl = document.getElementById('job-pay');
         if (payEl) payEl.querySelector('span').textContent = cleanPay(job.pay);
         
@@ -92,29 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var ogDesc = document.getElementById('og-desc');
         if (ogDesc) ogDesc.setAttribute('content', (job.desc || '').replace(/<[^>]*>/g, '').substring(0, 160));
 
-function formatRichText(raw) {
-    if (!raw) return '';
-    if (raw.indexOf('&lt;') !== -1 || raw.indexOf('&gt;') !== -1) {
-        var txt = document.createElement("textarea");
-        txt.innerHTML = raw;
-        raw = txt.value;
-    }
-    // If text already contains HTML tags (like <p>, <ul>, <ol>), sanitize directly
-    if (/<[a-z][\s\S]*>/i.test(raw)) {
-        return (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(raw) : raw;
-    }
-    // If text is plain text with newlines (\n), convert line breaks into <p> paragraphs
-    var paragraphs = raw.split(/\r?\n/).map(function(line) {
-        var trimmed = line.trim();
-        return trimmed ? '<p>' + trimmed + '</p>' : '';
-    }).filter(Boolean).join('');
-    
-    return (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(paragraphs) : (paragraphs || raw);
-}
-
         var descEl = document.getElementById('job-desc');
         if (descEl) descEl.innerHTML = formatRichText(job.desc || '');
-
 
         var sjhTitle = document.getElementById('sjh-title');
         if (sjhTitle) sjhTitle.textContent = job.title;
@@ -132,8 +123,6 @@ function formatRichText(raw) {
         }
 
         // Corporate / Professional Role Dynamic Adjustments
-        var isCorporateRole = (job.isCorporate === true || job.isCorporate === 'true' || job.isCorporate === 1 || job.isCorporate === '1') || (job.sector === 'technical');
-
         if (isCorporateRole) {
             // 1. Hide all WhatsApp apply buttons, notes, and floating widget
             ['wa-apply-btn', 'wa-apply-btn-sb', 'wa-apply-direct', 'wa-btn'].forEach(function(id) {
@@ -191,6 +180,7 @@ function formatRichText(raw) {
                   <button class="btn-sb-apply" id="side-apply-btn" onclick="openApplyPage()">Apply Now &rarr;</button>`;
             }
         }
+
 
 
         // Populate sharing links
