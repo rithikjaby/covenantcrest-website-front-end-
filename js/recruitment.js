@@ -645,6 +645,16 @@ document.addEventListener('DOMContentLoaded', function() {
             adjustComplianceFields(this.value);
         });
     }
+
+    // View Mode Toggle Listeners
+    var gridBtn = document.getElementById('view-grid-btn');
+    if (gridBtn) {
+        gridBtn.addEventListener('click', function() { setViewMode('grid'); });
+    }
+    var listBtn = document.getElementById('view-list-btn');
+    if (listBtn) {
+        listBtn.addEventListener('click', function() { setViewMode('list'); });
+    }
 });
 
 function applyForJob() {

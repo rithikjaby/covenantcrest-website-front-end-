@@ -1141,7 +1141,14 @@
     }
     
     /* COMPACT LIST ROW STYLE */
+    .jobs-list-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
     .job-list-row {
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1980,7 +1987,7 @@
           <option value="permanent">Permanent</option>
         </select>
       </div>
-      <div class="view-mode-bar rv">
+      <div class="view-mode-bar">
         <div id="active-filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
         <div class="view-toggle-btns">
           <button class="vmb-btn act" id="view-grid-btn" onclick="setViewMode('grid')">
@@ -1994,7 +2001,8 @@
         </div>
       </div>
       <div id="jobs-container" class="rv"></div>
-      <div id="jobs-pagination" class="rv"></div>
+      <div id="jobs-pagination"></div>
+
 
     </div>
   </section>

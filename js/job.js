@@ -104,9 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Corporate / Professional Role Dynamic Adjustments
-        if (job.isCorporate) {
-            // 1. Hide WhatsApp apply buttons and notes
-            ['wa-apply-btn', 'wa-apply-btn-sb'].forEach(function(id) {
+        var isCorporateRole = (job.isCorporate === true || job.isCorporate === 'true' || job.isCorporate === 1 || job.isCorporate === '1') || (job.sector === 'technical');
+
+        if (isCorporateRole) {
+            // 1. Hide all WhatsApp apply buttons, notes, and floating widget
+            ['wa-apply-btn', 'wa-apply-btn-sb', 'wa-apply-direct', 'wa-btn'].forEach(function(id) {
                 var el = document.getElementById(id);
                 if (el) el.style.display = 'none';
             });
@@ -161,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <button class="btn-sb-apply" id="side-apply-btn" onclick="openApplyPage()">Apply Now &rarr;</button>`;
             }
         }
+
 
         // Populate sharing links
         var url = encodeURIComponent(window.location.href);
