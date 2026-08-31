@@ -64,6 +64,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (wpLabelEl) wpLabelEl.textContent = wpLabel;
             workplaceEl.style.display = 'inline-flex';
         }
+
+        // Populate Crucial Info Sidebar Card (Matching Mockup)
+        var sbWpEl = document.getElementById('sb-info-workplace');
+        if (sbWpEl) sbWpEl.textContent = job.workplace ? (job.workplace.charAt(0).toUpperCase() + job.workplace.slice(1)) : 'On-site';
+        
+        var sbTypeEl = document.getElementById('sb-info-type');
+        if (sbTypeEl) sbTypeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
+        
+        var sbSecEl = document.getElementById('sb-info-sector');
+        if (sbSecEl) sbSecEl.textContent = sectorLabel[job.sector] || job.sector;
+        
+        var sbClosingEl = document.getElementById('sb-info-closing');
+        if (sbClosingEl) sbClosingEl.textContent = job.closingDate ? new Date(job.closingDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Open / Ongoing';
+
         
         var payEl = document.getElementById('job-pay');
         if (payEl) payEl.querySelector('span').textContent = cleanPay(job.pay);
