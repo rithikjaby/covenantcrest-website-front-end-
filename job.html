@@ -117,7 +117,7 @@ nav{
 /* ── HERO HEADER ── */
 .job-hero{
   background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 60%,#12203A 100%);
-  padding:120px 48px 80px;
+  padding:52px 48px 36px;
   position:relative;overflow:hidden;
   border-bottom:1px solid rgba(201,168,76,.15);
 }
@@ -167,7 +167,7 @@ nav{
 @keyframes jdFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* ── MAIN LAYOUT ── */
-.job-main{padding:80px 48px;background:var(--cream);}
+.job-main{padding:36px 48px;background:var(--cream);}
 .job-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start;}
 
 /* ── CONTENT CARDS ── */
@@ -199,12 +199,17 @@ nav{
 
 /* ── BODY TEXT FROM RICH EDITOR ── */
 .jd-body,.jd-req-body{font-size:15px;color:var(--charcoal);line-height:1.85;}
-.jd-body p,.jd-req-body p{margin-bottom:16px;}
+.jd-body p,.jd-req-body p{margin-bottom:14px;}
+.jd-body h1,.jd-body h2,.jd-body h3,
+.jd-req-body h1,.jd-req-body h2,.jd-req-body h3{
+  font-size:14px;font-weight:700;color:var(--navy);
+  margin:22px 0 8px;letter-spacing:.02em;
+}
 .jd-body ul,.jd-body ol,.jd-req-body ul,.jd-req-body ol{
-  margin:20px 0 24px;padding-left:0;list-style:none;
+  margin:12px 0 18px;padding-left:4px;list-style:none;
 }
 .jd-body li,.jd-req-body li{
-  position:relative;padding-left:24px;margin-bottom:12px;line-height:1.7;list-style:none;
+  position:relative;padding-left:24px;margin-bottom:10px;line-height:1.7;list-style:none;
 }
 .jd-body li::before,.jd-req-body li::before{
   content:"";position:absolute;left:6px;top:11px;
@@ -532,6 +537,10 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 7c0-5.333-8-5.333-8 0v14M6 13h7M7 21h10"/></svg>
           <span>&pound;---</span>
         </div>
+        <div class="hero-pill" id="job-workplace" style="display:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span id="job-workplace-label">On-site</span>
+        </div>
         <div class="hero-pill closed-pill" id="job-expiry">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
           Applications Closed
@@ -554,7 +563,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
           </h2>
           <div class="jd-body" id="job-desc"></div>
           <!-- Benefits -->
-          <div class="benefit-strip">
+          <div class="benefit-strip" id="benefit-strip">
             <div class="ben-item">
               <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
               Competitive Weekly Pay
@@ -602,7 +611,7 @@ footer{background:var(--navy);border-top:1px solid rgba(201,168,76,.1);}
       <!-- RIGHT: Sidebar -->
       <aside class="sidebar">
         <!-- Apply Card -->
-        <div class="sb-card">
+        <div class="sb-card" id="promise-card">
           <div class="sb-head">The Covenant Crest Promise</div>
           <div class="sb-row">
             <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>

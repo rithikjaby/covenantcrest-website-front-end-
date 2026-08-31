@@ -635,6 +635,12 @@ function openJobModal(job) {
   
   if (qDesc) qDesc.root.innerHTML = isEdit ? (job.desc || '') : '';
   if (qReq)  qReq.root.innerHTML  = isEdit ? (job.req  || '') : '';
+
+  // Pre-fill new fields
+  var wpEl = document.getElementById('j-workplace');
+  if (wpEl) wpEl.value = isEdit ? (job.workplace || '') : '';
+  var corpEl = document.getElementById('j-is-corporate');
+  if (corpEl) corpEl.checked = isEdit ? (job.isCorporate === true) : false;
   
   // Fallback values
   var dFb = document.getElementById('j-desc-fallback');
@@ -878,7 +884,9 @@ function saveJob() {
     seoKeywords : seoKeywordsEl ? seoKeywordsEl.value.trim() : '',
     seoDesc     : seoDescEl ? seoDescEl.value.trim() : '',
     desc        : qDesc ? qDesc.root.innerHTML : (dFb ? dFb.value : ''),
-    req         : qReq ? qReq.root.innerHTML : (rFb ? rFb.value : '')
+    req         : qReq ? qReq.root.innerHTML : (rFb ? rFb.value : ''),
+    isCorporate : document.getElementById('j-is-corporate') ? document.getElementById('j-is-corporate').checked : false,
+    workplace   : document.getElementById('j-workplace') ? document.getElementById('j-workplace').value : '',
   };
 
 

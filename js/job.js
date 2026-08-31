@@ -4,7 +4,7 @@
  * Job Detail Logic
  */
 
-var sectorLabel = { care: 'Healthcare & Care', security: 'Security', warehouse: 'Warehouse & Logistics', construction: 'Construction & Trades' };
+var sectorLabel = { care: 'Healthcare & Care', security: 'Security', warehouse: 'Warehouse & Logistics', construction: 'Construction & Trades', technical: 'IT & Business' };
 var urlParams = new URLSearchParams(window.location.search);
 var jobId = urlParams.get('id');
 var _currentJob = null;
@@ -54,6 +54,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         var typeEl = document.getElementById('job-type');
         if (typeEl) typeEl.textContent = job.type ? (job.type.charAt(0).toUpperCase() + job.type.slice(1).replace('-', ' ')) : 'Full-time';
+
+        // Workplace Policy Pill
+        var workplaceEl = document.getElementById('job-workplace');
+        var workplaceLabels = { onsite: '🏢 On-site', hybrid: '🏠 Hybrid', remote: '🌐 Remote' };
+        if (workplaceEl && job.workplace) {
+            var wpLabel = workplaceLabels[job.workplace] || (job.workplace.charAt(0).toUpperCase() + job.workplace.slice(1));
+            var wpLabelEl = document.getElementById('job-workplace-label');
+            if (wpLabelEl) wpLabelEl.textContent = wpLabel;
+            workplaceEl.style.display = 'inline-flex';
+        }
         
         var payEl = document.getElementById('job-pay');
         if (payEl) payEl.querySelector('span').textContent = cleanPay(job.pay);
@@ -91,6 +101,65 @@ document.addEventListener('DOMContentLoaded', function() {
         if (waDirectEl) {
             var directMsg = encodeURIComponent('Hi, I\'d like to apply for: ' + job.title + (job.location ? ' in ' + job.location : '') + '. My name is ');
             waDirectEl.href = 'https://wa.me/447346809846?text=' + directMsg;
+        }
+
+        // Corporate / Professional Role Dynamic Adjustments
+        if (job.isCorporate) {
+            // 1. Hide WhatsApp apply buttons and notes
+            ['wa-apply-btn', 'wa-apply-btn-sb'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+            var applyNotes = document.querySelectorAll('.apply-note');
+            applyNotes.forEach(function(el) { el.style.display = 'none'; });
+            
+            // Hide "We reply in minutes" note under WhatsApp sidebar button
+            var promiseCardEl = document.getElementById('promise-card');
+            if (promiseCardEl) {
+                var replyP = promiseCardEl.querySelector('p');
+                if (replyP) replyP.style.display = 'none';
+            }
+
+            // 2. Swap Benefit Strip to Corporate Copy
+            var benefitStripEl = document.getElementById('benefit-strip');
+            if (benefitStripEl) {
+                benefitStripEl.innerHTML = `
+                  <div class="ben-item">
+                    <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Competitive Salary &amp; Day Rates
+                  </div>
+                  <div class="ben-item">
+                    <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Top-Tier Corporate Clients
+                  </div>
+                  <div class="ben-item">
+                    <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Professional Vetting &amp; Compliance
+                  </div>
+                  <div class="ben-item">
+                    <div class="ben-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Dedicated Recruitment Partner
+                  </div>`;
+            }
+
+            // 3. Swap Sidebar Promise Card to Corporate Copy
+            if (promiseCardEl) {
+                promiseCardEl.innerHTML = `
+                  <div class="sb-head">Our Professional Match Guarantee</div>
+                  <div class="sb-row">
+                    <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
+                    <div class="sb-text"><strong>Competitive Salaries &amp; Day Rates</strong><span>Full payroll transparency and prompt payment terms.</span></div>
+                  </div>
+                  <div class="sb-row">
+                    <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <div class="sb-text"><strong>Vetting &amp; Background Screening</strong><span>Reference checks, background screening, and GDPR compliance.</span></div>
+                  </div>
+                  <div class="sb-row">
+                    <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                    <div class="sb-text"><strong>Direct Corporate Placements</strong><span>Matched directly with top-tier corporate and enterprise employers.</span></div>
+                  </div>
+                  <button class="btn-sb-apply" id="side-apply-btn" onclick="openApplyPage()">Apply Now &rarr;</button>`;
+            }
         }
 
         // Populate sharing links

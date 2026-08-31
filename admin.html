@@ -747,6 +747,23 @@ tbody tr:hover{background:#FAFAFA;}
       <select class="af-select" id="j-status"><option value="active">Active</option><option value="inactive">Inactive</option></select>
     </div>
     <div class="af-group">
+      <label class="af-label">Workplace Policy</label>
+      <select class="af-select" id="j-workplace">
+        <option value="">Not Specified</option>
+        <option value="onsite">On-site</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="remote">Remote</option>
+      </select>
+    </div>
+    <div class="af-group" style="flex-direction:row;align-items:flex-start;gap:10px;padding:10px 0;">
+      <input type="checkbox" id="j-is-corporate" style="width:17px;height:17px;margin-top:2px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;">
+      <label for="j-is-corporate" style="font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;margin:0;line-height:1.5;">
+        Mark as Corporate / Professional Role
+        <span style="font-weight:400;color:var(--muted);display:block;font-size:11px;margin-top:2px;">Hides WhatsApp apply button. Shows professional promise card &amp; benefits instead of shift-worker copy.</span>
+      </label>
+    </div>
+
+    <div class="af-group">
       <label class="af-label">Description *</label>
       <div class="af-editor-wrap">
         <div id="j-desc-editor" style="min-height:280px; background:#fff;"></div>
