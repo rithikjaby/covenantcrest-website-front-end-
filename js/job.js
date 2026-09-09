@@ -105,7 +105,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sbClosingEl) sbClosingEl.textContent = job.closingDate ? new Date(job.closingDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Open / Ongoing';
 
         var payEl = document.getElementById('job-pay');
-        if (payEl) payEl.querySelector('span').textContent = cleanPay(job.pay);
+        if (payEl) {
+            var paySpan = payEl.querySelector('span');
+            if (paySpan) paySpan.textContent = cleanPay(job.pay);
+            else payEl.textContent = cleanPay(job.pay);
+        }
         
         var mabPayEl = document.getElementById('mab-pay');
         if (mabPayEl) mabPayEl.textContent = cleanPay(job.pay);
