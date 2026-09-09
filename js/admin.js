@@ -545,6 +545,116 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Open Indeed Import Modal
+  var importBtn = document.getElementById('importIndeedBtn');
+  if (importBtn) {
+    importBtn.addEventListener('click', function() {
+      document.getElementById('indeedImportModal').classList.add('open');
+    });
+  }
+
+  // Handle Indeed Import Submission
+  var submitImportBtn = document.getElementById('submitImportIndeedBtn');
+  if (submitImportBtn) {
+    submitImportBtn.addEventListener('click', function() {
+      var sector = document.getElementById('indeed-import-sector').value;
+      var textVal = document.getElementById('indeed-csv-text').value.trim();
+      var fileInput = document.getElementById('indeed-csv-file');
+
+      function processRows(rawText) {
+        var lines = rawText.split(/\r?\n/).map(function(l) { return l.trim(); }).filter(Boolean);
+        var candidates = [];
+        lines.forEach(function(line) {
+          var parts = line.split(',').map(function(p) { return p.trim(); });
+          if (parts.length >= 2) {
+            var fullName = parts[0] || '';
+            var nameParts = fullName.split(' ');
+            var first_name = nameParts[0] || '';
+            var last_name = nameParts.slice(1).join(' ') || '';
+            var email = parts[1] || '';
+            var phone = parts[2] || '';
+            var job_title = parts[3] || 'Indeed Applicant';
+            if (email.includes('@')) {
+              candidates.push({
+                first_name: first_name,
+                last_name: last_name,
+                email: email,
+                phone: phone,
+                job_title: job_title,
+                sector: sector
+              });
+            }
+          }
+        });
+        if (!candidates.length) {
+          showToast('No valid candidate records found. Check format: Name, Email, Phone, Job Title', 'er');
+          return;
+        }
+
+        apiFetch('/applications/import-indeed', {
+          method: 'POST',
+          body: JSON.stringify({ candidates: candidates })
+        }).then(function(res) {
+          if (res && res.success) {
+            showToast('Successfully imported ' + res.count + ' candidate(s) from Indeed!', 'ok');
+            closeModal('indeedImportModal');
+            document.getElementById('indeed-csv-text').value = '';
+            fileInput.value = '';
+            loadData();
+          } else {
+            showToast((res && res.error) || 'Failed to import candidates', 'er');
+          }
+        });
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) { processRows(e.target.result); };
+        reader.readAsText(fileInput.files[0]);
+      } else if (textVal) {
+        processRows(textVal);
+      } else {
+        showToast('Please select a CSV file or paste candidate lines', 'er');
+      }
+    });
+  }
+
+  // Handle Schedule Interview Submission
+  var submitIvBtn = document.getElementById('submitScheduleInterviewBtn');
+  if (submitIvBtn) {
+    submitIvBtn.addEventListener('click', function() {
+      var date = document.getElementById('iv-date-input').value;
+      var time = document.getElementById('iv-time-input').value;
+      var type = document.getElementById('iv-type-input').value;
+      var location = document.getElementById('iv-loc-input').value;
+      var notes = document.getElementById('iv-notes-input').value;
+
+      if (!date) {
+        showToast('Please select an interview date', 'er');
+        return;
+      }
+
+      apiFetch('/applications/' + encodeURIComponent(window._curAppId) + '/schedule-interview', {
+        method: 'POST',
+        body: JSON.stringify({
+          date: date,
+          time: time,
+          type: type,
+          location: location,
+          notes: notes
+        })
+      }).then(function(res) {
+        if (res && res.success) {
+          showToast('Interview scheduled! Email invitation sent to candidate.', 'ok');
+          closeModal('scheduleInterviewModal');
+          loadData();
+        } else {
+          showToast((res && res.error) || 'Failed to schedule interview', 'er');
+        }
+      });
+    });
+  }
+
   // Send missing documents request submission
   var submitDocsBtn = document.getElementById('submitRequestDocsBtn');
   if (submitDocsBtn) {
@@ -554,18 +664,29 @@ window.addEventListener('DOMContentLoaded', function() {
         checked.push(c.value);
       });
       var customNote = document.getElementById('docs-custom-text').value.trim();
-      if (customNote) {
-        checked.push(customNote);
-      }
-      if (checked.length === 0) {
+      if (checked.length === 0 && !customNote) {
         showToast('Please select at least one document or enter a custom message', 'er');
         return;
       }
-      var compiledText = checked.map(function(item) { return '• ' + item; }).join('\n');
-      updateAppStatus(window._curAppId, 'docs_requested', { requestedDocs: compiledText });
+
+      apiFetch('/applications/' + encodeURIComponent(window._curAppId) + '/request-docs', {
+        method: 'POST',
+        body: JSON.stringify({
+          requestedDocsList: checked,
+          customNote: customNote
+        })
+      }).then(function(res) {
+        if (res && res.success) {
+          showToast('Document request email sent! Candidate link generated.', 'ok');
+          closeModal('requestDocsModal');
+          loadData();
+        } else {
+          showToast((res && res.error) || 'Failed to send document request', 'er');
+        }
+      });
     });
   }
-  
+
   // Connect data-close handlers for the new modals
   document.querySelectorAll('[data-close]').forEach(function(btn) {
     var modalId = btn.getAttribute('data-close');
@@ -1326,6 +1447,16 @@ function viewApplication(id) {
     closeModal('appModal');
     document.getElementById('requestDocsModal').classList.add('open');
   };
+
+  var teamsBtn = document.getElementById('am-teams-btn');
+  if (teamsBtn) {
+    teamsBtn.onclick = function() {
+      var name = (a.first_name || '') + ' ' + (a.last_name || '');
+      document.getElementById('interview-modal-candidate').textContent = 'Schedule interview for ' + name;
+      closeModal('appModal');
+      document.getElementById('scheduleInterviewModal').classList.add('open');
+    };
+  }
 
   document.getElementById('am-blacklist-btn').onclick = function() { openConfirm('Blacklist this candidate? They will be permanently marked.', function() { updateAppStatus(window._curAppId,'blacklisted'); }); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };

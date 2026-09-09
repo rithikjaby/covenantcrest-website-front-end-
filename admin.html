@@ -452,7 +452,10 @@ tbody tr:hover{background:#FAFAFA;}
       <div class="tab-pane" id="tab-applications">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
           <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Candidate Applications</h2>
-          <button id="exportAppsCSV" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
+          <div style="display:flex;gap:8px;">
+            <button id="importIndeedBtn" style="padding:7px 13px;background:#C9A84C;color:#0D1B2A;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">+ Import Indeed / Candidate</button>
+            <button id="exportAppsCSV" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
+          </div>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
           <input id="apps-search" type="text" placeholder="Search name, email or job&hellip;" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-family:'Plus Jakarta Sans', sans-serif;font-size:12px;outline:none;">
@@ -1023,6 +1026,89 @@ tbody tr:hover{background:#FAFAFA;}
   </div>
 </div>
 
+
+<!-- INDEED / CANDIDATE IMPORT MODAL -->
+<div class="modal-overlay" id="indeedImportModal">
+  <div class="modal" style="max-width:540px;">
+    <button class="modal-close" data-close="indeedImportModal">✕</button>
+    <div class="modal-title">Import Candidates (Indeed / Manual)</div>
+    <div class="modal-sub">Add applicants from Indeed CSV or paste details manually</div>
+    
+    <div class="af-group" style="margin-top:16px;">
+      <label class="af-label">Upload Indeed CSV Export File</label>
+      <input type="file" id="indeed-csv-file" accept=".csv" class="af-input" style="padding:6px;">
+    </div>
+    
+    <div style="text-align:center;margin:12px 0;font-weight:700;color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;">&mdash; OR PASTE CANDIDATE DATA &mdash;</div>
+    
+    <div class="af-group">
+      <label class="af-label">Format: Name, Email, Phone, Job Title (One per line)</label>
+      <textarea id="indeed-csv-text" class="af-input" style="height:120px;padding:10px;font-family:monospace;font-size:12px;resize:vertical;" placeholder="John Smith, john@example.com, 07123456789, Healthcare Assistant&#10;Sarah Jenkins, sarah@example.com, 07987654321, Security Officer"></textarea>
+    </div>
+    
+    <div class="ag2">
+      <div class="af-group">
+        <label class="af-label">Assign Sector</label>
+        <select id="indeed-import-sector" class="af-select">
+          <option value="care">Care & Healthcare</option>
+          <option value="security">Security & Facilities</option>
+          <option value="warehouse">Warehouse & Logistics</option>
+          <option value="construction">Construction & Engineering</option>
+          <option value="technical">IT & Business</option>
+        </select>
+      </div>
+    </div>
+    
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--charcoal);" onclick="closeModal('indeedImportModal')">Cancel</button>
+      <button class="btn-primary" style="flex:1;background:var(--gold);color:var(--navy);" id="submitImportIndeedBtn">Import Candidates &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE INTERVIEW MODAL -->
+<div class="modal-overlay" id="scheduleInterviewModal">
+  <div class="modal" style="max-width:500px;">
+    <button class="modal-close" data-close="scheduleInterviewModal">✕</button>
+    <div class="modal-title">Schedule Interview</div>
+    <div class="modal-sub" id="interview-modal-candidate">Set interview date and invitation format</div>
+    
+    <div class="ag2" style="margin-top:16px;">
+      <div class="af-group">
+        <label class="af-label">Interview Date</label>
+        <input type="date" id="iv-date-input" class="af-input">
+      </div>
+      <div class="af-group">
+        <label class="af-label">Interview Time</label>
+        <input type="time" id="iv-time-input" class="af-input" value="10:00">
+      </div>
+    </div>
+    
+    <div class="af-group">
+      <label class="af-label">Interview Format</label>
+      <select id="iv-type-input" class="af-select">
+        <option value="teams">Microsoft Teams (Video Call)</option>
+        <option value="phone">Phone Call</option>
+        <option value="in_person">On-site Office (28 Princess Ave, Telford)</option>
+      </select>
+    </div>
+    
+    <div class="af-group">
+      <label class="af-label">Teams Link / Location Details</label>
+      <input type="text" id="iv-loc-input" class="af-input" placeholder="e.g. Teams Meeting Link or Office Address">
+    </div>
+    
+    <div class="af-group">
+      <label class="af-label">Instructions / Notes to Candidate</label>
+      <textarea id="iv-notes-input" class="af-input" style="height:80px;padding:8px;font-size:12px;" placeholder="e.g. Please have your RTW and Photo ID ready."></textarea>
+    </div>
+    
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button class="btn-primary" style="flex:1;background:#F3F5F8;color:var(--charcoal);" onclick="closeModal('scheduleInterviewModal')">Cancel</button>
+      <button class="btn-primary" style="flex:1;background:var(--navy);color:var(--gold);" id="submitScheduleInterviewBtn">Send Invitation &rarr;</button>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 

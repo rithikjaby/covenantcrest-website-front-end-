@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidate Portal | Covenant Crest Group</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0D1B2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B2A;--navy2:#162236;--gold:#C9A84C;--gold2:#E8C96A;--cream:#FAF7F0;--white:#fff;--border:#E8E4DC;--muted:#7A8694;--charcoal:#2C2C2C;--success:#1D9E75;--danger:#E24B4A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#FAF7F0;color:var(--navy);font-family:'Plus Jakarta Sans', sans-serif;font-size:14px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+.hdr{background:var(--navy);padding:18px 24px;border-bottom:3px solid var(--gold);color:#fff;display:flex;align-items:center;justify-content:space-between;}
+.hdr-logo{font-family:'Playfair Display', serif;font-size:22px;font-weight:600;letter-spacing:0.03em;color:#fff;}
+.hdr-logo span{color:var(--gold);}
+.hdr-badge{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+
+/* CONTAINER */
+.container{max-width:720px;margin:36px auto;padding:0 20px;flex:1;}
+.card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:28px;margin-bottom:20px;box-shadow:0 6px 20px rgba(13,27,42,0.03);}
+.card-title{font-family:'Playfair Display', serif;font-size:20px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+
+/* HERO GREETING */
+.greeting-hero{background:linear-gradient(135deg, var(--navy), var(--navy2));color:#fff;border-radius:16px;padding:32px;margin-bottom:24px;border-bottom:4px solid var(--gold);box-shadow:0 12px 30px rgba(13,27,42,0.12);}
+.gh-welcome{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.gh-name{font-family:'Playfair Display', serif;font-size:28px;margin-bottom:8px;line-height:1.2;}
+.gh-sub{font-size:13px;color:rgba(255,255,255,0.75);}
+
+/* INTERVIEW BANNER */
+.interview-box{background:#FFFDF0;border:1px solid rgba(201,168,76,0.4);border-left:5px solid var(--gold);border-radius:10px;padding:20px;margin-bottom:20px;}
+.ib-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ib-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;color:var(--charcoal);}
+
+/* UPLOAD GRID */
+.doc-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px;}
+.doc-box{border:1px dashed var(--border);border-radius:10px;padding:20px;background:#FAFAFA;transition:all 0.2s;}
+.doc-box:hover{border-color:var(--gold);background:#fff;}
+.doc-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.doc-name{font-weight:700;color:var(--navy);font-size:14px;}
+.doc-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:3px 8px;border-radius:12px;}
+.ds-pending{background:#FFFDF0;color:#B78103;border:1px solid #F5A623;}
+.ds-uploaded{background:#E8F8F0;color:var(--success);border:1px solid rgba(29,158,117,0.3);}
+
+.upload-btn-label{display:inline-block;padding:8px 16px;background:var(--navy);color:var(--gold);border-radius:6px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.upload-btn-label:hover{background:var(--gold);color:var(--navy);}
+
+/* SPINNER & MESSAGES */
+#loading-state{text-align:center;padding:60px 20px;}
+.spinner{width:36px;height:36px;border:3px solid rgba(201,168,76,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.footer{text-align:center;padding:24px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:auto;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-logo">Covenant <span>Crest</span></div>
+  <div class="hdr-badge">Candidate Verification Portal</div>
+</header>
+
+<div class="container">
+
+  <!-- Loading State -->
+  <div id="loading-state" class="card">
+    <div class="spinner"></div>
+    <p style="color:var(--muted);font-weight:600;">Loading candidate workspace&hellip;</p>
+  </div>
+
+  <!-- Error State -->
+  <div id="error-state" class="card" style="display:none;text-align:center;padding:40px;">
+    <h3 style="color:var(--danger);font-family:'Playfair Display',serif;font-size:22px;margin-bottom:10px;">Link Expired or Invalid</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">This candidate portal link is invalid or has expired. If you need assistance, please contact your recruitment team directly.</p>
+    <a href="mailto:recruitment@covenantcrest.co.uk" style="color:var(--navy);font-weight:700;text-decoration:underline;">Email Recruitment Team</a>
+  </div>
+
+  <!-- Content Workspace -->
+  <div id="portal-content" style="display:none;">
+
+    <!-- Greeting Hero -->
+    <div class="greeting-hero">
+      <div class="gh-welcome">Welcome</div>
+      <div class="gh-name" id="c-name">Candidate Name</div>
+      <div class="gh-sub">Application for <strong id="c-job" style="color:var(--gold);">Role</strong> &bull; Covenant Crest Group</div>
+    </div>
+
+    <!-- Interview Details (if scheduled) -->
+    <div id="interview-section" class="interview-box" style="display:none;">
+      <div class="ib-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Your Interview Details
+      </div>
+      <div class="ib-grid">
+        <div><strong>Date:</strong> <span id="iv-date">&mdash;</span></div>
+        <div><strong>Time:</strong> <span id="iv-time">&mdash;</span></div>
+        <div><strong>Format:</strong> <span id="iv-type">&mdash;</span></div>
+        <div><strong>Details:</strong> <span id="iv-loc">&mdash;</span></div>
+      </div>
+    </div>
+
+    <!-- Document Upload Card -->
+    <div class="card">
+      <div class="card-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="16 13 12 17 8 13"/><line x1="12" y1="17" x2="12" y2="9"/></svg>
+        Required Compliance Documents
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+        Please upload clear copies (PDF, JPG, PNG) of the requested documents below. You can take photos directly from your mobile device.
+      </p>
+
+      <div class="doc-grid" id="doc-grid">
+        <!-- Dynamically populated doc boxes -->
+      </div>
+    </div>
+
+    <!-- Uploaded Documents History -->
+    <div class="card">
+      <div class="card-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Uploaded Files History
+      </div>
+      <div id="uploaded-list" style="font-size:13px;color:var(--charcoal);">
+        <p style="color:var(--muted);font-style:italic;" id="empty-uploads">No documents uploaded yet.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  &copy; 2026 Covenant Crest Group Ltd &bull; Registered in England &amp; Wales Co. No. 16528951 &bull; Built on Promise.
+</footer>
+
+<script src="/api.js"></script>
+<script>
+'use strict';
+
+var urlParams = new URLSearchParams(window.location.search);
+var token = urlParams.get('token');
+
+var docLabels = {
+  rtw: 'Right to Work (Passport / Visa / Share Code)',
+  dbs: 'DBS Certificate (Enhanced / Standard)',
+  sia: 'SIA Licence Card (Front & Back)',
+  cert: 'Qualifications & Training Certificates',
+  cv: 'Updated Curriculum Vitae (CV)',
+  document: 'General Document'
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (!token) {
+    showError();
+    return;
+  }
+
+  loadPortalData();
+});
+
+function showError() {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('error-state').style.display = 'block';
+}
+
+function loadPortalData() {
+  fetch((window.CCA_API_BASE || '') + '/api/portal/candidate/' + encodeURIComponent(token))
+    .then(function(res) {
+      if (!res.ok) throw new Error('Portal load failed');
+      return res.json();
+    })
+    .then(function(data) {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('portal-content').style.display = 'block';
+
+      // Candidate Greeting
+      document.getElementById('c-name').textContent = (data.first_name || 'Candidate') + ' ' + (data.last_name || '');
+      document.getElementById('c-job').textContent = data.job_title || 'Applied Role';
+
+      // Interview Box
+      if (data.interviewDate) {
+        document.getElementById('interview-section').style.display = 'block';
+        document.getElementById('iv-date').textContent = data.interviewDate || 'TBD';
+        document.getElementById('iv-time').textContent = data.interviewTime || 'TBD';
+        var typeText = data.interviewType === 'in_person' ? 'On-site Office' : data.interviewType === 'phone' ? 'Phone Call' : 'Teams Video Link';
+        document.getElementById('iv-type').textContent = typeText;
+        document.getElementById('iv-loc').textContent = data.interviewLocation || 'Details sent via email';
+      }
+
+      // Render Document Upload Boxes
+      var reqList = data.requestedDocsList && data.requestedDocsList.length ? data.requestedDocsList : ['rtw', 'dbs', 'sia', 'cert', 'cv'];
+      var gridEl = document.getElementById('doc-grid');
+      gridEl.innerHTML = '';
+
+      reqList.forEach(function(docKey) {
+        var isUploaded = (data.uploadedDocs || []).some(function(d) { return d.docType === docKey; });
+        var box = document.createElement('div');
+        box.className = 'doc-box';
+        box.innerHTML = 
+          '<div class="doc-hdr">' +
+            '<div class="doc-name">' + (docLabels[docKey] || docKey.toUpperCase()) + '</div>' +
+            '<span class="doc-status ' + (isUploaded ? 'ds-uploaded' : 'ds-pending') + '">' + (isUploaded ? 'Uploaded ✓' : 'Pending') + '</span>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:12px;margin-top:12px;">' +
+            '<label class="upload-btn-label">' +
+              (isUploaded ? 'Replace File' : 'Upload File / Photo') +
+              '<input type="file" style="display:none;" onchange="handleFileUpload(event, \'' + docKey + '\')">' +
+            '</label>' +
+            '<span id="up-msg-' + docKey + '" style="font-size:12px;color:var(--muted);"></span>' +
+          '</div>';
+        gridEl.appendChild(box);
+      });
+
+      // Render Uploaded Files History
+      renderUploadedHistory(data.uploadedDocs || []);
+
+    })
+    .catch(function(err) {
+      console.error(err);
+      showError();
+    });
+}
+
+function renderUploadedHistory(docs) {
+  var listEl = document.getElementById('uploaded-list');
+  if (!docs || !docs.length) {
+    listEl.innerHTML = '<p style="color:var(--muted);font-style:italic;">No documents uploaded yet.</p>';
+    return;
+  }
+
+  var html = '<ul style="list-style:none;padding:0;">';
+  docs.forEach(function(d) {
+    html += '<li style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">' +
+      '<div>' +
+        '<strong>' + (docLabels[d.docType] || d.docType) + '</strong><br>' +
+        '<span style="font-size:11px;color:var(--muted);">' + (d.fileName || 'file') + ' &bull; ' + new Date(d.uploadedAt).toLocaleDateString('en-GB') + '</span>' +
+      '</div>' +
+      '<a href="' + d.fileUrl + '" target="_blank" style="font-weight:700;color:var(--gold);text-decoration:none;font-size:12px;">View File &rarr;</a>' +
+    '</li>';
+  });
+  html += '</ul>';
+  listEl.innerHTML = html;
+}
+
+function handleFileUpload(evt, docType) {
+  var file = evt.target.files[0];
+  if (!file) return;
+
+  var msgEl = document.getElementById('up-msg-' + docType);
+  if (msgEl) msgEl.textContent = 'Uploading...';
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var base64 = e.target.result;
+    fetch((window.CCA_API_BASE || '') + '/api/portal/candidate/' + encodeURIComponent(token) + '/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        docType: docType,
+        fileName: file.name,
+        fileBase64: base64
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(res) {
+      if (res.error) throw new Error(res.error);
+      if (msgEl) msgEl.textContent = 'Upload complete! ✓';
+      setTimeout(function() { loadPortalData(); }, 1000);
+    })
+    .catch(function(err) {
+      console.error(err);
+      if (msgEl) msgEl.textContent = 'Upload failed. Try again.';
+    });
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+</body>
+</html>
