@@ -453,7 +453,7 @@ tbody tr:hover{background:#FAFAFA;}
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
           <h2 style="font-family:'Playfair Display', serif;font-size:26px;">Candidate Applications</h2>
           <div style="display:flex;gap:8px;">
-            <button id="importIndeedBtn" style="padding:7px 13px;background:#C9A84C;color:#0D1B2A;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">+ Import Indeed / Candidate</button>
+            <button id="importIndeedBtn" onclick="document.getElementById('indeedImportModal').classList.add('open')" style="padding:7px 13px;background:#C9A84C;color:#0D1B2A;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">+ Import Indeed / Candidate</button>
             <button id="exportAppsCSV" style="padding:7px 13px;background:#0D1B2A;color:#fff;border:none;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">&#x2B07; CSV</button>
           </div>
         </div>
@@ -1113,7 +1113,7 @@ tbody tr:hover{background:#FAFAFA;}
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-<script src="/js/admin.js?v=20260524"></script>
+<script src="/js/admin.js?v=20260909_2"></script>
 
 </body>
 </html>

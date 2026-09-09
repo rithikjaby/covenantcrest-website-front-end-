@@ -130,6 +130,11 @@
   to     = "/admin.html"
   status = 200
 
+[[redirects]]
+  from   = "/portal"
+  to     = "/portal.html"
+  status = 200
+
 # Branded 404
 [[redirects]]
   from   = "/*"
