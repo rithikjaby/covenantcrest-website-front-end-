@@ -15,6 +15,19 @@ function cleanPay(val) {
     return String(val).replace(/\$/g, '£');
 }
 
+function formatRichText(raw) {
+    if (!raw) return '';
+    // If it already contains HTML tags (from Quill), sanitize and return
+    if (/<[a-z][\s\S]*>/i.test(raw)) {
+        return typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(raw) : raw;
+    }
+    // Plain text — convert newlines to paragraphs
+    return raw.split(/\n\s*\n/).map(function(block) {
+        var lines = block.trim().split(/\n/).join('<br>');
+        return lines ? '<p>' + lines + '</p>' : '';
+    }).join('');
+}
+
 // Global Exports
 window.openApplyPage = function() {
     if (jobId) window.location.href = '/apply?id=' + jobId;
@@ -283,7 +296,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var contentEl = document.getElementById('job-content');
         if (contentEl) contentEl.style.display = 'block';
 
-    }).catch(function() {
+    }).catch(function(err) {
+        console.error('Job load error:', err);
         var loadingEl = document.getElementById('loading');
         if (loadingEl) {
             loadingEl.innerHTML = '<p style="color:var(--danger);">Error loading job details. <a href="/recruitment#live-jobs" style="color:var(--gold);">Return to jobs list</a>.</p>';
