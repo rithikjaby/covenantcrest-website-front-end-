@@ -14,4 +14,4 @@ Disallow: /functions/
 Disallow: /.netlify/
 
 # Sitemap location
-Sitemap: https://covenantcrest.co.uk/sitemap.xml
+Sitemap: https://www.covenantcrest.co.uk/sitemap.xml

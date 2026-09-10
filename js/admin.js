@@ -600,7 +600,7 @@ window.addEventListener('DOMContentLoaded', function() {
             closeModal('indeedImportModal');
             document.getElementById('indeed-csv-text').value = '';
             fileInput.value = '';
-            loadData();
+            loadApplications();
           } else {
             showToast((res && res.error) || 'Failed to import candidates', 'er');
           }
@@ -647,7 +647,7 @@ window.addEventListener('DOMContentLoaded', function() {
         if (res && res.success) {
           showToast('Interview scheduled! Email invitation sent to candidate.', 'ok');
           closeModal('scheduleInterviewModal');
-          loadData();
+          loadApplications();
         } else {
           showToast((res && res.error) || 'Failed to schedule interview', 'er');
         }
@@ -679,7 +679,7 @@ window.addEventListener('DOMContentLoaded', function() {
         if (res && res.success) {
           showToast('Document request email sent! Candidate link generated.', 'ok');
           closeModal('requestDocsModal');
-          loadData();
+          loadApplications();
         } else {
           showToast((res && res.error) || 'Failed to send document request', 'er');
         }
@@ -1237,7 +1237,7 @@ function renderApplications() {
 
   tbody.innerHTML = _apps.map(function(a) {
     var cvLink = '—';
-    if (a.cvBase64 || a.cvUrl) {
+    if (a.cvBase64 || a.cvUrl || a.cvPublicId) {
       cvLink = '<div style="display:flex;gap:4px;"><button class="btn-sm gd" data-id="' + a.id + '" data-action="preview-cv" title="Preview CV">&#128065;</button><button class="btn-sm pr" data-id="' + a.id + '" data-action="download-cv" title="Download CV">&#8595;</button></div>';
     }
     var days = daysAgo(a.date);
@@ -1279,7 +1279,7 @@ function viewApplication(id) {
   var availDisplay  = { immediate:'Immediately available', '1week':'Within 1 week', '2weeks':'Within 2 weeks', other:'Other' }[a.availability] || a.availability || '—';
   document.getElementById('am-title').textContent = (a.first_name || '') + ' ' + (a.last_name || '');
   document.getElementById('am-sub').textContent = (a.email || '') + ' · ' + sectorDisplay + ' · ' + fmtDate(a.date);
-    var hasCV = !!(a.cvBase64 || a.cvUrl);
+    var hasCV = !!(a.cvBase64 || a.cvUrl || a.cvPublicId);
   var dbsStatus = getDocStatus(a.dbs_expiry_date);
   var siaStatus = getDocStatus(a.sia_expiry_date);
   var rtwStatus = getDocStatus(a.rtw_expiry_date);
@@ -1448,16 +1448,6 @@ function viewApplication(id) {
     document.getElementById('requestDocsModal').classList.add('open');
   };
 
-  var teamsBtn = document.getElementById('am-teams-btn');
-  if (teamsBtn) {
-    teamsBtn.onclick = function() {
-      var name = (a.first_name || '') + ' ' + (a.last_name || '');
-      document.getElementById('interview-modal-candidate').textContent = 'Schedule interview for ' + name;
-      closeModal('appModal');
-      document.getElementById('scheduleInterviewModal').classList.add('open');
-    };
-  }
-
   document.getElementById('am-blacklist-btn').onclick = function() { openConfirm('Blacklist this candidate? They will be permanently marked.', function() { updateAppStatus(window._curAppId,'blacklisted'); }); };
   document.getElementById('am-save-notes-btn').onclick = function() { saveAdminNotes(window._curAppId); };
 
@@ -1549,7 +1539,18 @@ function viewApplication(id) {
 }
 
 function downloadApplicationCV(a) {
-  var data = a.cvBase64 || a.cvUrl;
+  // Private (authenticated) storage — mint a fresh signed link first, then download it.
+  if (a.cvPublicId) {
+    apiFetch('/applications/' + a.id + '/document?which=cv').then(function(res) {
+      if (res && res.url) { _downloadApplicationCVData(res.url, a); }
+      else { showToast((res && res.error) || 'Could not fetch CV link', 'er'); }
+    });
+    return;
+  }
+  _downloadApplicationCVData(a.cvBase64 || a.cvUrl, a);
+}
+
+function _downloadApplicationCVData(data, a) {
   if (!data) return showToast('No CV on record for this candidate', 'er');
 
   var safeName = ((a.first_name || 'Candidate') + '_' + (a.last_name || 'CV')).replace(/\s+/g, '_');
@@ -1639,7 +1640,18 @@ function downloadApplicationCV(a) {
 }
 
 function previewApplicationCV(a) {
-  var data = a.cvBase64 || a.cvUrl;
+  // Private (authenticated) storage — mint a fresh signed link first, then preview it.
+  if (a.cvPublicId) {
+    apiFetch('/applications/' + a.id + '/document?which=cv').then(function(res) {
+      if (res && res.url) { _previewApplicationCVData(res.url, a); }
+      else { showToast((res && res.error) || 'Could not fetch CV link', 'er'); }
+    });
+    return;
+  }
+  _previewApplicationCVData(a.cvBase64 || a.cvUrl, a);
+}
+
+function _previewApplicationCVData(data, a) {
   if (!data) return showToast('No CV on record for this candidate', 'er');
 
   var titleEl    = document.getElementById('cv-preview-title');
@@ -1812,7 +1824,7 @@ function renderTalentPool() {
   }
 
   tbody.innerHTML = filtered.map(function(a) {
-    var hasCV = !!(a.cvBase64 || a.cvUrl);
+    var hasCV = !!(a.cvBase64 || a.cvUrl || a.cvPublicId);
     return '<tr style="cursor:pointer;" data-id="' + a.id + '" data-action="view-app">' +
       '<td class="td-name">' + esc((a.first_name || '') + ' ' + (a.last_name || '')) + '</td>' +
       '<td>' + esc(a.email) + '</td>' +
@@ -2222,7 +2234,7 @@ function filterApps() {
 
   tbody.innerHTML = filtered.map(function(a) {
     var cvLink = '—';
-    if (a.cvBase64 || a.cvUrl) {
+    if (a.cvBase64 || a.cvUrl || a.cvPublicId) {
       cvLink = '<div style="display:flex;gap:4px;"><button class="btn-sm gd" data-id="' + a.id + '" data-action="preview-cv" title="Preview CV">&#128065;</button><button class="btn-sm pr" data-id="' + a.id + '" data-action="download-cv" title="Download CV">&#8595;</button></div>';
     }
     var days = daysAgo(a.date);
@@ -2285,7 +2297,7 @@ function exportCSV(type) {
       return [a.first_name||'',a.last_name||'',a.email||'',a.phone||'',
               a.sector||'',a.job_title||'',a.availability||'',
               (a.notes||'').split('"').join("'").split('\n').join(' '),
-              a.cvUrl||'',a.status||'',
+              (a.cvUrl || (a.cvPublicId ? 'View in Admin Panel (private document)' : '')),a.status||'',
               a.date ? new Date(a.date).toLocaleDateString('en-GB') : '']
               .map(function(v){ return '"'+v+'"'; }).join(',');
     });

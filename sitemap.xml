@@ -52,6 +52,36 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Job Listings -->
+  <url>
+    <loc>https://www.covenantcrest.co.uk/job</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Insights -->
+  <url>
+    <loc>https://www.covenantcrest.co.uk/insights</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.covenantcrest.co.uk/insights/bs7858-security-vetting</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://www.covenantcrest.co.uk/insights/cqc-regulation-19</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- Terms & Conditions -->
   <url>
     <loc>https://www.covenantcrest.co.uk/terms</loc>

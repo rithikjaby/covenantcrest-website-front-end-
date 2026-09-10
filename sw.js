@@ -1,4 +1,4 @@
-const CACHE_NAME = 'covenant-crest-v1';
+const CACHE_NAME = 'covenant-crest-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -12,7 +12,7 @@ const ASSETS_TO_CACHE = [
   '/terms.html',
   '/404.html',
   '/favicon.svg',
-  '/og-image.svg',
+  '/og-image.png',
   '/manifest.json',
   '/js/common.js',
   '/js/recruitment.js',

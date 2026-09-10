@@ -68,8 +68,9 @@
     return token ? { 'Authorization': 'Bearer ' + token } : {};
   }
 
-  // ── Core fetch wrapper ───────────────────────────────────────────
-  function request(method, path, body, isPublic) {
+  // ── Core fetch wrapper with auto-retry for server wake-up ──────────────
+  function request(method, path, body, isPublic, retries) {
+    retries = retries !== undefined ? retries : 3;
     var opts = {
       method : method,
       headers: Object.assign(
@@ -81,7 +82,6 @@
       opts.body = JSON.stringify(body);
     }
     return fetch(BASE + path, opts).then(function (r) {
-      // Auto-logout on 401
       if (r.status === 401 && !isPublic) {
         sessionStorage.removeItem('cc_jwt');
         sessionStorage.removeItem('cc_role');
@@ -90,9 +90,27 @@
           window.location.href = '/login';
         }
       }
+      if ((r.status === 502 || r.status === 503 || r.status === 504) && retries > 0) {
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            resolve(request(method, path, body, isPublic, retries - 1));
+          }, 2000);
+        });
+      }
       return r.json().then(function (data) {
         return { status: r.status, ok: r.ok, data: data };
+      }).catch(function() {
+        return { status: r.status, ok: r.ok, data: null };
       });
+    }).catch(function(err) {
+      if (retries > 0) {
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            resolve(request(method, path, body, isPublic, retries - 1));
+          }, 2000);
+        });
+      }
+      throw err;
     });
   }
 

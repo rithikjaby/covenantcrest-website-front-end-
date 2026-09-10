@@ -121,6 +121,21 @@
   status = 200
 
 [[redirects]]
+  from   = "/insights"
+  to     = "/insights.html"
+  status = 200
+
+[[redirects]]
+  from   = "/insights/bs7858-security-vetting"
+  to     = "/insight-bs7858-security-vetting.html"
+  status = 200
+
+[[redirects]]
+  from   = "/insights/cqc-regulation-19"
+  to     = "/insight-cqc-regulation-19.html"
+  status = 200
+
+[[redirects]]
   from   = "/login"
   to     = "/login.html"
   status = 200

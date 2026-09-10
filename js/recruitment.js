@@ -11,6 +11,81 @@ var currentPage = 1;
 var itemsPerPage = 9;
 var viewMode = 'grid'; // 'grid' or 'list'
 
+// ── Registration Toggle Logic ───────────────────────────────
+function toggleReg(shouldOpen) {
+    var regBtn = document.getElementById('toggleRegistration');
+    var regWrap = document.getElementById('regFormWrap');
+    if (!regBtn || !regWrap) return;
+
+    var isOpen = regWrap.classList.contains('open');
+    if (shouldOpen === true && isOpen) return; // already open
+
+    var nextOpen = (shouldOpen === undefined) ? !isOpen : shouldOpen;
+
+    if (nextOpen) {
+        regWrap.classList.add('open');
+    } else {
+        regWrap.classList.remove('open');
+    }
+
+    regBtn.setAttribute('aria-expanded', nextOpen);
+    regBtn.innerHTML = nextOpen ? 'Close Registration ✕' : 'Register Your Details &rarr;';
+
+    if (nextOpen) {
+        setTimeout(function() {
+            regWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+    }
+}
+
+function loadJobsFromAPI() {
+    renderSkeleton();
+    if (window.CCA && window.CCA.jobs) {
+        window.CCA.jobs.list()
+            .then(function(data) {
+                if (Array.isArray(data)) {
+                    JOBS = data;
+                }
+                renderJobs();
+            })
+            .catch(function() {
+                JOBS = [];
+                renderJobs();
+            });
+    } else {
+        // Fallback to direct fetch if CCA not loaded
+        fetch('/api/jobs')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (Array.isArray(data)) JOBS = data;
+                renderJobs();
+            })
+            .catch(function() {
+                JOBS = [];
+                renderJobs();
+            });
+    }
+}
+
+function renderSkeleton() {
+    var container = document.getElementById('jobs-container');
+    if (!container) return;
+    var cards = '';
+    for (var i = 0; i < 6; i++) {
+        cards += '<div class="skel-card" style="padding:28px; border-radius:16px;">' +
+            '<div class="skel-i sk-t1" style="width:40%; height:10px; margin-bottom:12px;"></div>' +
+            '<div class="skel-i sk-t2" style="width:80%; height:28px; margin-bottom:16px;"></div>' +
+            '<div class="skel-i sk-t3" style="width:100%; height:80px; margin-bottom:20px;"></div>' +
+            '<div class="skel-i sk-t4" style="width:30%; height:14px;"></div>' +
+            '</div>';
+    }
+    container.innerHTML = '<div class="jobs-grid">' + cards + '</div>';
+    container.classList.add('vs'); // Ensure skeleton is visible immediately
+}
+
+function esc(s) { return s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
+function stripHTML(s) { return s ? String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim() : ''; }
+
 function setViewMode(mode) {
     viewMode = mode;
     var gBtn = document.getElementById('view-grid-btn');
